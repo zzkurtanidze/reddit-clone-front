@@ -1,7 +1,16 @@
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import React from "react";
 
 export default function TrendingCommunities() {
+  const bg = useColorModeValue("gray.100", "gray.900");
+
   return (
     <Box
       borderRadius={5}
@@ -9,7 +18,7 @@ export default function TrendingCommunities() {
       borderColor="gray.300"
       w="100%"
       h="max-content"
-      bg="gray.100"
+      bg={bg}
       p={15}
     >
       <Text fontWeight="bold" fontSize={14}>
