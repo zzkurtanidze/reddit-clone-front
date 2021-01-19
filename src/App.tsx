@@ -1,8 +1,9 @@
 import * as React from "react";
-import { Box, ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { Box, ChakraProvider, extendTheme, Flex, Grid } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import Trending from "./components/Trending";
 import PostTeaser from "./components/PostTeaser";
+import TrendingCommunities from "./components/TrendingCommunities";
 
 const items = [
   {
@@ -54,11 +55,16 @@ export const App = () => (
     <NavBar />
     <Box mx="17%">
       <Trending items={items} />
-      <Box w="60%">
-        {items.map((item) => (
-          <PostTeaser post={item} />
-        ))}
-      </Box>
+      <Grid templateColumns="1fr 0.5fr" gap={50}>
+        <Box>
+          {items.map((item) => (
+            <PostTeaser post={item} />
+          ))}
+        </Box>
+        <Box>
+          <TrendingCommunities />
+        </Box>
+      </Grid>
     </Box>
   </ChakraProvider>
 );
