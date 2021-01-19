@@ -1,0 +1,25 @@
+import { Box, Text } from "@chakra-ui/react";
+import React from "react";
+import { PostType } from "../types/index";
+
+export default function TrendingItem({ item }: { item: PostType }) {
+  return (
+    <Box
+      position="relative"
+      h="170px"
+      bgImage={`linear-gradient(0deg, rgba(0,0,0) -20%, rgba(255,255,255,0) 120%), url(${item.image})`}
+      borderRadius="10px"
+      cursor="pointer"
+    >
+      <Box position="absolute" bottom="10px" color="white" left="10px">
+        <Text fontSize="16px" fontWeight="bold">
+          {item.title}
+        </Text>
+        <Text>{item.body.slice(0, 40)}...</Text>
+        <Text fontSize={12} m="5px">
+          {item.postedTo}
+        </Text>
+      </Box>
+    </Box>
+  );
+}
