@@ -55,7 +55,9 @@ export const App = () => (
     <Box mx="17%">
       <Trending items={items} />
       <Box w="60%">
-        <PostTeaser post={items[0]} />
+        {items.map((item) => (
+          <PostTeaser post={item} />
+        ))}
       </Box>
     </Box>
   </ChakraProvider>
