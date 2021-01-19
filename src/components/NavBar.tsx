@@ -16,10 +16,12 @@ import {
 import React, { useState } from "react";
 
 import Logo from "../assets/reddit-logo.png";
+
 import { BiSearchAlt } from "react-icons/bi";
 import { VscAccount } from "react-icons/vsc";
 import { AiFillCaretDown } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
+import { RiLoginBoxFill } from "react-icons/ri";
 
 type NavLinkProps = {
   text: string;
@@ -103,9 +105,9 @@ export default function NavBar() {
             <Flex
               w="100%"
               borderRadius="0"
-              px="5px"
+              px="20px"
               py="10px"
-              justifyContent="space-evenly"
+              justifyContent="space-between"
               alignItems="center"
               cursor="pointer"
               _hover={{
@@ -114,11 +116,40 @@ export default function NavBar() {
               }}
             >
               <FaMoon color={color} />
-              Dark Mode
+              <Text fontSize={14}>Dark Mode</Text>
               <Switch
                 onChange={toggleColorMode}
                 isChecked={colorMode === "dark" ? true : false}
               />
+            </Flex>
+            <Text
+              fontSize="11px"
+              fontWeight="bold"
+              color={popUpText}
+              letterSpacing="0.6px"
+              textTransform="uppercase"
+              px="15px"
+              py="10px"
+            >
+              More Options
+            </Text>
+            <Flex
+              w="100%"
+              borderRadius="0"
+              px="20px"
+              py="10px"
+              justifyContent="flex-start"
+              alignItems="center"
+              cursor="pointer"
+              _hover={{
+                backgroundColor: "#1384D7",
+                color: "white",
+              }}
+            >
+              <RiLoginBoxFill color={color} />
+              <Text fontSize={14} ml="13px">
+                Log In / Sign Up
+              </Text>
             </Flex>
           </Box>
         )}
