@@ -33,6 +33,9 @@ export default function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();
 
   const bg = useColorModeValue("gray.100", "gray.600");
+  const color = useColorModeValue("#333", "white");
+  const popUpText = useColorModeValue("gray.500", "white");
+  const inputBg = useColorModeValue("white", "gray.700");
 
   return (
     <Flex
@@ -48,17 +51,17 @@ export default function NavBar() {
       </Link>
       <InputGroup w="30%" mr="25%">
         <InputLeftElement>
-          <BiSearchAlt color={"gray"} size={20} />
+          <BiSearchAlt color={color} size={20} />
         </InputLeftElement>
-        <Input type="text" bg={"white"} placeholder="Search" />
+        <Input type="text" bg={inputBg} placeholder="Search" />
       </InputGroup>
       <HStack spacing="25px" alignSelf="center">
         <NavLink text="Log In" bg="white" color="#1384D7" />
         <NavLink text="Sign Up" bg="#1384D7" color="white" />
         <Button onClick={() => setIsExpanded(!isExpanded)}>
-          <VscAccount color="gray" />
+          <VscAccount color={color} />
           <Box ml="10px">
-            <AiFillCaretDown size={15} color="gray" />
+            <AiFillCaretDown size={15} color={color} />
           </Box>
         </Button>
         {isExpanded && (
@@ -70,12 +73,12 @@ export default function NavBar() {
             top="45px"
             borderWidth="1px"
             borderColor="gray.200"
-            bg="gray.100"
+            bg={bg}
           >
             <Text
               fontSize="11px"
               fontWeight="bold"
-              color="gray.500"
+              color={popUpText}
               letterSpacing="0.6px"
               textTransform="uppercase"
               px="15px"
@@ -96,9 +99,12 @@ export default function NavBar() {
                 color: "white",
               }}
             >
-              <FaMoon />
+              <FaMoon color={color} />
               Dark Mode
-              <Switch onChange={toggleColorMode} />
+              <Switch
+                onChange={toggleColorMode}
+                isChecked={colorMode === "dark" ? true : false}
+              />
             </Flex>
           </Box>
         )}
