@@ -3,4 +3,6 @@ export type PostType = {
   body: string;
   image: string;
   postedTo: string;
+  postedBy: string;
+  upVotes: number;
 };
