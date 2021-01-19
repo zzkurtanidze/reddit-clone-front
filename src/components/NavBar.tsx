@@ -26,6 +26,7 @@ type NavLinkProps = {
   bg: string;
   color: string;
   href?: string;
+  [x: string]: any;
 };
 
 export default function NavBar() {
@@ -35,7 +36,6 @@ export default function NavBar() {
   const bg = useColorModeValue("gray.100", "gray.600");
   const color = useColorModeValue("#333", "white");
   const popUpText = useColorModeValue("gray.500", "white");
-  const inputBg = useColorModeValue("white", "gray.700");
 
   return (
     <Flex
@@ -53,11 +53,25 @@ export default function NavBar() {
         <InputLeftElement>
           <BiSearchAlt color={color} size={20} />
         </InputLeftElement>
-        <Input type="text" bg={inputBg} placeholder="Search" />
+        <Input
+          type="text"
+          bg={useColorModeValue("white", "gray.700")}
+          placeholder="Search"
+        />
       </InputGroup>
       <HStack spacing="25px" alignSelf="center">
-        <NavLink text="Log In" bg="white" color="#1384D7" />
-        <NavLink text="Sign Up" bg="#1384D7" color="white" />
+        <NavLink
+          text="Log In"
+          bg={useColorModeValue("#fff", "#222223")}
+          color={useColorModeValue("#1384D7", "white")}
+          borderWidth="1px"
+          borderColor={useColorModeValue("#1384D7", "white")}
+        />
+        <NavLink
+          text="Sign Up"
+          bg={useColorModeValue("#1384D7", "#C8CBCD")}
+          color={useColorModeValue("white", "#222223")}
+        />
         <Button onClick={() => setIsExpanded(!isExpanded)}>
           <VscAccount color={color} />
           <Box ml="10px">
