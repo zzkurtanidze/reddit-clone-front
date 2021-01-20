@@ -22,6 +22,8 @@ import { VscAccount } from "react-icons/vsc";
 import { AiFillCaretDown } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
+import LoginModal from "./form-modals/LoginModal";
+import RegisterEmailModal from "./form-modals/register/RegisterEmailModal";
 
 type NavLinkProps = {
   text: string;
@@ -33,6 +35,9 @@ type NavLinkProps = {
 
 export default function NavBar() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+
   const { colorMode, toggleColorMode } = useColorMode();
 
   const bg = useColorModeValue("gray.100", "gray.600");
@@ -68,11 +73,13 @@ export default function NavBar() {
           color={useColorModeValue("#1384D7", "white")}
           borderWidth="1px"
           borderColor={useColorModeValue("#1384D7", "white")}
+          onClick={() => setShowLoginModal(!showLoginModal)}
         />
         <NavLink
           text="Sign Up"
           bg={useColorModeValue("#1384D7", "#C8CBCD")}
           color={useColorModeValue("white", "#222223")}
+          onClick={() => setShowRegisterModal(!showRegisterModal)}
         />
         <Button onClick={() => setIsExpanded(!isExpanded)}>
           <VscAccount color={color} />
@@ -154,6 +161,11 @@ export default function NavBar() {
           </Box>
         )}
       </HStack>
+      <LoginModal showModal={showLoginModal} setShowModal={setShowLoginModal} />
+      <RegisterEmailModal
+        showModal={showRegisterModal}
+        setShowModal={setShowRegisterModal}
+      />
     </Flex>
   );
 }
@@ -162,11 +174,11 @@ const NavLink: React.FC<NavLinkProps> = ({
   text,
   bg,
   color,
-  href,
+  onClick,
   ...otherProps
 }) => {
   return (
-    <Link
+    <Button
       px="34px"
       py="5px"
       borderRadius="25px"
@@ -177,10 +189,10 @@ const NavLink: React.FC<NavLinkProps> = ({
       _hover={{
         textDecor: "none",
       }}
-      href={href}
+      onClick={onClick}
       {...otherProps}
     >
       {text}
-    </Link>
+    </Button>
   );
 };
