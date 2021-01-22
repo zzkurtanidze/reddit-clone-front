@@ -8,14 +8,22 @@ import Modal from "../../Modal";
 export default function RegisterModal({
   showModal,
   setShowModal,
+  setStage,
 }: {
   showModal: boolean;
   setShowModal: Function;
+  setStage: Function;
 }) {
-  const [stage, setStage] = useState(1);
+  const handleSubmit = () => {
+    setStage((stage: number) => stage + 1);
+  };
 
-  return stage === 1 ? (
-    <Modal open={showModal} onClose={() => setShowModal(false)}>
+  return (
+    <Modal
+      withImage={true}
+      open={showModal}
+      onClose={() => setShowModal(false)}
+    >
       <Text fontWeight="bold">Sign up</Text>
       <Text fontSize={12} mt={15} w="60%">
         By continiuing, you agree to our User Agreement and Privacy Policy.
@@ -32,11 +40,11 @@ export default function RegisterModal({
           }}
           validateOnBlur={false}
           validateOnChange={true}
-          onSubmit={(data) => console.log(data)}
+          onSubmit={handleSubmit}
         >
           {({ errors }) => (
             <Form>
-              <Flex direction="column" w={"250px"} gridGap={5}>
+              <Flex direction="column" w={"250px"}>
                 <FormField
                   placeholder="Email"
                   name="email"
@@ -60,7 +68,5 @@ export default function RegisterModal({
         </Formik>
       </Box>
     </Modal>
-  ) : (
-    <Modal open={showModal} onClose={() => setShowModal(false)}></Modal>
   );
 }

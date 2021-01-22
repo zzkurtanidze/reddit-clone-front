@@ -16,7 +16,7 @@ export default function FormField({
   error,
 }: FormFieldProps) {
   return (
-    <FormControl isInvalid={error ? true : false}>
+    <FormControl isInvalid={error ? true : false} my={2}>
       <Field placeholder={placeholder} name={name} type={type} as={Input} />
       <FormErrorMessage>{error}</FormErrorMessage>
     </FormControl>

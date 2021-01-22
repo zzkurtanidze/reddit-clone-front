@@ -1,5 +1,5 @@
-import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
-import { Field, Form, Formik } from "formik";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Form, Formik } from "formik";
 import React from "react";
 import FormField from "../common/FormField";
 import Modal from "../Modal";
@@ -12,7 +12,7 @@ export default function LoginModal({
   setShowModal: Function;
 }) {
   return (
-    <Modal open={showModal} onClose={() => setShowModal(false)}>
+    <Modal withImage open={showModal} onClose={() => setShowModal(false)}>
       <Text fontWeight="bold">Login</Text>
       <Text fontSize={12} mt={15} w="60%">
         By continiuing, you agree to our User Agreement and Privacy Policy.
@@ -36,9 +36,9 @@ export default function LoginModal({
           validateOnChange={false}
           onSubmit={(data) => console.log(data)}
         >
-          {({ values, errors }) => (
+          {({ errors }) => (
             <Form>
-              <Flex direction="column" w={"250px"} gridGap={5}>
+              <Flex direction="column" w={"250px"}>
                 <FormField
                   placeholder="Email"
                   name="email"

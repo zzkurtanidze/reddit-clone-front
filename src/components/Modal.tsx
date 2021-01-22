@@ -2,18 +2,21 @@ import { Box, Button, Image, useColorModeValue } from "@chakra-ui/react";
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { RiCloseLine } from "react-icons/ri";
-import { JsxChild } from "typescript";
 
 export default function Modal({
   open,
   children,
   onClose,
+  withImage = false,
 }: {
   open: boolean;
   children?: React.ReactNode;
   onClose: any;
+  withImage?: boolean;
 }) {
   const bg = useColorModeValue("white", "gray.900");
+
+  console.log(onClose);
 
   if (!open) return null;
 
@@ -42,20 +45,24 @@ export default function Modal({
         left="50%"
         transform="translate(-50%, -50%)"
       >
-        <Image
-          float="left"
-          mr="30px"
-          w="100px"
-          h="max-content"
-          src="https://www.redditstatic.com/accountmanager/bbb584033aa89e39bad69436c504c9bd.png"
-          alt="Art"
-          objectFit="cover"
-        />
+        {withImage && (
+          <Image
+            float="left"
+            mr="30px"
+            w="100px"
+            h="max-content"
+            src="https://www.redditstatic.com/accountmanager/bbb584033aa89e39bad69436c504c9bd.png"
+            alt="Art"
+            objectFit="cover"
+          />
+        )}
         <Box position="relative">
           <Button onClick={onClose} position="absolute" top="5" right="5">
             <RiCloseLine size={24} />
           </Button>
-          <Box p={25}>{children}</Box>
+          <Box py={29} px={30}>
+            {children}
+          </Box>
         </Box>
       </Box>
     </>,

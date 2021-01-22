@@ -23,7 +23,7 @@ import { AiFillCaretDown } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
 import LoginModal from "./form-modals/LoginModal";
-import RegisterEmailModal from "./form-modals/register/RegisterEmailModal";
+import RegisterModal from "./form-modals/register/RegisterModal";
 
 type NavLinkProps = {
   text: string;
@@ -162,7 +162,7 @@ export default function NavBar() {
         )}
       </HStack>
       <LoginModal showModal={showLoginModal} setShowModal={setShowLoginModal} />
-      <RegisterEmailModal
+      <RegisterModal
         showModal={showRegisterModal}
         setShowModal={setShowRegisterModal}
       />
