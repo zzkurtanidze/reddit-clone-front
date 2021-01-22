@@ -53,7 +53,10 @@ export default function RegisterUsernameModal({
             validationSchema={validationSchema}
             validateOnBlur={false}
             validateOnChange={false}
-            onSubmit={(data) => console.log(data)}
+            onSubmit={(data) => {
+              window.location.replace("/");
+              console.log(data);
+            }}
           >
             {({ errors }) => (
               <Form>
