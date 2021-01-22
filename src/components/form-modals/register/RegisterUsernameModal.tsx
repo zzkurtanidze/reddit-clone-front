@@ -7,7 +7,7 @@ import Modal from "../../Modal";
 import * as yup from "yup";
 
 const validationSchema = yup.object({
-  username: yup.string().required().max(10).min(5).label("Username"),
+  username: yup.string().required().min(5).label("Username"),
   password: yup.string().required().min(8).label("Password"),
 });
 
