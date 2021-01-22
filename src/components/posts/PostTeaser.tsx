@@ -8,7 +8,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { Component, useState } from "react";
-import { PostType } from "../types/index";
+import { PostType } from "../../types/index";
 
 import { ImArrowUp, ImArrowDown } from "react-icons/im";
 import { FaCommentAlt, FaShare } from "react-icons/fa";

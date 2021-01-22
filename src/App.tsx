@@ -8,8 +8,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
-import Trending from "./components/Trending";
-import PostTeaser from "./components/PostTeaser";
+import Trending from "./components/posts/Trending";
+import PostTeaser from "./components/posts/PostTeaser";
 import TrendingCommunities from "./components/TrendingCommunities";
 import Modal from "./components/Modal";
 

@@ -1,6 +1,6 @@
 import { Box, Grid, Text } from "@chakra-ui/react";
 import React from "react";
-import { PostType } from "../types/index";
+import { PostType } from "../../types/index";
 import TrendingItem from "./TrendingItem";
 
 export default function Trending({ items }: { items: PostType[] }) {
