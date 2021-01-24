@@ -1,13 +1,15 @@
 export type PostType = {
+  _id: string;
   title: string;
   body: string;
   image: string;
   postedTo: string;
   postedBy: string;
-  upVotes: number;
+  votes: number;
 };
 
 export type UserType = {
+  _id: string;
   username: string;
   description: string;
   email: string;
@@ -15,7 +17,8 @@ export type UserType = {
   birthday: Date;
   image: string;
   cover: string;
-  followers: UserType;
-  following: UserType;
-  likedPosts: PostType;
+  followers: [string];
+  following: [string];
+  likedPosts: [string];
+  joined: [string];
 };
