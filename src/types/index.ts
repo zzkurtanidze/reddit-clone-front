@@ -1,5 +1,5 @@
 export type PostType = {
-  _id: string;
+  _id?: string;
   title: string;
   body: string;
   image: string;
@@ -9,7 +9,7 @@ export type PostType = {
 };
 
 export type UserType = {
-  _id: string;
+  _id?: string;
   username: string;
   description: string;
   email: string;

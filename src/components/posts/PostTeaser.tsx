@@ -51,7 +51,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
           <ImArrowUp color={status === "liked" ? `#ff3838` : "gray"} />
         </Button>
         <Text textAlign="center" fontWeight="bold" fontSize={12}>
-          {post.upVotes}
+          {post.votes}
         </Text>
         <Button
           p={0}

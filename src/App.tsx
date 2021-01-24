@@ -22,7 +22,7 @@ const items = [
       "https://images.unsplash.com/photo-1610944770887-c470bab58def?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDJ8dG93SlpGc2twR2d8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60j",
     postedTo: "pewdiewpiecrew",
     postedBy: "Jorj Janson",
-    upVotes: 150,
+    votes: 150,
   },
   {
     title: "Tom Bray",
@@ -31,7 +31,7 @@ const items = [
       "https://images.unsplash.com/photo-1610944770887-c470bab58def?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDJ8dG93SlpGc2twR2d8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
     postedTo: "pewdiewpiecrew",
     postedBy: "Jorj Janson",
-    upVotes: 150,
+    votes: 150,
   },
   {
     title: "Tom Bray",
@@ -40,7 +40,7 @@ const items = [
       "https://images.unsplash.com/photo-1610902422826-548d3472fff5?ixid=MXwxMjA3fDB8MHx0b3BpYy1mZWVkfDl8dG93SlpGc2twR2d8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
     postedTo: "pewdiewpiecrew",
     postedBy: "Jorj Janson",
-    upVotes: 150,
+    votes: 150,
   },
   {
     title: "Tom Bray",
@@ -48,7 +48,7 @@ const items = [
     image: "https://i.ytimg.com/vi/4m8LLfLXvMM/maxresdefault.jpg",
     postedTo: "pewdiewpiecrew",
     postedBy: "Jorj Janson",
-    upVotes: 150,
+    votes: 150,
   },
 ];
 
