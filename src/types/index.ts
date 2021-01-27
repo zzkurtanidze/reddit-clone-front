@@ -11,14 +11,13 @@ export type PostType = {
 export type UserType = {
   _id?: string;
   username: string;
-  description: string;
+  description?: string;
   email: string;
   password: string;
-  birthday: Date;
-  image: string;
-  cover: string;
-  followers: [string];
-  following: [string];
-  likedPosts: [string];
-  joined: [string];
+  image?: string;
+  cover?: string;
+  followers?: [string];
+  following?: [string];
+  likedPosts?: [string];
+  joined?: [string];
 };

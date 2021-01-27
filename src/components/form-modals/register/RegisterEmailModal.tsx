@@ -1,7 +1,7 @@
-import { Box, Button, Flex, Input, Text } from "@chakra-ui/react";
-import { Field, Form, Formik } from "formik";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Form, Formik } from "formik";
 
-import React, { useState } from "react";
+import React from "react";
 import FormField from "../../common/FormField";
 import Modal from "../../Modal";
 
@@ -9,12 +9,19 @@ export default function RegisterModal({
   showModal,
   setShowModal,
   setStage,
+  setUser,
+  user,
 }: {
   showModal: boolean;
   setShowModal: Function;
   setStage: Function;
+  setUser: Function;
+  user: { email: string; username: string; password: string };
 }) {
-  const handleSubmit = () => {
+  const handleSubmit = ({ email }: { email: string }) => {
+    let userCopy = user;
+    userCopy.email = email;
+    setUser(userCopy);
     setStage((stage: number) => stage + 1);
   };
 

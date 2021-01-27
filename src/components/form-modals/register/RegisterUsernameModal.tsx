@@ -5,6 +5,7 @@ import FormField from "../../common/FormField";
 import Modal from "../../Modal";
 
 import * as yup from "yup";
+import { UserType } from "../../../types";
 
 const validationSchema = yup.object({
   username: yup.string().required().min(5).label("Username"),
@@ -15,10 +16,14 @@ export default function RegisterUsernameModal({
   showModal,
   setShowModal,
   setStage,
+  setUser,
+  user,
 }: {
   showModal: boolean;
   setShowModal: Function;
   setStage: Function;
+  setUser: Function;
+  user: { email: string; username: string; password: string };
 }) {
   const formRef = useRef<HTMLFormElement | null>();
 
@@ -53,9 +58,19 @@ export default function RegisterUsernameModal({
             validationSchema={validationSchema}
             validateOnBlur={false}
             validateOnChange={false}
-            onSubmit={(data) => {
-              window.location.replace("/");
-              console.log(data);
+            onSubmit={({
+              username,
+              password,
+            }: {
+              username: string;
+              password: string;
+            }) => {
+              let userCopy = user;
+              userCopy.username = username;
+              userCopy.password = password;
+              console.log(userCopy);
+              console.log(user);
+              setUser(userCopy);
             }}
           >
             {({ errors }) => (
