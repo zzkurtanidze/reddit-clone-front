@@ -1,11 +1,10 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import React, { useRef } from "react";
 import FormField from "../../common/FormField";
 import Modal from "../../Modal";
-
 import * as yup from "yup";
-import { UserType } from "../../../types";
+import { register } from "../../../api/index";
 
 const validationSchema = yup.object({
   username: yup.string().required().min(5).label("Username"),
@@ -26,6 +25,7 @@ export default function RegisterUsernameModal({
   user: { email: string; username: string; password: string };
 }) {
   const formRef = useRef<HTMLFormElement | null>();
+  const toast = useToast();
 
   const handleGoBack = () => {
     setStage((stage: number) => stage - 1);
@@ -58,7 +58,7 @@ export default function RegisterUsernameModal({
             validationSchema={validationSchema}
             validateOnBlur={false}
             validateOnChange={false}
-            onSubmit={({
+            onSubmit={async ({
               username,
               password,
             }: {
@@ -68,9 +68,27 @@ export default function RegisterUsernameModal({
               let userCopy = user;
               userCopy.username = username;
               userCopy.password = password;
-              console.log(userCopy);
-              console.log(user);
               setUser(userCopy);
+              const response = await register(user);
+              console.log(response);
+              if (response.status >= 200 && response.status <= 200) {
+                toast({
+                  title: "Account created.",
+                  status: "success",
+                  duration: 9000,
+                  isClosable: true,
+                });
+                setTimeout(() => {
+                  window.location.reload();
+                }, 2000);
+              } else {
+                toast({
+                  title: response.data,
+                  status: "error",
+                  duration: 8000,
+                  isClosable: true,
+                });
+              }
             }}
           >
             {({ errors }) => (

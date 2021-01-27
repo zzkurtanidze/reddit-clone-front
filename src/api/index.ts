@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
 import { UserType } from "../types";
 
@@ -14,9 +15,9 @@ export const getPosts = async () => {
 
 export const register = async (user: UserType) => {
   try {
-    const { data } = await axios.post(`${apiUrl}/user`, user);
-    console.log(data);
+    const response = await axios.post(`${apiUrl}/users`, user);
+    return response;
   } catch (ex) {
-    console.log(ex);
+    return ex.response;
   }
 };
