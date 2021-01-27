@@ -15,7 +15,9 @@ export const getPosts = async () => {
 
 export const register = async (user: UserType) => {
   try {
-    const response = await axios.post(`${apiUrl}/users`, user);
+    const response = await axios.post(`${apiUrl}/users`, user, {
+      withCredentials: true,
+    });
     return response;
   } catch (ex) {
     return ex.response;
