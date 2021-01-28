@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PostTeaser from "../../components/posts/PostTeaser";
 import Trending from "../../components/posts/Trending";
 import TrendingCommunities from "../../components/TrendingCommunities";
 import { Box, Grid } from "@chakra-ui/react";
+import { getPosts } from "../../api";
+import { PostType } from "../../types";
 
 const items = [
   {
@@ -44,18 +46,35 @@ const items = [
 ];
 
 export default function HomePage() {
+  const [posts, setPosts] = useState<PostType[]>([]);
+  const [error, setError] = useState();
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    const response = await getPosts();
+    if (response && response.statusText === "OK") {
+      setPosts(response.data);
+    } else {
+      setError(response?.data);
+    }
+    console.log(response);
+    // setPosts(data);
+  };
+
   return (
     <Box mx="17%">
       <Trending items={items} />
       <Grid templateColumns="1fr 0.5fr" gap={50}>
-        <Box>
-          {items.map((item) => (
-            <PostTeaser
-              key={`${item.title}-${Date.now()}-${Math.random()}`}
-              post={item}
-            />
-          ))}
-        </Box>
+        {posts && (
+          <Box>
+            {posts.map((item) => (
+              <PostTeaser key={item._id} post={item} />
+            ))}
+          </Box>
+        )}
         <Box>
           <TrendingCommunities />
         </Box>

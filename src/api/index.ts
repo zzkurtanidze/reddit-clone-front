@@ -6,10 +6,10 @@ const apiUrl = "http://localhost:4000/api";
 
 export const getPosts = async () => {
   try {
-    const { data } = await axios.get(`${apiUrl}/posts`);
-    console.log(data);
+    const data = await axios.get(`${apiUrl}/posts`);
+    return data;
   } catch (ex) {
-    console.log(ex);
+    return;
   }
 };
 
