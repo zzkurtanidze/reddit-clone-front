@@ -10,24 +10,29 @@ import {
   InputLeftElement,
   Link,
   Switch,
-  Text,
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
 import Logo from "../assets/reddit-logo.png";
+import LoginModal from "./form-modals/LoginModal";
+import RegisterModal from "./form-modals/register/RegisterModal";
+import Dropdown from "./common/Dropdown";
+import {
+  DropdownItem,
+  DropdownTitle,
+  CustomDropdownItem,
+} from "./common/DropdownItems";
+
+import { getUser } from "../api/index";
+import { UserType } from "../types/index";
 
 import { BiSearchAlt } from "react-icons/bi";
 import { GoGear } from "react-icons/go";
 import { AiFillCaretDown } from "react-icons/ai";
 import { FaMoon, FaUserCircle } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
-import LoginModal from "./form-modals/LoginModal";
-import RegisterModal from "./form-modals/register/RegisterModal";
-import { getUser } from "../api/index";
-import { UserType } from "../types/index";
-import Dropdown from "./common/Dropdown";
 
 type NavLinkProps = {
   text: string;
@@ -58,7 +63,6 @@ export default function NavBar() {
 
   const bg = useColorModeValue("gray.100", "gray.600");
   const color = useColorModeValue("#333", "white");
-  const popUpText = useColorModeValue("gray.500", "white");
 
   return (
     <Flex
@@ -107,54 +111,52 @@ export default function NavBar() {
           setIsExpanded={setIsExpanded}
           title={user && user.username}
         >
-          <>
-            <Box
-              w="12%"
-              h="max-content"
-              position="absolute"
-              right="40px"
-              top="45px"
-              borderWidth="1px"
-              borderColor="gray.200"
-              bg={bg}
+          <Box
+            w="12%"
+            h="max-content"
+            position="absolute"
+            right="40px"
+            top="45px"
+            borderWidth="1px"
+            borderColor="gray.200"
+            bg={bg}
+          >
+            {user && (
+              <>
+                <DropdownTitle label={"My Stuff"} />
+                <DropdownItem
+                  title="Profile"
+                  icon={<FaUserCircle color={color} />}
+                />
+                <DropdownItem
+                  title="User Settings"
+                  icon={<GoGear color={color} />}
+                />
+              </>
+            )}
+            <DropdownTitle label={"View Options"} />
+            <CustomDropdownItem
+              title="Dark Mode"
+              icon={<FaMoon color={color} />}
             >
-              {user && (
-                <>
-                  <DropdownTitle label={"My Stuff"} />
-                  <DropdownItem
-                    title="Profile"
-                    icon={<FaUserCircle color={color} />}
-                  />
-                  <DropdownItem
-                    title="User Settings"
-                    icon={<GoGear color={color} />}
-                  />
-                </>
-              )}
-              <DropdownTitle label={"View Options"} />
-              <CustomDropdownItem
-                title="Dark Mode"
-                icon={<FaMoon color={color} />}
-              >
-                <Switch
-                  onChange={toggleColorMode}
-                  isChecked={colorMode === "dark" ? true : false}
-                />
-              </CustomDropdownItem>
-              <DropdownTitle label="More Options" />
-              {!user ? (
-                <DropdownItem
-                  title="Log In / Sign Up"
-                  icon={<RiLoginBoxFill color={color} />}
-                />
-              ) : (
-                <DropdownItem
-                  title="Log Out"
-                  icon={<RiLoginBoxFill color={color} />}
-                />
-              )}
-            </Box>
-          </>
+              <Switch
+                onChange={toggleColorMode}
+                isChecked={colorMode === "dark" ? true : false}
+              />
+            </CustomDropdownItem>
+            <DropdownTitle label="More Options" />
+            {!user ? (
+              <DropdownItem
+                title="Log In / Sign Up"
+                icon={<RiLoginBoxFill color={color} />}
+              />
+            ) : (
+              <DropdownItem
+                title="Log Out"
+                icon={<RiLoginBoxFill color={color} />}
+              />
+            )}
+          </Box>
         </Dropdown>
       </HStack>
       <LoginModal showModal={showLoginModal} setShowModal={setShowLoginModal} />
@@ -190,79 +192,5 @@ const NavLink: React.FC<NavLinkProps> = ({
     >
       {text}
     </Button>
-  );
-};
-
-const DropdownItem: React.FC<{
-  title: string;
-  icon?: any;
-}> = ({ title, icon }) => {
-  return (
-    <Flex
-      w="100%"
-      borderRadius="0"
-      px="20px"
-      py="10px"
-      justifyContent="flex-start"
-      alignItems="center"
-      cursor="pointer"
-      _hover={{
-        backgroundColor: "#1384D7",
-        color: "white",
-      }}
-    >
-      {icon && icon}
-      <Text fontSize={14} ml="13px">
-        {title}
-      </Text>
-    </Flex>
-  );
-};
-
-const DropdownTitle: React.FC<{
-  label: string;
-}> = ({ label }) => {
-  const popUpText = useColorModeValue("gray.500", "white");
-
-  return (
-    <Text
-      fontSize="11px"
-      fontWeight="bold"
-      color={popUpText}
-      letterSpacing="0.6px"
-      textTransform="uppercase"
-      px="15px"
-      py="10px"
-    >
-      {label}
-    </Text>
-  );
-};
-
-const CustomDropdownItem: React.FC<{
-  icon?: any;
-  title: string;
-  children: JSX.Element;
-}> = ({ icon, title, children }) => {
-  return (
-    <Flex
-      w="100%"
-      borderRadius="0"
-      px="20px"
-      py="10px"
-      justifyContent="space-between"
-      alignItems="center"
-      cursor="pointer"
-      _hover={{
-        backgroundColor: "#1384D7",
-        color: "white",
-      }}
-    >
-      {icon && icon}
-      <Text fontSize={14} ml="13px">
-        {title}
-      </Text>
-      {children}
-    </Flex>
   );
 };
