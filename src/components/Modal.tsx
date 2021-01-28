@@ -1,5 +1,5 @@
 import { Box, Button, Image, useColorModeValue } from "@chakra-ui/react";
-import React, { Component } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { RiCloseLine } from "react-icons/ri";
 
@@ -15,8 +15,6 @@ export default function Modal({
   withImage?: boolean;
 }) {
   const bg = useColorModeValue("white", "gray.900");
-
-  console.log(onClose);
 
   if (!open) return null;
 

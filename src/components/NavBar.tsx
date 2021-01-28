@@ -27,6 +27,7 @@ import LoginModal from "./form-modals/LoginModal";
 import RegisterModal from "./form-modals/register/RegisterModal";
 import { getUser } from "../api/index";
 import { UserType } from "../types/index";
+import Dropdown from "./common/Dropdown";
 
 type NavLinkProps = {
   text: string;
@@ -100,85 +101,85 @@ export default function NavBar() {
             />
           </>
         )}
-        <Button onClick={() => setIsExpanded(!isExpanded)}>
-          <VscAccount color={color} />
-          <Box ml="10px">
-            <AiFillCaretDown size={15} color={color} />
-          </Box>
-        </Button>
-        {isExpanded && (
-          <Box
-            w="12%"
-            h="max-content"
-            position="absolute"
-            right="40px"
-            top="45px"
-            borderWidth="1px"
-            borderColor="gray.200"
-            bg={bg}
-          >
-            <Text
-              fontSize="11px"
-              fontWeight="bold"
-              color={popUpText}
-              letterSpacing="0.6px"
-              textTransform="uppercase"
-              px="15px"
-              py="10px"
+        <Dropdown
+          icon={<AiFillCaretDown size={15} color={color} />}
+          isExpanded={isExpanded}
+          setIsExpanded={setIsExpanded}
+        >
+          <>
+            <Box
+              w="12%"
+              h="max-content"
+              position="absolute"
+              right="40px"
+              top="45px"
+              borderWidth="1px"
+              borderColor="gray.200"
+              bg={bg}
             >
-              View Options
-            </Text>
-            <Flex
-              w="100%"
-              borderRadius="0"
-              px="20px"
-              py="10px"
-              justifyContent="space-between"
-              alignItems="center"
-              cursor="pointer"
-              _hover={{
-                backgroundColor: "#1384D7",
-                color: "white",
-              }}
-            >
-              <FaMoon color={color} />
-              <Text fontSize={14}>Dark Mode</Text>
-              <Switch
-                onChange={toggleColorMode}
-                isChecked={colorMode === "dark" ? true : false}
-              />
-            </Flex>
-            <Text
-              fontSize="11px"
-              fontWeight="bold"
-              color={popUpText}
-              letterSpacing="0.6px"
-              textTransform="uppercase"
-              px="15px"
-              py="10px"
-            >
-              More Options
-            </Text>
-            <Flex
-              w="100%"
-              borderRadius="0"
-              px="20px"
-              py="10px"
-              justifyContent="flex-start"
-              alignItems="center"
-              cursor="pointer"
-              _hover={{
-                backgroundColor: "#1384D7",
-                color: "white",
-              }}
-            >
-              <RiLoginBoxFill color={color} />
-              <Text fontSize={14} ml="13px">
-                Log In / Sign Up
+              <Text
+                fontSize="11px"
+                fontWeight="bold"
+                color={popUpText}
+                letterSpacing="0.6px"
+                textTransform="uppercase"
+                px="15px"
+                py="10px"
+              >
+                View Options
               </Text>
-            </Flex>
-          </Box>
-        )}
+              <Flex
+                w="100%"
+                borderRadius="0"
+                px="20px"
+                py="10px"
+                justifyContent="space-between"
+                alignItems="center"
+                cursor="pointer"
+                _hover={{
+                  backgroundColor: "#1384D7",
+                  color: "white",
+                }}
+              >
+                <FaMoon color={color} />
+                <Text fontSize={14}>Dark Mode</Text>
+                <Switch
+                  onChange={toggleColorMode}
+                  isChecked={colorMode === "dark" ? true : false}
+                />
+              </Flex>
+              <Text
+                fontSize="11px"
+                fontWeight="bold"
+                color={popUpText}
+                letterSpacing="0.6px"
+                textTransform="uppercase"
+                px="15px"
+                py="10px"
+              >
+                More Options
+              </Text>
+              <Flex
+                w="100%"
+                borderRadius="0"
+                px="20px"
+                py="10px"
+                justifyContent="flex-start"
+                alignItems="center"
+                cursor="pointer"
+                _hover={{
+                  backgroundColor: "#1384D7",
+                  color: "white",
+                }}
+              >
+                <RiLoginBoxFill color={color} />
+                <Text fontSize={14} ml="13px">
+                  Log In / Sign Up
+                </Text>
+              </Flex>
+            </Box>
+          </>
+        </Dropdown>
       </HStack>
       <LoginModal showModal={showLoginModal} setShowModal={setShowLoginModal} />
       <RegisterModal
