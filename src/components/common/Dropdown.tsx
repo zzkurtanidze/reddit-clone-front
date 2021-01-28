@@ -18,7 +18,12 @@ export default function Dropdown({
   const color = useColorModeValue("#333", "white");
   return (
     <>
-      <Button borderRadius={0} onClick={() => setIsExpanded(!isExpanded)}>
+      <Button
+        bg="transparent"
+        _focus={{ background: "rgba(255,255,255,.1)" }}
+        borderRadius={0}
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
         <VscAccount color={color} />
         <Text ml={2}>{title}</Text>
         <Box ml="10px">{icon && icon}</Box>
