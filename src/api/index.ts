@@ -34,3 +34,15 @@ export const getUser = async () => {
     return ex.response;
   }
 };
+
+export const logOut = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/users/logout`, {
+      withCredentials: true,
+    });
+    console.log(response);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};

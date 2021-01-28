@@ -25,7 +25,7 @@ import {
   CustomDropdownItem,
 } from "./common/DropdownItems";
 
-import { getUser } from "../api/index";
+import { getUser, logOut } from "../api/index";
 import { UserType } from "../types/index";
 
 import { BiSearchAlt } from "react-icons/bi";
@@ -127,10 +127,16 @@ export default function NavBar() {
                 <DropdownItem
                   title="Profile"
                   icon={<FaUserCircle color={color} />}
+                  onClick={() => {
+                    console.log("");
+                  }}
                 />
                 <DropdownItem
                   title="User Settings"
                   icon={<GoGear color={color} />}
+                  onClick={() => {
+                    console.log("");
+                  }}
                 />
               </>
             )}
@@ -149,11 +155,18 @@ export default function NavBar() {
               <DropdownItem
                 title="Log In / Sign Up"
                 icon={<RiLoginBoxFill color={color} />}
+                onClick={() => {
+                  console.log("");
+                }}
               />
             ) : (
               <DropdownItem
                 title="Log Out"
                 icon={<RiLoginBoxFill color={color} />}
+                onClick={() => {
+                  logOut();
+                  window.location.reload();
+                }}
               />
             )}
           </Box>
