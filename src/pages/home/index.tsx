@@ -50,7 +50,10 @@ export default function HomePage() {
       <Grid templateColumns="1fr 0.5fr" gap={50}>
         <Box>
           {items.map((item) => (
-            <PostTeaser post={item} />
+            <PostTeaser
+              key={`${item.title}-${Date.now()}-${Math.random()}`}
+              post={item}
+            />
           ))}
         </Box>
         <Box>

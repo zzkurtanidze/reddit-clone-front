@@ -10,7 +10,13 @@ export default function Trending({ items }: { items: PostType[] }) {
         Trending today
       </Text>
       <Grid my="20px" gap="10px" templateColumns="repeat(4, 1fr)">
-        {items && items.map((item: PostType) => <TrendingItem item={item} />)}
+        {items &&
+          items.map((item: PostType) => (
+            <TrendingItem
+              key={`${item.title}-${Date.now()}-${Math.random()}`}
+              item={item}
+            />
+          ))}
       </Grid>
     </Box>
   );
