@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import {
   Box,
   Button,
@@ -13,7 +14,7 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Logo from "../assets/reddit-logo.png";
 
@@ -24,6 +25,8 @@ import { FaMoon } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
 import LoginModal from "./form-modals/LoginModal";
 import RegisterModal from "./form-modals/register/RegisterModal";
+import { getUser } from "../api/index";
+import { UserType } from "../types/index";
 
 type NavLinkProps = {
   text: string;
@@ -37,8 +40,20 @@ export default function NavBar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [user, setUser] = useState<UserType | null>(null);
 
   const { colorMode, toggleColorMode } = useColorMode();
+
+  const fetchUser = async () => {
+    const response = await getUser();
+    if (response.status === 200) {
+      setUser(response.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   const bg = useColorModeValue("gray.100", "gray.600");
   const color = useColorModeValue("#333", "white");
@@ -67,20 +82,24 @@ export default function NavBar() {
         />
       </InputGroup>
       <HStack spacing="25px" alignSelf="center">
-        <NavLink
-          text="Log In"
-          bg={useColorModeValue("#fff", "#222223")}
-          color={useColorModeValue("#1384D7", "white")}
-          borderWidth="1px"
-          borderColor={useColorModeValue("#1384D7", "white")}
-          onClick={() => setShowLoginModal(!showLoginModal)}
-        />
-        <NavLink
-          text="Sign Up"
-          bg={useColorModeValue("#1384D7", "#C8CBCD")}
-          color={useColorModeValue("white", "#222223")}
-          onClick={() => setShowRegisterModal(!showRegisterModal)}
-        />
+        {!user && (
+          <>
+            <NavLink
+              text="Log In"
+              bg={useColorModeValue("#fff", "#222223")}
+              color={useColorModeValue("#1384D7", "white")}
+              borderWidth="1px"
+              borderColor={useColorModeValue("#1384D7", "white")}
+              onClick={() => setShowLoginModal(!showLoginModal)}
+            />
+            <NavLink
+              text="Sign Up"
+              bg={useColorModeValue("#1384D7", "#C8CBCD")}
+              color={useColorModeValue("white", "#222223")}
+              onClick={() => setShowRegisterModal(!showRegisterModal)}
+            />
+          </>
+        )}
         <Button onClick={() => setIsExpanded(!isExpanded)}>
           <VscAccount color={color} />
           <Box ml="10px">

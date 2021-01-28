@@ -23,3 +23,14 @@ export const register = async (user: UserType) => {
     return ex.response;
   }
 };
+
+export const getUser = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/users/me`, {
+      withCredentials: true,
+    });
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
