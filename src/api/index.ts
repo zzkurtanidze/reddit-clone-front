@@ -35,6 +35,17 @@ export const getUser = async () => {
   }
 };
 
+export const login = async (user: { email: string; password: string }) => {
+  try {
+    const response = await axios.post(`${apiUrl}/auth`, user, {
+      withCredentials: true,
+    });
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 export const logOut = async () => {
   try {
     const response = await axios.get(`${apiUrl}/users/logout`, {

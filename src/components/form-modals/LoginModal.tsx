@@ -1,8 +1,10 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import React from "react";
 import FormField from "../common/FormField";
 import Modal from "../Modal";
+
+import { login } from "../../api/index";
 
 export default function LoginModal({
   showModal,
@@ -11,6 +13,8 @@ export default function LoginModal({
   showModal: boolean;
   setShowModal: Function;
 }) {
+  const toast = useToast();
+
   return (
     <Modal withImage open={showModal} onClose={() => setShowModal(false)}>
       <Text fontWeight="bold">Login</Text>
@@ -34,7 +38,27 @@ export default function LoginModal({
           }}
           validateOnBlur={false}
           validateOnChange={false}
-          onSubmit={(data) => console.log(data)}
+          onSubmit={async (data) => {
+            const response = await login(data);
+            if (response.status === 200) {
+              toast({
+                title: "Logged In Succesfully.",
+                status: "success",
+                duration: 9000,
+                isClosable: true,
+              });
+              setTimeout(() => {
+                window.location.reload();
+              }, 2000);
+            } else {
+              toast({
+                title: response.data,
+                status: "error",
+                duration: 9000,
+                isClosable: false,
+              });
+            }
+          }}
         >
           {({ errors }) => (
             <Form>
