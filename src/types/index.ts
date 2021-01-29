@@ -3,8 +3,8 @@ export type PostType = {
   title: string;
   body: string;
   image: string;
-  postedTo: string;
-  postedBy: string;
+  postedTo: any;
+  postedBy: UserType;
   votes: number;
 };
 

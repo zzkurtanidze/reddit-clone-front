@@ -65,7 +65,7 @@ export default function HomePage() {
 
   return (
     <Box mx="17%">
-      <Trending items={items} />
+      {/* <Trending items={items} /> */}
       <Grid templateColumns="1fr 0.5fr" gap={50}>
         {posts && (
           <Box>
