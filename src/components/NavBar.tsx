@@ -160,7 +160,7 @@ export default function NavBar() {
                 title="Log In / Sign Up"
                 icon={<RiLoginBoxFill color={color} />}
                 onClick={() => {
-                  console.log("");
+                  setShowLoginModal(!showLoginModal);
                 }}
               />
             ) : (
