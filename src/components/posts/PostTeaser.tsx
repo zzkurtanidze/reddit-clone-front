@@ -14,10 +14,21 @@ import { ImArrowUp, ImArrowDown } from "react-icons/im";
 import { FaCommentAlt, FaShare } from "react-icons/fa";
 import { RiBookmarkFill } from "react-icons/ri";
 
+import { likePost } from "../../api/index";
+
 export default function PostTeaser({ post }: { post: PostType }) {
   const [status, setStatus] = useState("");
 
   const bg = useColorModeValue("gray.100", "gray.900");
+
+  const handleLike = async (e: any) => {
+    const name = e.target.name || e.target.parentElement.parentNode.name;
+    if (name && post._id) {
+      setStatus((status) => (status === name ? "" : name));
+      const response = await likePost({ action: name, id: post._id });
+      console.log(response);
+    }
+  };
 
   return (
     <Flex
@@ -44,11 +55,13 @@ export default function PostTeaser({ post }: { post: PostType }) {
           borderRadius={5}
           bg="transparent"
           _focus={{ boxShadow: 0 }}
-          onClick={() =>
-            setStatus((status) => (status !== "liked" ? "liked" : ""))
-          }
+          name="like"
+          onClick={handleLike}
         >
-          <ImArrowUp color={status === "liked" ? `#ff3838` : "gray"} />
+          <ImArrowUp
+            name="like"
+            color={status === "like" ? `#ff3838` : "gray"}
+          />
         </Button>
         <Text textAlign="center" fontWeight="bold" fontSize={12}>
           {post.votes}
@@ -59,11 +72,10 @@ export default function PostTeaser({ post }: { post: PostType }) {
           borderRadius={5}
           bg="transparent"
           _focus={{ boxShadow: 0 }}
-          onClick={() =>
-            setStatus((status) => (status !== "unliked" ? "unliked" : ""))
-          }
+          name="unlike"
+          onClick={handleLike}
         >
-          <ImArrowDown color={status === "unliked" ? `#ff3838` : "gray"} />
+          <ImArrowDown color={status === "unlike" ? `#ff3838` : "gray"} />
         </Button>
       </Flex>
       <Box>
