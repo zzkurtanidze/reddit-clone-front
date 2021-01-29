@@ -47,14 +47,18 @@ export default function NavBar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [user, setUser] = useState<UserType | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { colorMode, toggleColorMode } = useColorMode();
 
   const fetchUser = async () => {
+    setLoading(true);
     const response = await getUser();
     if (response.status === 200) {
       setUser(response.data);
     }
+    setLoading(false);
+    console.log(response);
   };
 
   useEffect(() => {
@@ -64,7 +68,7 @@ export default function NavBar() {
   const bg = useColorModeValue("gray.100", "gray.600");
   const color = useColorModeValue("#333", "white");
 
-  return (
+  return !loading ? (
     <Flex
       w="100%"
       h="max-content"
@@ -178,6 +182,8 @@ export default function NavBar() {
         setShowModal={setShowRegisterModal}
       />
     </Flex>
+  ) : (
+    <></>
   );
 }
 

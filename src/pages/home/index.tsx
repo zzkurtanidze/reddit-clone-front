@@ -61,7 +61,6 @@ export default function HomePage() {
       setError(response?.data);
     }
     console.log(response);
-    // setPosts(data);
   };
 
   return (
