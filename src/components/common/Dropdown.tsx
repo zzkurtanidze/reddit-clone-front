@@ -28,7 +28,7 @@ export default function Dropdown({
         <Text ml={2}>{title}</Text>
         <Box ml="10px">{icon && icon}</Box>
       </Button>
-      {isExpanded && children}
+      <Box zIndex={1000}>{isExpanded && children}</Box>
     </>
   );
 }
