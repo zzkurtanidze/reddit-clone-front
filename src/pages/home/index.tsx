@@ -60,12 +60,11 @@ export default function HomePage() {
     } else {
       setError(response?.data);
     }
-    console.log(response);
   };
 
   return (
     <Box mx="17%">
-      {/* <Trending items={items} /> */}
+      <Trending items={posts} />
       <Grid mt={10} templateColumns="1fr 0.5fr" gap={50}>
         {posts && (
           <Box>

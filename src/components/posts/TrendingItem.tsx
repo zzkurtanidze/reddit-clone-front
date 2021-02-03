@@ -20,7 +20,7 @@ export default function TrendingItem({ item }: { item: PostType }) {
         </Text>
         <Text>{item.body.slice(0, 40)}...</Text>
         <Text fontSize={12} m="5px">
-          {item.postedTo}
+          {item.postedTo.name}
         </Text>
       </Box>
     </Box>
