@@ -7,7 +7,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React, { Component, useState } from "react";
+import React, { Component, useContext, useEffect, useState } from "react";
 import { PostType } from "../../types/index";
 
 import { ImArrowUp, ImArrowDown } from "react-icons/im";
@@ -15,9 +15,24 @@ import { FaCommentAlt, FaShare } from "react-icons/fa";
 import { RiBookmarkFill } from "react-icons/ri";
 
 import { likePost } from "../../api/index";
+import { UserContext } from "../../context/UserContext";
 
 export default function PostTeaser({ post }: { post: PostType }) {
   const [status, setStatus] = useState("");
+  const [likes, setLikes] = useState(0);
+  const user = useContext(UserContext);
+
+  useEffect(() => {
+    setLikes(post.votes);
+    const likedPostIds: [string | undefined] = [""];
+    user?.likedPosts?.forEach((post) => {
+      likedPostIds.push(post._id);
+    });
+    if (likedPostIds.includes(post._id)) {
+      setStatus("like");
+    }
+    console.log(user);
+  }, [user]);
 
   const bg = useColorModeValue("gray.100", "gray.900");
 
@@ -26,7 +41,11 @@ export default function PostTeaser({ post }: { post: PostType }) {
     if (name && post._id) {
       setStatus((status) => (status === name ? "" : name));
       const response = await likePost({ action: name, id: post._id });
-      console.log(response);
+      if (response.status === 200) {
+        name === "like"
+          ? setLikes((likes) => likes + 1)
+          : setLikes((likes) => likes - 1);
+      }
     }
   };
 
@@ -64,7 +83,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
           />
         </Button>
         <Text textAlign="center" fontWeight="bold" fontSize={12}>
-          {post.votes}
+          {likes}
         </Text>
         <Button
           p={0}

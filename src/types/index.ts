@@ -18,6 +18,6 @@ export type UserType = {
   cover?: string;
   followers?: [string];
   following?: [string];
-  likedPosts?: [string];
+  likedPosts?: [PostType];
   joined?: [string];
 };
