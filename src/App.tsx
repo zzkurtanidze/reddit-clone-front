@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import HomePage from "./pages/home";
 import { getUser } from "./api/index";
 import { UserContext } from "./context/UserContext";
+import UserPage from "./pages/user-page";
 
 const theme = extendTheme({
   fonts: {
@@ -28,6 +29,7 @@ export default function App() {
       <UserContext.Provider value={user}>
         <NavBar />
         <Switch>
+          <Route path="/me" component={UserPage} />
           <Route path="/" component={HomePage} />
         </Switch>
       </UserContext.Provider>
