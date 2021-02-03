@@ -13,7 +13,7 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 
 import Logo from "../assets/reddit-logo.png";
 import LoginModal from "./form-modals/LoginModal";
@@ -24,15 +24,14 @@ import {
   DropdownTitle,
   CustomDropdownItem,
 } from "./common/DropdownItems";
-
-import { getUser, logOut } from "../api/index";
-import { UserType } from "../types/index";
+import { logOut } from "../api/index";
 
 import { BiSearchAlt } from "react-icons/bi";
 import { GoGear } from "react-icons/go";
 import { AiFillCaretDown } from "react-icons/ai";
 import { FaMoon, FaUserCircle } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
+import { UserContext } from "../context/UserContext";
 
 type NavLinkProps = {
   text: string;
@@ -46,24 +45,12 @@ export default function NavBar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const user = useContext(UserContext);
 
   const { colorMode, toggleColorMode } = useColorMode();
 
-  const fetchUser = async () => {
-    setLoading(true);
-    const response = await getUser();
-    if (response.status === 200) {
-      setUser(response.data);
-    }
-    setLoading(false);
-    console.log(response);
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
+  console.log(user);
 
   const bg = useColorModeValue("gray.100", "gray.600");
   const color = useColorModeValue("#333", "white");

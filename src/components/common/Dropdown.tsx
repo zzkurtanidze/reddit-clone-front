@@ -1,6 +1,7 @@
 import { Box, Button, Text, useColorModeValue } from "@chakra-ui/react";
-import React from "react";
+import React, { useRef } from "react";
 import { VscAccount } from "react-icons/vsc";
+import useOutsideClick from "../../utils/useOutsideClick";
 
 export default function Dropdown({
   setIsExpanded,
@@ -16,8 +17,16 @@ export default function Dropdown({
   title?: string | null;
 }) {
   const color = useColorModeValue("#333", "white");
+
+  const ref = useRef();
+
+  useOutsideClick(ref, () => {
+    setIsExpanded(false);
+  });
+
   return (
-    <>
+    //@ts-ignore
+    <Box ref={ref}>
       <Button
         bg="transparent"
         _focus={{ background: "rgba(255,255,255,.1)" }}
@@ -29,6 +38,6 @@ export default function Dropdown({
         <Box ml="10px">{icon && icon}</Box>
       </Button>
       <Box zIndex={1000}>{isExpanded && children}</Box>
-    </>
+    </Box>
   );
 }

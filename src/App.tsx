@@ -3,7 +3,8 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import { Route, Switch } from "react-router-dom";
 import HomePage from "./pages/home";
-import { getPosts } from "./api/index";
+import { getPosts, getUser } from "./api/index";
+import { UserContext } from "./context/UserContext";
 
 const theme = extendTheme({
   fonts: {
@@ -12,8 +13,12 @@ const theme = extendTheme({
 });
 
 export default function App() {
+  const [user, setUser] = React.useState();
+
   const fetchData = async () => {
-    await getPosts();
+    const response = await getUser();
+    console.log(response);
+    setUser(response.data);
   };
 
   React.useEffect(() => {
@@ -21,10 +26,12 @@ export default function App() {
   }, []);
   return (
     <ChakraProvider theme={theme}>
-      <NavBar />
-      <Switch>
-        <Route path="/" component={HomePage} />
-      </Switch>
+      <UserContext.Provider value={user}>
+        <NavBar />
+        <Switch>
+          <Route path="/" component={HomePage} />
+        </Switch>
+      </UserContext.Provider>
     </ChakraProvider>
   );
 }
