@@ -19,5 +19,6 @@ export type UserType = {
   followers?: [string];
   following?: [string];
   likedPosts?: [PostType];
+  dislikedPosts?: [PostType];
   joined?: [string];
 };

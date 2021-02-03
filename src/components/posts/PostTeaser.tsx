@@ -25,27 +25,31 @@ export default function PostTeaser({ post }: { post: PostType }) {
   useEffect(() => {
     setLikes(post.votes);
     const likedPostIds: [string | undefined] = [""];
+    const dislikedPostIds: [string | undefined] = [""];
+    user?.dislikedPosts?.forEach((post) => {
+      dislikedPostIds.push(post._id);
+    });
     user?.likedPosts?.forEach((post) => {
       likedPostIds.push(post._id);
     });
     if (likedPostIds.includes(post._id)) {
       setStatus("like");
     }
-    console.log(user);
+    if (dislikedPostIds.includes(post._id)) {
+      setStatus("unlike");
+    }
   }, [user]);
 
   const bg = useColorModeValue("gray.100", "gray.900");
 
   const handleLike = async (e: any) => {
-    const name = e.target.name || e.target.parentElement.parentNode.name;
+    let name = e.target.name || e.target.parentElement.parentNode.name;
     if (name && post._id) {
-      setStatus((status) => (status === name ? "" : name));
-      const response = await likePost({ action: name, id: post._id });
-      if (response.status === 200) {
-        name === "like"
-          ? setLikes((likes) => likes + 1)
-          : setLikes((likes) => likes - 1);
-      }
+      const { data } = await likePost({ action: name, id: post._id });
+      const votes = data.votes;
+      const status = data.status;
+      setStatus(status);
+      setLikes(votes);
     }
   };
 
@@ -94,7 +98,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
           name="unlike"
           onClick={handleLike}
         >
-          <ImArrowDown color={status === "unlike" ? `#ff3838` : "gray"} />
+          <ImArrowDown color={status === "unlike" ? `#5b6be5` : "gray"} />
         </Button>
       </Flex>
       <Box>

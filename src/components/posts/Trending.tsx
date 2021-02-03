@@ -4,7 +4,6 @@ import { PostType } from "../../types/index";
 import TrendingItem from "./TrendingItem";
 
 export default function Trending({ items }: { items: PostType[] }) {
-  console.log(items);
   return (
     <Box my="50px">
       <Text fontSize={14} fontWeight="bold">

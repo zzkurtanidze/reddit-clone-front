@@ -50,8 +50,6 @@ export default function NavBar() {
 
   const { colorMode, toggleColorMode } = useColorMode();
 
-  console.log(user);
-
   const bg = useColorModeValue("gray.100", "gray.600");
   const color = useColorModeValue("#333", "white");
 
