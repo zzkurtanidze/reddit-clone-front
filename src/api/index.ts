@@ -50,9 +50,9 @@ export const register = async (user: UserType) => {
 export const getUser = async () => {
   try {
     const response = await axios.get(`${apiUrl}/users/me`, axiosOptions);
-    return response;
+    return response.data;
   } catch (ex) {
-    return ex.response;
+    return undefined;
   }
 };
 
