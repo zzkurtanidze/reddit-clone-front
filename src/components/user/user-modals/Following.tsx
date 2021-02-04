@@ -1,19 +1,37 @@
 import { Flex, Image, Link, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getUserFollowing } from "../../../api";
 import { UserType } from "../../../types";
+import ModalLoading from "../../common/ModalLoading";
 import Modal from "../../Modal";
+import UserPicture from "../UserPicture";
 
 export default function Following({
   showModal,
   setShowModal,
-  following,
+  id,
 }: {
   showModal: boolean;
   setShowModal: Function;
-  following: [UserType] | [];
+  id: string;
 }) {
-  console.log(following);
+  const [following, setFollowing] = useState<[UserType] | []>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
+  useEffect(() => {
+    fetchFollowers();
+  }, []);
+
+  const fetchFollowers = async () => {
+    setLoading(true);
+    const response = await getUserFollowing(id);
+    if (response.statusText === "OK") {
+      setFollowing(response.data);
+    }
+    setLoading(false);
+  };
+
+  if (loading) return <ModalLoading />;
   return (
     <Modal open={showModal} onClose={() => setShowModal(false)}>
       <Text fontSize={28} fontWeight="bold">
@@ -24,10 +42,25 @@ export default function Following({
           <Text textAlign="center">No Following Users</Text>
         ) : (
           following.map((user) => (
-            <>
-              {user.image && <Image src={user.image} alt="profile-image" />}
-              <Link>{user.username}</Link>
-            </>
+            <Flex
+              p={4}
+              _hover={{ backgroundColor: "#d6eaff" }}
+              transition=".5s all ease"
+              w="100%"
+              h="max-content"
+              alignItems="center"
+              gridGap={5}
+            >
+              <Link
+                display="flex"
+                alignItems="center"
+                gridGap={5}
+                href={`/user/${user._id}`}
+              >
+                <UserPicture image={user.image} width="40px" />
+                {user.username}
+              </Link>
+            </Flex>
           ))
         )}
       </Flex>

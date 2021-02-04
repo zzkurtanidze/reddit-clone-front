@@ -41,6 +41,7 @@ export default function Modal({
         position="fixed"
         top="50%"
         left="50%"
+        minHeight="150px"
         transform="translate(-50%, -50%)"
       >
         {withImage && (

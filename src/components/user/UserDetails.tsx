@@ -100,11 +100,13 @@ export default function UserDetails({
             >
               Followers: {user.followers.length}
             </Button>
-            <Followers
-              showModal={showFollowersModal}
-              setShowModal={setShowFollowersModal}
-              id={id}
-            />
+            {showFollowersModal && (
+              <Followers
+                showModal={showFollowersModal}
+                setShowModal={setShowFollowersModal}
+                id={id}
+              />
+            )}
             <Button
               onClick={() => setShowFollowingModal(true)}
               bg="none"
@@ -115,11 +117,13 @@ export default function UserDetails({
             >
               Following: {user.following.length}
             </Button>
-            <Following
-              showModal={showFollowingModal}
-              setShowModal={setShowFollowingModal}
-              following={user.following}
-            />
+            {showFollowingModal && (
+              <Following
+                showModal={showFollowingModal}
+                setShowModal={setShowFollowingModal}
+                id={id}
+              />
+            )}
           </Flex>
         </Flex>
         <Box m={5}>

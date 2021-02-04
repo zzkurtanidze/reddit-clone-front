@@ -45,7 +45,6 @@ export default function NavBar() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const user = useContext(UserContext);
 
   const { colorMode, toggleColorMode } = useColorMode();
@@ -53,7 +52,7 @@ export default function NavBar() {
   const bg = useColorModeValue("gray.100", "gray.600");
   const color = useColorModeValue("#333", "white");
 
-  return !loading ? (
+  return (
     <Flex
       w="100%"
       h="max-content"
@@ -167,8 +166,6 @@ export default function NavBar() {
         setShowModal={setShowRegisterModal}
       />
     </Flex>
-  ) : (
-    <></>
   );
 }
 

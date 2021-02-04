@@ -2,7 +2,7 @@ import { Flex, Image, Link, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { getUserFollowers } from "../../../api";
 import { UserType } from "../../../types";
-import Loading from "../../common/Loading";
+import ModalLoading from "../../common/ModalLoading";
 import Modal from "../../Modal";
 import UserPicture from "../UserPicture";
 
@@ -31,7 +31,7 @@ export default function Followers({
     setLoading(false);
   };
 
-  if (loading) return <Loading />;
+  if (loading) return <ModalLoading />;
   return (
     <Modal open={showModal} onClose={() => setShowModal(false)}>
       <Text fontSize={28} fontWeight="bold">
@@ -51,8 +51,15 @@ export default function Followers({
               alignItems="center"
               gridGap={5}
             >
-              <UserPicture image={user.image} width="40px" />
-              <Link href={`/user/${user._id}`}>{user.username}</Link>
+              <Link
+                display="flex"
+                alignItems="center"
+                gridGap={5}
+                href={`/user/${user._id}`}
+              >
+                <UserPicture image={user.image} width="40px" />
+                {user.username}
+              </Link>
             </Flex>
           ))
         )}
