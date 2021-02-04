@@ -7,6 +7,7 @@ import Following from "./user-modals/Following";
 import Followers from "./user-modals/Followers";
 import { followUser } from "../../api";
 import { UserContext } from "../../context/UserContext";
+import UserPicture from "./UserPicture";
 
 export default function UserDetails({
   user,
@@ -65,17 +66,7 @@ export default function UserDetails({
         />
       </Box>
       <Container position="relative" top="-50px" w="100%">
-        <Image
-          src={
-            user.image
-              ? user.image
-              : "https://icon-library.com/images/default-user-icon/default-user-icon-4.jpg"
-          }
-          w="200px"
-          boxShadow="2px 2px 10px rgba(0,0,0,.2)"
-          borderRadius="50%"
-          alt="profile-picture"
-        />
+        <UserPicture image={user.image} />
         <Flex
           m={5}
           justifyContent="space-between"
@@ -112,7 +103,7 @@ export default function UserDetails({
             <Followers
               showModal={showFollowersModal}
               setShowModal={setShowFollowersModal}
-              followers={user.followers}
+              id={id}
             />
             <Button
               onClick={() => setShowFollowingModal(true)}

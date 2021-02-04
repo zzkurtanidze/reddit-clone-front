@@ -1,17 +1,37 @@
 import { Flex, Image, Link, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getUserFollowers } from "../../../api";
 import { UserType } from "../../../types";
+import Loading from "../../common/Loading";
 import Modal from "../../Modal";
+import UserPicture from "../UserPicture";
 
 export default function Followers({
   showModal,
   setShowModal,
-  followers,
+  id,
 }: {
   showModal: boolean;
   setShowModal: Function;
-  followers: [UserType] | [];
+  id: string;
 }) {
+  const [followers, setFollowers] = useState<[UserType] | []>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    fetchFollowers();
+  }, []);
+
+  const fetchFollowers = async () => {
+    setLoading(true);
+    const response = await getUserFollowers(id);
+    if (response.statusText === "OK") {
+      setFollowers(response.data);
+    }
+    setLoading(false);
+  };
+
+  if (loading) return <Loading />;
   return (
     <Modal open={showModal} onClose={() => setShowModal(false)}>
       <Text fontSize={28} fontWeight="bold">
@@ -22,10 +42,18 @@ export default function Followers({
           <Text textAlign="center">No Followers</Text>
         ) : (
           followers.map((user) => (
-            <>
-              {user.image && <Image src={user.image} alt="profile-image" />}
-              <Link>{user.username}</Link>
-            </>
+            <Flex
+              p={4}
+              _hover={{ backgroundColor: "#d6eaff" }}
+              transition=".5s all ease"
+              w="100%"
+              h="max-content"
+              alignItems="center"
+              gridGap={5}
+            >
+              <UserPicture image={user.image} width="40px" />
+              <Link href={`/user/${user._id}`}>{user.username}</Link>
+            </Flex>
           ))
         )}
       </Flex>

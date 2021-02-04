@@ -5,6 +5,7 @@ import TrendingCommunities from "../../components/TrendingCommunities";
 import { Box, Grid } from "@chakra-ui/react";
 import { getPosts } from "../../api";
 import { PostType } from "../../types";
+import Loading from "../../components/common/Loading";
 
 const items = [
   {
@@ -48,20 +49,24 @@ const items = [
 export default function HomePage() {
   const [posts, setPosts] = useState<PostType[]>([]);
   const [error, setError] = useState();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     fetchPosts();
   }, []);
 
   const fetchPosts = async () => {
+    setLoading(true);
     const response = await getPosts();
     if (response && response.statusText === "OK") {
       setPosts(response.data);
     } else {
       setError(response?.data);
     }
+    setLoading(false);
   };
 
+  if (loading) return <Loading />;
   return (
     <Box mx="17%">
       <Trending items={posts} />

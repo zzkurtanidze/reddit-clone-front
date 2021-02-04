@@ -121,3 +121,15 @@ export const followUser = async (id: string) => {
     return ex.response;
   }
 };
+
+export const getUserFollowers = async (id: string) => {
+  try {
+    const response = await axios.get(
+      `${apiUrl}/users/${id}/followers`,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
