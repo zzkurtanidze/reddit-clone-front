@@ -110,7 +110,10 @@ export default function PostTeaser({ post }: { post: PostType }) {
         <Flex fontSize={12}>
           <Link fontWeight="bold">{post.postedTo["name"]}</Link>{" "}
           <Text color="gray.500" ml="10px">
-            Posted By <Link>{post.postedBy.username}</Link>
+            Posted By{" "}
+            <Link href={`/user/${post.postedBy._id}`}>
+              {post.postedBy.username}
+            </Link>
           </Text>
         </Flex>
         <Text fontWeight="semibold">{post.title}</Text>

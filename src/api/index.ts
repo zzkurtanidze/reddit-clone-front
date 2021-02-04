@@ -47,10 +47,14 @@ export const register = async (user: UserType) => {
   }
 };
 
-export const getUser = async () => {
+export const getUser = async (id = undefined) => {
   try {
-    const response = await axios.get(`${apiUrl}/users/me`, axiosOptions);
-    console.log(response.data);
+    let response;
+    if (!id) {
+      response = await axios.get(`${apiUrl}/users/me`, axiosOptions);
+    } else {
+      response = await axios.get(`${apiUrl}/users/${id}`, axiosOptions);
+    }
     return response.data;
   } catch (ex) {
     return undefined;

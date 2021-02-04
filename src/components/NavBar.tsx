@@ -62,7 +62,7 @@ export default function NavBar() {
       py={2}
       justifyContent="space-between"
     >
-      <Link>
+      <Link href="/">
         <Image src={Logo} alt={"Reddit Logo"} w={100} />
       </Link>
       <InputGroup w="30%" mr="25%">
@@ -117,7 +117,7 @@ export default function NavBar() {
                   title="Profile"
                   icon={<FaUserCircle color={color} />}
                   onClick={() => {
-                    window.location.replace("/me");
+                    window.location.replace(`/user/${user._id}`);
                   }}
                 />
                 <DropdownItem

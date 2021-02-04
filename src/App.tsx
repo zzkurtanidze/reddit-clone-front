@@ -29,7 +29,7 @@ export default function App() {
       <UserContext.Provider value={user}>
         <NavBar />
         <Switch>
-          <Route path="/me" component={UserPage} />
+          <Route path="/user/:id" component={UserPage} />
           <Route path="/" component={HomePage} />
         </Switch>
       </UserContext.Provider>

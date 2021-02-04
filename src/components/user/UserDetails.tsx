@@ -1,12 +1,19 @@
 //@ts-nocheck
 import { Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UserType } from "../../types";
 import Container from "../common/Container";
 import Following from "./user-modals/Following";
 import Followers from "./user-modals/Followers";
+import { getUser } from "../../api";
 
-export default function UserDetails({ user }: { user: UserType }) {
+export default function UserDetails({
+  user,
+  id,
+}: {
+  user: UserType;
+  id: string;
+}) {
   const [showFollowingModal, setShowFollowingModal] = useState<boolean>(false);
   const [showFollowersModal, setShowFollowersModal] = useState<boolean>(false);
 
