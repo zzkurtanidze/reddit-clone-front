@@ -11,7 +11,7 @@ export default function Loading() {
         left="50%"
         transform="translate(-50%, -50%)"
       >
-        <SyncLoader size={18} color="#333" loading={true} />
+        <SyncLoader size={18} color="#FB4729" loading={true} />
       </Box>
     </Box>
   );

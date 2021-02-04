@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import { Route, Switch } from "react-router-dom";
@@ -6,6 +6,7 @@ import HomePage from "./pages/home";
 import { getUser } from "./api/index";
 import { UserContext } from "./context/UserContext";
 import UserPage from "./pages/user-page";
+import Loading from "./components/common/Loading";
 
 const theme = extendTheme({
   fonts: {
@@ -14,16 +15,21 @@ const theme = extendTheme({
 });
 
 export default function App() {
-  const [user, setUser] = React.useState();
+  const [user, setUser] = useState();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchData = async () => {
+    setLoading(true);
     const data = await getUser();
     setUser(data);
+    setLoading(false);
   };
 
   React.useEffect(() => {
     fetchData();
   }, []);
+
+  if (loading) return <Loading />;
   return (
     <ChakraProvider theme={theme}>
       <UserContext.Provider value={user}>
