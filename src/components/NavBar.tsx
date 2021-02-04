@@ -117,7 +117,7 @@ export default function NavBar() {
                   title="Profile"
                   icon={<FaUserCircle color={color} />}
                   onClick={() => {
-                    console.log("");
+                    window.location.replace("/me");
                   }}
                 />
                 <DropdownItem

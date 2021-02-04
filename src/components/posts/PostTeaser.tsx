@@ -16,10 +16,12 @@ import { RiBookmarkFill } from "react-icons/ri";
 
 import { likePost } from "../../api/index";
 import { UserContext } from "../../context/UserContext";
+import LoginModal from "../form-modals/LoginModal";
 
 export default function PostTeaser({ post }: { post: PostType }) {
   const [status, setStatus] = useState("");
   const [likes, setLikes] = useState(0);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const user = useContext(UserContext);
 
   useEffect(() => {
@@ -43,13 +45,16 @@ export default function PostTeaser({ post }: { post: PostType }) {
   const bg = useColorModeValue("gray.100", "gray.900");
 
   const handleLike = async (e: any) => {
-    let name = e.target.name || e.target.parentElement.parentNode.name;
-    if (name && post._id) {
-      const { data } = await likePost({ action: name, id: post._id });
-      const votes = data.votes;
-      const status = data.status;
-      setStatus(status);
-      setLikes(votes);
+    if (!user) setShowModal(true);
+    else {
+      let name = e.target.name || e.target.parentElement.parentNode.name;
+      if (name && post._id) {
+        const { data } = await likePost({ action: name, id: post._id });
+        const votes = data.votes;
+        const status = data.status;
+        setStatus(status);
+        setLikes(votes);
+      }
     }
   };
 
@@ -125,6 +130,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
           <PostButton icon={<RiBookmarkFill color="gray" />} label="Save" />
         </Flex>
       </Box>
+      <LoginModal setShowModal={setShowModal} showModal={showModal} />
     </Flex>
   );
 }

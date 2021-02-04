@@ -1,46 +1,91 @@
 //@ts-nocheck
-import { Box, Image, Text } from "@chakra-ui/react";
-import React from "react";
+import { Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
+import React, { useState } from "react";
 import { UserType } from "../../types";
 import Container from "../common/Container";
+import Following from "./user-modals/Following";
+import Followers from "./user-modals/Followers";
 
 export default function UserDetails({ user }: { user: UserType }) {
+  const [showFollowingModal, setShowFollowingModal] = useState<boolean>(false);
+  const [showFollowersModal, setShowFollowersModal] = useState<boolean>(false);
+
   return (
-    <>
-      <Box pt={20} position="relative" display="flex" gridGap={50}>
-        <Box boxShadow="inset 0 0 10px #000000" position="absolute" top="0">
-          <Image
-            src={
-              user.cover
-                ? user.cover
-                : "https://www.zipjob.com/blog/wp-content/uploads/2020/08/linkedin-default-background-cover-photo-1.png"
-            }
-            alt="profile-cover"
-            w="100vw"
-            h="200px"
-            zIndex={-1}
-            objectFit="cover"
-          />
-        </Box>
-        <Container position="relative" top="-50px">
-          <Image
-            src={
-              user.image
-                ? user.image
-                : "https://icon-library.com/images/default-user-icon/default-user-icon-4.jpg"
-            }
-            w="200px"
-            boxShadow="2px 2px 10px rgba(0,0,0,.2)"
-            borderRadius="50%"
-            alt="profile-picture"
-          />
-          <Box m={5}>
-            <Text fontSize={42} fontWeight="bold" mb="20px">
-              {user.username}
-            </Text>
-          </Box>
-        </Container>
+    <Box pt={20} position="relative" display="flex" gridGap={50}>
+      <Box position="absolute" top="0">
+        <Image
+          src={
+            user.cover
+              ? user.cover
+              : "https://www.zipjob.com/blog/wp-content/uploads/2020/08/linkedin-default-background-cover-photo-1.png"
+          }
+          alt="profile-cover"
+          w="100vw"
+          h="200px"
+          zIndex={-1}
+          objectFit="cover"
+        />
       </Box>
-    </>
+      <Container position="relative" top="-50px" w="100%">
+        <Image
+          src={
+            user.image
+              ? user.image
+              : "https://icon-library.com/images/default-user-icon/default-user-icon-4.jpg"
+          }
+          w="200px"
+          boxShadow="2px 2px 10px rgba(0,0,0,.2)"
+          borderRadius="50%"
+          alt="profile-picture"
+        />
+        <Flex
+          m={5}
+          justifyContent="space-between"
+          w="100%"
+          h="max-content"
+          alignItems="center"
+          mb="20px"
+        >
+          <Text fontSize={42} fontWeight="bold">
+            {user.username}
+          </Text>
+          <Flex gridGap={5}>
+            <Button
+              bg="none"
+              _focus={{}}
+              _hover={{}}
+              _active={{}}
+              name="followers"
+              onClick={() => setShowFollowersModal(true)}
+            >
+              Followers: {user.followers.length}
+            </Button>
+            <Followers
+              showModal={showFollowersModal}
+              setShowModal={setShowFollowersModal}
+              followers={user.followers}
+            />
+            <Button
+              onClick={() => setShowFollowingModal(true)}
+              bg="none"
+              _focus={{}}
+              _hover={{}}
+              _active={{}}
+              name="following"
+            >
+              Following: {user.following.length}
+            </Button>
+            <Following
+              showModal={showFollowingModal}
+              setShowModal={setShowFollowingModal}
+              following={user.following}
+            />
+          </Flex>
+        </Flex>
+        <Box m={5}>
+          <Text>Liked Posts: {user.likedPosts.length}</Text>
+        </Box>
+      </Container>
+    </Box>
   );
 }
