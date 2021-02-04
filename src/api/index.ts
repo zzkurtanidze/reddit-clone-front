@@ -38,6 +38,20 @@ export const likePost = async ({
   }
 };
 
+// Users
+
+/**
+ *
+ * @param user - User information
+ * Example:
+ * {
+ *   "username": "zura12337"
+ *   "email": "zura.kurta@gmail.com"
+ *   "password": "qawsedrf"
+ * }
+ *
+ */
+
 export const register = async (user: UserType) => {
   try {
     const response = await axios.post(`${apiUrl}/users`, user, axiosOptions);
@@ -47,6 +61,13 @@ export const register = async (user: UserType) => {
   }
 };
 
+/**
+ *
+ * @param id - User id etc. 601ac04225644d90b1f23fbc
+ *
+ * Without params this function will return current user information
+ *
+ */
 export const getUser = async (id = undefined) => {
   try {
     let response;
@@ -61,6 +82,15 @@ export const getUser = async (id = undefined) => {
   }
 };
 
+/**
+ *
+ * @param user - User Credentials
+ *
+ * {
+ *    "email": "zura.kurta@gmail.com",
+ *    "password:": "qawsedrf"
+ * }
+ */
 export const login = async (user: { email: string; password: string }) => {
   try {
     const response = await axios.post(`${apiUrl}/auth`, user, axiosOptions);
@@ -73,7 +103,19 @@ export const login = async (user: { email: string; password: string }) => {
 export const logOut = async () => {
   try {
     const response = await axios.get(`${apiUrl}/users/logout`, axiosOptions);
-    console.log(response);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const followUser = async (id: string) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/users/${id}/follow`,
+      undefined,
+      axiosOptions
+    );
     return response;
   } catch (ex) {
     return ex.response;

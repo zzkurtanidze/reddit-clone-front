@@ -26,7 +26,7 @@ export default function Dropdown({
 
   return (
     //@ts-ignore
-    <Box ref={ref}>
+    <Box zIndex={10} ref={ref}>
       <Button
         bg="transparent"
         _focus={{ background: "rgba(255,255,255,.1)" }}

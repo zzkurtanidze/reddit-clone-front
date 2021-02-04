@@ -1,11 +1,12 @@
 //@ts-nocheck
-import { Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Box, Button, Flex, Image, Text, useToast } from "@chakra-ui/react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserType } from "../../types";
 import Container from "../common/Container";
 import Following from "./user-modals/Following";
 import Followers from "./user-modals/Followers";
-import { getUser } from "../../api";
+import { followUser } from "../../api";
+import { UserContext } from "../../context/UserContext";
 
 export default function UserDetails({
   user,
@@ -16,6 +17,36 @@ export default function UserDetails({
 }) {
   const [showFollowingModal, setShowFollowingModal] = useState<boolean>(false);
   const [showFollowersModal, setShowFollowersModal] = useState<boolean>(false);
+  const [followed, setFollowed] = useState<boolean | undefined>(undefined);
+  const loggedUser = useContext(UserContext);
+  const toast = useToast();
+
+  useEffect(() => {
+    for (var i = 0; i < loggedUser?.following?.length; i++) {
+      if (loggedUser?.following[i]?._id === id) {
+        setFollowed(true);
+        break;
+      }
+    }
+  }, [loggedUser]);
+
+  const handleFollow = async () => {
+    const response = await followUser(id);
+    if (response.statusText === "OK") {
+      if (response.data === "follow") {
+        setFollowed(true);
+      } else {
+        setFollowed(false);
+      }
+    } else if (response.data === "unfollow") {
+      setFollowed(false);
+    } else {
+      toast({
+        title: response.data,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <Box pt={20} position="relative" display="flex" gridGap={50}>
@@ -29,7 +60,7 @@ export default function UserDetails({
           alt="profile-cover"
           w="100vw"
           h="200px"
-          zIndex={-1}
+          zIndex={-5}
           objectFit="cover"
         />
       </Box>
@@ -53,9 +84,20 @@ export default function UserDetails({
           alignItems="center"
           mb="20px"
         >
-          <Text fontSize={42} fontWeight="bold">
-            {user.username}
-          </Text>
+          <Flex alignItems="center" gridGap={5}>
+            <Text fontSize={42} fontWeight="bold">
+              {user.username}
+            </Text>
+            <Button
+              backgroundColor={!followed ? "#3C97B2" : "#EDF2F7"}
+              color={!followed ? "white" : "#333"}
+              _hover={{ backgroundColor: !followed ? "#317e96" : "#EDF2F7" }}
+              _active={{}}
+              onClick={handleFollow}
+            >
+              {!followed ? "Follow" : "Unfollow"}
+            </Button>
+          </Flex>
           <Flex gridGap={5}>
             <Button
               bg="none"
