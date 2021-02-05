@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export const DropdownItem: React.FC<{
   title: string;
@@ -36,6 +37,35 @@ export const DropdownItem: React.FC<{
         </Text>
       </Flex>
     </Button>
+  );
+};
+
+export const DropdownLink: React.FC<{
+  title: string;
+  icon: any;
+  href: string;
+}> = ({ title, icon, href }) => {
+  return (
+    <Link to={href}>
+      <Flex
+        w="100%"
+        borderRadius="0"
+        px="20px"
+        py="10px"
+        justifyContent="flex-start"
+        alignItems="center"
+        cursor="pointer"
+        _hover={{
+          backgroundColor: "#1384D7",
+          color: "white",
+        }}
+      >
+        {icon && icon}
+        <Text fontWeight="bold" ml="13px" fontSize={14}>
+          {title}
+        </Text>
+      </Flex>
+    </Link>
   );
 };
 

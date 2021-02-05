@@ -23,6 +23,7 @@ import {
   DropdownItem,
   DropdownTitle,
   CustomDropdownItem,
+  DropdownLink,
 } from "./common/DropdownItems";
 import { logOut } from "../api/index";
 
@@ -112,12 +113,10 @@ export default function NavBar() {
             {user && (
               <>
                 <DropdownTitle label={"My Stuff"} />
-                <DropdownItem
+                <DropdownLink
                   title="Profile"
                   icon={<FaUserCircle color={color} />}
-                  onClick={() => {
-                    window.location.replace(`/user/${user._id}`);
-                  }}
+                  href={`/user/${user._id}`}
                 />
                 <DropdownItem
                   title="User Settings"
