@@ -2,7 +2,7 @@
 import axios from "axios";
 import { UserType } from "../types";
 
-const apiUrl = "http://localhost:4000/api";
+const apiUrl = "http://localhost:5000/api";
 
 const axiosOptions = {
   withCredentials: true,
