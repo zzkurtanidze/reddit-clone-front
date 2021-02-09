@@ -7,10 +7,13 @@ import { getUser } from "./api/index";
 import { UserContext } from "./context/UserContext";
 import UserPage from "./pages/user-page";
 import Loading from "./components/common/Loading";
+import SubmitPage from "./pages/submit-page";
+import { Fonts } from "./Fonts";
 
 const theme = extendTheme({
   fonts: {
     body: "Noto Sans",
+    mono: "IBM Plex Sans",
   },
 });
 
@@ -32,11 +35,13 @@ export default function App() {
   if (loading) return <Loading />;
   return (
     <ChakraProvider theme={theme}>
+      <Fonts />
       <UserContext.Provider value={user}>
         <NavBar />
         <Switch>
+          <Route path="/submit" component={SubmitPage} />
           <Route path="/user/:id" component={UserPage} />
-          <Route path="/" component={HomePage} />
+          <Route path="/" exact component={HomePage} />
         </Switch>
       </UserContext.Provider>
     </ChakraProvider>
