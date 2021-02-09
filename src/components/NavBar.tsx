@@ -43,7 +43,6 @@ type NavLinkProps = {
 };
 
 export default function NavBar() {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const user = useContext(UserContext);
@@ -94,12 +93,7 @@ export default function NavBar() {
             />
           </>
         )}
-        <Dropdown
-          icon={<AiFillCaretDown size={15} color={color} />}
-          isExpanded={isExpanded}
-          setIsExpanded={setIsExpanded}
-          title={user && user.username}
-        >
+        <Dropdown title={user && user.username}>
           <Box
             w="12%"
             h="max-content"
