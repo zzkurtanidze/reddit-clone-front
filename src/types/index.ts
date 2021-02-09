@@ -20,5 +20,14 @@ export type UserType = {
   following?: [string];
   likedPosts?: [PostType];
   dislikedPosts?: [PostType];
-  joined?: [string];
+  joined?: [CommunityType];
+};
+
+export type CommunityType = {
+  _id: string;
+  name: string;
+  description: string;
+  image: string;
+  members: [UserType];
+  posts: [PostType];
 };
