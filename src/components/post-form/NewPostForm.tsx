@@ -1,11 +1,5 @@
 import { Box, Button, Flex, Text, Input } from "@chakra-ui/react";
-import React, {
-  ChangeEvent,
-  ChangeEventHandler,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Select from "react-select";
 import PostTab from "./tabs/PostTab";
 import ImagesTab from "./tabs/ImagesTab";
