@@ -23,6 +23,7 @@ import {
   DropdownItem,
   DropdownTitle,
   CustomDropdownItem,
+  DropdownLink,
 } from "./common/DropdownItems";
 import { logOut } from "../api/index";
 
@@ -42,7 +43,6 @@ type NavLinkProps = {
 };
 
 export default function NavBar() {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const user = useContext(UserContext);
@@ -93,12 +93,7 @@ export default function NavBar() {
             />
           </>
         )}
-        <Dropdown
-          icon={<AiFillCaretDown size={15} color={color} />}
-          isExpanded={isExpanded}
-          setIsExpanded={setIsExpanded}
-          title={user && user.username}
-        >
+        <Dropdown title={user && user.username} icon={<FaUserCircle />}>
           <Box
             w="12%"
             h="max-content"
@@ -112,12 +107,10 @@ export default function NavBar() {
             {user && (
               <>
                 <DropdownTitle label={"My Stuff"} />
-                <DropdownItem
+                <DropdownLink
                   title="Profile"
                   icon={<FaUserCircle color={color} />}
-                  onClick={() => {
-                    window.location.replace(`/user/${user._id}`);
-                  }}
+                  href={`/user/${user._id}`}
                 />
                 <DropdownItem
                   title="User Settings"

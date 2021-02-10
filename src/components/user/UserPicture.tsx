@@ -16,7 +16,7 @@ export default function UserPicture({
           : "https://icon-library.com/images/default-user-icon/default-user-icon-4.jpg"
       }
       w={width}
-      boxShadow="2px 2px 10px rgba(0,0,0,.2)"
+      boxShadow="1px 1px 6px rgba(0,0,0,.1)"
       borderRadius="50%"
       alt="profile-picture"
     />

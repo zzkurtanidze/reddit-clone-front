@@ -8,6 +8,20 @@ const axiosOptions = {
   withCredentials: true,
 };
 
+export const newPost = async (post: {
+  title: string;
+  body: string;
+  image: string;
+  postedTo: string;
+}) => {
+  try {
+    const response = await axios.post(`${apiUrl}/posts`, post, axiosOptions);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 export const getPosts = async () => {
   try {
     const data = await axios.get(`${apiUrl}/posts`, axiosOptions);
@@ -138,6 +152,23 @@ export const getUserFollowing = async (id: string) => {
   try {
     const response = await axios.get(
       `${apiUrl}/users/${id}/following`,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+/**
+ * Upload Images
+ */
+
+export const uploadImage = async (image: any) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/images/upload`,
+      image,
       axiosOptions
     );
     return response;

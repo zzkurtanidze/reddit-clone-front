@@ -120,7 +120,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
         <Text fontSize={14}>{post.body}</Text>
         {post.image && (
           <Image
-            src={post.image}
+            src={`http://${post.image}`}
             mt="10px"
             w="100%"
             maxHeight="500px"
