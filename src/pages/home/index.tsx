@@ -73,11 +73,13 @@ export default function HomePage() {
   return (
     <Container>
       <>
-        {posts.length >= 10 && <Trending items={posts} />}
+        {posts.length >= 1 && (
+          <Trending items={posts.length >= 6 ? posts.slice(0, 4) : posts} />
+        )}
         <Grid mt={10} templateColumns="1fr 0.5fr" gap={50}>
           <Box>
             <NewPostTeaser />
-            {posts.length >= 10 &&
+            {posts.length >= 1 &&
               posts.map((item) => <PostTeaser key={item._id} post={item} />)}
           </Box>
           <Box>

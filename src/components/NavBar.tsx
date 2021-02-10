@@ -93,7 +93,7 @@ export default function NavBar() {
             />
           </>
         )}
-        <Dropdown title={user && user.username}>
+        <Dropdown title={user && user.username} icon={<FaUserCircle />}>
           <Box
             w="12%"
             h="max-content"
