@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
+import "react-quill/dist/quill.snow.css";
 
 ReactDOM.render(
   <BrowserRouter>
