@@ -6,6 +6,8 @@ import { Box, Grid } from "@chakra-ui/react";
 import { getPosts } from "../../api";
 import { PostType } from "../../types";
 import Loading from "../../components/common/Loading";
+import NewPostTeaser from "../../components/post-form/NewPostTeaser";
+import Container from "../../components/common/Container";
 
 const items = [
   {
@@ -58,6 +60,7 @@ export default function HomePage() {
   const fetchPosts = async () => {
     setLoading(true);
     const response = await getPosts();
+    console.log(response);
     if (response && response.statusText === "OK") {
       setPosts(response.data);
     } else {
@@ -68,20 +71,20 @@ export default function HomePage() {
 
   if (loading) return <Loading />;
   return (
-    <Box mx="17%">
-      <Trending items={posts} />
-      <Grid mt={10} templateColumns="1fr 0.5fr" gap={50}>
-        {posts && (
+    <Container>
+      <>
+        {posts.length >= 10 && <Trending items={posts} />}
+        <Grid mt={10} templateColumns="1fr 0.5fr" gap={50}>
           <Box>
-            {posts.map((item) => (
-              <PostTeaser key={item._id} post={item} />
-            ))}
+            <NewPostTeaser />
+            {posts.length >= 10 &&
+              posts.map((item) => <PostTeaser key={item._id} post={item} />)}
           </Box>
-        )}
-        <Box>
-          <TrendingCommunities />
-        </Box>
-      </Grid>
-    </Box>
+          <Box>
+            <TrendingCommunities />
+          </Box>
+        </Grid>
+      </>
+    </Container>
   );
 }
