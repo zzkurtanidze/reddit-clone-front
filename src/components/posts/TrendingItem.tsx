@@ -18,7 +18,9 @@ export default function TrendingItem({ item }: { item: PostType }) {
         <Text fontSize="16px" fontWeight="bold">
           {item.title}
         </Text>
-        <Text>{item.body.slice(0, 40)}...</Text>
+        <Text
+          dangerouslySetInnerHTML={{ __html: `${item.body.slice(0, 60)}...` }}
+        ></Text>
         <Text fontSize={12} m="5px">
           {item.postedTo.name}
         </Text>

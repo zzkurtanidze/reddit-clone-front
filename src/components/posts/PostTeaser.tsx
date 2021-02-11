@@ -117,7 +117,11 @@ export default function PostTeaser({ post }: { post: PostType }) {
           </Text>
         </Flex>
         <Text fontWeight="semibold">{post.title}</Text>
-        <Text fontSize={14}>{post.body}</Text>
+        <Text
+          fontSize={14}
+          paddingLeft={5}
+          dangerouslySetInnerHTML={{ __html: post.body }}
+        ></Text>
         {post.image && (
           <Image
             src={`http://${post.image}`}
