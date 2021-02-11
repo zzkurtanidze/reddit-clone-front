@@ -7,7 +7,7 @@ export default function TrendingItem({ item }: { item: PostType }) {
     <Box
       position="relative"
       h="170px"
-      bgImage={`linear-gradient(0deg, rgba(0,0,0) -20%, rgba(255,255,255,0) 120%), url(${item.image})`}
+      bgImage={`linear-gradient(0deg, rgba(0,0,0) -20%, rgba(255,255,255,0) 120%), url(http://${item.image})`}
       bgSize="cover"
       bgPosition="0 50%"
       bgRepeat="no-repeat"
@@ -18,7 +18,9 @@ export default function TrendingItem({ item }: { item: PostType }) {
         <Text fontSize="16px" fontWeight="bold">
           {item.title}
         </Text>
-        <Text>{item.body.slice(0, 40)}...</Text>
+        <Text
+          dangerouslySetInnerHTML={{ __html: `${item.body.slice(0, 60)}...` }}
+        ></Text>
         <Text fontSize={12} m="5px">
           {item.postedTo.name}
         </Text>
