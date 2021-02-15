@@ -19,3 +19,9 @@
   margin-left: 1rem;
   list-style: lower-latin;
 }
+
+.user-image {
+  background: transparent
+    url("https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.webp") center
+    no-repeat;
+}

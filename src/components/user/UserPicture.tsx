@@ -19,6 +19,7 @@ export default function UserPicture({
       boxShadow="1px 1px 6px rgba(0,0,0,.1)"
       borderRadius="50%"
       alt="profile-picture"
+      className="user-image"
     />
   );
 }

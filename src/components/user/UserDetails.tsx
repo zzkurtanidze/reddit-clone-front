@@ -63,6 +63,7 @@ export default function UserDetails({
           h="200px"
           zIndex={-5}
           objectFit="cover"
+          className="user-image"
         />
       </Box>
       <Container position="relative" top="-50px" w="100%">
