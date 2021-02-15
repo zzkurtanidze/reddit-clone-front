@@ -193,6 +193,15 @@ export const getCommunities = async () => {
   }
 };
 
+export const getCommunity = async (id: string) => {
+  try {
+    const response = await axios.get(`${apiUrl}/community/${id}`);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 export const joinCommunity = async (id: string) => {
   try {
     const response = await axios.post(
