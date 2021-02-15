@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PostTeaser from "../../components/posts/PostTeaser";
 import Trending from "../../components/posts/Trending";
 import TrendingCommunities from "../../components/TrendingCommunities";
@@ -8,10 +8,12 @@ import { CommunityType, PostType } from "../../types";
 import Loading from "../../components/common/Loading";
 import NewPostTeaser from "../../components/post-form/NewPostTeaser";
 import Container from "../../components/common/Container";
+import { UserContext } from "../../context/UserContext";
 
 export default function HomePage() {
   const [posts, setPosts] = useState<PostType[]>([]);
   const [communities, setCommunities] = useState<CommunityType[]>([]);
+  const user = useContext(UserContext);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -24,8 +26,6 @@ export default function HomePage() {
     const response = await getPosts();
     if (response && response.statusText === "OK") {
       setPosts(response.data);
-    } else {
-      console.log(response?.data);
     }
     setLoading(false);
   };
@@ -35,7 +35,6 @@ export default function HomePage() {
     const response = await getCommunities();
     if (response && response.statusText === "OK") {
       setCommunities(response.data);
-      console.log(response.data)
     }
     setLoading(false);
   };
@@ -50,7 +49,7 @@ export default function HomePage() {
         <Grid mt={10} templateColumns="1fr 0.5fr" gap={50}>
           {}
           <Box>
-            <NewPostTeaser />
+            {user && <NewPostTeaser />}
             {posts.length >= 1 &&
               posts.map((item) => <PostTeaser key={item._id} post={item} />)}
           </Box>

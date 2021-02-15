@@ -7,7 +7,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
-import { joinCommunity } from "../api";
+import { getCommunity, joinCommunity } from "../api";
 import { UserContext } from "../context/UserContext";
 import { CommunityType } from "../types/index";
 
@@ -33,7 +33,7 @@ export default function TrendingCommunities({
       </Text>
       <Flex mt="15px" direction="column" gridGap={5}>
         {communities.map((community) => (
-          <TrendingCommunity community={community} />
+          <TrendingCommunity key={community._id} community={community} />
         ))}
       </Flex>
     </Box>
@@ -45,6 +45,7 @@ const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
 }) => {
   const user = useContext(UserContext);
   const [joined, setJoined] = useState<boolean>(false);
+  const [joinedNumber, setJoinedNumber] = useState<number>(0);
 
   useEffect(() => {
     if (user?.joined) {
@@ -53,14 +54,22 @@ const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
           setJoined(true);
         }
       });
+      setJoinedNumber(community.members.length);
     }
   }, [user]);
+
+  const fetchCommunity = async () => {
+    const response = await getCommunity(community._id);
+    if (response.statusText === "OK") {
+    }
+  };
 
   const handleJoin = async () => {
     const response = await joinCommunity(community._id);
     if (response.statusText === "OK") {
-      setJoined(true);
-      console.log(response);
+      setJoined(!joined);
+      setJoinedNumber((number) => (joined ? number - 1 : number + 1));
+      fetchCommunity();
     }
   };
 
@@ -79,7 +88,7 @@ const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
         >
           r/{community.name}...
         </Text>
-        <Text fontSize={10}>{community.members.length} Members</Text>
+        <Text fontSize={10}>{joinedNumber} Members</Text>
       </Box>
       <Button
         px={50}
