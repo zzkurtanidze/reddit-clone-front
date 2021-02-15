@@ -3,18 +3,20 @@ import PostTeaser from "../../components/posts/PostTeaser";
 import Trending from "../../components/posts/Trending";
 import TrendingCommunities from "../../components/TrendingCommunities";
 import { Box, Grid } from "@chakra-ui/react";
-import { getPosts } from "../../api";
-import { PostType } from "../../types";
+import { getCommunities, getPosts } from "../../api";
+import { CommunityType, PostType } from "../../types";
 import Loading from "../../components/common/Loading";
 import NewPostTeaser from "../../components/post-form/NewPostTeaser";
 import Container from "../../components/common/Container";
 
 export default function HomePage() {
   const [posts, setPosts] = useState<PostType[]>([]);
+  const [communities, setCommunities] = useState<CommunityType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     fetchPosts();
+    fetchCommunities();
   }, []);
 
   const fetchPosts = async () => {
@@ -24,6 +26,16 @@ export default function HomePage() {
       setPosts(response.data);
     } else {
       console.log(response?.data);
+    }
+    setLoading(false);
+  };
+
+  const fetchCommunities = async () => {
+    setLoading(true);
+    const response = await getCommunities();
+    if (response && response.statusText === "OK") {
+      setCommunities(response.data);
+      console.log(response.data)
     }
     setLoading(false);
   };
@@ -43,7 +55,7 @@ export default function HomePage() {
               posts.map((item) => <PostTeaser key={item._id} post={item} />)}
           </Box>
           <Box>
-            <TrendingCommunities />
+            <TrendingCommunities communities={communities} />
           </Box>
         </Grid>
       </>

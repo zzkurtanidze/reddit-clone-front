@@ -6,9 +6,16 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { joinCommunity } from "../api";
+import { UserContext } from "../context/UserContext";
+import { CommunityType } from "../types/index";
 
-export default function TrendingCommunities() {
+export default function TrendingCommunities({
+  communities,
+}: {
+  communities: CommunityType[];
+}) {
   const bg = useColorModeValue("gray.100", "gray.900");
 
   return (
@@ -25,29 +32,54 @@ export default function TrendingCommunities() {
         Trending Communities
       </Text>
       <Flex mt="15px" direction="column" gridGap={5}>
-        <TrendingCommunity />
-        <TrendingCommunity />
-        <TrendingCommunity />
-        <TrendingCommunity />
+        {communities.map((community) => (
+          <TrendingCommunity community={community} />
+        ))}
       </Flex>
     </Box>
   );
 }
 
-const TrendingCommunity: React.FC = () => {
+const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
+  community,
+}) => {
+  const user = useContext(UserContext);
+  const [joined, setJoined] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (user?.joined) {
+      user.joined.forEach((joinedCommunity) => {
+        if (joinedCommunity._id === community._id) {
+          setJoined(true);
+        }
+      });
+    }
+  }, [user]);
+
+  const handleJoin = async () => {
+    const response = await joinCommunity(community._id);
+    if (response.statusText === "OK") {
+      setJoined(true);
+      console.log(response);
+    }
+  };
+
   return (
     <Flex gridGap={3}>
-      <Image
-        w={8}
-        h={8}
-        borderRadius="50%"
-        src="https://b.thumbs.redditmedia.com/yATNSyOCcGXzD1GPqYvypod7g8czHhUvxUMEs4CjxTA.png"
-      />
+      {community.image && (
+        <Image w={8} h={8} borderRadius="50%" src={community.image} />
+      )}
       <Box>
-        <Text letterSpacing={-0.2} fontWeight="bold" fontSize={12}>
-          r/OldSchoolRidicilous
+        <Text
+          letterSpacing={-0.2}
+          textOverflow="ellipsis"
+          noOfLines={1}
+          fontWeight="bold"
+          fontSize={12}
+        >
+          r/{community.name}...
         </Text>
-        <Text fontSize={10}>25,152 Members</Text>
+        <Text fontSize={10}>{community.members.length} Members</Text>
       </Box>
       <Button
         px={50}
@@ -55,13 +87,14 @@ const TrendingCommunity: React.FC = () => {
         h="max-content"
         fontSize={14}
         borderRadius={50}
-        bg="#1384D7"
-        color="white"
+        bg={joined ? "#e2e2e2" : "#1384D7"}
+        color={joined ? "black" : "white"}
         _hover={{
-          backgroundColor: "#3c9ce0",
+          backgroundColor: joined ? "#c9c9c9" : "#3c9ce0",
         }}
+        onClick={handleJoin}
       >
-        Join
+        {joined ? "Joined" : "Join"}
       </Button>
     </Flex>
   );

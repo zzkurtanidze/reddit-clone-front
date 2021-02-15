@@ -176,3 +176,32 @@ export const uploadImage = async (image: any) => {
     return ex.response;
   }
 };
+
+/**
+ *
+ * * Community
+ *
+ */
+// Get communities
+
+export const getCommunities = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/community`);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const joinCommunity = async (id: string) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/community/${id}/join`,
+      null,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.reponse;
+  }
+};
