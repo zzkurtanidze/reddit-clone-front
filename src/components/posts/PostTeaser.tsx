@@ -119,7 +119,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
         <Text fontWeight="semibold">{post.title}</Text>
         <Text
           fontSize={14}
-          paddingLeft={5}
+          className="post"
           dangerouslySetInnerHTML={{ __html: post.body }}
         ></Text>
         {post.image && (

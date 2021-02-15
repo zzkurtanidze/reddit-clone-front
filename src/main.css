@@ -1,0 +1,21 @@
+.post a {
+  text-decoration: underline !important;
+  color: blue !important;
+}
+.post ul,
+.post ol {
+  margin-left: 1rem;
+}
+.post ul .ql-indent-1 {
+  margin-left: 1rem;
+  list-style: circle;
+}
+.post ul .ql-indent-2 {
+  margin-left: 2rem;
+  list-style: square;
+}
+
+.post ol .ql-indent-1 {
+  margin-left: 1rem;
+  list-style: lower-latin;
+}
