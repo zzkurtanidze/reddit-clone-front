@@ -55,6 +55,7 @@ export default function Following({
                 display="flex"
                 alignItems="center"
                 gridGap={5}
+                _focus={{}}
                 href={`/user/${user._id}`}
               >
                 <UserPicture image={user.image} width="40px" />

@@ -29,7 +29,6 @@ import { logOut } from "../api/index";
 
 import { BiSearchAlt } from "react-icons/bi";
 import { GoGear } from "react-icons/go";
-import { AiFillCaretDown } from "react-icons/ai";
 import { FaMoon, FaUserCircle } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
 import { UserContext } from "../context/UserContext";
@@ -61,7 +60,7 @@ export default function NavBar() {
       py={2}
       justifyContent="space-between"
     >
-      <Link href="/">
+      <Link href="/" _focus={{}} _active={{}}>
         <Image src={Logo} alt={"Reddit Logo"} w={100} />
       </Link>
       <InputGroup w="30%" mr="25%">

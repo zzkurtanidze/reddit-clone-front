@@ -17,26 +17,24 @@ export default function HomePage() {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setLoading(true);
     fetchPosts();
     fetchCommunities();
+    setLoading(false);
   }, []);
 
   const fetchPosts = async () => {
-    setLoading(true);
     const response = await getPosts();
     if (response && response.statusText === "OK") {
       setPosts(response.data);
     }
-    setLoading(false);
   };
 
   const fetchCommunities = async () => {
-    setLoading(true);
     const response = await getCommunities();
     if (response && response.statusText === "OK") {
       setCommunities(response.data);
     }
-    setLoading(false);
   };
 
   if (loading) return <Loading />;
@@ -54,7 +52,7 @@ export default function HomePage() {
               posts.map((item) => <PostTeaser key={item._id} post={item} />)}
           </Box>
           <Box>
-            <TrendingCommunities communities={communities} />
+            {communities && <TrendingCommunities communities={communities} />}
           </Box>
         </Grid>
       </>

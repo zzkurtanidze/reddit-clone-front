@@ -111,7 +111,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
           <Link fontWeight="bold">{post.postedTo["name"]}</Link>{" "}
           <Text color="gray.500" ml="10px">
             Posted By{" "}
-            <Link href={`/user/${post.postedBy._id}`}>
+            <Link href={`/user/${post.postedBy._id}`} _focus={{}} _active={{}}>
               {post.postedBy.username}
             </Link>
           </Text>
