@@ -1,46 +1,11 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
-import { getCommunity, joinCommunity } from "../api";
-import { UserContext } from "../context/UserContext";
-import { CommunityType } from "../types/index";
+import React from "react";
+import { Box, Flex, Image, Text, Button } from "@chakra-ui/react";
+import { useContext, useEffect, useState } from "react";
+import { getCommunity, joinCommunity } from "../../api";
+import { UserContext } from "../../context/UserContext";
+import { CommunityType } from "../../types";
 
-export default function TrendingCommunities({
-  communities,
-}: {
-  communities: CommunityType[];
-}) {
-  const bg = useColorModeValue("gray.100", "gray.900");
-
-  return (
-    <Box
-      borderRadius={5}
-      border="1px"
-      borderColor="gray.300"
-      w="100%"
-      h="max-content"
-      bg={bg}
-      p={15}
-    >
-      <Text fontWeight="bold" fontSize={14}>
-        Trending Communities
-      </Text>
-      <Flex mt="15px" direction="column" gridGap={5}>
-        {communities.map((community) => (
-          <TrendingCommunity key={community._id} community={community} />
-        ))}
-      </Flex>
-    </Box>
-  );
-}
-
-const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
+export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
   community,
 }) => {
   const user = useContext(UserContext);
@@ -76,7 +41,13 @@ const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
   return (
     <Flex gridGap={3}>
       {community.image && (
-        <Image w={8} h={8} borderRadius="50%" src={community.image} />
+        <Image
+          className="loading-image"
+          w={8}
+          h={8}
+          borderRadius="50%"
+          src={community.image}
+        />
       )}
       <Box>
         <Text

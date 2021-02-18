@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import PostTeaser from "../../components/posts/PostTeaser";
 import Trending from "../../components/posts/Trending";
-import TrendingCommunities from "../../components/TrendingCommunities";
+import TrendingCommunities from "../../components/community/TrendingCommunities";
 import { Box, Grid } from "@chakra-ui/react";
 import { getCommunities, getPosts } from "../../api";
 import { CommunityType, PostType } from "../../types";
@@ -17,11 +17,14 @@ export default function HomePage() {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    setLoading(true);
-    fetchPosts();
-    fetchCommunities();
-    setLoading(false);
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    setLoading(true);
+    await Promise.all([fetchPosts(), fetchCommunities()]);
+    setLoading(false);
+  };
 
   const fetchPosts = async () => {
     const response = await getPosts();
@@ -40,22 +43,19 @@ export default function HomePage() {
   if (loading) return <Loading />;
   return (
     <Container>
-      <>
-        {posts.length >= 1 && (
-          <Trending items={posts.length >= 6 ? posts.slice(0, 4) : posts} />
-        )}
-        <Grid mt={10} templateColumns="1fr 0.5fr" gap={50}>
-          {}
-          <Box>
-            {user && <NewPostTeaser />}
-            {posts.length >= 1 &&
-              posts.map((item) => <PostTeaser key={item._id} post={item} />)}
-          </Box>
-          <Box>
-            {communities && <TrendingCommunities communities={communities} />}
-          </Box>
-        </Grid>
-      </>
+      {posts && (
+        <Trending items={posts.length >= 6 ? posts.slice(0, 4) : posts} />
+      )}
+      <Grid mt={10} templateColumns="1fr 0.5fr" gap={50}>
+        <Box>
+          {user && <NewPostTeaser />}
+          {posts &&
+            posts.map((item) => <PostTeaser key={item._id} post={item} />)}
+        </Box>
+        <Box>
+          {communities && <TrendingCommunities communities={communities} />}
+        </Box>
+      </Grid>
     </Container>
   );
 }

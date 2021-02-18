@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useState } from "react";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
@@ -10,6 +11,7 @@ import Loading from "./components/common/Loading";
 import SubmitPage from "./pages/submit-page";
 import { Fonts } from "./Fonts";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import UserLikedPosts from "./pages/user-page/liked-posts";
 
 const theme = extendTheme({
   fonts: {
@@ -41,6 +43,7 @@ export default function App() {
         <NavBar />
         <Switch>
           <ProtectedRoute path="/submit" component={SubmitPage} />
+          <Route path="/user/:id/liked" component={UserLikedPosts} />
           <Route path="/user/:id" component={UserPage} />
           <Route path="/" exact component={HomePage} />
         </Switch>

@@ -1,5 +1,13 @@
 //@ts-nocheck
-import { Box, Button, Flex, Image, Text, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Link,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { UserType } from "../../types";
 import Container from "../common/Container";
@@ -127,9 +135,6 @@ export default function UserDetails({
             )}
           </Flex>
         </Flex>
-        <Box m={5}>
-          <Text>Liked Posts: {user.likedPosts.length}</Text>
-        </Box>
       </Container>
     </Box>
   );
