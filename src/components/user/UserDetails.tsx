@@ -74,7 +74,7 @@ export default function UserDetails({
           className="user-image"
         />
       </Box>
-      <Container position="relative" top="-50px" w="100%">
+      <Container position="relative" w="100%" my={5}>
         <UserPicture image={user.image} />
         <Flex
           m={5}
