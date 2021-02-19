@@ -8,6 +8,7 @@ import { UserContext } from "../../context/UserContext";
 import { RiImageFill, RiMessage2Fill } from "react-icons/ri";
 import { IoIosLink } from "react-icons/io";
 import { newPost } from "../../api";
+import TabButton from "../common/TabButton";
 
 export default function NewPostForm() {
   const user = useContext(UserContext);
@@ -153,38 +154,5 @@ export default function NewPostForm() {
         </Flex>
       </Box>
     </>
-  );
-}
-
-function TabButton({
-  icon,
-  label,
-  selected = false,
-  onClick,
-}: {
-  icon: any;
-  label: string;
-  selected?: boolean;
-  onClick: Function;
-}) {
-  return (
-    <Button
-      fontFamily="mono"
-      color={selected ? "#0079D3" : "gray.500"}
-      fontSize={16}
-      w="100%"
-      h="60px"
-      gridGap={2}
-      borderRadius={0}
-      background={selected ? "#F2F8FD" : "none"}
-      _hover={{ background: "gray.200" }}
-      _active={{}}
-      _focus={{}}
-      borderBottom={selected ? "2px solid #0079D3" : ""}
-      onClick={() => onClick()}
-    >
-      {icon && icon}
-      {label}
-    </Button>
   );
 }
