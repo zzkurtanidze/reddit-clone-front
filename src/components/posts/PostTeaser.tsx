@@ -47,7 +47,10 @@ export default function PostTeaser({ post }: { post: PostType }) {
   const handleLike = async (e: any) => {
     if (!user) setShowModal(true);
     else {
-      let name = e.target.name || e.target.parentElement.parentNode.name;
+      let name =
+        e.target.parentNode.name ||
+        e.target.parentElement.parentNode.name ||
+        e.target.name;
       if (name && post._id) {
         const { data } = await likePost({ action: name, id: post._id });
         const votes = data.votes;
