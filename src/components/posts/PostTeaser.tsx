@@ -57,7 +57,6 @@ export default function PostTeaser({ post }: { post: PostType }) {
       }
     }
   };
-
   return (
     <Flex
       w="100%"

@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { getCommunity, joinCommunity } from "../../api";
 import { UserContext } from "../../context/UserContext";
 import { CommunityType } from "../../types";
+import LoginModal from "../form-modals/LoginModal";
 
 export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
   community,
@@ -11,6 +12,7 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
   const user = useContext(UserContext);
   const [joined, setJoined] = useState<boolean>(false);
   const [joinedNumber, setJoinedNumber] = useState<number>(0);
+  const [loginModal, setLoginModal] = useState<boolean>(false);
 
   useEffect(() => {
     if (user?.joined) {
@@ -31,10 +33,12 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
 
   const handleJoin = async () => {
     const response = await joinCommunity(community._id);
-    if (response.statusText === "OK") {
+    if (response && response.statusText === "OK") {
       setJoined(!joined);
       setJoinedNumber((number) => (joined ? number - 1 : number + 1));
       fetchCommunity();
+    } else if (!user) {
+      setLoginModal(true);
     }
   };
 
@@ -76,6 +80,7 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
       >
         {joined ? "Joined" : "Join"}
       </Button>
+      <LoginModal setShowModal={setLoginModal} showModal={loginModal} />
     </Flex>
   );
 };
