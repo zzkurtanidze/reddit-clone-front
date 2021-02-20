@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { Box, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { BiMessageAlt } from "react-icons/bi";
 import { RiMessage2Fill } from "react-icons/ri";
 import { getUser } from "../../api";
@@ -15,7 +15,8 @@ import { PostType, UserType } from "../../types";
 export default function UserPage({ match }: { match: any }) {
   const id = match.params.id;
   const [user, setUser] = useState<UserType | undefined>();
-  const [posts, setPosts] = useState<PostType | undefined>();
+  const [likedPosts, setLikedPosts] = useState<PostType | undefined>();
+  const [dislikedPosts, setDislikedPosts] = useState<PostType | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedTab, setSelectedTab] = useState<string>("liked");
 
@@ -27,7 +28,10 @@ export default function UserPage({ match }: { match: any }) {
     setLoading(true);
     const user = await getUser(id);
     if (user.likedPosts) {
-      setPosts(user.likedPosts);
+      setLikedPosts(user.likedPosts);
+    }
+    if (user.dislikedPosts) {
+      setDislikedPosts(user.dislikedPosts);
     }
     setUser(user);
     setLoading(false);
@@ -49,6 +53,12 @@ export default function UserPage({ match }: { match: any }) {
                   onClick={() => setSelectedTab("liked")}
                 />
                 <TabButton
+                  selected={selectedTab === "disliked"}
+                  label="Disliked Posts"
+                  icon={<AiOutlineDislike size={20} />}
+                  onClick={() => setSelectedTab("disliked")}
+                />
+                <TabButton
                   selected={selectedTab === "posted"}
                   label="Posted"
                   icon={<RiMessage2Fill size={20} />}
@@ -56,19 +66,32 @@ export default function UserPage({ match }: { match: any }) {
                 />
               </Flex>
 
-              {selectedTab === "liked" && posts.length > 1 ? (
-                posts.map((post) => <PostTeaser post={post} />)
-              ) : (
-                <Text
-                  textAlign="center"
-                  mt={10}
-                  fontWeight="bold"
-                  fontSize={32}
-                  fontFamily="mono"
-                >
-                  No posts liked yet.
-                </Text>
-              )}
+              {selectedTab === "liked" && likedPosts.length >= 1
+                ? likedPosts.map((post) => <PostTeaser post={post} />)
+                : selectedTab === "liked" && (
+                    <Text
+                      textAlign="center"
+                      mt={10}
+                      fontWeight="bold"
+                      fontSize={28}
+                      fontFamily="mono"
+                    >
+                      No posts liked yet
+                    </Text>
+                  )}
+              {selectedTab === "disliked" && dislikedPosts.length >= 1
+                ? dislikedPosts.map((post) => <PostTeaser post={post} />)
+                : selectedTab === "disliked" && (
+                    <Text
+                      textAlign="center"
+                      mt={10}
+                      fontWeight="bold"
+                      fontSize={28}
+                      fontFamily="mono"
+                    >
+                      No posts disliked yet
+                    </Text>
+                  )}
             </Container>
           )}
         </>
