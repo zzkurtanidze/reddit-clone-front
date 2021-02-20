@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import PostTeaser from "../../components/posts/PostTeaser";
 import Trending from "../../components/posts/Trending";
 import TrendingCommunities from "../../components/community/TrendingCommunities";
-import { Box, Grid } from "@chakra-ui/react";
+import { Box, Grid, Link, Text } from "@chakra-ui/react";
 import { getCommunities, getPosts } from "../../api";
 import { CommunityType, PostType } from "../../types";
 import Loading from "../../components/common/Loading";
@@ -49,8 +49,29 @@ export default function HomePage() {
       <Grid mt={10} templateColumns="1fr 0.5fr" gap={50}>
         <Box>
           {user && <NewPostTeaser />}
-          {posts &&
-            posts.map((item) => <PostTeaser key={item._id} post={item} />)}
+          {posts.length > 1 ? (
+            posts.map((item) => <PostTeaser key={item._id} post={item} />)
+          ) : (
+            <Box textAlign="center">
+              <Text fontWeight="bold" fontSize={20}>
+                There are no posts yet.
+              </Text>
+              <Text fontWeight="light" fontSize={16} mb={10}>
+                Try to join in new communities
+              </Text>
+              <Link
+                href="#"
+                bg="#1384D7"
+                px={5}
+                py={3}
+                _hover={{}}
+                color="white"
+                borderRadius={10}
+              >
+                Explore new communities
+              </Link>
+            </Box>
+          )}
         </Box>
         <Box>
           {communities && <TrendingCommunities communities={communities} />}
