@@ -118,12 +118,14 @@ export default function PostTeaser({ post }: { post: PostType }) {
             </Link>
           </Text>
         </Flex>
-        <Text fontWeight="semibold">{post.title}</Text>
-        <Text
-          fontSize={14}
-          className="post"
-          dangerouslySetInnerHTML={{ __html: post.body }}
-        ></Text>
+        <Link _hover={{}} _focus={{}} href={`/post/${post._id}`}>
+          <Text fontWeight="semibold">{post.title}</Text>
+          <Text
+            fontSize={14}
+            className="post"
+            dangerouslySetInnerHTML={{ __html: post.body }}
+          ></Text>
+        </Link>
         {post.image && (
           <Image
             src={`http://${post.image}`}

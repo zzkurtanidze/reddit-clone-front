@@ -11,6 +11,7 @@ import Loading from "./components/common/Loading";
 import SubmitPage from "./pages/submit-page";
 import { Fonts } from "./Fonts";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import PostPage from "./pages/post-page";
 
 const theme = extendTheme({
   fonts: {
@@ -43,6 +44,7 @@ export default function App() {
         <Switch>
           <ProtectedRoute path="/submit" component={SubmitPage} />
           <Route path="/user/:id" component={UserPage} />
+          <Route path="/post/:id" component={PostPage} />
           <Route path="/" exact component={HomePage} />
         </Switch>
       </UserContext.Provider>

@@ -31,6 +31,15 @@ export const getPosts = async () => {
   }
 };
 
+export const getPostById = async (id: string) => {
+  try {
+    const response = await axios.get(`${apiUrl}/posts/${id}`, axiosOptions);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 export const likePost = async ({
   action,
   id,
