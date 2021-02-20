@@ -64,7 +64,9 @@ export default function NewPostForm() {
 
   const submitPost = async () => {
     const response = await newPost(post);
-    console.log(response);
+    if (response.statusText === "OK") {
+      window.location.replace("/");
+    }
   };
 
   return (
