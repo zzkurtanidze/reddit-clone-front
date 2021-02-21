@@ -1,6 +1,8 @@
-import { Box, useToast } from "@chakra-ui/react";
+//@ts-nocheck
+import { Box, Text, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { getPostById } from "../../api";
+import Container from "../../components/common/Container";
 import Loading from "../../components/common/Loading";
 import { PostType } from "../../types";
 
@@ -31,8 +33,21 @@ export default function PostPage({ match }: { match: any }) {
 
   if (loading) return <Loading />;
   return (
-    <Box>
+    <Container mx="10%">
+      {post && (
+        <Box
+          bg="gray.100"
+          borderRadius="4px"
+          p="15px"
+          borderWidth="1px"
+          borderColor="gray.300"
+        >
+          <Text fontSize={40} fontWeight="bold">
+            {post.title}
+          </Text>
+        </Box>
+      )}
       <pre>{JSON.stringify(post, null, 2)}</pre>
-    </Box>
+    </Container>
   );
 }
