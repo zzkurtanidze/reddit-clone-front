@@ -1,3 +1,4 @@
+/* eslint-disable react/style-prop-object */
 //@ts-nocheck
 import { Box, Flex, Image, Text, useToast } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
@@ -61,6 +62,21 @@ export default function PostPage({ match }: { match: any }) {
                 {post.image && (
                   <Image src={`http://${post.image}`} alt={post.title} mt={5} />
                 )}
+                <Box
+                  w="100%"
+                  h="2px"
+                  mt={5}
+                  bg="#d3d3d3"
+                  overflow="hidden"
+                ></Box>
+                <Box mt={5}>
+                  <Text fontSize={18} fontWeight="bold">
+                    Comments
+                  </Text>
+                  <Text mt={5} textAlign="center">
+                    Comments will be added soon
+                  </Text>
+                </Box>
               </Box>
             </StyledBox>
             <CommunityInfo community={post.postedTo} user={user} />
