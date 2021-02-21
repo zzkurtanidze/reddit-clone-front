@@ -15,7 +15,7 @@ export default function CommunityInfo({
   return (
     <StyledBox
       w="100%"
-      minWidth="300px"
+      minWidth="350px"
       textAlign="center"
       maxWidth="max-content"
       h="max-content"

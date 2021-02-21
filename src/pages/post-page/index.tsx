@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { getPostById } from "../../api";
 import Container from "../../components/common/Container";
 import Loading from "../../components/common/Loading";
+import StyledBox from "../../components/common/StyledBox";
 import CommunityInfo from "../../components/community/CommunityInfo";
 import Date from "../../components/posts/Date";
 import PostedBy from "../../components/posts/PostedBy";
@@ -40,23 +41,17 @@ export default function PostPage({ match }: { match: any }) {
   if (loading) return <Loading />;
   return (
     <Container mx="10%">
-      <Flex gridGap={10}>
+      <Flex gridGap={4}>
         {post && (
           <>
-            <Flex
-              bg="gray.100"
-              borderRadius="4px"
-              p="15px"
-              borderWidth="1px"
-              borderColor="gray.300"
-            >
+            <StyledBox display="flex">
               <Votes user={user} post={post} />
               <Box>
                 <Flex justifyContent="space-between">
                   <PostedBy post={post} />
                   <Date post={post} />
                 </Flex>
-                <Text fontSize={40} fontWeight="bold">
+                <Text my={3} fontSize={40} fontWeight="bold">
                   {post.title}
                 </Text>
                 <Text
@@ -67,12 +62,11 @@ export default function PostPage({ match }: { match: any }) {
                   <Image src={`http://${post.image}`} alt={post.title} mt={5} />
                 )}
               </Box>
-            </Flex>
-            <CommunityInfo community={post?.postedTo} user={user} />
+            </StyledBox>
+            <CommunityInfo community={post.postedTo} user={user} />
           </>
         )}
       </Flex>
-      <pre>{JSON.stringify(post, null, 2)}</pre>
     </Container>
   );
 }
