@@ -14,14 +14,15 @@ export default function TrendingItem({ item }: { item: PostType }) {
       borderRadius="10px"
       cursor="pointer"
     >
-      <Box position="absolute" bottom="10px" color="white" left="10px">
+      <Box position="absolute" bottom="5px" color="white" left="10px">
         <Text fontSize="16px" fontWeight="bold">
           {item.title}
         </Text>
         <Text
-          dangerouslySetInnerHTML={{ __html: `${item.body.slice(0, 60)}...` }}
+          fontSize={12}
+          dangerouslySetInnerHTML={{ __html: `${item.body.slice(0, 40)}...` }}
         ></Text>
-        <Text fontSize={12} m="5px">
+        <Text fontSize={10} m="5px" fontFamily="mono">
           {item.postedTo.name}
         </Text>
       </Box>

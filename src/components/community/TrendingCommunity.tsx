@@ -26,23 +26,6 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
     }
   }, [user]);
 
-  const fetchCommunity = async () => {
-    const response = await getCommunity(community._id);
-    if (response.statusText === "OK") {
-    }
-  };
-
-  const handleJoin = async () => {
-    const response = await joinCommunity(community._id);
-    if (response && response.statusText === "OK") {
-      setJoined(!joined);
-      setJoinedNumber((number) => (joined ? number - 1 : number + 1));
-      fetchCommunity();
-    } else if (!user) {
-      setLoginModal(true);
-    }
-  };
-
   return (
     <Flex gridGap={3}>
       {community.image && (
@@ -62,7 +45,7 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
           fontWeight="bold"
           fontSize={12}
         >
-          r/{community.name}...
+          r/{community.name}
         </Text>
         <Text fontSize={10}>{joinedNumber} Members</Text>
       </Box>

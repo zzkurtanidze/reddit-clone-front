@@ -46,7 +46,7 @@ export default function HomePage() {
       {posts && (
         <Trending items={posts.length >= 6 ? posts.slice(0, 4) : posts} />
       )}
-      <Grid mt={10} templateColumns="1fr 0.5fr" gap={50}>
+      <Grid mt={10} templateColumns="1fr 0.5fr" gap={5}>
         <Box>
           {user && <NewPostTeaser />}
           {posts.length > 1 ? (
