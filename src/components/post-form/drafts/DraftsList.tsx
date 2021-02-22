@@ -28,7 +28,7 @@ export default function DraftsList({
       {drafts.map((draft) => (
         <Tr>
           {draft.title ? <Td>{draft.title}</Td> : <Td>null</Td>}
-          {draft.postedTo ? <Td>{draft.postedTo}</Td> : <Td>null</Td>}
+          {draft.postedTo ? <Td>{draft.postedTo.label}</Td> : <Td>null</Td>}
           {draft.date ? <Td>{timeAgo.format(draft.date)}</Td> : <Td>null</Td>}
           <Td textAlign="right">
             <Button bg="#0272C5" _active={{}} _hover={{}}>

@@ -63,7 +63,7 @@ export default function NewPostForm() {
 
   const handleCommunityChange = (community: any) => {
     const newPost = post;
-    newPost["postedTo"] = community.value;
+    newPost["postedTo"] = community;
     setPost(newPost);
   };
 
