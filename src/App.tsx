@@ -13,6 +13,7 @@ import { Fonts } from "./Fonts";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import PostPage from "./pages/post-page";
 import DraftsPage from "./pages/submit-page/drafts";
+import PostDraftsPage from "./pages/submit-page/drafts";
 
 const theme = extendTheme({
   fonts: {
@@ -43,7 +44,7 @@ export default function App() {
       <UserContext.Provider value={user}>
         <NavBar />
         <Switch>
-          <ProtectedRoute path="/submit/drafts" component={DraftsPage} />
+          <ProtectedRoute path="/submit/drafts" component={PostDraftsPage} />
           <ProtectedRoute path="/submit" component={SubmitPage} />
           <Route path="/user/:id" component={UserPage} />
           <Route path="/post/:id" component={PostPage} />
