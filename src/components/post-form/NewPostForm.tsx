@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Box, Button, Flex, Text, Input } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, Input, Link } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import Select from "react-select";
 import PostTab from "./tabs/PostTab";
@@ -21,9 +21,13 @@ export default function NewPostForm() {
     postedTo: string;
   }>({ title: "", body: "", image: "", postedTo: "" });
   const [selectedTab, setSelectedTab] = useState<string>("post");
+  const [draftPosts, setDraftPosts] = useState<number>(0);
 
   useEffect(() => {
     const communityNames: any[] = [];
+
+    const drafts = JSON.parse(window.localStorage.getItem("postDrafts")) || [];
+    setDraftPosts(drafts.length);
 
     user?.joined?.forEach((community) => {
       const obj: { value: string; label: string } = {
@@ -84,7 +88,7 @@ export default function NewPostForm() {
       let prevDrafts =
         JSON.parse(window.localStorage.getItem("postDrafts")) || [];
       prevDrafts.push(post);
-      window.localStorage.setItem("postDraft", JSON.stringify(prevDrafts));
+      window.localStorage.setItem("postDrafts", JSON.stringify(prevDrafts));
     }
   };
 
@@ -94,8 +98,12 @@ export default function NewPostForm() {
         <Text fontWeight="600" fontSize={20}>
           Create a Post
         </Text>
-        <Button
+        <Link
+          href={`/submit/drafts`}
           bg="none"
+          display="flex"
+          alignItems="center"
+          fontWeight="bold"
           _hover={{}}
           _active={{}}
           _focus={{}}
@@ -111,9 +119,9 @@ export default function NewPostForm() {
             p="2px"
             fontSize={14}
           >
-            0
+            {draftPosts}
           </Text>
-        </Button>
+        </Link>
       </Flex>
       <br />
       <hr />
