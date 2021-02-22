@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Box, Button, Flex, Text, Input } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import Select from "react-select";
@@ -66,6 +67,24 @@ export default function NewPostForm() {
     const response = await newPost(post);
     if (response.statusText === "OK") {
       window.location.replace("/");
+    }
+  };
+
+  const isNull = (object: object) => {
+    for (var key in post) {
+      if (post[key] !== null && post[key] !== "") {
+        return false;
+      }
+      return true;
+    }
+  };
+
+  const handleSaveDraft = () => {
+    if (!isNull(post)) {
+      let prevDrafts =
+        JSON.parse(window.localStorage.getItem("postDrafts")) || [];
+      prevDrafts.push(post);
+      window.localStorage.setItem("postDraft", JSON.stringify(prevDrafts));
     }
   };
 
@@ -139,6 +158,7 @@ export default function NewPostForm() {
               _hover={{}}
               _active={{}}
               _focus={{}}
+              onClick={() => handleSaveDraft()}
             >
               Save as draft
             </Button>
