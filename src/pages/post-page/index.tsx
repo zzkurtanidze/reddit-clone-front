@@ -2,12 +2,15 @@
 //@ts-nocheck
 import { Box, Flex, Image, Text, useToast } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
+import { FaShare } from "react-icons/fa";
+import { RiBookmarkFill } from "react-icons/ri";
 import { getPostById } from "../../api";
 import Container from "../../components/common/Container";
 import Loading from "../../components/common/Loading";
 import StyledBox from "../../components/common/StyledBox";
 import CommunityInfo from "../../components/community/CommunityInfo";
 import Date from "../../components/posts/Date";
+import { PostButton } from "../../components/posts/PostButton";
 import PostedBy from "../../components/posts/PostedBy";
 import Votes from "../../components/posts/Votes";
 import { UserContext } from "../../context/UserContext";
@@ -62,6 +65,13 @@ export default function PostPage({ match }: { match: any }) {
                 {post.image && (
                   <Image src={`http://${post.image}`} alt={post.title} mt={5} />
                 )}
+                <Flex mt={5} gridGap={5}>
+                  <PostButton icon={<FaShare color="gray" />} label="Share" />
+                  <PostButton
+                    icon={<RiBookmarkFill color="gray" />}
+                    label="Save"
+                  />
+                </Flex>
                 <Box
                   w="100%"
                   h="2px"
