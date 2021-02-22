@@ -76,7 +76,7 @@ export default function NewPostForm() {
 
   const isNull = (object: object) => {
     for (var key in post) {
-      if (post[key] !== null && post[key] !== "") {
+      if (object[key] !== null && object[key] !== "") {
         return false;
       }
       return true;
@@ -87,7 +87,9 @@ export default function NewPostForm() {
     if (!isNull(post)) {
       let prevDrafts =
         JSON.parse(window.localStorage.getItem("postDrafts")) || [];
-      prevDrafts.push(post);
+      let draft = post;
+      draft["date"] = Date.now();
+      prevDrafts.push(draft);
       window.localStorage.setItem("postDrafts", JSON.stringify(prevDrafts));
     }
   };

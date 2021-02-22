@@ -4,11 +4,18 @@ import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { NotPostedPostType } from "../../../types";
+import TimeAgo from "javascript-time-ago";
+
+import en from "javascript-time-ago/locale/en";
+
+TimeAgo.addDefaultLocale(en);
 
 export default function DraftsList({
   drafts,
   handleRemove,
 }): { drafts: NotPostedPostType[]; handleRemove: Function } {
+  const timeAgo = new TimeAgo("en-US");
+
   return drafts.length >= 1 ? (
     <Table>
       <Tr>
@@ -22,7 +29,7 @@ export default function DraftsList({
         <Tr>
           {draft.title ? <Td>{draft.title}</Td> : <Td>null</Td>}
           {draft.postedTo ? <Td>{draft.postedTo}</Td> : <Td>null</Td>}
-          {draft.date ? <Td>{draft.date}</Td> : <Td>null</Td>}
+          {draft.date ? <Td>{timeAgo.format(draft.date)}</Td> : <Td>null</Td>}
           <Td textAlign="right">
             <Button bg="#0272C5" _active={{}} _hover={{}}>
               <FaEdit color="white" />
