@@ -5,6 +5,7 @@ import { getCommunity, joinCommunity } from "../../api";
 import { UserContext } from "../../context/UserContext";
 import { CommunityType } from "../../types";
 import LoginModal from "../form-modals/LoginModal";
+import Join from "./Join";
 
 export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
   community,
@@ -65,21 +66,7 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
         </Text>
         <Text fontSize={10}>{joinedNumber} Members</Text>
       </Box>
-      <Button
-        px={50}
-        py="8px"
-        h="max-content"
-        fontSize={14}
-        borderRadius={50}
-        bg={joined ? "#e2e2e2" : "#1384D7"}
-        color={joined ? "black" : "white"}
-        _hover={{
-          backgroundColor: joined ? "#c9c9c9" : "#3c9ce0",
-        }}
-        onClick={handleJoin}
-      >
-        {joined ? "Joined" : "Join"}
-      </Button>
+      <Join user={user} community={community} />
       <LoginModal setShowModal={setLoginModal} showModal={loginModal} />
     </Flex>
   );

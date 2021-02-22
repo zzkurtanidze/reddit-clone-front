@@ -5,6 +5,7 @@ export type PostType = {
   image: string;
   postedTo: any;
   postedBy: UserType;
+  postedAt: string;
   votes: number;
 };
 
