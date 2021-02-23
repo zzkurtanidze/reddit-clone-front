@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Button, Table, Td, Text, Th, Tr } from "@chakra-ui/react";
+import { Button, Link, Table, Td, Text, Th, Tr } from "@chakra-ui/react";
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBinLine } from "react-icons/ri";
@@ -8,7 +8,7 @@ import TimeAgo from "javascript-time-ago";
 
 import en from "javascript-time-ago/locale/en";
 
-TimeAgo.addDefaultLocale(en);
+TimeAgo.addLocale(en);
 
 export default function DraftsList({
   drafts,
@@ -25,15 +25,20 @@ export default function DraftsList({
         <Th></Th>
         <Th></Th>
       </Tr>
-      {drafts.map((draft) => (
+      {drafts.reverse().map((draft) => (
         <Tr>
           {draft.title ? <Td>{draft.title}</Td> : <Td>null</Td>}
           {draft.postedTo ? <Td>{draft.postedTo.label}</Td> : <Td>null</Td>}
           {draft.date ? <Td>{timeAgo.format(draft.date)}</Td> : <Td>null</Td>}
           <Td textAlign="right">
-            <Button bg="#0272C5" _active={{}} _hover={{}}>
+            <Link
+              href={`/submit/?draft=${draft.date}`}
+              bg="#0272C5"
+              _active={{}}
+              _hover={{}}
+            >
               <FaEdit color="white" />
-            </Button>
+            </Link>
           </Td>
           <Td textAlign="right">
             <Button
