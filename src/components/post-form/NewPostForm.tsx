@@ -60,12 +60,16 @@ export default function NewPostForm() {
     setPost(newPost);
   };
 
+  const removeCurrentDraft = () => {
+    let newDrafts = drafts;
+    let index = newDrafts.findIndex((item) => item.date === params.draft);
+    newDrafts.splice(index, 1);
+    setDrafts(newDrafts);
+  };
+
   const submitPost = async () => {
     if (params.draft) {
-      let newDrafts = drafts;
-      let index = newDrafts.findIndex((item) => item.date === params.draft);
-      newDrafts.splice(index, 1);
-      setDrafts(newDrafts);
+      removeCurrentDraft();
     }
     const response = await newPost(post);
     if (response.statusText === "OK") {
@@ -83,6 +87,9 @@ export default function NewPostForm() {
   };
 
   const handleSaveDraft = () => {
+    if (params.draft) {
+      removeCurrentDraft();
+    }
     if (!isNull(post)) {
       let prevDrafts =
         JSON.parse(window.localStorage.getItem("postDrafts")) || [];
