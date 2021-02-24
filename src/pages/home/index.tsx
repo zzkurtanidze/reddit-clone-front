@@ -15,9 +15,14 @@ export default function HomePage() {
   const [communities, setCommunities] = useState<CommunityType[]>([]);
   const user = useContext(UserContext);
   const [loading, setLoading] = useState<boolean>(false);
+  const [fixed, setFixed] = useState<boolean>(false);
+  const [sidebarW, setSidebarW] = useState<number | undefined>(
+    document.getElementById("trending-community")?.clientWidth
+  );
 
   useEffect(() => {
     fetchData();
+    window.addEventListener("scroll", handleScroll);
   }, []);
 
   const fetchData = async () => {
@@ -40,7 +45,17 @@ export default function HomePage() {
     }
   };
 
+  const handleScroll = () => {
+    if (window.scrollY >= 380) {
+      setFixed(true);
+    }
+    if (window.scrollY < 380) {
+      setFixed(false);
+    }
+  };
+
   if (loading) return <Loading />;
+
   return (
     <Container>
       {posts && (
@@ -73,8 +88,14 @@ export default function HomePage() {
             </Box>
           )}
         </Box>
-        <Box>
-          {communities && <TrendingCommunities communities={communities} />}
+        <Box id="trending-community" position="relative">
+          <Box
+            position={fixed ? "fixed" : "sticky"}
+            top="20px"
+            w={sidebarW ? sidebarW : "inherit"}
+          >
+            {communities && <TrendingCommunities communities={communities} />}
+          </Box>
         </Box>
       </Grid>
     </Container>
