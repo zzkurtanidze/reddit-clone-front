@@ -1,5 +1,5 @@
 export type PostType = {
-  _id?: string;
+  _id: string;
   title: string;
   body: string;
   image: string;
@@ -7,6 +7,13 @@ export type PostType = {
   postedBy: UserType;
   postedAt: string;
   votes: number;
+};
+
+export type NotPostedPostType = {
+  title: string;
+  body: string;
+  image: string;
+  postedTo: string;
 };
 
 export type UserType = {

@@ -12,10 +12,19 @@ export const newPost = async (post: {
   title: string;
   body: string;
   image: string;
-  postedTo: string;
+  postedTo: { value: string; label: string };
 }) => {
   try {
-    const response = await axios.post(`${apiUrl}/posts`, post, axiosOptions);
+    const response = await axios.post(
+      `${apiUrl}/posts`,
+      {
+        title: post.title,
+        body: post.body,
+        image: post.image,
+        postedTo: post.postedTo.value,
+      },
+      axiosOptions
+    );
     return response;
   } catch (ex) {
     return ex.response;

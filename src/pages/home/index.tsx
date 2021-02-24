@@ -61,7 +61,7 @@ export default function HomePage() {
   return (
     <Container>
       {posts && (
-        <Trending items={posts.length >= 6 ? posts.slice(0, 4) : posts} />
+        <Trending items={posts.length >= 4 ? posts.slice(0, 4) : posts} />
       )}
       <Grid mt={10} templateColumns="1fr 0.5fr" gap={5}>
         <Box>

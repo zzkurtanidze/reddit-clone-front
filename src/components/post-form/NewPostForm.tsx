@@ -1,14 +1,18 @@
-import { Box, Button, Flex, Text, Input } from "@chakra-ui/react";
+//@ts-nocheck
+import { Box, Button, Flex, Text, Input, Link } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import Select from "react-select";
 import PostTab from "./tabs/PostTab";
 import ImagesTab from "./tabs/ImagesTab";
 import { UserContext } from "../../context/UserContext";
 
+import queryString from "query-string";
+
 import { RiImageFill, RiMessage2Fill } from "react-icons/ri";
 import { IoIosLink } from "react-icons/io";
 import { newPost } from "../../api";
 import TabButton from "../common/TabButton";
+import { useLocalStorage } from "../../utils/useLocalStorage";
 
 export default function NewPostForm() {
   const user = useContext(UserContext);
@@ -20,10 +24,23 @@ export default function NewPostForm() {
     postedTo: string;
   }>({ title: "", body: "", image: "", postedTo: "" });
   const [selectedTab, setSelectedTab] = useState<string>("post");
+  const [draftsLength, setDraftsLength] = useState<number>(0);
+  const [drafts, setDrafts] = useLocalStorage("postDrafts");
+  const params = queryString.parse(window.location.search);
 
   useEffect(() => {
     const communityNames: any[] = [];
 
+    // Set draft numbers
+    setDraftsLength(drafts.length);
+
+    // If draft available, set values.
+    if (params.draft && isNull(post)) {
+      let index = drafts.findIndex((post) => post.date == params.draft);
+      setPost(drafts[index]);
+    }
+
+    // Get joined communities list.
     user?.joined?.forEach((community) => {
       const obj: { value: string; label: string } = {
         value: "",
@@ -35,14 +52,7 @@ export default function NewPostForm() {
     });
 
     setCommunityList(communityNames);
-  }, [user]);
-
-  const handleTitleChange = (e: any) => {
-    const newPost = post;
-    newPost["title"] = e.target.value;
-    console.log(post);
-    setPost(newPost);
-  };
+  }, [user, post]);
 
   const handleBodyChange = (html: any) => {
     const newPost = post;
@@ -50,22 +60,43 @@ export default function NewPostForm() {
     setPost(newPost);
   };
 
-  const handleImageChange = (imageURL: string) => {
-    const newPost = post;
-    newPost["image"] = imageURL;
-    setPost(newPost);
-  };
-
-  const handleCommunityChange = (community: any) => {
-    const newPost = post;
-    newPost["postedTo"] = community.value;
-    setPost(newPost);
+  const removeCurrentDraft = () => {
+    let newDrafts = drafts;
+    let index = newDrafts.findIndex((item) => item.date === params.draft);
+    newDrafts.splice(index, 1);
+    setDrafts(newDrafts);
   };
 
   const submitPost = async () => {
+    if (params.draft) {
+      removeCurrentDraft();
+    }
     const response = await newPost(post);
     if (response.statusText === "OK") {
       window.location.replace("/");
+    }
+  };
+
+  const isNull = (object: object) => {
+    for (var key in post) {
+      if (object[key] !== null && object[key] !== "") {
+        return false;
+      }
+      return true;
+    }
+  };
+
+  const handleSaveDraft = () => {
+    if (params.draft) {
+      removeCurrentDraft();
+    }
+    if (!isNull(post)) {
+      let prevDrafts =
+        JSON.parse(window.localStorage.getItem("postDrafts")) || [];
+      let draft = post;
+      draft["date"] = Date.now();
+      prevDrafts.push(draft);
+      window.localStorage.setItem("postDrafts", JSON.stringify(prevDrafts));
     }
   };
 
@@ -75,8 +106,12 @@ export default function NewPostForm() {
         <Text fontWeight="600" fontSize={20}>
           Create a Post
         </Text>
-        <Button
+        <Link
+          href={`/submit/drafts`}
           bg="none"
+          display="flex"
+          alignItems="center"
+          fontWeight="bold"
           _hover={{}}
           _active={{}}
           _focus={{}}
@@ -92,15 +127,21 @@ export default function NewPostForm() {
             p="2px"
             fontSize={14}
           >
-            0
+            {draftsLength}
           </Text>
-        </Button>
+        </Link>
       </Flex>
       <br />
       <hr />
       <Box w="30%" my={5}>
         {user && (
-          <Select onChange={handleCommunityChange} options={communityList} />
+          <Select
+            value={post.postedTo}
+            onChange={(community: any) =>
+              setPost({ ...post, ["postedTo"]: community })
+            }
+            options={communityList}
+          />
         )}
       </Box>
       <Box borderRadius={7} pb="10px" bg="gray.100">
@@ -125,12 +166,21 @@ export default function NewPostForm() {
           />
         </Flex>
         <Flex direction="column" m={5}>
-          <Input onChange={handleTitleChange} bg="white" placeholder="Title" />
+          <Input
+            value={post.title}
+            onChange={(e) => setPost({ ...post, ["title"]: e.target.value })}
+            bg="white"
+            placeholder="Title"
+          />
           {selectedTab === "post" && (
             <PostTab onChange={handleBodyChange} post={post} />
           )}
           {selectedTab === "images" && (
-            <ImagesTab post={post} onChange={handleImageChange} />
+            <ImagesTab
+              post={post}
+              value={post.image}
+              onChange={(imageURL) => setPost({ ...post, ["image"]: imageURL })}
+            />
           )}
           <Flex mt={5} alignSelf="flex-end">
             <Button
@@ -139,6 +189,7 @@ export default function NewPostForm() {
               _hover={{}}
               _active={{}}
               _focus={{}}
+              onClick={() => handleSaveDraft()}
             >
               Save as draft
             </Button>
