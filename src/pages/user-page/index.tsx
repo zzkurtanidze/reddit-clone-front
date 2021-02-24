@@ -37,6 +37,11 @@ export default function UserPage({ match }: { match: any }) {
     setLoading(false);
   };
 
+  const selectTab = (tabName: string) => {
+    setSelectedTab(tabName);
+    fetchUser();
+  };
+
   if (loading) return <Loading />;
   return (
     <Box>
@@ -50,48 +55,49 @@ export default function UserPage({ match }: { match: any }) {
                   selected={selectedTab === "liked"}
                   label="Liked Posts"
                   icon={<AiOutlineLike size={20} />}
-                  onClick={() => setSelectedTab("liked")}
+                  onClick={() => selectTab("liked")}
                 />
                 <TabButton
                   selected={selectedTab === "disliked"}
                   label="Disliked Posts"
                   icon={<AiOutlineDislike size={20} />}
-                  onClick={() => setSelectedTab("disliked")}
+                  onClick={() => selectTab("disliked")}
                 />
                 <TabButton
                   selected={selectedTab === "posted"}
                   label="Posted"
                   icon={<RiMessage2Fill size={20} />}
-                  onClick={() => setSelectedTab("posted")}
+                  onClick={() => selectTab("posted")}
                 />
               </Flex>
-
-              {selectedTab === "liked" && likedPosts.length >= 1
-                ? likedPosts.map((post) => <PostTeaser post={post} />)
-                : selectedTab === "liked" && (
-                    <Text
-                      textAlign="center"
-                      mt={10}
-                      fontWeight="bold"
-                      fontSize={28}
-                      fontFamily="mono"
-                    >
-                      No posts liked yet
-                    </Text>
-                  )}
-              {selectedTab === "disliked" && dislikedPosts.length >= 1
-                ? dislikedPosts.map((post) => <PostTeaser post={post} />)
-                : selectedTab === "disliked" && (
-                    <Text
-                      textAlign="center"
-                      mt={10}
-                      fontWeight="bold"
-                      fontSize={28}
-                      fontFamily="mono"
-                    >
-                      No posts disliked yet
-                    </Text>
-                  )}
+              <Box m="auto" my={5} w="80%">
+                {selectedTab === "liked" && likedPosts.length >= 1
+                  ? likedPosts.map((post) => <PostTeaser post={post} />)
+                  : selectedTab === "liked" && (
+                      <Text
+                        textAlign="center"
+                        mt={10}
+                        fontWeight="bold"
+                        fontSize={28}
+                        fontFamily="mono"
+                      >
+                        No posts liked yet
+                      </Text>
+                    )}
+                {selectedTab === "disliked" && dislikedPosts.length >= 1
+                  ? dislikedPosts.map((post) => <PostTeaser post={post} />)
+                  : selectedTab === "disliked" && (
+                      <Text
+                        textAlign="center"
+                        mt={10}
+                        fontWeight="bold"
+                        fontSize={28}
+                        fontFamily="mono"
+                      >
+                        No posts disliked yet
+                      </Text>
+                    )}
+              </Box>
             </Container>
           )}
         </>

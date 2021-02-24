@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import { PostType } from "../../types/index";
 
@@ -14,18 +14,20 @@ export default function TrendingItem({ item }: { item: PostType }) {
       borderRadius="10px"
       cursor="pointer"
     >
-      <Box position="absolute" bottom="5px" color="white" left="10px">
-        <Text fontSize="16px" fontWeight="bold">
-          {item.title}
-        </Text>
-        <Text
-          fontSize={12}
-          dangerouslySetInnerHTML={{ __html: `${item.body.slice(0, 40)}...` }}
-        ></Text>
-        <Text fontSize={10} m="5px" fontFamily="mono">
-          {item.postedTo.name}
-        </Text>
-      </Box>
+      <Link _hover={{}} _focus={{}} href={`/post/${item._id}`}>
+        <Box position="absolute" bottom="5px" color="white" left="10px">
+          <Text fontSize="16px" fontWeight="bold">
+            {item.title}
+          </Text>
+          <Text
+            fontSize={12}
+            dangerouslySetInnerHTML={{ __html: `${item.body.slice(0, 40)}...` }}
+          ></Text>
+          <Text fontSize={10} m="5px" fontFamily="mono">
+            {item.postedTo.name}
+          </Text>
+        </Box>
+      </Link>
     </Box>
   );
 }

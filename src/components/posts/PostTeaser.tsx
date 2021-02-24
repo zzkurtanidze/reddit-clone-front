@@ -36,7 +36,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
           <Text fontWeight="semibold">{post.title}</Text>
           <Text
             fontSize={14}
-            className="post"
+            className="post-body"
             dangerouslySetInnerHTML={{ __html: post.body.slice(0, 220) }}
           ></Text>
         </Link>

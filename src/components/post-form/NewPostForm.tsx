@@ -54,6 +54,10 @@ export default function NewPostForm() {
     setCommunityList(communityNames);
   }, [user, post]);
 
+  useEffect(() => {
+    document.getElementById("draft-save").disabled = false;
+  }, [post]);
+
   const handleBodyChange = (html: any) => {
     const newPost = post;
     newPost["body"] = html;
@@ -98,6 +102,7 @@ export default function NewPostForm() {
       prevDrafts.push(draft);
       window.localStorage.setItem("postDrafts", JSON.stringify(prevDrafts));
     }
+    document.getElementById("draft-save").disabled = true;
   };
 
   return (
@@ -190,6 +195,7 @@ export default function NewPostForm() {
               _active={{}}
               _focus={{}}
               onClick={() => handleSaveDraft()}
+              id="draft-save"
             >
               Save as draft
             </Button>
