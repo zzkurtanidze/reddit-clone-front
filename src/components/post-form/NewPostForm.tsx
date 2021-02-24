@@ -24,7 +24,7 @@ export default function NewPostForm() {
     postedTo: string;
   }>({ title: "", body: "", image: "", postedTo: "" });
   const [selectedTab, setSelectedTab] = useState<string>("post");
-  const [draftPosts, setDraftPosts] = useState<number>(0);
+  const [draftsLength, setDraftsLength] = useState<number>(0);
   const [drafts, setDrafts] = useLocalStorage("postDrafts");
   const params = queryString.parse(window.location.search);
 
@@ -32,7 +32,7 @@ export default function NewPostForm() {
     const communityNames: any[] = [];
 
     // Set draft numbers
-    setDraftPosts(drafts.length);
+    setDraftsLength(drafts.length);
 
     // If draft available, set values.
     if (params.draft && isNull(post)) {
@@ -120,7 +120,7 @@ export default function NewPostForm() {
             p="2px"
             fontSize={14}
           >
-            {draftPosts}
+            {draftsLength}
           </Text>
         </Link>
       </Flex>
