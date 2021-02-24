@@ -49,8 +49,7 @@ export default function HomePage() {
   const handleScroll = () => {
     if (window.scrollY >= 380) {
       setFixed(true);
-    }
-    if (window.scrollY < 380) {
+    } else {
       setFixed(false);
     }
   };
