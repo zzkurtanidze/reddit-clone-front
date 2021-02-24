@@ -23,13 +23,15 @@ export default function HomePage() {
   useEffect(() => {
     fetchData();
     window.addEventListener("scroll", handleScroll);
-    setSidebarW(document.getElementById("trending-community")!.clientWidth);
   }, []);
 
   const fetchData = async () => {
     setLoading(true);
     await Promise.all([fetchPosts(), fetchCommunities()]);
     setLoading(false);
+    setTimeout(() => {
+      setSidebarW(document.getElementById("trending-community")?.clientWidth);
+    }, 200);
   };
 
   const fetchPosts = async () => {
