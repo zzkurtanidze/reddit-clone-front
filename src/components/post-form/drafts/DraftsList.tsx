@@ -4,6 +4,7 @@ import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { NotPostedPostType } from "../../../types";
+import { useHistory } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 
 import en from "javascript-time-ago/locale/en";
@@ -15,6 +16,7 @@ export default function DraftsList({
   handleRemove,
 }): { drafts: NotPostedPostType[]; handleRemove: Function } {
   const timeAgo = new TimeAgo("en-US");
+  const history = useHistory();
 
   return drafts.length >= 1 ? (
     <Table>
@@ -31,14 +33,14 @@ export default function DraftsList({
           {draft.postedTo ? <Td>{draft.postedTo.label}</Td> : <Td>null</Td>}
           {draft.date ? <Td>{timeAgo.format(draft.date)}</Td> : <Td>null</Td>}
           <Td textAlign="right">
-            <Link
-              href={`/submit/?draft=${draft.date}`}
+            <Button
+              onClick={() => history.push(`/submit/?draft=${draft.date}`)}
               bg="#0272C5"
               _active={{}}
               _hover={{}}
             >
               <FaEdit color="white" />
-            </Link>
+            </Button>
           </Td>
           <Td textAlign="right">
             <Button
