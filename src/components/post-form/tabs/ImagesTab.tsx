@@ -6,6 +6,7 @@ import { uploadImage } from "../../../api";
 export default function ImagesTab({
   post,
   onChange,
+  value,
 }: {
   post: {
     title: string;
@@ -14,6 +15,7 @@ export default function ImagesTab({
     postedTo: string;
   };
   onChange: Function;
+  value?: any;
 }) {
   const [imageName, setImageName] = useState<string>("");
   const toast = useToast();
@@ -54,7 +56,7 @@ export default function ImagesTab({
       >
         {post.image === "" ? (
           <>
-            <input {...getInputProps()} />
+            <input value={value} {...getInputProps()} />
             {isDragActive ? (
               <p>Drop the files here ...</p>
             ) : (

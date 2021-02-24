@@ -1,6 +1,6 @@
 //@ts-nocheck
-import { Box, Button, Flex, Image, Input } from "@chakra-ui/react";
-import React, { useContext, useEffect } from "react";
+import { Button, Input } from "@chakra-ui/react";
+import React, { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import UserPicture from "../user/UserPicture";
 
