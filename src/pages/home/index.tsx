@@ -23,6 +23,7 @@ export default function HomePage() {
   useEffect(() => {
     fetchData();
     window.addEventListener("scroll", handleScroll);
+    setSidebarW(document.getElementById("trending-community")!.clientWidth);
   }, []);
 
   const fetchData = async () => {
@@ -91,7 +92,7 @@ export default function HomePage() {
         <Box id="trending-community" position="relative">
           <Box
             position={fixed ? "fixed" : "sticky"}
-            top="20px"
+            top="15px"
             w={sidebarW ? sidebarW : "inherit"}
           >
             {communities && <TrendingCommunities communities={communities} />}

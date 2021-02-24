@@ -19,6 +19,7 @@ import { PostType } from "../../types";
 export default function PostPage({ match }: { match: any }) {
   const [post, setPost] = useState<PostType | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [fixed, setFixed] = useState<boolean>(false);
   const user = useContext(UserContext);
 
   const toast = useToast();
@@ -26,7 +27,16 @@ export default function PostPage({ match }: { match: any }) {
 
   useEffect(() => {
     fetchPost();
+    window.addEventListener("scroll", handleScroll);
   }, []);
+
+  const handleScroll = () => {
+    if (window.scrollY >= 200) {
+      setFixed(true);
+    } else {
+      setFixed(false);
+    }
+  };
 
   const fetchPost = async () => {
     setLoading(true);
@@ -48,7 +58,7 @@ export default function PostPage({ match }: { match: any }) {
       <Flex gridGap={4}>
         {post && (
           <>
-            <StyledBox display="flex">
+            <StyledBox maxWidth="70%" display="flex">
               <Votes user={user} post={post} />
               <Box>
                 <Flex justifyContent="space-between">
@@ -89,7 +99,11 @@ export default function PostPage({ match }: { match: any }) {
                 </Box>
               </Box>
             </StyledBox>
-            <CommunityInfo community={post.postedTo} user={user} />
+            <Box id="community-info" position="relative">
+              <Box position={fixed ? "fixed" : "sticky"} top="15px">
+                <CommunityInfo community={post.postedTo} user={user} />
+              </Box>
+            </Box>
           </>
         )}
       </Flex>
