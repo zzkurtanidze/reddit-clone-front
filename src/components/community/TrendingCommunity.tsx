@@ -22,8 +22,8 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
           setJoined(true);
         }
       });
-      setJoinedNumber(community.members.length);
     }
+    setJoinedNumber(community.members.length);
   }, [user]);
 
   return (
