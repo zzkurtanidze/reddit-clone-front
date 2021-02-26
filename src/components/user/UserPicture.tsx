@@ -12,7 +12,7 @@ export default function UserPicture({
     <Image
       src={
         image
-          ? image
+          ? `http://${image}`
           : "https://icon-library.com/images/default-user-icon/default-user-icon-4.jpg"
       }
       w={width}

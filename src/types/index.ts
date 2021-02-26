@@ -23,7 +23,7 @@ export type UserType = {
   email: string;
   password: string;
   image?: string;
-  cover?: string;
+  coverImage?: string;
   followers?: [string];
   following?: [string];
   likedPosts?: [PostType];

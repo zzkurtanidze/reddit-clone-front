@@ -97,6 +97,17 @@ export default function UserPage({ match }: { match: any }) {
                         No posts disliked yet
                       </Text>
                     )}
+                {selectedTab === "posted" && (
+                  <Text
+                    textAlign="center"
+                    mt={10}
+                    fontWeight="bold"
+                    fontSize={28}
+                    fontFamily="mono"
+                  >
+                    Nothing posted yet.
+                  </Text>
+                )}
               </Box>
             </Container>
           )}

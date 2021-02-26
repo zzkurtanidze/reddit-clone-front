@@ -95,6 +95,34 @@ export const register = async (user: UserType) => {
 
 /**
  *
+ * @param email - string
+ *   Typed email during registration.
+ */
+
+export const checkUser = async (email: string) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/users/check`,
+      { email },
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const updateUser = async (data: {}) => {
+  try {
+    const response = await axios.put(`${apiUrl}/users/`, data, axiosOptions);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+/**
+ *
  * @param id - User id etc. 601ac04225644d90b1f23fbc
  *
  * Without params this function will return current user information
