@@ -16,6 +16,7 @@ import Followers from "./user-modals/Followers";
 import { followUser } from "../../api";
 import { UserContext } from "../../context/UserContext";
 import UserPicture from "./UserPicture";
+import UserPictureButton from "./UserPictureButton";
 
 export default function UserDetails({
   user,
@@ -75,7 +76,7 @@ export default function UserDetails({
         />
       </Box>
       <Container position="relative" w="100%" my={5}>
-        <UserPicture image={user.image} />
+        <UserPictureButton image={user.image} />
         <Flex
           m={5}
           justifyContent="space-between"
