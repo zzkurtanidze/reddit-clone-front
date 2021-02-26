@@ -76,7 +76,11 @@ export default function UserDetails({
         />
       </Box>
       <Container position="relative" w="100%" my={5}>
-        <UserPictureButton image={user.image} />
+        {user._id === loggedUser._id ? (
+          <UserPictureButton image={user.image} />
+        ) : (
+          <UserPicture image={user.image} />
+        )}
         <Flex
           m={5}
           justifyContent="space-between"
