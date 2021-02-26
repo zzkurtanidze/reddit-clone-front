@@ -1,13 +1,5 @@
 //@ts-nocheck
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-  Link,
-  Text,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { UserType } from "../../types";
 import Container from "../common/Container";
@@ -17,6 +9,8 @@ import { followUser } from "../../api";
 import { UserContext } from "../../context/UserContext";
 import UserPicture from "./UserPicture";
 import UserPictureButton from "./UserPictureButton";
+import UserCover from "./UserCover";
+import UserCoverButton from "./UserCoverButton";
 
 export default function UserDetails({
   user,
@@ -60,27 +54,25 @@ export default function UserDetails({
 
   return (
     <Box pt={20} position="relative" display="flex" gridGap={50}>
-      <Box position="absolute" top="0">
-        <Image
-          src={
-            user.cover
-              ? user.cover
-              : "https://www.zipjob.com/blog/wp-content/uploads/2020/08/linkedin-default-background-cover-photo-1.png"
-          }
-          alt="profile-cover"
-          w="100vw"
-          h="200px"
-          zIndex={-5}
-          objectFit="cover"
-          className="user-image"
-        />
-      </Box>
+      {user._id === loggedUser._id ? (
+        <UserCoverButton user={user} />
+      ) : (
+        <UserCover user={user} />
+      )}
       <Container position="relative" w="100%" my={5}>
-        {user._id === loggedUser._id ? (
-          <UserPictureButton image={user.image} />
-        ) : (
-          <UserPicture image={user.image} />
-        )}
+        <Box
+          border="10px solid white"
+          w="max-content"
+          h="max-content"
+          borderRadius="50%"
+          boxShadow="0 0 10px rgba(0,0,0,.35)"
+        >
+          {user._id === loggedUser._id ? (
+            <UserPictureButton image={user.image} />
+          ) : (
+            <UserPicture image={user.image} />
+          )}
+        </Box>
         <Flex
           m={5}
           justifyContent="space-between"

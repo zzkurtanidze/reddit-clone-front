@@ -1,9 +1,9 @@
-import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
+import { Box, Button, useToast } from "@chakra-ui/react";
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FaRegEdit } from "react-icons/fa";
 import { updateUser, uploadImage } from "../../api";
-import Modal from "../Modal";
+import ChangePicture from "./user-modals/ChangePicture";
 import UserPicture from "./UserPicture";
 
 export default function UserPictureButton({
@@ -36,8 +36,6 @@ export default function UserPictureButton({
     }
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-
   return (
     <Box
       position="relative"
@@ -66,32 +64,11 @@ export default function UserPictureButton({
         <FaRegEdit size={18} />
       </Button>
       {showProfileChangeModal && (
-        <Modal
+        <ChangePicture
           open={showProfileChangeModal}
           onClose={() => setShowProfileChangeModal(false)}
-        >
-          <Box textAlign="center" mt={10}>
-            <Text fontSize={17} fontWeight="bold">
-              Upload new profile picture
-            </Text>
-          </Box>
-          <div {...getRootProps()}>
-            <Flex
-              position="relative"
-              mt={5}
-              justifyContent="center"
-              alignItems="center"
-              h="200px"
-            >
-              <input {...getInputProps()} />
-              {isDragActive ? (
-                <p>Drop the files here ...</p>
-              ) : (
-                <p>Drag 'n' drop some files here, or click to select files</p>
-              )}
-            </Flex>
-          </div>
-        </Modal>
+          onDrop={onDrop}
+        />
       )}
     </Box>
   );
