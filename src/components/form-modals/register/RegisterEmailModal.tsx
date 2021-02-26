@@ -1,7 +1,8 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 
 import React from "react";
+import { checkUser } from "../../../api";
 import FormField from "../../common/FormField";
 import Modal from "../../Modal";
 
@@ -18,11 +19,23 @@ export default function RegisterModal({
   setUser: Function;
   user: { email: string; username: string; password: string };
 }) {
-  const handleSubmit = ({ email }: { email: string }) => {
+  const toast = useToast();
+
+  const handleSubmit = async ({ email }: { email: string }) => {
     let userCopy = user;
     userCopy.email = email;
     setUser(userCopy);
-    setStage((stage: number) => stage + 1);
+    let response = await checkUser(email);
+    if (response.status === 200) {
+      setStage((stage: number) => stage + 1);
+    } else {
+      toast({
+        title: response.data,
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
   };
 
   return (

@@ -37,7 +37,7 @@ export default function Followers({
       <Text fontSize={28} fontWeight="bold">
         Followers
       </Text>
-      <Flex mt={10} w="100%">
+      <Flex mt={10} w="100%" flexDirection="column">
         {followers.length === 0 ? (
           <Text textAlign="center">No Followers</Text>
         ) : (

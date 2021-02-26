@@ -1,4 +1,4 @@
-import { Flex, Image, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { getUserFollowing } from "../../../api";
 import { UserType } from "../../../types";
@@ -37,7 +37,7 @@ export default function Following({
       <Text fontSize={28} fontWeight="bold">
         Following
       </Text>
-      <Flex mt={10} w="100%">
+      <Flex mt={10} w="100%" flexDirection="column">
         {following.length === 0 ? (
           <Text textAlign="center">No Following Users</Text>
         ) : (
