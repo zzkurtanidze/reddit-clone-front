@@ -33,6 +33,7 @@ export default function Modal({
         left="0"
         bg="rgba(0,0,0,.7)"
         onClick={onClose}
+        zIndex={2}
       ></Box>
       <Box
         w="53%"
@@ -42,6 +43,7 @@ export default function Modal({
         top="50%"
         left="50%"
         minHeight="150px"
+        zIndex={2}
         transform="translate(-50%, -50%)"
       >
         {withImage && (
