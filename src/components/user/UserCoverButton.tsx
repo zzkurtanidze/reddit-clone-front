@@ -35,14 +35,13 @@ export default function UserCoverButton({ user }: { user: UserType }) {
       <UserCover user={user} />
       <Button
         position="absolute"
-        top="4"
+        top="69"
         right="5"
         fontSize={18}
         bg="none"
         overflow="hidden"
         color="white"
         fontWeight="bold"
-        px={7}
         transition="0.5s all"
         onClick={() => setShowCoverChangeModal(true)}
         _hover={{
@@ -52,8 +51,7 @@ export default function UserCoverButton({ user }: { user: UserType }) {
             display: "block",
             marginLeft: "5px",
           },
-          background: "gray.300",
-          color: "black",
+          background: "gray.800",
         }}
       >
         <FaRegEdit />

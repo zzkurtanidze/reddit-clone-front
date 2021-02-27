@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
+import "cropperjs/dist/cropper.css";
 import "./main.css";
 
 ReactDOM.render(

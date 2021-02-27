@@ -4,7 +4,7 @@ import { UserType } from "../../types";
 
 export default function UserCover({ user }: { user: UserType }) {
   return (
-    <Box position="absolute" top="0" boxShadow="0 0 5px rgba(0,0,0,.2)">
+    <Box position="absolute" top="57px" boxShadow="0 0 5px rgba(0,0,0,.2)">
       <Image
         src={
           user.coverImage
