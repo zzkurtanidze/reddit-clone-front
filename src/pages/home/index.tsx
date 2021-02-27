@@ -93,10 +93,10 @@ export default function HomePage() {
         <Box id="trending-community" position="relative">
           <Box
             position={fixed ? "fixed" : "sticky"}
-            top="15px"
+            top="75px"
             w={sidebarW ? sidebarW : "inherit"}
           >
-            {communities && <TrendingCommunities communities={communities} />}
+            <TrendingCommunities />
           </Box>
         </Box>
       </Grid>

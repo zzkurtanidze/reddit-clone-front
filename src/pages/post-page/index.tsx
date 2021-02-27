@@ -100,7 +100,7 @@ export default function PostPage({ match }: { match: any }) {
               </Box>
             </StyledBox>
             <Box id="community-info" position="relative">
-              <Box position={fixed ? "fixed" : "sticky"} top="15px">
+              <Box position={fixed ? "fixed" : "sticky"} top="75px">
                 <CommunityInfo community={post.postedTo} user={user} />
               </Box>
             </Box>

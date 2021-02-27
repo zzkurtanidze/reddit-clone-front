@@ -59,6 +59,10 @@ export default function NavBar() {
       px={10}
       py={2}
       justifyContent="space-between"
+      position="fixed"
+      top="0"
+      zIndex={5}
+      boxShadow="0 2px 2px rgba(0,0,0,.2)"
     >
       <Link href="/" _focus={{}} _active={{}}>
         <Image src={Logo} alt={"Reddit Logo"} w={100} />
