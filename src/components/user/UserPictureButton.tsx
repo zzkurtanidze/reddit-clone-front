@@ -83,7 +83,11 @@ export default function UserPictureButton({
         left="50%"
         transform="translateX(-50%)"
         _focus={{}}
-        _hover={{ bottom: 0, backgroundColor: "rgba(0,0,0,.7)" }}
+        _hover={{
+          bottom: 0,
+          backgroundColor: "rgba(0,0,0,.7)",
+          boxShadow: "0 -10px 100px rgba(0,0,0)",
+        }}
         _active={{}}
         color="white"
         pt="22%"
