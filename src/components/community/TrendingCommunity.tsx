@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import { CommunityType } from "../../types";
@@ -26,18 +26,28 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
   }, [user]);
 
   return (
-    <Flex gridGap={3}>
+    <Flex>
       {community.image && (
-        <Image
-          className="loading-image"
-          w={8}
-          h={8}
-          borderRadius="50%"
-          src={community.image}
-        />
+        <Link
+          _focus={{}}
+          _active={{}}
+          w="16%"
+          h="16%"
+          href={`/r/${community.name.split(" ").join("")}`}
+        >
+          <Image
+            className="loading-image"
+            w={8}
+            h={8}
+            borderRadius="50%"
+            src={community.image}
+          />
+        </Link>
       )}
       <Box>
-        <Text
+        <Link
+          _focus={{}}
+          href={`/r/${community.name.split(" ").join("")}`}
           letterSpacing={-0.2}
           textOverflow="ellipsis"
           noOfLines={1}
@@ -45,7 +55,7 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
           fontSize={12}
         >
           r/{community.name}
-        </Text>
+        </Link>
         <Text fontSize={10}>{joinedNumber} Members</Text>
       </Box>
       <Join user={user} community={community} />

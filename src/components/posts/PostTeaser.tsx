@@ -31,7 +31,6 @@ export default function PostTeaser({ post }: { post: PostType }) {
       <Votes user={user} post={post} />
       <Box>
         <PostedBy post={post} />
-
         <Link _hover={{}} _focus={{}} href={`/post/${post._id}`}>
           <Text fontWeight="semibold">{post.title}</Text>
           <Text
