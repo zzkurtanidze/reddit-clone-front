@@ -34,7 +34,7 @@ export default function CommunityPage({ match }: { match: any }) {
         <Box>
           <Cover coverImage={coverImage} />
           <Container mt={250}>
-            <Text>TESTING</Text>
+            <Box></Box>
           </Container>
         </Box>
       )}
