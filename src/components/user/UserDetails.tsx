@@ -54,13 +54,13 @@ export default function UserDetails({
 
   return (
     <Box pt={20} position="relative" display="flex" gridGap={50}>
-      {user._id === loggedUser._id ? (
+      {loggedUser && user._id === loggedUser._id ? (
         <UserCoverButton user={user} />
       ) : (
         <UserCover user={user} />
       )}
-      <Container position="relative" w="100%" my={5}>
-        {user._id === loggedUser._id ? (
+      <Container position="relative" w="100%" my={10}>
+        {loggedUser && user._id === loggedUser._id ? (
           <UserPictureButton image={user.image} />
         ) : (
           <UserPicture image={user.image} />

@@ -12,7 +12,7 @@ export default function UserPicture({
 }) {
   const imageSrc = image
     ? `http://${image}`
-    : "https://icon-library.com/images/default-user-icon/default-user-icon-4.jpg";
+    : "http://localhost:4000/static/test.jpg";
 
   return (
     <ProfilePicture imageSrc={imageSrc} width={width} isZoomable={isZoomable} />
