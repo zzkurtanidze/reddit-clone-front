@@ -6,14 +6,14 @@ import { UserContext } from "../../context/UserContext";
 import { RiImageLine } from "react-icons/ri";
 import { BiLinkAlt } from "react-icons/bi";
 import StyledBox from "../common/StyledBox";
-import UserPictureThumbnail from "../user/UserPictureThumbnail";
+import UserPicture from "../user/UserPicture";
 
 export default function NewPostTeaser() {
   const user = useContext(UserContext);
 
   return (
     <StyledBox mb={5} display="flex" gridGap={5} alignItems="center">
-      <UserPictureThumbnail image={user?.image} />
+      <UserPicture width="50px" isZoomable={false} image={user?.image} />
       <Input
         type="text"
         bg="white"
