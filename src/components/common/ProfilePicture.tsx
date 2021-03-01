@@ -14,10 +14,10 @@ export default function ProfilePicture({
   const [zoomed, setZoomed] = useState<boolean>(false);
 
   return (
-    <Box w={width} borderRadius="50%" overflow="hidden">
+    <Box w={width} h={width} borderRadius="50%" overflow="hidden">
       <Box
-        w="100%"
-        h="100%"
+        w={width}
+        h={width}
         position="absolute"
         onClick={() => setZoomed(!zoomed)}
         zIndex={1}
@@ -25,8 +25,11 @@ export default function ProfilePicture({
       ></Box>
       <Image
         src={imageSrc}
+        w={width}
+        h={width}
         boxShadow="1px 1px 6px rgba(0,0,0,.1)"
         className="user-image"
+        objectFit="cover"
       />
       {isZoomable && zoomed && (
         <ZoomImage src={imageSrc} onClose={() => setZoomed(!zoomed)} />

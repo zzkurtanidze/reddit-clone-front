@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Button, Input } from "@chakra-ui/react";
+import { Box, Button, Input } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
@@ -13,7 +13,9 @@ export default function NewPostTeaser() {
 
   return (
     <StyledBox mb={5} display="flex" gridGap={5} alignItems="center">
-      <UserPicture width="50px" isZoomable={false} image={user?.image} />
+      <Box w="max-content">
+        <UserPicture width="50px" isZoomable={false} image={user?.image} />
+      </Box>
       <Input
         type="text"
         bg="white"
