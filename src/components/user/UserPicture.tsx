@@ -10,11 +10,9 @@ export default function UserPicture({
   width: string;
 }) {
   const [zoomed, setZoomed] = useState<boolean>(false);
-  const [imageSrc, setImageSrc] = useState<string>(
-    image
-      ? `http://${image}`
-      : "https://icon-library.com/images/default-user-icon/default-user-icon-4.jpg"
-  );
+  const imageSrc = image
+    ? `http://${image}`
+    : "https://icon-library.com/images/default-user-icon/default-user-icon-4.jpg";
 
   return (
     <Box w={width} h={width} borderRadius="50%" overflow="hidden">
