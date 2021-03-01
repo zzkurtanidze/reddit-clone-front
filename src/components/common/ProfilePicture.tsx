@@ -12,9 +12,17 @@ export default function ProfilePicture({
   isZoomable?: boolean;
 }) {
   const [zoomed, setZoomed] = useState<boolean>(false);
+  const numWidth = parseInt(width.slice(0, width.length - 2));
 
   return (
-    <Box w={width} h={width} borderRadius="50%" overflow="hidden">
+    <Box
+      w={width}
+      h={width}
+      borderRadius="50%"
+      overflow="hidden"
+      border={numWidth <= 70 ? "0" : `${numWidth / 20}px solid white`}
+      boxShadow="0 0 10px rgba(0,0,0,.35)"
+    >
       <Box
         w={width}
         h={width}

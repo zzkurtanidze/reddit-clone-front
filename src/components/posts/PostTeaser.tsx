@@ -33,11 +33,13 @@ export default function PostTeaser({ post }: { post: PostType }) {
         <PostedBy post={post} />
         <Link _hover={{}} _focus={{}} href={`/post/${post._id}`}>
           <Text fontWeight="semibold">{post.title}</Text>
-          <Text
-            fontSize={14}
-            className="post-body"
-            dangerouslySetInnerHTML={{ __html: post.body.slice(0, 220) }}
-          ></Text>
+          {post.body && (
+            <Text
+              fontSize={14}
+              className="post-body"
+              dangerouslySetInnerHTML={{ __html: post.body.slice(0, 220) }}
+            ></Text>
+          )}
         </Link>
         {post.image && (
           <Image

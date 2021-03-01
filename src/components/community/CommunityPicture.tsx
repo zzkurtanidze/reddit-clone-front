@@ -10,13 +10,14 @@ export default function CommunityPicture({
   imageSrc?: string;
   communityName?: string;
 }) {
-  console.log(imageSrc)
+  const width = "200px";
+
   return imageSrc ? (
-    <ProfilePicture imageSrc={imageSrc} width="100px" />
+    <ProfilePicture imageSrc={imageSrc} width={width} />
   ) : (
     <Box
-      w="100px"
-      height="100px"
+      w={width}
+      height={width}
       color="white"
       bg={randomColor()}
       borderRadius="50%"

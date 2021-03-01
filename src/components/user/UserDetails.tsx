@@ -60,19 +60,11 @@ export default function UserDetails({
         <UserCover user={user} />
       )}
       <Container position="relative" w="100%" my={5}>
-        <Box
-          border="10px solid white"
-          w="max-content"
-          h="max-content"
-          borderRadius="50%"
-          boxShadow="0 0 10px rgba(0,0,0,.35)"
-        >
-          {user._id === loggedUser._id ? (
-            <UserPictureButton image={user.image} />
-          ) : (
-            <UserPicture image={user.image} />
-          )}
-        </Box>
+        {user._id === loggedUser._id ? (
+          <UserPictureButton image={user.image} />
+        ) : (
+          <UserPicture image={user.image} />
+        )}
         <Flex
           m={5}
           justifyContent="space-between"
