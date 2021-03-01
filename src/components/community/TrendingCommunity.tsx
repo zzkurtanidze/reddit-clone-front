@@ -1,7 +1,6 @@
 import React from "react";
-import { Box, Flex, Image, Text, Button } from "@chakra-ui/react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { getCommunity, joinCommunity } from "../../api";
 import { UserContext } from "../../context/UserContext";
 import { CommunityType } from "../../types";
 import LoginModal from "../form-modals/LoginModal";

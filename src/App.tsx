@@ -46,7 +46,7 @@ export default function App() {
         <Switch>
           <ProtectedRoute path="/submit/drafts" component={PostDraftsPage} />
           <ProtectedRoute path="/submit" component={SubmitPage} />
-          <Route path="/community/:id" component={CommunityPage} />
+          <Route path="/r/:name" component={CommunityPage} />
           <Route path="/user/:id" component={UserPage} />
           <Route path="/post/:id" component={PostPage} />
           <Route path="/" exact component={HomePage} />
