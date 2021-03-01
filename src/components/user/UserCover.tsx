@@ -1,6 +1,7 @@
 import { Box, Button, Image } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { UserType } from "../../types";
+import ZoomImage from "../common/ZoomImage";
 
 export default function UserCover({ user }: { user: UserType }) {
   const [zoomed, setZoomed] = useState<boolean>(false);
@@ -13,6 +14,7 @@ export default function UserCover({ user }: { user: UserType }) {
         position="absolute"
         onClick={() => setZoomed(!zoomed)}
         zIndex={1}
+        cursor="pointer"
       ></Box>
       <Image
         src={
@@ -28,37 +30,10 @@ export default function UserCover({ user }: { user: UserType }) {
         className="user-image"
       />
       {zoomed && (
-        <Box>
-          <Box
-            w="100vw"
-            h="100vh"
-            position="fixed"
-            top="0"
-            bg="rgba(0,0,0,.9)"
-            zIndex={5}
-            onClick={() => setZoomed(!zoomed)}
-          ></Box>
-          <Button
-            position="fixed"
-            top="10px"
-            right="10px"
-            zIndex={5}
-            onClick={() => setZoomed(!zoomed)}
-          >
-            Close
-          </Button>
-          <Image
-            src={user.coverImage && `http://${user.coverImage}`}
-            w="70vw"
-            maxH="90vh"
-            objectFit="scale-down"
-            position="fixed"
-            zIndex={5}
-            top="50%"
-            left="50%"
-            transform="translate(-50%,-50%)"
-          />
-        </Box>
+        <ZoomImage
+          src={`http://${user.coverImage}`}
+          onClose={() => setZoomed(!zoomed)}
+        />
       )}
     </Box>
   );

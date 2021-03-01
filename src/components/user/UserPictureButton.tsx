@@ -89,6 +89,7 @@ export default function UserPictureButton({
           boxShadow: "0 -10px 100px rgba(0,0,0)",
         }}
         _active={{}}
+        zIndex={4}
         color="white"
         pt="22%"
         pb="22%"

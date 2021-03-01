@@ -43,15 +43,11 @@ export default function UserCoverButton({ user }: { user: UserType }) {
         color="white"
         fontWeight="bold"
         transition="0.5s all"
+        zIndex={4}
         onClick={() => setShowCoverChangeModal(true)}
         _hover={{
-          _after: {
-            content: '"Edit"',
-            width: "max-content",
-            display: "block",
-            marginLeft: "5px",
-          },
-          background: "gray.800",
+          background: "gray.100",
+          color: "gray.800",
         }}
       >
         <FaRegEdit />
