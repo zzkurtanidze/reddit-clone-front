@@ -27,7 +27,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
   const bg = useColorModeValue("gray.100", "gray.900");
 
   return (
-    <StyledBox display="flex" bg={bg} mb="20px">
+    <StyledBox display="flex" mb="20px">
       <Votes user={user} post={post} />
       <Box>
         <PostedBy post={post} />

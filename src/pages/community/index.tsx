@@ -4,13 +4,12 @@ import React, { useEffect, useState } from "react";
 import { getCommunity } from "../../api";
 import Container from "../../components/common/Container";
 import Cover from "../../components/common/Cover";
-import ProfilePicture from "../../components/common/ProfilePicture";
-import CommunityInfo from "../../components/community/CommunityInfo";
 import CommunityPicture from "../../components/community/CommunityPicture";
 import Join from "../../components/community/Join";
 import NewPostTeaser from "../../components/post-form/NewPostTeaser";
 import PostTeaser from "../../components/posts/PostTeaser";
 import { CommunityType } from "../../types";
+import CommunityInfo from "../../components/community/CommunityInfo";
 
 export default function CommunityPage({ match }: { match: any }) {
   const [community, setCommunity] = useState<CommunityType | undefined>();
@@ -34,7 +33,6 @@ export default function CommunityPage({ match }: { match: any }) {
       response.data.image
         ? setCommunityImage(response.data.image && `${response.data.image}`)
         : setCommunityImage();
-      console.log(response.data);
     }
   };
 

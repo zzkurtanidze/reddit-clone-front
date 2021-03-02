@@ -57,7 +57,7 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
         </Link>
         <Text fontSize={10}>{joinedNumber} Members</Text>
       </Box>
-      <Join user={user} community={community} />
+      <Join community={community} />
       <LoginModal setShowModal={setLoginModal} showModal={loginModal} />
     </Flex>
   );
