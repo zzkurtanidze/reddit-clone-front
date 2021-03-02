@@ -6,14 +6,15 @@ const randomColor = require("randomcolor");
 export default function CommunityPicture({
   imageSrc,
   communityName,
+  width = "200px",
 }: {
   imageSrc?: string;
   communityName?: string;
+  width?: string;
 }) {
-  const width = "200px";
   const numWidth = parseInt(width.slice(0, width.length - 2));
 
-  return imageSrc ? (
+  return imageSrc && imageSrc !== "" ? (
     <ProfilePicture imageSrc={imageSrc} width={width} />
   ) : (
     <Box
