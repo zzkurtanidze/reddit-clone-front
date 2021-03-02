@@ -30,6 +30,10 @@ export default function PostPage({ match }: { match: any }) {
     window.addEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (post) document.title = post.title;
+  }, [post]);
+
   const handleScroll = () => {
     if (window.scrollY >= 200) {
       setFixed(true);

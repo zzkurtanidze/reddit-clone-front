@@ -25,6 +25,7 @@ export default function CommunityPage({ match }: { match: any }) {
   }, []);
 
   useEffect(() => {
+    if (community) document.title = `r/${community?.name}`;
     if (user?.joined && community) {
       user.joined.forEach((joinedCommunity) => {
         if (joinedCommunity._id === community._id) {

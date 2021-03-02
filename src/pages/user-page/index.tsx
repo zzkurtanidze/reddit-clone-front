@@ -24,6 +24,10 @@ export default function UserPage({ match }: { match: any }) {
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    if (user) document.title = `u/${user.username}`;
+  }, [user]);
+
   const fetchUser = async () => {
     setLoading(true);
     const user = await getUser(id);
