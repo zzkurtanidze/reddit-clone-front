@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getCommunity } from "../../api";
 import Container from "../../components/common/Container";
 import Cover from "../../components/common/Cover";
@@ -10,16 +10,29 @@ import NewPostTeaser from "../../components/post-form/NewPostTeaser";
 import PostTeaser from "../../components/posts/PostTeaser";
 import { CommunityType } from "../../types";
 import CommunityInfo from "../../components/community/CommunityInfo";
+import { UserContext } from "../../context/UserContext";
 
 export default function CommunityPage({ match }: { match: any }) {
   const [community, setCommunity] = useState<CommunityType | undefined>();
   const [coverImage, setCoverImage] = useState<string>("");
   const [communityImage, setCommunityImage] = useState<string | undefined>();
+  const [joined, setJoined] = useState<boolean>(false);
   const name: string = match.params.name;
+  const user: UserType | undefined = useContext(UserContext);
 
   useEffect(() => {
     fetchCommunity();
   }, []);
+
+  useEffect(() => {
+    if (user?.joined && community) {
+      user.joined.forEach((joinedCommunity) => {
+        if (joinedCommunity._id === community._id) {
+          setJoined(true);
+        }
+      });
+    }
+  }, [user, community]);
 
   const fetchCommunity = async () => {
     const response = await getCommunity(name);
@@ -52,19 +65,21 @@ export default function CommunityPage({ match }: { match: any }) {
               </Box>
               <Flex gridGap={5} alignItems="center">
                 <Box>
-                  <Text fontSize={32} fontWeight="bold">
-                    {community.name}
-                  </Text>
+                  <Flex gridGap={5} alignItems="center">
+                    <Text fontSize={32} fontWeight="bold">
+                      {community.name}
+                    </Text>
+                    <Join community={community} />
+                  </Flex>
                   <Text fontSize={14} fontFamily="mono" fontWeight="light">
                     r/{community.name.split(" ").join("")}
                   </Text>
                 </Box>
-                <Join community={community} />
               </Flex>
             </Flex>
             <Flex gridGap={5}>
               <Box>
-                <NewPostTeaser />
+                {joined && <NewPostTeaser />}
                 {community.posts.map((post) => (
                   <PostTeaser post={post} />
                 ))}
