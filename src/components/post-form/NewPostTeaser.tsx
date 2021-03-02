@@ -11,14 +11,17 @@ import UserPicture from "../user/UserPicture";
 export default function NewPostTeaser() {
   const user = useContext(UserContext);
 
-  return (
-    <StyledBox mb={5} display="flex" gridGap={5} alignItems="center">
+  return user ? (
+    <StyledBox mb={5} display="flex" gridGap={2} alignItems="center">
       <Box w="max-content">
-        <UserPicture width="50px" isZoomable={false} image={user?.image} />
+        <UserPicture width="40px" isZoomable={false} image={user?.image} />
       </Box>
       <Input
         type="text"
         bg="white"
+        _hover={{
+          outline: "1",
+        }}
         onFocus={() => window.location.replace("/submit")}
         placeholder="Create Post"
       />
@@ -29,5 +32,7 @@ export default function NewPostTeaser() {
         <BiLinkAlt size="40px" color="#7E8183" />
       </Button>
     </StyledBox>
+  ) : (
+    <></>
   );
 }

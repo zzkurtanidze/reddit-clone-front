@@ -5,6 +5,7 @@ import { UserContext } from "../../context/UserContext";
 import { CommunityType } from "../../types";
 import LoginModal from "../form-modals/LoginModal";
 import Join from "./Join";
+import CommunityPicture from "./CommunityPicture";
 
 export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
   community,
@@ -27,7 +28,7 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
 
   return (
     <Flex>
-      {community.image && (
+      {community && (
         <Link
           _focus={{}}
           _active={{}}
@@ -35,12 +36,10 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
           h="16%"
           href={`/r/${community.name.split(" ").join("")}`}
         >
-          <Image
-            className="loading-image"
-            w={8}
-            h={8}
-            borderRadius="50%"
-            src={community.image}
+          <CommunityPicture
+            communityName={community.name}
+            imageSrc={community.image}
+            width="35px"
           />
         </Link>
       )}

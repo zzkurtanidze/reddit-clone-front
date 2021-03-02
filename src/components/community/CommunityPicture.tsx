@@ -19,11 +19,11 @@ export default function CommunityPicture({
   ) : (
     <Box
       w={width}
-      height={width}
+      h={width}
       color="white"
       bg={randomColor()}
       borderRadius="50%"
-      fontSize={numWidth / 1.4}
+      fontSize={numWidth / 1.8}
       display="grid"
       placeItems="center"
       userSelect="none"
