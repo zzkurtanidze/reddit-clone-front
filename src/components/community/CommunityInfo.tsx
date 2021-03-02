@@ -1,8 +1,9 @@
 //@ts-nocheck
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { CommunityType, UserType } from "../../types";
 import StyledBox from "../common/StyledBox";
+import CommunityPicture from "./CommunityPicture";
 import Join from "./Join";
 
 export default function CommunityInfo({
@@ -20,16 +21,15 @@ export default function CommunityInfo({
       maxWidth="max-content"
       h="max-content"
     >
-      {community.image && (
-        <Image
-          w="70px"
-          h="70px"
-          objectFit="cover"
-          borderRadius="50%"
-          m="auto"
-          src={`${community.image}`}
-        />
-      )}
+      <Grid placeItems="center">
+        {community && (
+          <CommunityPicture
+            imageSrc={community.image}
+            communityName={community.name}
+            width="75px"
+          />
+        )}
+      </Grid>
       <Text my="10px" fontSize={16} fontWeight="bold">
         {community.name}
       </Text>
