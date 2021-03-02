@@ -13,6 +13,7 @@ import { IoIosLink } from "react-icons/io";
 import { newPost } from "../../api";
 import TabButton from "../common/TabButton";
 import { useLocalStorage } from "../../utils/useLocalStorage";
+import StyledBox from "../common/StyledBox";
 
 export default function NewPostForm() {
   const user = useContext(UserContext);
@@ -149,7 +150,7 @@ export default function NewPostForm() {
           />
         )}
       </Box>
-      <Box borderRadius={7} pb="10px" bg="gray.100">
+      <StyledBox p={0}>
         <Flex w="100%">
           <TabButton
             selected={selectedTab === "post"}
@@ -211,7 +212,7 @@ export default function NewPostForm() {
             </Button>
           </Flex>
         </Flex>
-      </Box>
+      </StyledBox>
     </>
   );
 }
