@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { getCommunity } from "../../api";
 import Container from "../../components/common/Container";
@@ -78,7 +78,7 @@ export default function CommunityPage({ match }: { match: any }) {
                 </Box>
               </Flex>
             </Flex>
-            <Flex gridGap={5}>
+            <Grid gridTemplateColumns="1fr .4fr" gridGap={5}>
               <Box>
                 {joined && <NewPostTeaser />}
                 {community.posts.map((post) => (
@@ -86,7 +86,7 @@ export default function CommunityPage({ match }: { match: any }) {
                 ))}
               </Box>
               <CommunityInfo community={community} />
-            </Flex>
+            </Grid>
           </Container>
         </Box>
       )}

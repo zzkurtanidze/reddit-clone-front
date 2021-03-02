@@ -28,7 +28,7 @@ export default function CommunityInfo({
   }, [user]);
 
   return (
-    <StyledBox w="70%" p={0} h="max-content">
+    <StyledBox p={0} h="max-content">
       <Box bg="gray.800" w="100%" p="15px" py="17px">
         <Text color="white" fontSize={12}>
           ABOUT COMMUNITY

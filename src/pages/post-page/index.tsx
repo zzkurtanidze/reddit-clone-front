@@ -1,6 +1,6 @@
 /* eslint-disable react/style-prop-object */
 //@ts-nocheck
-import { Box, Flex, Image, Text, useToast } from "@chakra-ui/react";
+import { Box, Flex, Grid, Image, Text, useToast } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { FaShare } from "react-icons/fa";
 import { RiBookmarkFill } from "react-icons/ri";
@@ -8,6 +8,7 @@ import { getPostById } from "../../api";
 import Container from "../../components/common/Container";
 import Loading from "../../components/common/Loading";
 import StyledBox from "../../components/common/StyledBox";
+import CommunityInfo from "../../components/community/CommunityInfo";
 import CommunityTeaser from "../../components/community/CommunityTeaser";
 import Date from "../../components/posts/Date";
 import { PostButton } from "../../components/posts/PostButton";
@@ -59,10 +60,10 @@ export default function PostPage({ match }: { match: any }) {
   if (loading) return <Loading />;
   return (
     <Container mx="10%">
-      <Flex gridGap={4}>
+      <Grid gridTemplateColumns="1fr .4fr" gridGap={5}>
         {post && (
           <>
-            <StyledBox maxWidth="70%" display="flex">
+            <StyledBox display="flex">
               <Votes user={user} post={post} />
               <Box>
                 <Flex justifyContent="space-between">
@@ -110,7 +111,7 @@ export default function PostPage({ match }: { match: any }) {
             </Box>
           </>
         )}
-      </Flex>
+      </Grid>
     </Container>
   );
 }
