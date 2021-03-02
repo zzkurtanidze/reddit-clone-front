@@ -1,18 +1,15 @@
 import { Button } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { joinCommunity } from "../../api";
+import { UserContext } from "../../context/UserContext";
 import { CommunityType, UserType } from "../../types";
+import PrimaryButton from "../common/PrimaryButton";
 import LoginModal from "../form-modals/LoginModal";
 
-export default function Join({
-  user,
-  community,
-}: {
-  user: UserType | undefined;
-  community: CommunityType;
-}) {
+export default function Join({ community }: { community: CommunityType }) {
   const [joined, setJoined] = useState<boolean>(false);
   const [loginModal, setLoginModal] = useState<boolean>(false);
+  const user = useContext(UserContext);
 
   useEffect(() => {
     if (user?.joined) {
@@ -35,21 +32,12 @@ export default function Join({
 
   return (
     <>
-      <Button
-        px={50}
-        py="8px"
-        h="max-content"
-        fontSize={14}
-        borderRadius={50}
+      <PrimaryButton
+        label={joined ? "Leave" : "Join"}
         bg={joined ? "#e2e2e2" : "#1384D7"}
         color={joined ? "black" : "white"}
-        _hover={{
-          backgroundColor: joined ? "#c9c9c9" : "#3c9ce0",
-        }}
         onClick={handleJoin}
-      >
-        {joined ? "Leave" : "Join"}
-      </Button>
+      />
       <LoginModal showModal={loginModal} setShowModal={setLoginModal} />
     </>
   );

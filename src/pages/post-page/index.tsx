@@ -8,7 +8,7 @@ import { getPostById } from "../../api";
 import Container from "../../components/common/Container";
 import Loading from "../../components/common/Loading";
 import StyledBox from "../../components/common/StyledBox";
-import CommunityInfo from "../../components/community/CommunityInfo";
+import CommunityTeaser from "../../components/community/CommunityTeaser";
 import Date from "../../components/posts/Date";
 import { PostButton } from "../../components/posts/PostButton";
 import PostedBy from "../../components/posts/PostedBy";
@@ -101,7 +101,7 @@ export default function PostPage({ match }: { match: any }) {
             </StyledBox>
             <Box id="community-info" position="relative">
               <Box position={fixed ? "fixed" : "sticky"} top="75px">
-                <CommunityInfo community={post.postedTo} user={user} />
+                <CommunityTeaser community={post.postedTo} user={user} />
               </Box>
             </Box>
           </>

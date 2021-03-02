@@ -239,9 +239,10 @@ export const getCommunities = async () => {
   }
 };
 
-export const getCommunity = async (id: string) => {
+export const getCommunity = async (name: string) => {
   try {
-    const response = await axios.get(`${apiUrl}/community/${id}`);
+    name = name.split(/(?=[A-Z])/).join(" ");
+    const response = await axios.get(`${apiUrl}/community/${name}`);
     return response;
   } catch (ex) {
     return ex.response;

@@ -1,11 +1,11 @@
 import React from "react";
-import { Box, Flex, Image, Text, Button } from "@chakra-ui/react";
+import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { getCommunity, joinCommunity } from "../../api";
 import { UserContext } from "../../context/UserContext";
 import { CommunityType } from "../../types";
 import LoginModal from "../form-modals/LoginModal";
 import Join from "./Join";
+import CommunityPicture from "./CommunityPicture";
 
 export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
   community,
@@ -27,18 +27,26 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
   }, [user]);
 
   return (
-    <Flex gridGap={3}>
-      {community.image && (
-        <Image
-          className="loading-image"
-          w={8}
-          h={8}
-          borderRadius="50%"
-          src={community.image}
-        />
+    <Flex>
+      {community && (
+        <Link
+          _focus={{}}
+          _active={{}}
+          w="16%"
+          h="16%"
+          href={`/r/${community.name.split(" ").join("")}`}
+        >
+          <CommunityPicture
+            communityName={community.name}
+            imageSrc={community.image}
+            width="35px"
+          />
+        </Link>
       )}
       <Box>
-        <Text
+        <Link
+          _focus={{}}
+          href={`/r/${community.name.split(" ").join("")}`}
           letterSpacing={-0.2}
           textOverflow="ellipsis"
           noOfLines={1}
@@ -46,10 +54,10 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
           fontSize={12}
         >
           r/{community.name}
-        </Text>
+        </Link>
         <Text fontSize={10}>{joinedNumber} Members</Text>
       </Box>
-      <Join user={user} community={community} />
+      <Join community={community} />
       <LoginModal setShowModal={setLoginModal} showModal={loginModal} />
     </Flex>
   );

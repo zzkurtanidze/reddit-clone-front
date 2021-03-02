@@ -27,18 +27,19 @@ export default function PostTeaser({ post }: { post: PostType }) {
   const bg = useColorModeValue("gray.100", "gray.900");
 
   return (
-    <StyledBox display="flex" bg={bg} mb="20px">
+    <StyledBox display="flex" mb="20px">
       <Votes user={user} post={post} />
       <Box>
         <PostedBy post={post} />
-
         <Link _hover={{}} _focus={{}} href={`/post/${post._id}`}>
           <Text fontWeight="semibold">{post.title}</Text>
-          <Text
-            fontSize={14}
-            className="post-body"
-            dangerouslySetInnerHTML={{ __html: post.body.slice(0, 220) }}
-          ></Text>
+          {post.body && (
+            <Text
+              fontSize={14}
+              className="post-body"
+              dangerouslySetInnerHTML={{ __html: post.body.slice(0, 220) }}
+            ></Text>
+          )}
         </Link>
         {post.image && (
           <Image

@@ -1,37 +1,20 @@
-import { Box, Image } from "@chakra-ui/react";
-import React, { useState } from "react";
-import ZoomImage from "../common/ZoomImage";
+import React from "react";
+import ProfilePicture from "../common/ProfilePicture";
 
 export default function UserPicture({
   image,
   width = "200px",
+  isZoomable,
 }: {
   image: string | undefined;
-  width: string;
+  width?: string;
+  isZoomable?: boolean;
 }) {
-  const [zoomed, setZoomed] = useState<boolean>(false);
   const imageSrc = image
     ? `http://${image}`
-    : "https://icon-library.com/images/default-user-icon/default-user-icon-4.jpg";
+    : "http://localhost:4000/static/test.jpg";
 
   return (
-    <Box w={width} h={width} borderRadius="50%" overflow="hidden">
-      <Box
-        w="100%"
-        h="100%"
-        position="absolute"
-        onClick={() => setZoomed(!zoomed)}
-        zIndex={1}
-        cursor="pointer"
-      ></Box>
-      <Image
-        src={imageSrc}
-        boxShadow="1px 1px 6px rgba(0,0,0,.1)"
-        className="user-image"
-      />
-      {zoomed && (
-        <ZoomImage src={imageSrc} onClose={() => setZoomed(!zoomed)} />
-      )}
-    </Box>
+    <ProfilePicture imageSrc={imageSrc} width={width} isZoomable={isZoomable} />
   );
 }

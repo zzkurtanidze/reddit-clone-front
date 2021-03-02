@@ -48,7 +48,7 @@ export default function NavBar() {
 
   const { colorMode, toggleColorMode } = useColorMode();
 
-  const bg = useColorModeValue("gray.100", "gray.600");
+  const bg = useColorModeValue("white", "gray.600");
   const color = useColorModeValue("#333", "white");
 
   return (
@@ -61,7 +61,7 @@ export default function NavBar() {
       justifyContent="space-between"
       position="fixed"
       top="0"
-      zIndex={1}
+      zIndex={5}
       boxShadow="0 2px 2px rgba(0,0,0,.2)"
     >
       <Link href="/" _focus={{}} _active={{}}>

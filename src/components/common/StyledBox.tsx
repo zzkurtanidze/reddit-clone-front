@@ -9,7 +9,8 @@ export default function StyledBox({
 }) {
   return (
     <Box
-      bg="gray.100"
+      bg="white"
+      overflow="hidden"
       borderWidth="1px"
       borderColor="gray.300"
       borderRadius="4px"
