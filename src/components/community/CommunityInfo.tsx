@@ -1,22 +1,35 @@
 //@ts-nocheck
-import { Box, Button, Divider, Flex, Grid, Text } from "@chakra-ui/react";
-import React from "react";
+import { Box, Divider, Flex, Grid, Text } from "@chakra-ui/react";
+import React, { useContext, useEffect, useState } from "react";
 import { CommunityType } from "../../types";
 import StyledBox from "../common/StyledBox";
 
 import NumberFormat from "react-number-format";
-import { BiCake } from "react-icons/bi";
 import { RiCake2Fill } from "react-icons/ri";
 import PrimaryButton from "../common/PrimaryButton";
+import { UserContext } from "../../context/UserContext";
 
 export default function CommunityInfo({
   community,
 }: {
   community: CommunityType;
 }) {
+  const [joined, setJoined] = useState<boolean>(false);
+  const user = useContext(UserContext);
+
+  useEffect(() => {
+    if (user?.joined) {
+      user.joined.forEach((joinedCommunity) => {
+        if (joinedCommunity._id === community._id) {
+          setJoined(true);
+        }
+      });
+    }
+  }, [user]);
+
   return (
     <StyledBox w="70%" p={0} h="max-content">
-      <Box bg="gray.800" w="100%" p="15px" py="20px">
+      <Box bg="gray.800" w="100%" p="15px" py="17px">
         <Text color="white" fontSize={12}>
           ABOUT COMMUNITY
         </Text>
@@ -38,15 +51,16 @@ export default function CommunityInfo({
           <RiCake2Fill />
           Created Apr 30, 2015
         </Flex>
-        <Grid mt={5}>
-          <PrimaryButton
-            label="Create a post"
-            onClick={() => window.location.replace("/submit")}
-          />
-        </Grid>
-        <br />
-        <Divider />
-        <br />
+        {joined && (
+          <>
+            <Grid mt={5}>
+              <PrimaryButton
+                label="Create a post"
+                onClick={() => window.location.replace("/submit")}
+              />
+            </Grid>
+          </>
+        )}
       </Box>
     </StyledBox>
   );

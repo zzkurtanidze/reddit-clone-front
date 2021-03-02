@@ -51,9 +51,14 @@ export default function CommunityPage({ match }: { match: any }) {
                 />
               </Box>
               <Flex gridGap={5} alignItems="center">
-                <Text fontSize={32} fontWeight="bold">
-                  {community.name}
-                </Text>
+                <Box>
+                  <Text fontSize={32} fontWeight="bold">
+                    {community.name}
+                  </Text>
+                  <Text fontSize={14} fontFamily="mono" fontWeight="light">
+                    r/{community.name.split(" ").join("")}
+                  </Text>
+                </Box>
                 <Join community={community} />
               </Flex>
             </Flex>
