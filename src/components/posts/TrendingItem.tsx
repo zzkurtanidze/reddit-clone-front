@@ -4,17 +4,17 @@ import { PostType } from "../../types/index";
 
 export default function TrendingItem({ item }: { item: PostType }) {
   return (
-    <Box
-      position="relative"
-      h="170px"
-      bgImage={`linear-gradient(0deg, rgba(0,0,0) -20%, rgba(255,255,255,0) 120%), url(http://${item.image})`}
-      bgSize="cover"
-      bgPosition="0 50%"
-      bgRepeat="no-repeat"
-      borderRadius="10px"
-      cursor="pointer"
-    >
-      <Link _hover={{}} _focus={{}} href={`/post/${item._id}`}>
+    <Link _hover={{}} _focus={{}} href={`/post/${item._id}`}>
+      <Box
+        position="relative"
+        h="170px"
+        bgImage={`linear-gradient(0deg, rgba(0,0,0) -20%, rgba(255,255,255,0) 120%), url(http://${item.image})`}
+        bgSize="cover"
+        bgPosition="0 50%"
+        bgRepeat="no-repeat"
+        borderRadius="10px"
+        cursor="pointer"
+      >
         <Box position="absolute" bottom="5px" color="white" left="10px">
           <Text fontSize="16px" fontWeight="bold">
             {item.title}
@@ -27,7 +27,7 @@ export default function TrendingItem({ item }: { item: PostType }) {
             {item.postedTo.name}
           </Text>
         </Box>
-      </Link>
-    </Box>
+      </Box>
+    </Link>
   );
 }

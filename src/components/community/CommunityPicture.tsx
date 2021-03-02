@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 import ProfilePicture from "../common/ProfilePicture";
 const randomColor = require("randomcolor");
@@ -11,6 +11,7 @@ export default function CommunityPicture({
   communityName?: string;
 }) {
   const width = "200px";
+  const numWidth = parseInt(width.slice(0, width.length - 2));
 
   return imageSrc ? (
     <ProfilePicture imageSrc={imageSrc} width={width} />
@@ -21,11 +22,14 @@ export default function CommunityPicture({
       color="white"
       bg={randomColor()}
       borderRadius="50%"
-      fontSize={66.5}
-      textAlign="center"
+      fontSize={numWidth / 1.4}
+      display="grid"
+      placeItems="center"
       userSelect="none"
+      border={numWidth <= 70 ? "0" : `${numWidth / 20}px solid white`}
+      boxShadow="0 0 10px rgba(0,0,0,.35)"
     >
-      {communityName![0]}
+      <Text lineHeight="0">{communityName![0]}</Text>
     </Box>
   );
 }
