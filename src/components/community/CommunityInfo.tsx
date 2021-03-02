@@ -1,50 +1,53 @@
 //@ts-nocheck
-import { Box, Button, Flex, Grid, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Grid, Text } from "@chakra-ui/react";
 import React from "react";
-import { CommunityType, UserType } from "../../types";
+import { CommunityType } from "../../types";
 import StyledBox from "../common/StyledBox";
-import CommunityPicture from "./CommunityPicture";
-import Join from "./Join";
+
+import NumberFormat from "react-number-format";
+import { BiCake } from "react-icons/bi";
+import { RiCake2Fill } from "react-icons/ri";
+import PrimaryButton from "../common/PrimaryButton";
 
 export default function CommunityInfo({
   community,
-  user,
 }: {
   community: CommunityType;
-  user?: UserType;
 }) {
   return (
-    <StyledBox
-      w="100%"
-      minWidth="350px"
-      textAlign="center"
-      maxWidth="max-content"
-      h="max-content"
-    >
-      <Grid placeItems="center">
-        {community && (
-          <CommunityPicture
-            imageSrc={community.image}
-            communityName={community.name}
-            width="75px"
-          />
-        )}
-      </Grid>
-      <Text my="10px" fontSize={16} fontWeight="bold">
-        {community.name}
-      </Text>
-      <Text fontSize={14} fontFamily="sans-serif">
-        {community.description}
-      </Text>
-      <Box textAlign="left" my={5}>
-        <Text fontSize={14} fontFamily="sans-serif">
-          {community.members.length} Members
-        </Text>
-        <Text fontSize={14} fontFamily="sans-serif">
-          {community.posts.length} Posts
+    <StyledBox w="70%" p={0} h="max-content">
+      <Box bg="gray.800" w="100%" p="15px" py="20px">
+        <Text color="white" fontSize={12}>
+          ABOUT COMMUNITY
         </Text>
       </Box>
-      <Join community={community} user={user} />
+      <Box p="15px">
+        <Text>{community.description}</Text>
+        <Box mt="20px" fontFamily="mono" fontWeight="bold">
+          <NumberFormat
+            value={community.members.length}
+            displayType="text"
+            thousandSeparator={true}
+          />
+          <Text fontSize={12}>Members</Text>
+        </Box>
+        <br />
+        <Divider />
+        <br />
+        <Flex gridGap={2} alignItems="center">
+          <RiCake2Fill />
+          Created Apr 30, 2015
+        </Flex>
+        <Grid mt={5}>
+          <PrimaryButton
+            label="Create a post"
+            onClick={() => window.location.replace("/submit")}
+          />
+        </Grid>
+        <br />
+        <Divider />
+        <br />
+      </Box>
     </StyledBox>
   );
 }
