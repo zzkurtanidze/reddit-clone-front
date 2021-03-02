@@ -1,3 +1,7 @@
+body {
+  background: #edf2f7 !important;
+}
+
 .post a {
   text-decoration: underline !important;
   color: blue !important;
