@@ -13,7 +13,7 @@ import UserDetails from "../../components/user/UserDetails";
 import { PostType, UserType } from "../../types";
 
 export default function UserPage({ match }: { match: any }) {
-  const id = match.params.id;
+  const username = match.params.username;
   const [user, setUser] = useState<UserType | undefined>();
   const [likedPosts, setLikedPosts] = useState<PostType | undefined>();
   const [dislikedPosts, setDislikedPosts] = useState<PostType | undefined>();
@@ -30,14 +30,16 @@ export default function UserPage({ match }: { match: any }) {
 
   const fetchUser = async () => {
     setLoading(true);
-    const user = await getUser(id);
-    if (user.likedPosts) {
-      setLikedPosts(user.likedPosts);
+    const user = await getUser(username);
+    if (user) {
+      if (user.likedPosts) {
+        setLikedPosts(user.likedPosts);
+      }
+      if (user.dislikedPosts) {
+        setDislikedPosts(user.dislikedPosts);
+      }
+      setUser(user);
     }
-    if (user.dislikedPosts) {
-      setDislikedPosts(user.dislikedPosts);
-    }
-    setUser(user);
     setLoading(false);
   };
 
@@ -51,7 +53,7 @@ export default function UserPage({ match }: { match: any }) {
     <Box>
       {user && (
         <>
-          <UserDetails user={user} id={id} />
+          <UserDetails user={user} id={user._id} />
           {user.likedPosts && (
             <Container my={0}>
               <Flex>

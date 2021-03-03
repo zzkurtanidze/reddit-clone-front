@@ -14,7 +14,7 @@ export default function PostedBy({ post }: { post: PostType }) {
       </Link>
       <Text color="gray.500" ml="10px">
         Posted By{" "}
-        <Link href={`/user/${post.postedBy._id}`} _focus={{}} _active={{}}>
+        <Link href={`/user/${post.postedBy.username}`} _focus={{}} _active={{}}>
           {post.postedBy.username}
         </Link>
       </Text>

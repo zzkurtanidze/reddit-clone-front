@@ -128,13 +128,13 @@ export const updateUser = async (data: {}) => {
  * Without params this function will return current user information
  *
  */
-export const getUser = async (id = undefined) => {
+export const getUser = async (username = undefined) => {
   try {
     let response;
-    if (!id) {
+    if (!username) {
       response = await axios.get(`${apiUrl}/users/me`, axiosOptions);
     } else {
-      response = await axios.get(`${apiUrl}/users/${id}`, axiosOptions);
+      response = await axios.get(`${apiUrl}/users/${username}`, axiosOptions);
     }
     return response.data;
   } catch (ex) {

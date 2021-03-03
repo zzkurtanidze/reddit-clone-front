@@ -113,7 +113,7 @@ export default function NavBar() {
                 <DropdownLink
                   title="Profile"
                   icon={<FaUserCircle color={color} />}
-                  href={`/user/${user._id}`}
+                  href={`/user/${user.username}`}
                 />
                 <DropdownItem
                   title="User Settings"
