@@ -1,12 +1,17 @@
-import { Button } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { joinCommunity } from "../../api";
 import { UserContext } from "../../context/UserContext";
-import { CommunityType, UserType } from "../../types";
+import { CommunityType } from "../../types";
 import PrimaryButton from "../common/PrimaryButton";
 import LoginModal from "../form-modals/LoginModal";
 
-export default function Join({ community }: { community: CommunityType }) {
+export default function Join({
+  community,
+  refresh = false,
+}: {
+  community: CommunityType;
+  refresh?: boolean;
+}) {
   const [joined, setJoined] = useState<boolean>(false);
   const [loginModal, setLoginModal] = useState<boolean>(false);
   const user = useContext(UserContext);
@@ -27,6 +32,9 @@ export default function Join({ community }: { community: CommunityType }) {
       setJoined(!joined);
     } else if (!user) {
       setLoginModal(true);
+    }
+    if (refresh) {
+      window.location.reload();
     }
   };
 
