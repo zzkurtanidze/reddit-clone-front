@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Box, Grid, Text } from "@chakra-ui/react";
+import { Box, Grid, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import { CommunityType, UserType } from "../../types";
 import StyledBox from "../common/StyledBox";
@@ -27,12 +27,19 @@ export default function CommunityTeaser({
             imageSrc={community.image}
             communityName={community.name}
             width="75px"
+            withLink
           />
         )}
       </Grid>
-      <Text my="10px" fontSize={16} fontWeight="bold">
-        {community.name}
-      </Text>
+      <Link
+        _hover={{}}
+        _focus={{}}
+        href={`/r/${community.name.split(" ").join("")}`}
+      >
+        <Text my="10px" fontSize={16} fontWeight="bold">
+          {community.name}
+        </Text>
+      </Link>
       <Text fontSize={14} fontFamily="sans-serif">
         {community.description}
       </Text>
