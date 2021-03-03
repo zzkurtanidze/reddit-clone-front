@@ -3,6 +3,7 @@ import { TrendingCommunity } from "./TrendingCommunity";
 import { CommunityType } from "../../types/index";
 import React, { useEffect, useState } from "react";
 import { getCommunities } from "../../api";
+import StyledBox from "../common/StyledBox";
 
 export default function TrendingCommunities() {
   const [communities, setCommunities] = useState<undefined | CommunityType[]>();
@@ -19,15 +20,7 @@ export default function TrendingCommunities() {
   };
 
   return (
-    <Box
-      borderRadius={5}
-      border="1px"
-      borderColor="gray.300"
-      w="100%"
-      h="max-content"
-      bg={bg}
-      p={15}
-    >
+    <StyledBox>
       {communities && (
         <>
           <Text fontWeight="bold" fontSize={14}>
@@ -40,6 +33,6 @@ export default function TrendingCommunities() {
           </Flex>
         </>
       )}
-    </Box>
+    </StyledBox>
   );
 }
