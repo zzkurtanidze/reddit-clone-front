@@ -5,11 +5,7 @@ import { PostType } from "../../types";
 export default function PostedBy({ post }: { post: PostType }) {
   return (
     <Flex fontSize={12}>
-      <Link
-        fontWeight="bold"
-        _focus={{}}
-        href={`/r/${post.postedTo.name.split(" ").join("")}`}
-      >
+      <Link fontWeight="bold" _focus={{}} href={`/r/${post.postedTo.username}`}>
         {post.postedTo["name"]}
       </Link>
       <Text color="gray.500" ml="10px">

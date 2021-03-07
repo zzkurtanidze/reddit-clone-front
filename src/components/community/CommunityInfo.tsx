@@ -55,7 +55,7 @@ export default function CommunityInfo({
         </Flex>
         <Flex gridGap={2} alignItems="center" mt={3}>
           <FaUserCircle />
-          Created By{" "}
+          By
           <Link href={`/user/${community.createdBy.username}`}>
             {community.createdBy.username}
           </Link>

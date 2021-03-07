@@ -27,7 +27,7 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
   }, [user]);
 
   return (
-    <Flex>
+    <Flex gridGap={2}>
       {community && (
         <CommunityPicture
           communityUsername={community.username}
