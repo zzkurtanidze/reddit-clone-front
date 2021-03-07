@@ -12,7 +12,7 @@ export default function UserPicture({
 }) {
   const imageSrc = image
     ? `http://${image}`
-    : "http://localhost:4000/static/test.jpg";
+    : "http://localhost:4000/static/1614470100879.jpg";
 
   return (
     <ProfilePicture imageSrc={imageSrc} width={width} isZoomable={isZoomable} />
