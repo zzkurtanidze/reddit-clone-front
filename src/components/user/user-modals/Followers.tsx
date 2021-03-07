@@ -56,7 +56,7 @@ export default function Followers({
                 alignItems="center"
                 gridGap={5}
                 _focus={{}}
-                href={`/user/${user._id}`}
+                href={`/user/${user.username}`}
               >
                 <UserPicture image={user.image} width="40px" />
                 {user.username}
