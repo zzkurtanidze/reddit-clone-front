@@ -11,12 +11,14 @@ import PostTeaser from "../../components/posts/PostTeaser";
 import { CommunityType } from "../../types";
 import CommunityInfo from "../../components/community/CommunityInfo";
 import { UserContext } from "../../context/UserContext";
+import Loading from "../../components/common/Loading";
 
 export default function CommunityPage({ match }: { match: any }) {
   const [community, setCommunity] = useState<CommunityType | undefined>();
   const [coverImage, setCoverImage] = useState<string>("");
   const [communityImage, setCommunityImage] = useState<string | undefined>();
   const [joined, setJoined] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const name: string = match.params.name;
   const user: UserType | undefined = useContext(UserContext);
 
@@ -36,6 +38,7 @@ export default function CommunityPage({ match }: { match: any }) {
   }, [user, community]);
 
   const fetchCommunity = async () => {
+    setLoading(true);
     const response = await getCommunity(name);
     if (response.statusText === "OK") {
       setCommunity(response.data);
@@ -48,8 +51,10 @@ export default function CommunityPage({ match }: { match: any }) {
         ? setCommunityImage(response.data.image && `${response.data.image}`)
         : setCommunityImage();
     }
+    setLoading(false);
   };
 
+  if (loading) return <Loading />;
   return (
     <>
       ,
