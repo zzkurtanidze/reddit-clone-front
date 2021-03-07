@@ -39,4 +39,7 @@ export type CommunityType = {
   image: string;
   members: [UserType];
   posts: [PostType];
+  createdAt: string;
+  createdBy: UserType;
+  moderators: [UserType];
 };
