@@ -84,9 +84,18 @@ export default function CommunityPage({ match }: { match: any }) {
             <Grid gridTemplateColumns="1fr .5fr" gridGap={5}>
               <Box>
                 {joined && <NewPostTeaser />}
-                {community.posts.map((post) => (
-                  <PostTeaser post={post} />
-                ))}
+                {community.posts.length >= 1 ? (
+                  community.posts.map((post) => <PostTeaser post={post} />)
+                ) : (
+                  <Box
+                    textAlign="center"
+                    fontSize={22}
+                    fontWeight="bold"
+                    fontFamily="mono"
+                  >
+                    <Text>No posts yet</Text>
+                  </Box>
+                )}
               </Box>
               <CommunityInfo community={community} />
             </Grid>
