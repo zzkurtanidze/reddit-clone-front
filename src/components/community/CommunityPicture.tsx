@@ -8,11 +8,13 @@ export default function CommunityPicture({
   communityName,
   width = "200px",
   withLink = false,
+  zoomable = true,
 }: {
   imageSrc: string;
   communityName: string;
   width?: string;
   withLink?: boolean;
+  zoomable?: boolean;
 }) {
   const numWidth = parseInt(width.slice(0, width.length - 2));
 
@@ -26,6 +28,8 @@ export default function CommunityPicture({
       >
         <ProfilePicture imageSrc={imageSrc} width={width} isZoomable={false} />
       </Link>
+    ) : !zoomable ? (
+      <ProfilePicture imageSrc={imageSrc} width={width} isZoomable={false} />
     ) : (
       <ProfilePicture imageSrc={imageSrc} width={width} />
     )

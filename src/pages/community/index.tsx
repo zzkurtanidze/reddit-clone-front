@@ -73,7 +73,7 @@ export default function CommunityPage({ match }: { match: any }) {
                     <Join community={community} refresh={true} />
                   </Flex>
                   <Text fontSize={14} fontFamily="mono" fontWeight="light">
-                    r/{community.name.split(" ").join("")}
+                    r/{community.username}
                   </Text>
                 </Box>
               </Flex>
