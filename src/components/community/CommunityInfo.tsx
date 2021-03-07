@@ -1,13 +1,15 @@
 //@ts-nocheck
-import { Box, Divider, Flex, Grid, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Grid, Link, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { CommunityType } from "../../types";
 import StyledBox from "../common/StyledBox";
 
 import NumberFormat from "react-number-format";
-import { RiCake2Fill } from "react-icons/ri";
 import PrimaryButton from "../common/PrimaryButton";
 import { UserContext } from "../../context/UserContext";
+
+import { FaUserCircle } from "react-icons/fa";
+import { RiCake2Fill } from "react-icons/ri";
 
 export default function CommunityInfo({
   community,
@@ -49,7 +51,14 @@ export default function CommunityInfo({
         <br />
         <Flex gridGap={2} alignItems="center">
           <RiCake2Fill />
-          Created Apr 30, 2015
+          Created {community.createdAt}
+        </Flex>
+        <Flex gridGap={2} alignItems="center" mt={3}>
+          <FaUserCircle />
+          Created By{" "}
+          <Link href={`/user/${community.createdBy.username}`}>
+            {community.createdBy.username}
+          </Link>
         </Flex>
         {joined && (
           <>
