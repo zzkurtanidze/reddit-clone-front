@@ -34,6 +34,7 @@ export type UserType = {
 export type CommunityType = {
   _id: string;
   name: string;
+  username: string;
   description: string;
   image: string;
   members: [UserType];
