@@ -241,7 +241,6 @@ export const getCommunities = async () => {
 
 export const getCommunity = async (name: string) => {
   try {
-    name = name.split(/(?=[A-Z])/).join(" ");
     const response = await axios.get(`${apiUrl}/community/${name}`);
     return response;
   } catch (ex) {

@@ -66,7 +66,7 @@ export default function HomePage() {
       <Grid mt={10} templateColumns="1fr 0.5fr" gap={5}>
         <Box>
           {user && <NewPostTeaser />}
-          {posts.length > 1 ? (
+          {posts.length >= 1 ? (
             posts.map((item) => <PostTeaser key={item._id} post={item} />)
           ) : (
             <Box textAlign="center">

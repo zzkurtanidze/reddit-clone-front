@@ -13,6 +13,7 @@ export default function Trending({ items }: { items: PostType[] }) {
       )}
       <Grid my="20px" gap="10px" templateColumns="repeat(4, 1fr)">
         {items &&
+          items.length >= 1 &&
           items.map((item: PostType) => (
             <TrendingItem key={item._id} item={item} />
           ))}
