@@ -6,6 +6,7 @@ import { FaShare } from "react-icons/fa";
 import { RiBookmarkFill } from "react-icons/ri";
 import { getPostById } from "../../api";
 import Container from "../../components/common/Container";
+import FixedElement from "../../components/common/FixedElement";
 import Loading from "../../components/common/Loading";
 import StyledBox from "../../components/common/StyledBox";
 import CommunityInfo from "../../components/community/CommunityInfo";
@@ -20,7 +21,6 @@ import { PostType } from "../../types";
 export default function PostPage({ match }: { match: any }) {
   const [post, setPost] = useState<PostType | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
-  const [fixed, setFixed] = useState<boolean>(false);
   const user = useContext(UserContext);
 
   const toast = useToast();
@@ -28,20 +28,11 @@ export default function PostPage({ match }: { match: any }) {
 
   useEffect(() => {
     fetchPost();
-    window.addEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
     if (post) document.title = post.title;
   }, [post]);
-
-  const handleScroll = () => {
-    if (window.scrollY >= 200) {
-      setFixed(true);
-    } else {
-      setFixed(false);
-    }
-  };
 
   const fetchPost = async () => {
     setLoading(true);
@@ -104,11 +95,9 @@ export default function PostPage({ match }: { match: any }) {
                 </Box>
               </Box>
             </StyledBox>
-            <Box id="community-info" position="relative">
-              <Box position={fixed ? "fixed" : "sticky"} top="75px">
-                <CommunityTeaser community={post.postedTo} user={user} />
-              </Box>
-            </Box>
+            <FixedElement>
+              <CommunityTeaser community={post.postedTo} user={user} />
+            </FixedElement>
           </>
         )}
       </Grid>

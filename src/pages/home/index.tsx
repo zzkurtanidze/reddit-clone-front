@@ -9,6 +9,7 @@ import Loading from "../../components/common/Loading";
 import NewPostTeaser from "../../components/post-form/NewPostTeaser";
 import Container from "../../components/common/Container";
 import { UserContext } from "../../context/UserContext";
+import FixedElement from "../../components/common/FixedElement";
 
 export default function HomePage() {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -22,7 +23,6 @@ export default function HomePage() {
 
   useEffect(() => {
     fetchData();
-    window.addEventListener("scroll", handleScroll);
   }, []);
 
   const fetchData = async () => {
@@ -90,15 +90,9 @@ export default function HomePage() {
             </Box>
           )}
         </Box>
-        <Box id="trending-community" position="relative">
-          <Box
-            position={fixed ? "fixed" : "sticky"}
-            top="75px"
-            w={sidebarW ? sidebarW : "inherit"}
-          >
-            <TrendingCommunities />
-          </Box>
-        </Box>
+        <FixedElement>
+          <TrendingCommunities />
+        </FixedElement>
       </Grid>
     </Container>
   );

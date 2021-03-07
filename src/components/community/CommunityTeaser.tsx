@@ -25,17 +25,13 @@ export default function CommunityTeaser({
         {community && (
           <CommunityPicture
             imageSrc={community.image}
-            communityName={community.name}
+            communityUsername={community.username}
             width="75px"
             withLink
           />
         )}
       </Grid>
-      <Link
-        _hover={{}}
-        _focus={{}}
-        href={`/r/${community.name.split(" ").join("")}`}
-      >
+      <Link _hover={{}} _focus={{}} href={`/r/${community.username}`}>
         <Text my="10px" fontSize={16} fontWeight="bold">
           {community.name}
         </Text>
