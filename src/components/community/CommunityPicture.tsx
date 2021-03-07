@@ -5,31 +5,27 @@ const randomColor = require("randomcolor");
 
 export default function CommunityPicture({
   imageSrc,
-  communityName,
+  communityUsername,
   width = "200px",
   withLink = false,
-  zoomable = true,
 }: {
   imageSrc: string;
-  communityName: string;
+  communityUsername: string;
   width?: string;
   withLink?: boolean;
-  zoomable?: boolean;
 }) {
   const numWidth = parseInt(width.slice(0, width.length - 2));
 
   return imageSrc && imageSrc !== "" ? (
     withLink ? (
       <Link
-        href={`/r/${communityName.split(" ").join("")}`}
+        href={`/r/${communityUsername}`}
         _hover={{}}
         _active={{}}
         _focus={{}}
       >
         <ProfilePicture imageSrc={imageSrc} width={width} isZoomable={false} />
       </Link>
-    ) : !zoomable ? (
-      <ProfilePicture imageSrc={imageSrc} width={width} isZoomable={false} />
     ) : (
       <ProfilePicture imageSrc={imageSrc} width={width} />
     )
@@ -47,7 +43,7 @@ export default function CommunityPicture({
       border={numWidth <= 70 ? "0" : `${numWidth / 20}px solid white`}
       boxShadow="0 0 10px rgba(0,0,0,.35)"
     >
-      <Text lineHeight="0">{communityName![0]}</Text>
+      <Text lineHeight="0">{communityUsername[0]}</Text>
     </Box>
   );
 }

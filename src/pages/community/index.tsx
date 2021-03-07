@@ -58,12 +58,10 @@ export default function CommunityPage({ match }: { match: any }) {
           <Cover coverImage={coverImage} />
           <Container mt={260}>
             <Flex position="relative" top="-80px" gridGap={5}>
-              <Box>
-                <CommunityPicture
-                  imageSrc={communityImage}
-                  communityName={community.name}
-                />
-              </Box>
+              <CommunityPicture
+                imageSrc={communityImage}
+                communityUsername={community.username}
+              />
               <Flex gridGap={5} alignItems="center">
                 <Box>
                   <Flex gridGap={5} alignItems="center">
