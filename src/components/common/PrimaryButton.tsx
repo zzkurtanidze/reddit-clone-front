@@ -23,7 +23,7 @@ export default function PrimaryButton({
         py="8px"
         h="max-content"
         fontSize={14}
-        borderRadius={50}
+        borderRadius={5}
         bg={bg}
         color={color}
         _hover={{}}
