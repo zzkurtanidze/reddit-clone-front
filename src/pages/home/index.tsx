@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import PostTeaser from "../../components/posts/PostTeaser";
 import Trending from "../../components/posts/Trending";
 import TrendingCommunities from "../../components/community/TrendingCommunities";
-import { Box, Grid, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, Link, Text } from "@chakra-ui/react";
 import { getCommunities, getPosts } from "../../api";
 import { CommunityType, PostType } from "../../types";
 import Loading from "../../components/common/Loading";
@@ -10,6 +10,7 @@ import NewPostTeaser from "../../components/posts/post-form/NewPostTeaser";
 import Container from "../../components/common/Container";
 import { UserContext } from "../../context/UserContext";
 import FixedElement from "../../components/common/FixedElement";
+import HomeSidebar from "../../components/HomeSidebar";
 
 export default function HomePage() {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -91,7 +92,10 @@ export default function HomePage() {
           )}
         </Box>
         <FixedElement>
-          <TrendingCommunities />
+          <Flex flexDirection="column" gridGap={5}>
+            <TrendingCommunities />
+            <HomeSidebar />
+          </Flex>
         </FixedElement>
       </Grid>
     </Container>

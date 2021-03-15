@@ -7,17 +7,19 @@ export default function PrimaryButton({
   color = "white",
   bg = "#1384D7",
   icon = undefined,
+  px = 50,
 }: {
   onClick: any;
   label: string;
   color?: string;
   bg?: string;
   icon?: any;
+  px?: number | string;
 }) {
   return (
     <>
       <Button
-        px={icon ? 4 : 50}
+        px={icon ? 4 : px}
         py="8px"
         h="max-content"
         fontSize={14}

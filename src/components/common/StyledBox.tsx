@@ -15,6 +15,7 @@ export default function StyledBox({
       borderColor="gray.300"
       borderRadius="4px"
       p="15px"
+      position="relative"
       {...otherProps}
     >
       {children}
