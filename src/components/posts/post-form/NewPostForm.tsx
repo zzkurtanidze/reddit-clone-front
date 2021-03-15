@@ -33,7 +33,7 @@ export default function NewPostForm() {
     const communityNames: any[] = [];
 
     // Set draft numbers
-    setDraftsLength(drafts.length);
+    setDraftsLength(drafts ? drafts.length : 0);
 
     // If draft available, set values.
     if (params.draft && isNull(post)) {
