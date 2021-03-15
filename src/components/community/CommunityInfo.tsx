@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { CommunityType } from "../../types";
 import StyledBox from "../common/StyledBox";
 
-import NumberFormat from "react-number-format";
 import PrimaryButton from "../common/PrimaryButton";
 import { UserContext } from "../../context/UserContext";
 
@@ -39,11 +38,7 @@ export default function CommunityInfo({
       <Box p="15px">
         <Text>{community.description}</Text>
         <Box mt="20px" fontFamily="mono" fontWeight="bold">
-          <NumberFormat
-            value={community.members.length}
-            displayType="text"
-            thousandSeparator={true}
-          />
+          <Text>{community.members.length}</Text>
           <Text fontSize={12}>Members</Text>
         </Box>
         <br />
