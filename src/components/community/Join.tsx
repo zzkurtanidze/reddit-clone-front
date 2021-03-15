@@ -1,15 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Flex } from "@chakra-ui/layout";
 import { joinCommunity } from "../../api";
 import { UserContext } from "../../context/UserContext";
 import { CommunityType } from "../../types";
 import PrimaryButton from "../common/PrimaryButton";
 import LoginModal from "../form-modals/LoginModal";
 
+import { GoPlus } from "react-icons/go";
+import { BiMinus } from "react-icons/bi";
+
 export default function Join({
   community,
+  icon = false,
   refresh = false,
 }: {
   community: CommunityType;
+  icon?: boolean;
   refresh?: boolean;
 }) {
   const [joined, setJoined] = useState<boolean>(false);
@@ -39,14 +45,18 @@ export default function Join({
   };
 
   return (
-    <>
+    <Flex>
       <PrimaryButton
         label={joined ? "Leave" : "Join"}
         bg={joined ? "#e2e2e2" : "#1384D7"}
         color={joined ? "black" : "white"}
         onClick={handleJoin}
+        icon={
+          icon &&
+          (joined ? <BiMinus color="black" /> : <GoPlus color="white" />)
+        }
       />
       <LoginModal showModal={loginModal} setShowModal={setLoginModal} />
-    </>
+    </Flex>
   );
 }

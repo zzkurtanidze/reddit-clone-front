@@ -19,6 +19,7 @@ import Votes from "./Votes";
 import PostedBy from "./PostedBy";
 import StyledBox from "../common/StyledBox";
 import { PostButton } from "./PostButton";
+import Join from "../community/Join";
 
 export default function PostTeaser({ post }: { post: PostType }) {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -27,7 +28,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
   const bg = useColorModeValue("gray.100", "gray.900");
 
   return (
-    <StyledBox display="flex" mb="20px">
+    <StyledBox display="flex" mb="20px" position="relative">
       <Votes user={user} post={post} />
       <Box>
         <PostedBy post={post} />
@@ -55,6 +56,9 @@ export default function PostTeaser({ post }: { post: PostType }) {
           <PostButton icon={<FaShare color="gray" />} label="Share" />
           <PostButton icon={<RiBookmarkFill color="gray" />} label="Save" />
         </Flex>
+      </Box>
+      <Box position="absolute" top={5} right={5}>
+        <Join icon={true} community={post.postedTo} />
       </Box>
       <LoginModal setShowModal={setShowModal} showModal={showModal} />
     </StyledBox>
