@@ -6,33 +6,50 @@ import { getCommunities } from "../../api";
 import StyledBox from "../common/StyledBox";
 
 export default function TrendingCommunities() {
-  const [communities, setCommunities] = useState<undefined | CommunityType[]>();
+	const [communities, setCommunities] = useState<
+		undefined | CommunityType[]
+	>();
 
-  const bg = useColorModeValue("gray.100", "gray.900");
+	const bg = useColorModeValue("gray.100", "gray.900");
 
-  useEffect(() => {
-    fetchCommunities();
-  }, []);
+	useEffect(() => {
+		fetchCommunities();
+	}, []);
 
-  const fetchCommunities = async () => {
-    const { data } = await getCommunities();
-    setCommunities(data);
-  };
+	const fetchCommunities = async () => {
+		const response = await getCommunities();
+		if (response && response.statusText === "OK") {
+			setCommunities(response.data);
+		}
+	};
 
-  return (
-    <StyledBox>
-      {communities && (
-        <>
-          <Text fontWeight="bold" fontSize={14}>
-            Trending Communities
-          </Text>
-          <Flex mt="15px" direction="column" gridGap={5}>
-            {communities.map((community) => (
-              <TrendingCommunity key={community._id} community={community} />
-            ))}
-          </Flex>
-        </>
-      )}
-    </StyledBox>
-  );
+	return (
+		<StyledBox>
+			{communities && (
+				<>
+					<Text fontWeight="bold" fontSize={14}>
+						Trending Communities
+					</Text>
+					<Flex
+						mt="15px"
+						direction="column"
+						gridGap={5}
+					>
+						{communities.map(
+							(community) => (
+								<TrendingCommunity
+									key={
+										community._id
+									}
+									community={
+										community
+									}
+								/>
+							)
+						)}
+					</Flex>
+				</>
+			)}
+		</StyledBox>
+	);
 }
