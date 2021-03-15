@@ -7,7 +7,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { PostType } from "../../types/index";
 
 import { FaCommentAlt, FaShare } from "react-icons/fa";
@@ -23,9 +23,20 @@ import Join from "../community/Join";
 
 export default function PostTeaser({ post }: { post: PostType }) {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [joined, setJoined] = useState<boolean>(false);
   const user = useContext(UserContext);
 
   const bg = useColorModeValue("gray.100", "gray.900");
+
+  useEffect(() => {
+    if (user?.joined) {
+      user.joined.forEach((joinedCommunity) => {
+        if (joinedCommunity._id === post.postedTo._id) {
+          setJoined(true);
+        }
+      });
+    }
+  }, [user]);
 
   return (
     <StyledBox display="flex" mb="20px" position="relative">
@@ -57,9 +68,11 @@ export default function PostTeaser({ post }: { post: PostType }) {
           <PostButton icon={<RiBookmarkFill color="gray" />} label="Save" />
         </Flex>
       </Box>
-      <Box position="absolute" top={5} right={5}>
-        <Join icon={true} community={post.postedTo} />
-      </Box>
+      {!joined && (
+        <Box position="absolute" top={5} right={5}>
+          <Join icon={true} community={post.postedTo} />
+        </Box>
+      )}
       <LoginModal setShowModal={setShowModal} showModal={showModal} />
     </StyledBox>
   );
