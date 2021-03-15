@@ -62,6 +62,7 @@ export default function NavBar() {
       position="fixed"
       top="0"
       zIndex={5}
+      alignItems="center"
       boxShadow="0 2px 2px rgba(0,0,0,.2)"
     >
       <Link href="/" _focus={{}} _active={{}}>
@@ -175,8 +176,9 @@ const NavLink: React.FC<NavLinkProps> = ({
   return (
     <Button
       px="34px"
-      py="5px"
-      borderRadius="25px"
+      py="8px"
+      h="max-content"
+      borderRadius={5}
       color={color}
       bg={bg}
       fontWeight="bold"
@@ -184,6 +186,7 @@ const NavLink: React.FC<NavLinkProps> = ({
       _hover={{
         textDecor: "none",
       }}
+      _active={{}}
       onClick={onClick}
       {...otherProps}
     >
