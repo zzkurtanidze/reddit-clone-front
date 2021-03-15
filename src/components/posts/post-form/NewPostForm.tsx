@@ -4,16 +4,16 @@ import React, { useContext, useEffect, useState } from "react";
 import Select from "react-select";
 import PostTab from "./tabs/PostTab";
 import ImagesTab from "./tabs/ImagesTab";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../../context/UserContext";
 
 import queryString from "query-string";
 
 import { RiImageFill, RiMessage2Fill } from "react-icons/ri";
 import { IoIosLink } from "react-icons/io";
-import { newPost } from "../../api";
-import TabButton from "../common/TabButton";
-import { useLocalStorage } from "../../utils/useLocalStorage";
-import StyledBox from "../common/StyledBox";
+import { newPost } from "../../../api";
+import TabButton from "../../common/TabButton";
+import { useLocalStorage } from "../../../utils/useLocalStorage";
+import StyledBox from "../../common/StyledBox";
 
 export default function NewPostForm() {
   const user = useContext(UserContext);

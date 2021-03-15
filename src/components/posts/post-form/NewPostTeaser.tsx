@@ -1,12 +1,12 @@
 //@ts-nocheck
 import { Box, Button, Input } from "@chakra-ui/react";
 import React, { useContext } from "react";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../../context/UserContext";
 
 import { RiImageLine } from "react-icons/ri";
 import { BiLinkAlt } from "react-icons/bi";
-import StyledBox from "../common/StyledBox";
-import UserPicture from "../user/UserPicture";
+import StyledBox from "../../common/StyledBox";
+import UserPicture from "../../user/UserPicture";
 
 export default function NewPostTeaser() {
   const user = useContext(UserContext);

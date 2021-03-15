@@ -1,7 +1,7 @@
 //@ts-nocheck
 import React, { useEffect, useState } from "react";
 import Container from "../../components/common/Container";
-import DraftsList from "../../components/post-form/drafts/DraftsList";
+import DraftsList from "../../components/posts/post-form/drafts/DraftsList";
 import { NotPostedPostType } from "../../types";
 import { useLocalStorage } from "../../utils/useLocalStorage";
 

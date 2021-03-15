@@ -3,7 +3,7 @@ import { Button, Link, Table, Td, Text, Th, Tr } from "@chakra-ui/react";
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { NotPostedPostType } from "../../../types";
+import { NotPostedPostType } from "../../../../types";
 import { useHistory } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 

@@ -1,7 +1,7 @@
 import { Button, Flex, useToast } from "@chakra-ui/react";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { uploadImage } from "../../../api";
+import { uploadImage } from "../../../../api";
 
 export default function ImagesTab({
   post,

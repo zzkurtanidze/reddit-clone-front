@@ -6,7 +6,7 @@ import Container from "../../components/common/Container";
 import Cover from "../../components/common/Cover";
 import CommunityPicture from "../../components/community/CommunityPicture";
 import Join from "../../components/community/Join";
-import NewPostTeaser from "../../components/post-form/NewPostTeaser";
+import NewPostTeaser from "../../components/posts/post-form/NewPostTeaser";
 import PostTeaser from "../../components/posts/PostTeaser";
 import { CommunityType } from "../../types";
 import CommunityInfo from "../../components/community/CommunityInfo";

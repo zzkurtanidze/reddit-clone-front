@@ -6,7 +6,7 @@ import { Box, Grid, Link, Text } from "@chakra-ui/react";
 import { getCommunities, getPosts } from "../../api";
 import { CommunityType, PostType } from "../../types";
 import Loading from "../../components/common/Loading";
-import NewPostTeaser from "../../components/post-form/NewPostTeaser";
+import NewPostTeaser from "../../components/posts/post-form/NewPostTeaser";
 import Container from "../../components/common/Container";
 import { UserContext } from "../../context/UserContext";
 import FixedElement from "../../components/common/FixedElement";
