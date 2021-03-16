@@ -1,10 +1,12 @@
+//@ts-nocheck
 import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import React from "react";
 import FormField from "../common/FormField";
 import Modal from "../Modal";
+import { GoogleLogin, GoogleLoginResponse } from "react-google-login";
 
-import { login } from "../../api/index";
+import { login, loginWithGoogle } from "../../api/index";
 
 export default function LoginModal({
   showModal,
@@ -14,6 +16,13 @@ export default function LoginModal({
   setShowModal: Function;
 }) {
   const toast = useToast();
+
+  const onGoogleLogin = async (googleResponse: GoogleLoginResponse) => {
+    const response = await loginWithGoogle(googleResponse);
+    if (response.statusText === "OK") {
+      window.location.reload();
+    }
+  };
 
   return (
     <Modal withImage open={showModal} onClose={() => setShowModal(false)}>
@@ -62,7 +71,16 @@ export default function LoginModal({
         >
           {({ errors }) => (
             <Form>
-              <Flex direction="column" w={"250px"}>
+              <Flex direction="column" gridGap={2} w={"250px"}>
+                <GoogleLogin
+                  clientId="179343367326-ii2qfpoug2srm96tuhrad1qkr4falq8a.apps.googleusercontent.com"
+                  buttonText="Login with Google"
+                  onSuccess={(response: GoogleLoginResponse) =>
+                    onGoogleLogin(response)
+                  }
+                  onFailure={(response) => onGoogleLogin(response)}
+                  cookiePolicy={"single_host_origin"}
+                />
                 <FormField
                   placeholder="Email"
                   name="email"
