@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import axios from "axios";
+import { GoogleLoginResponse } from "react-google-login";
 import { UserType } from "../types";
 
 const apiUrl = "http://localhost:4000/api";
@@ -154,6 +155,19 @@ export const getUser = async (username = undefined) => {
 export const login = async (user: { email: string; password: string }) => {
   try {
     const response = await axios.post(`${apiUrl}/auth`, user, axiosOptions);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const loginWithGoogle = async (googleResponse: GoogleLoginResponse) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/auth/google`,
+      googleResponse,
+      axiosOptions
+    );
     return response;
   } catch (ex) {
     return ex.response;
