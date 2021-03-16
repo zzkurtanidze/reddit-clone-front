@@ -3,8 +3,8 @@ import PostTeaser from "../../components/posts/PostTeaser";
 import Trending from "../../components/posts/Trending";
 import TrendingCommunities from "../../components/community/TrendingCommunities";
 import { Box, Flex, Grid, Link, Text } from "@chakra-ui/react";
-import { getCommunities, getPosts } from "../../api";
-import { CommunityType, PostType } from "../../types";
+import { getPosts } from "../../api";
+import { PostType } from "../../types";
 import Loading from "../../components/common/Loading";
 import NewPostTeaser from "../../components/posts/post-form/NewPostTeaser";
 import Container from "../../components/common/Container";
@@ -14,13 +14,8 @@ import HomeSidebar from "../../components/HomeSidebar";
 
 export default function HomePage() {
   const [posts, setPosts] = useState<PostType[]>([]);
-  const [communities, setCommunities] = useState<CommunityType[]>([]);
   const user = useContext(UserContext);
   const [loading, setLoading] = useState<boolean>(false);
-  const [fixed, setFixed] = useState<boolean>(false);
-  const [sidebarW, setSidebarW] = useState<number | undefined>(
-    document.getElementById("trending-community")?.clientWidth
-  );
 
   useEffect(() => {
     fetchData();
@@ -28,32 +23,14 @@ export default function HomePage() {
 
   const fetchData = async () => {
     setLoading(true);
-    await Promise.all([fetchPosts(), fetchCommunities()]);
+    await fetchPosts();
     setLoading(false);
-    setTimeout(() => {
-      setSidebarW(document.getElementById("trending-community")?.clientWidth);
-    }, 200);
   };
 
   const fetchPosts = async () => {
     const response = await getPosts();
     if (response && response.statusText === "OK") {
       setPosts(response.data);
-    }
-  };
-
-  const fetchCommunities = async () => {
-    const response = await getCommunities();
-    if (response && response.statusText === "OK") {
-      setCommunities(response.data);
-    }
-  };
-
-  const handleScroll = () => {
-    if (window.scrollY >= 380) {
-      setFixed(true);
-    } else {
-      setFixed(false);
     }
   };
 
@@ -94,7 +71,7 @@ export default function HomePage() {
         <FixedElement>
           <Flex flexDirection="column" gridGap={5}>
             <TrendingCommunities />
-            <HomeSidebar />
+            {user && <HomeSidebar />}
           </Flex>
         </FixedElement>
       </Grid>
