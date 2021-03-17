@@ -5,6 +5,7 @@ import {
   FormLabel,
   Textarea,
 } from "@chakra-ui/react";
+import { Field } from "formik";
 
 export default function FormTextarea({
   placeholder,
@@ -33,10 +34,11 @@ export default function FormTextarea({
           {description}
         </FormHelperText>
       )}
-      <Textarea
+      <Field
+        as={Textarea}
         placeholder={placeholder && `${placeholder} ${required ? "*" : ""}`}
         name={name}
-      ></Textarea>
+      ></Field>
     </FormControl>
   );
 }
