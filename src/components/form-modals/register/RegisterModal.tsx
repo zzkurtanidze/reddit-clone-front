@@ -10,7 +10,16 @@ export default function RegisterModal({
   setShowModal: Function;
 }) {
   const [stage, setStage] = useState(1);
-  const [user, setUser] = useState({ email: "", username: "", password: "" });
+  const [user, setUser] = useState<{
+    email: string;
+    username: string;
+    password: string;
+    image?: string;
+  }>({
+    email: "",
+    username: "",
+    password: "",
+  });
 
   return stage === 1 ? (
     <RegisterEmailModal

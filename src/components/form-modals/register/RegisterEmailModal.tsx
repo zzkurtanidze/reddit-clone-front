@@ -1,7 +1,9 @@
+//@ts-nocheck
+import React from "react";
 import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
+import { GoogleLogin, GoogleLoginResponse } from "react-google-login";
 
-import React from "react";
 import { checkUser } from "../../../api";
 import FormField from "../../common/FormField";
 import Modal from "../../Modal";
@@ -17,13 +19,23 @@ export default function RegisterModal({
   setShowModal: Function;
   setStage: Function;
   setUser: Function;
-  user: { email: string; username: string; password: string };
+  user: { email: string; username: string; password: string; image?: string };
 }) {
   const toast = useToast();
 
-  const handleSubmit = async ({ email }: { email: string }) => {
+  const handleSubmit = async ({
+    email,
+    imageUrl,
+  }: {
+    email: string;
+    imageUrl?: string;
+  }) => {
     let userCopy = user;
     userCopy.email = email;
+    if (imageUrl) {
+      userCopy.image = imageUrl;
+    }
+    console.log(userCopy);
     setUser(userCopy);
     let response = await checkUser(email);
     if (response.status === 200) {
@@ -65,6 +77,14 @@ export default function RegisterModal({
           {({ errors }) => (
             <Form>
               <Flex direction="column" w={"250px"}>
+                <GoogleLogin
+                  clientId="179343367326-ii2qfpoug2srm96tuhrad1qkr4falq8a.apps.googleusercontent.com"
+                  buttonText="Register with Google"
+                  onSuccess={(response: GoogleLoginResponse) =>
+                    handleSubmit(response.profileObj)
+                  }
+                  cookiePolicy={"single_host_origin"}
+                />
                 <FormField
                   placeholder="Email"
                   name="email"
