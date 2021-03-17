@@ -8,11 +8,13 @@ export default function Modal({
   children,
   onClose,
   withImage = false,
+  width = "53%",
 }: {
   open: boolean;
   children?: React.ReactNode;
   onClose: any;
   withImage?: boolean;
+  width?: string | number;
 }) {
   const bg = useColorModeValue("white", "gray.900");
 
@@ -36,7 +38,7 @@ export default function Modal({
         zIndex={5}
       ></Box>
       <Box
-        w="53%"
+        w={width}
         h="max-content"
         bg={bg}
         position="fixed"
