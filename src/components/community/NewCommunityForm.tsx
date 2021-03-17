@@ -4,8 +4,12 @@ import { Box, Divider, Flex, Text } from "@chakra-ui/layout";
 import FormField from "../common/FormField";
 import FormTextarea from "../common/FormTextarea";
 import { Button } from "@chakra-ui/button";
+import { createCommunity } from "../../api";
+import { toast, useToast } from "@chakra-ui/toast";
 
 export default function NewCommunityForm() {
+  const toast = useToast();
+
   return (
     <>
       <Text fontWeight="bold">Create Community</Text>
@@ -14,7 +18,25 @@ export default function NewCommunityForm() {
       <br />
       <Formik
         initialValues={{ name: "", description: "" }}
-        onSubmit={(data) => console.log(data)}
+        onSubmit={async (data) => {
+          const response = await createCommunity(data);
+          if (response.statusText === "OK") {
+            toast({
+              title: "Community has been created",
+              status: "success",
+              isClosable: true,
+            });
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          } else {
+            toast({
+              title: response.data,
+              status: "error",
+              isClosable: true,
+            });
+          }
+        }}
       >
         {({ errors }) => (
           <Form>
