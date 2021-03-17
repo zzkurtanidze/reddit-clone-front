@@ -43,7 +43,9 @@ export default function CommunityPicture({
       border={numWidth <= 70 ? "0" : `${numWidth / 20}px solid white`}
       boxShadow="0 0 10px rgba(0,0,0,.35)"
     >
-      <Text lineHeight="0">{communityUsername[0]}</Text>
+      <Text textTransform="uppercase" lineHeight="0">
+        {communityUsername[0]}
+      </Text>
     </Box>
   );
 }
