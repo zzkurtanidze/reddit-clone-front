@@ -31,14 +31,14 @@ export default function UserPictureButton({
     const response = await uploadImage(data);
     if (response.statusText === "OK") {
       const image = new Image();
-      image.src = "http://" + response.data;
+      image.src = response.data;
       image.onload = async function () {
         if (image.width - image.height < 100) {
           await updateUser({ image: response.data });
           window.location.reload();
         } else {
           setShowCropper(true);
-          setImageUrl("http://" + response.data);
+          setImageUrl(response.data);
         }
       };
     } else {

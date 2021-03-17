@@ -45,7 +45,7 @@ export default function CommunityPage({ match }: { match: any }) {
       setCommunity(response.data);
       setCoverImage(
         response.data.coverImage
-          ? `http://${response.data.coverImage}`
+          ? response.data.coverImage
           : "http://localhost:4000/static/default-cover.png"
       );
       response.data.image

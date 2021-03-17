@@ -1,7 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { useDropzone } from "react-dropzone";
-import { Callback } from "yup/lib/types";
 import Modal from "../../Modal";
 
 export default function ChangePicture({

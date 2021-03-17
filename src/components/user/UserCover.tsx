@@ -19,7 +19,7 @@ export default function UserCover({ user }: { user: UserType }) {
       <Image
         src={
           user.coverImage
-            ? `http://${user.coverImage}`
+            ? user.coverImage
             : "https://www.zipjob.com/blog/wp-content/uploads/2020/08/linkedin-default-background-cover-photo-1.png"
         }
         alt="profile-cover"
@@ -31,7 +31,11 @@ export default function UserCover({ user }: { user: UserType }) {
       />
       {zoomed && (
         <ZoomImage
-          src={`http://${user.coverImage}`}
+          src={
+            user.coverImage
+              ? user.coverImage
+              : "https://www.zipjob.com/blog/wp-content/uploads/2020/08/linkedin-default-background-cover-photo-1.png"
+          }
           onClose={() => setZoomed(!zoomed)}
         />
       )}

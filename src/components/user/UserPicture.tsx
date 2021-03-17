@@ -10,9 +10,7 @@ export default function UserPicture({
   width?: string;
   isZoomable?: boolean;
 }) {
-  const imageSrc = image
-    ? `http://${image}`
-    : "http://localhost:4000/static/1614470100879.jpg";
+  const imageSrc = image ? image : "http://localhost:4000/static/avatar.png";
 
   return (
     <ProfilePicture imageSrc={imageSrc} width={width} isZoomable={isZoomable} />

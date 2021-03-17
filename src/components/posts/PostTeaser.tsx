@@ -55,7 +55,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
         </Link>
         {post.image && (
           <Image
-            src={`http://${post.image}`}
+            src={post.image}
             mt="10px"
             w="100%"
             maxHeight="500px"

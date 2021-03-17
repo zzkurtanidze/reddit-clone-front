@@ -69,7 +69,7 @@ export default function PostPage({ match }: { match: any }) {
                   dangerouslySetInnerHTML={{ __html: post.body }}
                 ></Text>
                 {post.image && (
-                  <Image src={`http://${post.image}`} alt={post.title} mt={5} />
+                  <Image src={post.image} alt={post.title} mt={5} />
                 )}
                 <Flex mt={5} gridGap={5}>
                   <PostButton icon={<FaShare color="gray" />} label="Share" />
