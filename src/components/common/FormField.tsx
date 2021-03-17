@@ -30,15 +30,15 @@ export default function FormField({
   return (
     <FormControl isInvalid={error ? true : false} my={2}>
       <FormLabel fontFamily="mono">
-        {label && `${label} ${required && "*"}`}
+        {label && `${label} ${required ? "*" : ""}`}
       </FormLabel>
       {description && (
-        <FormHelperText fontSize={12} mb={2}>
+        <FormHelperText fontSize={12} mb={2} fontFamily="mono">
           {description}
         </FormHelperText>
       )}
       <Field
-        placeholder={placeholder && `${placeholder} ${required && "*"}`}
+        placeholder={placeholder && `${placeholder} ${required ? "*" : ""}`}
         name={name}
         type={type}
         as={Input}
