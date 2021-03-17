@@ -242,6 +242,25 @@ export const uploadImage = async (image: any) => {
  * * Community
  *
  */
+
+// Create community
+
+export const createCommunity = async (data: {
+  name: string;
+  description: string;
+}) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/community`,
+      data,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 // Get communities
 
 export const getCommunities = async () => {
