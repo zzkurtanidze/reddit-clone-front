@@ -19,7 +19,13 @@ export default function TrendingCommunities() {
 	const fetchCommunities = async () => {
 		const response = await getCommunities();
 		if (response && response.statusText === "OK") {
-			setCommunities(response.data);
+			let lastCommunities = [];
+			if (response.data.length >= 4) {
+				lastCommunities = response.data.slice(0, 4);
+			} else {
+				lastCommunities = response.data;
+			}
+			setCommunities(lastCommunities);
 		}
 	};
 

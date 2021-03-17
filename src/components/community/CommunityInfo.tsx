@@ -48,13 +48,15 @@ export default function CommunityInfo({
           <RiCake2Fill />
           Created {community.createdAt}
         </Flex>
-        <Flex gridGap={2} alignItems="center" mt={3}>
-          <FaUserCircle />
-          By
-          <Link href={`/user/${community.createdBy.username}`}>
-            {community.createdBy.username}
-          </Link>
-        </Flex>
+        {community.createdBy && (
+          <Flex gridGap={2} alignItems="center" mt={3}>
+            <FaUserCircle />
+            By
+            <Link href={`/user/${community.createdBy.username}`}>
+              {community.createdBy.username}
+            </Link>
+          </Flex>
+        )}
         {joined && (
           <>
             <Grid mt={5}>

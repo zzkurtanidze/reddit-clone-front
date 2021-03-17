@@ -1,11 +1,13 @@
 import { Image } from "@chakra-ui/image";
-import { Box, Flex, Text } from "@chakra-ui/layout";
-import React from "react";
-import { FaGratipay } from "react-icons/fa";
+import { Flex, Text } from "@chakra-ui/layout";
+import React, { useState } from "react";
 import PrimaryButton from "./common/PrimaryButton";
 import StyledBox from "./common/StyledBox";
+import CommunityFormModal from "./community/CommunityFormModal";
 
 export default function HomeSidebar() {
+  const [communityModal, setCommunityModal] = useState(false);
+
   return (
     <StyledBox>
       <Image
@@ -34,12 +36,16 @@ export default function HomeSidebar() {
           label="Create post"
         />
         <PrimaryButton
-          onClick={() => console.log("he")}
+          onClick={() => setCommunityModal(true)}
           label="Create community"
           bg="gray.300"
           color="black"
         />
       </Flex>
+      <CommunityFormModal
+        open={communityModal}
+        onClose={() => setCommunityModal(false)}
+      />
     </StyledBox>
   );
 }
