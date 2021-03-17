@@ -21,6 +21,13 @@ export default function LoginModal({
     const response = await loginWithGoogle(googleResponse);
     if (response.statusText === "OK") {
       window.location.reload();
+    } else {
+      toast({
+        title: response.data,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
 
