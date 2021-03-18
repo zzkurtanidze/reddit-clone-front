@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import PostTeaser from "../../components/posts/PostTeaser";
 import Trending from "../../components/posts/Trending";
 import TrendingCommunities from "../../components/community/TrendingCommunities";
-import { Box, Flex, Grid, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, Link, SimpleGrid, Text } from "@chakra-ui/react";
 import { getPosts } from "../../api";
 import { PostType } from "../../types";
 import Loading from "../../components/common/Loading";
@@ -41,7 +41,12 @@ export default function HomePage() {
       {posts && (
         <Trending items={posts.length >= 4 ? posts.slice(0, 4) : posts} />
       )}
-      <Grid mt={10} templateColumns="1fr 0.5fr" gap={5}>
+      <SimpleGrid
+        mt={10}
+        columns={[1, 1, 1, 2]}
+        templateColumns="1fr 0.5fr"
+        gap={5}
+      >
         <Box>
           {user && <NewPostTeaser />}
           {posts.length >= 1 ? (
@@ -74,7 +79,7 @@ export default function HomePage() {
             {user && <HomeSidebar />}
           </Flex>
         </FixedElement>
-      </Grid>
+      </SimpleGrid>
     </Container>
   );
 }
