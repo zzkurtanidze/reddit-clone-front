@@ -41,7 +41,7 @@ export default function CommunityPicture({
       placeItems="center"
       userSelect="none"
       border={numWidth <= 70 ? "0" : `${numWidth / 20}px solid white`}
-      boxShadow="0 0 10px rgba(0,0,0,.35)"
+      boxShadow={numWidth >= 50 ? "0 0 10px rgba(0,0,0,.35)" : "0"}
     >
       <Text textTransform="uppercase" lineHeight="0">
         {communityUsername[0]}

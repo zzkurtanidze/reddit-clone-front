@@ -5,6 +5,10 @@ import { likePost } from "../../api";
 import { PostType, UserType } from "../../types";
 import LoginModal from "../form-modals/LoginModal";
 
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:4000", { transports: ["websocket"] });
+
 export default function Votes({
   user,
   post,
@@ -34,19 +38,27 @@ export default function Votes({
     }
   }, [user]);
 
+  useEffect(() => {
+    socket.on("post-vote", ({ status, counter }) => {
+      setStatus(status);
+      setLikes((likes) => (likes += counter));
+    });
+  }, []);
+
   const handleLike = async (e: any) => {
     if (!user) setShowModal(true);
     else {
-      let name =
+      let action =
         e.target.parentNode.name ||
         e.target.parentElement.parentNode.name ||
         e.target.name;
-      if (name && post._id) {
-        const { data } = await likePost({ action: name, id: post._id });
-        const votes = data.votes;
-        const status = data.status;
-        setStatus(status);
-        setLikes(votes);
+      if (action) {
+        socket.emit("post-vote", {
+          action,
+          status,
+          userId: user._id,
+          postId: post._id,
+        });
       }
     }
   };
@@ -57,14 +69,13 @@ export default function Votes({
       alignItems="center"
       my="15px"
       mr="15px"
-      w="30px"
       gridGap="5px"
     >
       <Button
         p={0}
         m={0}
         borderRadius={5}
-        bg="transparent"
+        bg={status === "like" ? "gray.200" : "transparent"}
         _focus={{ boxShadow: 0 }}
         name="like"
         onClick={handleLike}
@@ -78,7 +89,7 @@ export default function Votes({
         p={0}
         m={0}
         borderRadius={5}
-        bg="transparent"
+        bg={status === "unlike" ? "gray.200" : "transparent"}
         _focus={{ boxShadow: 0 }}
         name="unlike"
         onClick={handleLike}

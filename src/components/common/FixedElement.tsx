@@ -18,6 +18,10 @@ export default function FixedElement({
     setElementWidth(document.getElementById("scrollable")?.clientWidth);
   }, []);
 
+  useEffect(() => {
+    setElementWidth(document.getElementById("scrollable")?.clientWidth);
+  }, [window]);
+
   const handleScroll = () => {
     if (window.scrollY >= scrollY) {
       setFixed(true);

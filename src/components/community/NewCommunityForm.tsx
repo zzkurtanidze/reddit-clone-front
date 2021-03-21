@@ -5,7 +5,7 @@ import FormField from "../common/FormField";
 import FormTextarea from "../common/FormTextarea";
 import { Button } from "@chakra-ui/button";
 import { createCommunity } from "../../api";
-import { toast, useToast } from "@chakra-ui/toast";
+import { useToast } from "@chakra-ui/toast";
 
 export default function NewCommunityForm() {
   const toast = useToast();
@@ -27,7 +27,7 @@ export default function NewCommunityForm() {
               isClosable: true,
             });
             setTimeout(() => {
-              window.location.reload();
+              window.location.replace(`/r/${response.data.username}`);
             }, 1000);
           } else {
             toast({

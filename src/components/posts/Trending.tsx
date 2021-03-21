@@ -1,4 +1,4 @@
-import { Box, Grid, Text } from "@chakra-ui/react";
+import { Box, Grid, SimpleGrid, Text } from "@chakra-ui/react";
 import React from "react";
 import { PostType } from "../../types/index";
 import TrendingItem from "./TrendingItem";
@@ -11,13 +11,13 @@ export default function Trending({ items }: { items: PostType[] }) {
           Trending today
         </Text>
       )}
-      <Grid my="20px" gap="10px" templateColumns="repeat(4, 1fr)">
+      <SimpleGrid my="20px" gap="10px" columns={[2, 2, 3, 4]}>
         {items &&
           items.length >= 1 &&
           items.map((item: PostType) => (
             <TrendingItem key={item._id} item={item} />
           ))}
-      </Grid>
+      </SimpleGrid>
     </Box>
   );
 }
