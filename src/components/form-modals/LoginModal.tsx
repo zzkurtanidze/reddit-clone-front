@@ -106,6 +106,17 @@ export default function LoginModal({
                   error={errors.password}
                 />
                 <Button
+                  type="submit"
+                  bg="#1384D7"
+                  color="white"
+                  px="50px"
+                  borderRadius="50px"
+                  _hover={{}}
+                  _active={{}}
+                >
+                  Submit
+                </Button>
+                <Button
                   bg="transparent"
                   p={0}
                   m={0}
@@ -119,17 +130,6 @@ export default function LoginModal({
                   onClick={() => setForgotPasswordModal(true)}
                 >
                   Forgot password?
-                </Button>
-                <Button
-                  type="submit"
-                  bg="#1384D7"
-                  color="white"
-                  px="50px"
-                  borderRadius="50px"
-                  _hover={{}}
-                  _active={{}}
-                >
-                  Submit
                 </Button>
               </Flex>
             </Form>
