@@ -1,12 +1,13 @@
 //@ts-nocheck
-import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Link, Text, useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import FormField from "../common/FormField";
 import Modal from "../Modal";
 import { GoogleLogin, GoogleLoginResponse } from "react-google-login";
 
 import { login, loginWithGoogle } from "../../api/index";
+import ForgotPasswordModal from "./ForgotPasswordModal";
 
 export default function LoginModal({
   showModal,
@@ -15,6 +16,10 @@ export default function LoginModal({
   showModal: boolean;
   setShowModal: Function;
 }) {
+  const [forgotPasswordModal, setForgotPasswordModal] = useState<boolean>(
+    false
+  );
+
   const toast = useToast();
 
   const onGoogleLogin = async (googleResponse: GoogleLoginResponse) => {
@@ -101,6 +106,21 @@ export default function LoginModal({
                   error={errors.password}
                 />
                 <Button
+                  bg="transparent"
+                  p={0}
+                  m={0}
+                  alignSelf="flex-start"
+                  _hover={{}}
+                  _active={{}}
+                  _focus={{}}
+                  color="blue.700"
+                  fontSize={12}
+                  textDeclor="underline"
+                  onClick={() => setForgotPasswordModal(true)}
+                >
+                  Forgot password?
+                </Button>
+                <Button
                   type="submit"
                   bg="#1384D7"
                   color="white"
@@ -115,6 +135,12 @@ export default function LoginModal({
             </Form>
           )}
         </Formik>
+        {forgotPasswordModal && (
+          <ForgotPasswordModal
+            showModal={forgotPasswordModal}
+            setShowModal={setForgotPasswordModal}
+          />
+        )}
       </Box>
     </Modal>
   );
