@@ -28,16 +28,19 @@ export default function FormField({
   description,
 }: FormFieldProps) {
   return (
-    <FormControl isInvalid={error ? true : false} my={2}>
-      <FormLabel fontFamily="mono">
-        {label && `${label} ${required ? "*" : ""}`}
-      </FormLabel>
+    <FormControl isInvalid={error ? true : false}>
+      {label && (
+        <FormLabel fontFamily="mono">
+          {label && `${label} ${required ? "*" : ""}`}
+        </FormLabel>
+      )}
       {description && (
         <FormHelperText fontSize={12} mb={2} fontFamily="mono">
           {description}
         </FormHelperText>
       )}
       <Field
+        bg="white"
         placeholder={placeholder && `${placeholder} ${required ? "*" : ""}`}
         name={name}
         type={type}
