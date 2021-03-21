@@ -14,6 +14,7 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import PostPage from "./pages/post-page";
 import PostDraftsPage from "./pages/submit-page/drafts";
 import CommunityPage from "./pages/community";
+import PasswordResetPage from "./pages/password-reset";
 
 const theme = extendTheme({
   fonts: {
@@ -46,6 +47,7 @@ export default function App() {
         <Switch>
           <ProtectedRoute path="/submit/drafts" component={PostDraftsPage} />
           <ProtectedRoute path="/submit" component={SubmitPage} />
+          <Route path="/resetpassword/:token" component={PasswordResetPage} />
           <Route path="/r/:name" component={CommunityPage} />
           <Route path="/user/:username" component={UserPage} />
           <Route path="/post/:id" component={PostPage} />
