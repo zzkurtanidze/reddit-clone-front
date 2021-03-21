@@ -113,6 +113,40 @@ export const checkUser = async (email: string) => {
   }
 };
 
+export const resetPassword = async (data: {
+  username: string;
+  email: string;
+}) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/users/reset-password`,
+      data,
+      axiosOptions
+    );
+    console.log(response);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const submitNewPassword = async (data: {
+  password: string;
+  userId: string;
+}) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/users/reset-password/submit`,
+      data,
+      axiosOptions
+    );
+    console.log(response);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 export const updateUser = async (data: {}) => {
   try {
     const response = await axios.put(`${apiUrl}/users/`, data, axiosOptions);
