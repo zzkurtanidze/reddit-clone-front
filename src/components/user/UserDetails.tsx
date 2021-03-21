@@ -78,10 +78,12 @@ export default function UserDetails({
               {user.username}
             </Text>
             <Button
-              backgroundColor={!followed ? "#3C97B2" : "#EDF2F7"}
+              backgroundColor={!followed ? "#0079d3" : "#EDF2F7"}
               color={!followed ? "white" : "#333"}
               _hover={{ backgroundColor: !followed ? "#317e96" : "#EDF2F7" }}
               _active={{}}
+              px={10}
+              borderRadius={5}
               onClick={handleFollow}
             >
               {!followed ? "Follow" : "Unfollow"}
