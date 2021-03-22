@@ -22,12 +22,15 @@ export default function NewPostForm() {
   const [post, setPost] = useState<{
     title: string;
     body: string;
-    image: string;
+    image?: string;
+    url?: string;
     postedTo: string;
-  }>({ title: "", body: "", image: "", postedTo: "" });
+  }>({ title: "", body: "", image: "", postedTo: "", url: "" });
   const [selectedTab, setSelectedTab] = useState<string>("post");
   const [draftsLength, setDraftsLength] = useState<number>(0);
   const [drafts, setDrafts] = useLocalStorage("postDrafts");
+  const [disabled, setDisabled] = useState<boolean>(true);
+
   const params = queryString.parse(window.location.search);
 
   useEffect(() => {
@@ -58,6 +61,10 @@ export default function NewPostForm() {
 
   useEffect(() => {
     document.getElementById("draft-save").disabled = false;
+
+    if (post.body && post.title && post.postedTo) {
+      setDisabled(false);
+    }
   }, [post]);
 
   const handleBodyChange = (html: any) => {
@@ -189,7 +196,12 @@ export default function NewPostForm() {
               onChange={(imageURL) => setPost({ ...post, ["image"]: imageURL })}
             />
           )}
-          {selectedTab === "link" && <LinkTab />}
+          {selectedTab === "link" && (
+            <LinkTab
+              value={post.url}
+              onChange={(e) => setPost({ ...post, ["url"]: e.target.value })}
+            />
+          )}
           <Flex mt={5} alignSelf="flex-end">
             <Button
               bg="none"
@@ -209,6 +221,7 @@ export default function NewPostForm() {
               _focus={{}}
               color="white"
               onClick={submitPost}
+              disabled={disabled}
             >
               Submit
             </Button>
