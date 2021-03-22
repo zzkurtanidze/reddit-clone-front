@@ -76,7 +76,7 @@ export default function RegisterModal({
         >
           {({ errors }) => (
             <Form>
-              <Flex direction="column" w={"250px"}>
+              <Flex direction="column" gridGap={3} w={"250px"}>
                 <GoogleLogin
                   clientId="179343367326-ii2qfpoug2srm96tuhrad1qkr4falq8a.apps.googleusercontent.com"
                   buttonText="Register with Google"

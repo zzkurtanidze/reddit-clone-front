@@ -93,7 +93,7 @@ export default function RegisterUsernameModal({
           >
             {({ errors }) => (
               <Form>
-                <Flex direction="column" w={"250px"}>
+                <Flex gridGap={3} direction="column" w={"250px"}>
                   <FormField
                     placeholder={"Choose A Username"}
                     type="text"
