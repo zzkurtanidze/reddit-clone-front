@@ -306,6 +306,17 @@ export const getCommunities = async () => {
   }
 };
 
+export const getTrendingCommunities = async (limit = 4) => {
+  try {
+    const response = await axios.get(
+      `${apiUrl}/community/trending/?limit=${limit}`
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 export const getCommunity = async (name: string) => {
   try {
     const response = await axios.get(`${apiUrl}/community/${name}`);
