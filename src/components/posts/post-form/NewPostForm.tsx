@@ -14,6 +14,7 @@ import { newPost } from "../../../api";
 import TabButton from "../../common/TabButton";
 import { useLocalStorage } from "../../../utils/useLocalStorage";
 import StyledBox from "../../common/StyledBox";
+import LinkTab from "./tabs/LinkTab";
 
 export default function NewPostForm() {
   const user = useContext(UserContext);
@@ -150,7 +151,7 @@ export default function NewPostForm() {
           />
         )}
       </Box>
-      <StyledBox p={0}>
+      <StyledBox p={0} fontFamily="mono">
         <Flex w="100%">
           <TabButton
             selected={selectedTab === "post"}
@@ -188,6 +189,7 @@ export default function NewPostForm() {
               onChange={(imageURL) => setPost({ ...post, ["image"]: imageURL })}
             />
           )}
+          {selectedTab === "link" && <LinkTab />}
           <Flex mt={5} alignSelf="flex-end">
             <Button
               bg="none"
