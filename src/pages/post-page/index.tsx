@@ -9,7 +9,6 @@ import Container from "../../components/common/Container";
 import FixedElement from "../../components/common/FixedElement";
 import Loading from "../../components/common/Loading";
 import StyledBox from "../../components/common/StyledBox";
-import CommunityInfo from "../../components/community/CommunityInfo";
 import CommunityTeaser from "../../components/community/CommunityTeaser";
 import Date from "../../components/posts/Date";
 import { PostButton } from "../../components/posts/PostButton";
@@ -56,7 +55,7 @@ export default function PostPage({ match }: { match: any }) {
           <>
             <StyledBox display="flex">
               <Votes user={user} post={post} />
-              <Box>
+              <Box w="100%">
                 <Flex justifyContent="space-between">
                   <PostedBy post={post} />
                   <Date post={post} />
