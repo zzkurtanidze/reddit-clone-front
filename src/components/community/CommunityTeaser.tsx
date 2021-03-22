@@ -6,6 +6,9 @@ import StyledBox from "../common/StyledBox";
 import CommunityPicture from "./CommunityPicture";
 import Join from "./Join";
 
+import { FaUserCircle } from "react-icons/fa";
+import { RiMessage2Fill } from "react-icons/ri";
+
 export default function CommunityTeaser({
   community,
   user,
@@ -32,18 +35,34 @@ export default function CommunityTeaser({
         )}
       </Grid>
       <Link _hover={{}} _focus={{}} href={`/r/${community.username}`}>
-        <Text my="10px" fontSize={16} fontWeight="bold">
+        <Text my="10px" fontSize={22} fontWeight="bold">
           {community.name}
         </Text>
       </Link>
-      <Text fontSize={14} fontFamily="sans-serif">
+      <Text fontSize={14} fontFamily="mono">
         {community.description}
       </Text>
       <Box textAlign="left" my={5}>
-        <Text fontSize={14} fontFamily="sans-serif">
+        <Text
+          fontSize={14}
+          display="flex"
+          alignItems="center"
+          gridGap={1}
+          fontWeight="bold"
+          fontFamily="mono"
+        >
+          <FaUserCircle />
           {community.members.length} Members
         </Text>
-        <Text fontSize={14} fontFamily="sans-serif">
+        <Text
+          fontSize={14}
+          display="flex"
+          alignItems="center"
+          gridGap={1}
+          fontWeight="bold"
+          fontFamily="mono"
+        >
+          <RiMessage2Fill />
           {community.posts.length} Posts
         </Text>
       </Box>
