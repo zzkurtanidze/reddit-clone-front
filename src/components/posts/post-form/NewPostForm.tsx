@@ -1,5 +1,13 @@
 //@ts-nocheck
-import { Box, Button, Flex, Text, Input, Link } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Text,
+  Input,
+  Link,
+  useToast,
+} from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import Select from "react-select";
 import PostTab from "./tabs/PostTab";
@@ -25,13 +33,15 @@ export default function NewPostForm() {
     image?: string;
     url?: string;
     postedTo: string;
-  }>({ title: "", body: "", image: "", postedTo: "", url: "" });
+  }>({ title: "", body: "", postedTo: "" });
   const [selectedTab, setSelectedTab] = useState<string>("post");
   const [draftsLength, setDraftsLength] = useState<number>(0);
   const [drafts, setDrafts] = useLocalStorage("postDrafts");
   const [disabled, setDisabled] = useState<boolean>(true);
 
   const params = queryString.parse(window.location.search);
+
+  const toast = useToast();
 
   useEffect(() => {
     const communityNames: any[] = [];
@@ -87,6 +97,11 @@ export default function NewPostForm() {
     const response = await newPost(post);
     if (response.statusText === "OK") {
       window.location.replace("/");
+    } else {
+      toast({
+        status: "error",
+        title: response.data,
+      });
     }
   };
 
