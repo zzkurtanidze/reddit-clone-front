@@ -46,6 +46,7 @@ export default function App() {
         <NavBar />
         <Switch>
           <ProtectedRoute path="/submit/drafts" component={PostDraftsPage} />
+          <ProtectedRoute path="/:name/submit" component={SubmitPage} />
           <ProtectedRoute path="/submit" component={SubmitPage} />
           <Route path="/resetpassword/:token" component={PasswordResetPage} />
           <Route path="/r/:name" component={CommunityPage} />
