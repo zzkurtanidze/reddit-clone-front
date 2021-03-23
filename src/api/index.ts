@@ -12,7 +12,8 @@ const axiosOptions = {
 export const newPost = async (post: {
   title: string;
   body: string;
-  image: string;
+  image?: string;
+  url?: string;
   postedTo: { value: string; label: string };
 }) => {
   try {
@@ -21,7 +22,8 @@ export const newPost = async (post: {
       {
         title: post.title,
         body: post.body,
-        image: post.image,
+        image: post.image && post.image,
+        url: post.url && post.url,
         postedTo: post.postedTo.value,
       },
       axiosOptions

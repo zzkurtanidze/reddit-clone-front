@@ -2,7 +2,8 @@ export type PostType = {
   _id: string;
   title: string;
   body: string;
-  image: string;
+  image?: string;
+  url?: string;
   postedTo: any;
   postedBy: UserType;
   postedAt: string;

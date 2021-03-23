@@ -21,7 +21,7 @@ export default function ImagesTab({
   const toast = useToast();
 
   useEffect(() => {
-    if (post.image !== "") {
+    if (post.image) {
       let split = post.image.split("/");
       setImageName(split[split.length - 1]);
     }
@@ -54,7 +54,7 @@ export default function ImagesTab({
         alignItems="center"
         h="200px"
       >
-        {post.image === "" ? (
+        {!post.image ? (
           <>
             <input value={value} {...getInputProps()} />
             {isDragActive ? (

@@ -1,5 +1,13 @@
 //@ts-nocheck
-import { Box, Button, Flex, Text, Input, Link } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Text,
+  Input,
+  Link,
+  useToast,
+} from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import Select from "react-select";
 import PostTab from "./tabs/PostTab";
@@ -14,6 +22,7 @@ import { newPost } from "../../../api";
 import TabButton from "../../common/TabButton";
 import { useLocalStorage } from "../../../utils/useLocalStorage";
 import StyledBox from "../../common/StyledBox";
+import LinkTab from "./tabs/LinkTab";
 
 export default function NewPostForm() {
   const user = useContext(UserContext);
@@ -21,13 +30,18 @@ export default function NewPostForm() {
   const [post, setPost] = useState<{
     title: string;
     body: string;
-    image: string;
+    image?: string;
+    url?: string;
     postedTo: string;
-  }>({ title: "", body: "", image: "", postedTo: "" });
+  }>({ title: "", body: "", postedTo: "" });
   const [selectedTab, setSelectedTab] = useState<string>("post");
   const [draftsLength, setDraftsLength] = useState<number>(0);
   const [drafts, setDrafts] = useLocalStorage("postDrafts");
+  const [disabled, setDisabled] = useState<boolean>(true);
+
   const params = queryString.parse(window.location.search);
+
+  const toast = useToast();
 
   useEffect(() => {
     const communityNames: any[] = [];
@@ -57,6 +71,10 @@ export default function NewPostForm() {
 
   useEffect(() => {
     document.getElementById("draft-save").disabled = false;
+
+    if (post.body && post.title && post.postedTo) {
+      setDisabled(false);
+    }
   }, [post]);
 
   const handleBodyChange = (html: any) => {
@@ -79,6 +97,11 @@ export default function NewPostForm() {
     const response = await newPost(post);
     if (response.statusText === "OK") {
       window.location.replace("/");
+    } else {
+      toast({
+        status: "error",
+        title: response.data,
+      });
     }
   };
 
@@ -150,7 +173,7 @@ export default function NewPostForm() {
           />
         )}
       </Box>
-      <StyledBox p={0}>
+      <StyledBox p={0} fontFamily="mono">
         <Flex w="100%">
           <TabButton
             selected={selectedTab === "post"}
@@ -188,6 +211,12 @@ export default function NewPostForm() {
               onChange={(imageURL) => setPost({ ...post, ["image"]: imageURL })}
             />
           )}
+          {selectedTab === "link" && (
+            <LinkTab
+              value={post.url}
+              onChange={(e) => setPost({ ...post, ["url"]: e.target.value })}
+            />
+          )}
           <Flex mt={5} alignSelf="flex-end">
             <Button
               bg="none"
@@ -207,6 +236,7 @@ export default function NewPostForm() {
               _focus={{}}
               color="white"
               onClick={submitPost}
+              disabled={disabled}
             >
               Submit
             </Button>
