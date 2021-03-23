@@ -53,6 +53,17 @@ export default function PostTeaser({ post }: { post: PostType }) {
             ></Text>
           )}
         </Link>
+        {post.url && (
+          <Link
+            fontSize={12}
+            color="blue.500"
+            textOverflow="ellipsis"
+            w="50px"
+            href={post.url}
+          >
+            {post.url}
+          </Link>
+        )}
         {post.image && (
           <Image
             src={post.image}
