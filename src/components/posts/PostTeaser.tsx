@@ -56,7 +56,8 @@ export default function PostTeaser({ post }: { post: PostType }) {
         </Link>
         {post.url &&
           (post.urlData.mediaType === "website" ||
-          post.urlData.mediaType === "object" ? (
+          post.urlData.mediaType === "object" ||
+          post.image ? (
             <Flex direction={"row"} minW="100%" justifyContent="space-between">
               <Link
                 w="max-content"
@@ -136,16 +137,38 @@ export default function PostTeaser({ post }: { post: PostType }) {
                 </Flex>
               </Link>
               {post.urlData.images[0] && (
-                <Box position="relative">
-                  <Image
-                    src={post.urlData.images[0]}
-                    alt={post.urlData.title}
-                    w="100%"
-                    h="auto"
-                    position="relative"
-                    overflow="hidden"
-                  />
-                </Box>
+                <Link
+                  href={post.url}
+                  _active={{}}
+                  _focus={{}}
+                  _hover={{}}
+                  target="_blank"
+                >
+                  <Box marginTop="5px" bg="#eaeaea" position="relative">
+                    <Image
+                      src={post.urlData.images[0]}
+                      alt={post.urlData.title}
+                      w="100%"
+                      h="auto"
+                      position="relative"
+                      overflow="hidden"
+                    />
+                    <Box p={3}>
+                      <Text fontWeight="bold" fontSize={20} fontFamily="mono">
+                        {post.urlData.title}
+                      </Text>
+                      <Text
+                        color="gray.500"
+                        noOfLines={1}
+                        textOverflow="ellipsis"
+                        fontSize={12}
+                        fontFamily="mono"
+                      >
+                        {post.urlData.description}
+                      </Text>
+                    </Box>
+                  </Box>
+                </Link>
               )}
             </Flex>
           ))}
