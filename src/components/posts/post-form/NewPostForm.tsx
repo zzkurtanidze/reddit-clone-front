@@ -54,8 +54,10 @@ export default function NewPostForm({ match }: { match?: any }) {
     if (response.statusText === "OK") {
       const data = response.data;
       const community = { label: data.name, value: data._id };
-      setCommunityList([community]);
-      setPost({ ...post, postedTo: community });
+      if (!post.postedTo) {
+        setCommunityList([community]);
+        setPost({ ...post, postedTo: community });
+      }
     } else {
       return undefined;
     }
