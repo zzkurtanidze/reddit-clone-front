@@ -1,15 +1,12 @@
 //@ts-nocheck
 import React, { useEffect, useState } from "react";
+import { getDraftPosts } from "../../api";
 import Container from "../../components/common/Container";
 import DraftsList from "../../components/posts/post-form/drafts/DraftsList";
 import { NotPostedPostType } from "../../types";
-import { useLocalStorage } from "../../utils/useLocalStorage";
 
 export default function PostDraftsPage() {
-  const [drafts, setDrafts] = useLocalStorage<NotPostedPostType[] | undefined>(
-    "postDrafts"
-  );
-
+  const [drafts, setDrafts] = useState<NotPostedPostType>();
   const handleRemove = (draft) => {
     let posts = JSON.parse(localStorage.getItem("postDrafts")) || [];
 
@@ -21,11 +18,15 @@ export default function PostDraftsPage() {
   };
 
   useEffect(() => {
-    const posts = JSON.parse(localStorage.getItem("postDrafts")!);
-    if (posts) {
-      setDrafts(posts);
-    }
+    fetchDrafts();
   }, []);
+
+  const fetchDrafts = async () => {
+    const response = await getDraftPosts();
+    if (response.statusText === "OK") {
+      setDrafts(response.data);
+    }
+  };
 
   return (
     <Container>
