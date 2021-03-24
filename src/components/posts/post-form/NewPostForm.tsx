@@ -18,7 +18,13 @@ import queryString from "query-string";
 
 import { RiImageFill, RiMessage2Fill } from "react-icons/ri";
 import { IoIosLink } from "react-icons/io";
-import { getCommunity, newPost } from "../../../api";
+import {
+  getCommunity,
+  getDraftPosts,
+  newPost,
+  removeDraftPost,
+  saveDraftPost,
+} from "../../../api";
 import TabButton from "../../common/TabButton";
 import { useLocalStorage } from "../../../utils/useLocalStorage";
 import StyledBox from "../../common/StyledBox";
@@ -36,7 +42,7 @@ export default function NewPostForm({ match }: { match?: any }) {
   }>({ title: "", body: "", postedTo: "" });
   const [selectedTab, setSelectedTab] = useState<string>("post");
   const [draftsLength, setDraftsLength] = useState<number>(0);
-  const [drafts, setDrafts] = useLocalStorage("postDrafts");
+  const [drafts, setDrafts] = useState();
   const [disabled, setDisabled] = useState<boolean>(true);
 
   const params = queryString.parse(window.location.search);
@@ -59,14 +65,16 @@ export default function NewPostForm({ match }: { match?: any }) {
     if (match && match.params.name) {
       fetchCommunity();
     } else {
+      fetchDrafts();
+
       const communityNames: any[] = [];
 
       // Set draft numbers
-      setDraftsLength(drafts ? drafts.length : 0);
+      setDraftsLength(user ? user.drafts.length : 0);
 
       // If draft available, set values.
-      if (params.draft && isNull(post)) {
-        let index = drafts.findIndex((post) => post.date == params.draft);
+      if (params.draft && isNull(post) && drafts) {
+        let index = drafts.findIndex((post) => post._id == params.draft);
         setPost(drafts[index]);
       }
 
@@ -83,7 +91,7 @@ export default function NewPostForm({ match }: { match?: any }) {
 
       setCommunityList(communityNames);
     }
-  }, [user, post]);
+  }, [user, post, drafts]);
 
   useEffect(() => {
     document.getElementById("draft-save").disabled = false;
@@ -93,17 +101,21 @@ export default function NewPostForm({ match }: { match?: any }) {
     }
   }, [post]);
 
+  const fetchDrafts = async () => {
+    const response = await getDraftPosts();
+    if (response.statusText === "OK") {
+      setDrafts(response.data);
+    }
+  };
+
   const handleBodyChange = (html: any) => {
     const newPost = post;
     newPost["body"] = html;
     setPost(newPost);
   };
 
-  const removeCurrentDraft = () => {
-    let newDrafts = drafts;
-    let index = newDrafts.findIndex((item) => item.date === params.draft);
-    newDrafts.splice(index, 1);
-    setDrafts(newDrafts);
+  const removeCurrentDraft = async () => {
+    await removeDraftPost(params.draft);
   };
 
   const submitPost = async () => {
@@ -130,17 +142,20 @@ export default function NewPostForm({ match }: { match?: any }) {
     }
   };
 
-  const handleSaveDraft = () => {
+  const handleSaveDraft = async () => {
     if (params.draft) {
       removeCurrentDraft();
     }
     if (!isNull(post)) {
-      let prevDrafts =
-        JSON.parse(window.localStorage.getItem("postDrafts")) || [];
       let draft = post;
       draft["date"] = Date.now();
-      prevDrafts.push(draft);
-      window.localStorage.setItem("postDrafts", JSON.stringify(prevDrafts));
+      const response = await saveDraftPost(draft);
+      if (response.statusText === "OK") {
+        toast({
+          title: "Saved succesfully",
+          status: "success",
+        });
+      }
     }
     document.getElementById("draft-save").disabled = true;
   };

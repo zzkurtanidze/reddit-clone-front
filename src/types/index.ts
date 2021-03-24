@@ -12,9 +12,9 @@ export type PostType = {
 
 export type NotPostedPostType = {
   title: string;
-  body: string;
-  image: string;
-  postedTo: string;
+  body?: string;
+  image?: string;
+  postedTo?: string;
 };
 
 export type UserType = {
@@ -30,6 +30,8 @@ export type UserType = {
   likedPosts?: [PostType];
   dislikedPosts?: [PostType];
   joined?: [CommunityType];
+  createdCommunities?: [CommunityType];
+  drafts?: [NotPostedPostType];
 };
 
 export type CommunityType = {
