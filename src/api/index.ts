@@ -9,6 +9,12 @@ const axiosOptions = {
   withCredentials: true,
 };
 
+/**
+ *
+ * @param post
+ * @returns Created post
+ */
+
 export const newPost = async (post: {
   title: string;
   body: string;
@@ -34,6 +40,11 @@ export const newPost = async (post: {
   }
 };
 
+/**
+ *
+ * @returns all Posts.
+ */
+
 export const getPosts = async () => {
   try {
     const data = await axios.get(`${apiUrl}/posts`, axiosOptions);
@@ -43,30 +54,15 @@ export const getPosts = async () => {
   }
 };
 
+/**
+ *
+ * @param id
+ * @returns Post with given id.
+ */
+
 export const getPostById = async (id: string) => {
   try {
     const response = await axios.get(`${apiUrl}/posts/${id}`, axiosOptions);
-    return response;
-  } catch (ex) {
-    return ex.response;
-  }
-};
-
-export const likePost = async ({
-  action,
-  id,
-}: {
-  action: "like" | "unlike";
-  id?: string;
-}) => {
-  try {
-    const response = await axios.post(
-      `${apiUrl}/posts/${id}/action`,
-      {
-        action: action,
-      },
-      axiosOptions
-    );
     return response;
   } catch (ex) {
     return ex.response;
@@ -115,6 +111,12 @@ export const checkUser = async (email: string) => {
   }
 };
 
+/**
+ *
+ * @param { username: string, email: string }
+ * @returns
+ */
+
 export const resetPassword = async (data: {
   username: string;
   email: string;
@@ -125,12 +127,17 @@ export const resetPassword = async (data: {
       data,
       axiosOptions
     );
-    console.log(response);
     return response;
   } catch (ex) {
     return ex.response;
   }
 };
+
+/**
+ *
+ * @param { password: string, userId: string }
+ * @returns string
+ */
 
 export const submitNewPassword = async (data: {
   password: string;
@@ -142,7 +149,6 @@ export const submitNewPassword = async (data: {
       data,
       axiosOptions
     );
-    console.log(response);
     return response;
   } catch (ex) {
     return ex.response;
@@ -197,6 +203,12 @@ export const login = async (user: { email: string; password: string }) => {
   }
 };
 
+/**
+ *
+ * @param googleResponse
+ * @returns Authenticated user
+ */
+
 export const loginWithGoogle = async (googleResponse: GoogleLoginResponse) => {
   try {
     const response = await axios.post(
@@ -209,6 +221,11 @@ export const loginWithGoogle = async (googleResponse: GoogleLoginResponse) => {
     return ex.response;
   }
 };
+
+/**
+ *
+ * Logs out user
+ */
 
 export const logOut = async () => {
   try {
@@ -232,6 +249,12 @@ export const followUser = async (id: string) => {
   }
 };
 
+/**
+ *
+ * @param id
+ * @returns User followers
+ */
+
 export const getUserFollowers = async (id: string) => {
   try {
     const response = await axios.get(
@@ -243,6 +266,12 @@ export const getUserFollowers = async (id: string) => {
     return ex.response;
   }
 };
+
+/**
+ *
+ * @param id
+ * @returns User following users
+ */
 
 export const getUserFollowing = async (id: string) => {
   try {
@@ -273,13 +302,13 @@ export const uploadImage = async (image: any) => {
   }
 };
 
+// Community
+
 /**
  *
- * * Community
- *
+ * @param { name: string, description: string }
+ * @returns Created community
  */
-
-// Create community
 
 export const createCommunity = async (data: {
   name: string;
@@ -297,7 +326,10 @@ export const createCommunity = async (data: {
   }
 };
 
-// Get communities
+/**
+ *
+ * @returns All communities
+ */
 
 export const getCommunities = async () => {
   try {
@@ -307,6 +339,12 @@ export const getCommunities = async () => {
     return ex.response;
   }
 };
+
+/**
+ *
+ * @param limit
+ * @returns trending communities
+ */
 
 export const getTrendingCommunities = async (limit = 4) => {
   try {
@@ -319,6 +357,12 @@ export const getTrendingCommunities = async (limit = 4) => {
   }
 };
 
+/**
+ *
+ * @param name
+ * @returns Community with given username
+ */
+
 export const getCommunity = async (name: string) => {
   try {
     const response = await axios.get(`${apiUrl}/community/${name}`);
@@ -327,6 +371,12 @@ export const getCommunity = async (name: string) => {
     return ex.response;
   }
 };
+
+/**
+ *
+ * @param id
+ * @returns
+ */
 
 export const joinCommunity = async (id: string) => {
   try {
