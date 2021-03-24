@@ -69,6 +69,24 @@ export const getPostById = async (id: string) => {
   }
 };
 
+export const saveDraftPost = async (post: {}) => {
+  try {
+    const response = await axios.post(`${apiUrl}/drafts/`, post, axiosOptions);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const getDraftPosts = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/drafts/`, axiosOptions);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 // Users
 
 /**
