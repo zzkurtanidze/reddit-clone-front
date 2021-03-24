@@ -54,7 +54,7 @@ export default function Url({ post }: { post: PostType }) {
                 borderRadius={"7px"}
                 overflow="hidden"
                 border={"1px solid #1384D7"}
-                marginTop={"-30px"}
+                marginTop={"-20%"}
               />
               <Box
                 bg="#1384D7"

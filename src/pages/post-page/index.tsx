@@ -57,7 +57,7 @@ export default function PostPage({ match }: { match: any }) {
             <StyledBox display="flex">
               <Votes user={user} post={post} />
               <Box w="100%">
-                <Flex justifyContent="space-between">
+                <Flex gridGap={3}>
                   <PostedBy post={post} />
                   <Date post={post} />
                 </Flex>
