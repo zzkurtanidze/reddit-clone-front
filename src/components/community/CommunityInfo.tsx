@@ -63,7 +63,7 @@ export default function CommunityInfo({
               <PrimaryButton
                 label="Create a post"
                 onClick={() =>
-                  window.location.replace(`/${community.name}/submit`)
+                  window.location.replace(`/${community.username}/submit`)
                 }
               />
             </Grid>
