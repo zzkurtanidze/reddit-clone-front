@@ -87,6 +87,15 @@ export const getDraftPosts = async () => {
   }
 };
 
+export const removeDraftPost = async (id: string) => {
+  try {
+    const response = await axios.delete(`${apiUrl}/drafts/${id}`, axiosOptions);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 // Users
 
 /**
