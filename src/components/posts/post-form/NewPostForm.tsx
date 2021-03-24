@@ -18,13 +18,13 @@ import queryString from "query-string";
 
 import { RiImageFill, RiMessage2Fill } from "react-icons/ri";
 import { IoIosLink } from "react-icons/io";
-import { newPost } from "../../../api";
+import { getCommunity, newPost } from "../../../api";
 import TabButton from "../../common/TabButton";
 import { useLocalStorage } from "../../../utils/useLocalStorage";
 import StyledBox from "../../common/StyledBox";
 import LinkTab from "./tabs/LinkTab";
 
-export default function NewPostForm() {
+export default function NewPostForm({ match }: { match?: any }) {
   const user = useContext(UserContext);
   const [communityList, setCommunityList] = useState<any>([]);
   const [post, setPost] = useState<{
@@ -43,30 +43,46 @@ export default function NewPostForm() {
 
   const toast = useToast();
 
-  useEffect(() => {
-    const communityNames: any[] = [];
-
-    // Set draft numbers
-    setDraftsLength(drafts ? drafts.length : 0);
-
-    // If draft available, set values.
-    if (params.draft && isNull(post)) {
-      let index = drafts.findIndex((post) => post.date == params.draft);
-      setPost(drafts[index]);
+  const fetchCommunity = async () => {
+    const response = await getCommunity(match.params.name);
+    if (response.statusText === "OK") {
+      const data = response.data;
+      const community = { label: data.name, value: data._id };
+      setCommunityList([community]);
+      setPost({ ...post, postedTo: community });
+    } else {
+      return undefined;
     }
+  };
 
-    // Get joined communities list.
-    user?.joined?.forEach((community) => {
-      const obj: { value: string; label: string } = {
-        value: "",
-        label: "",
-      };
-      obj["label"] = community.name;
-      obj["value"] = community._id;
-      communityNames.push(obj);
-    });
+  useEffect(() => {
+    if (match && match.params.name) {
+      fetchCommunity();
+    } else {
+      const communityNames: any[] = [];
 
-    setCommunityList(communityNames);
+      // Set draft numbers
+      setDraftsLength(drafts ? drafts.length : 0);
+
+      // If draft available, set values.
+      if (params.draft && isNull(post)) {
+        let index = drafts.findIndex((post) => post.date == params.draft);
+        setPost(drafts[index]);
+      }
+
+      // Get joined communities list.
+      user?.joined?.forEach((community) => {
+        const obj: { value: string; label: string } = {
+          value: "",
+          label: "",
+        };
+        obj["label"] = community.name;
+        obj["value"] = community._id;
+        communityNames.push(obj);
+      });
+
+      setCommunityList(communityNames);
+    }
   }, [user, post]);
 
   useEffect(() => {
