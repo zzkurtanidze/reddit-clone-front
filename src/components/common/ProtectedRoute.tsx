@@ -34,12 +34,11 @@ export default function ProtectedRoute({
       path={path}
       render={(props) => {
         if (!user) {
-          console.log(user);
           return (
             <Redirect to={{ pathname: "/", state: { from: props.location } }} />
           );
         }
-        return Component && <Component props={props} />;
+        return Component && <Component {...props} />;
       }}
     />
   );

@@ -99,11 +99,10 @@ export default function PostTeaser({ post }: { post: PostType }) {
                       maxH={"100px"}
                       objectFit="cover"
                       objectPosition="0 0"
-                      position="relative"
                       borderRadius={"7px"}
                       overflow="hidden"
                       border={"1px solid #1384D7"}
-                      marginTop={"-50px"}
+                      marginTop={"-30px"}
                     />
                     <Box
                       bg="#1384D7"
@@ -188,7 +187,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
         </Flex>
       </Box>
       {!joined && (
-        <Box position="absolute" top={5} right={5}>
+        <Box position="absolute" top={3} right={4}>
           <Join icon={true} community={post.postedTo} />
         </Box>
       )}
