@@ -1,6 +1,7 @@
 /* eslint-disable react/style-prop-object */
 //@ts-nocheck
 import { Box, Flex, Grid, Image, Text, useToast } from "@chakra-ui/react";
+import Url from "../../components/posts/Url";
 import React, { useContext, useEffect, useState } from "react";
 import { FaShare } from "react-icons/fa";
 import { RiBookmarkFill } from "react-icons/ri";
@@ -67,6 +68,7 @@ export default function PostPage({ match }: { match: any }) {
                   fontSize={15}
                   dangerouslySetInnerHTML={{ __html: post.body }}
                 ></Text>
+                <Url post={post} />
                 {post.image && (
                   <Image src={post.image} alt={post.title} mt={5} />
                 )}
