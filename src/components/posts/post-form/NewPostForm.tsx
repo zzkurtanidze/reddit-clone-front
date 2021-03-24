@@ -163,7 +163,7 @@ export default function NewPostForm({ match }: { match?: any }) {
   };
 
   return (
-    <>
+    <Box>
       <Flex justifyContent="space-between">
         <Text fontWeight="600" fontSize={20}>
           Create a Post
@@ -276,6 +276,6 @@ export default function NewPostForm({ match }: { match?: any }) {
           </Flex>
         </Flex>
       </StyledBox>
-    </>
+    </Box>
   );
 }
