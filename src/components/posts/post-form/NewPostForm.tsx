@@ -22,6 +22,7 @@ import {
   getCommunity,
   getDraftPosts,
   newPost,
+  removeDraftPost,
   saveDraftPost,
 } from "../../../api";
 import TabButton from "../../common/TabButton";
@@ -73,7 +74,7 @@ export default function NewPostForm({ match }: { match?: any }) {
 
       // If draft available, set values.
       if (params.draft && isNull(post) && drafts) {
-        let index = drafts.findIndex((post) => post.date == params.draft);
+        let index = drafts.findIndex((post) => post._id == params.draft);
         setPost(drafts[index]);
       }
 
@@ -113,11 +114,8 @@ export default function NewPostForm({ match }: { match?: any }) {
     setPost(newPost);
   };
 
-  const removeCurrentDraft = () => {
-    let newDrafts = drafts;
-    let index = newDrafts.findIndex((item) => item.date === params.draft);
-    newDrafts.splice(index, 1);
-    setDrafts(newDrafts);
+  const removeCurrentDraft = async () => {
+    await removeDraftPost(params.draft);
   };
 
   const submitPost = async () => {
@@ -151,7 +149,13 @@ export default function NewPostForm({ match }: { match?: any }) {
     if (!isNull(post)) {
       let draft = post;
       draft["date"] = Date.now();
-      await saveDraftPost(draft);
+      const response = await saveDraftPost(draft);
+      if (response.statusText === "OK") {
+        toast({
+          title: "Saved succesfully",
+          status: "success",
+        });
+      }
     }
     document.getElementById("draft-save").disabled = true;
   };
