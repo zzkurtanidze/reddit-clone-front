@@ -38,7 +38,7 @@ export default function DraftsList({
           )}
           <Td textAlign="right">
             <Button
-              onClick={() => history.push(`/submit/?draft=${draft.date}`)}
+              onClick={() => history.push(`/submit/?draft=${draft._id}`)}
               bg="#0272C5"
               _active={{}}
               _hover={{}}
