@@ -25,10 +25,24 @@ export default function NewPostTeaser() {
         onFocus={() => window.location.replace("/submit")}
         placeholder="Create Post"
       />
-      <Button onClick={() => window.location.replace("/submit")} p="5px">
+      <Button
+        bg="transparent"
+        _hover={{}}
+        _active={{}}
+        _focus={{}}
+        onClick={() => window.location.replace("/submit")}
+        p="5px"
+      >
         <RiImageLine size="40px" color="#0272C5" />
       </Button>
-      <Button onClick={() => window.location.replace("/submit")} p="5px">
+      <Button
+        bg="transparent"
+        _hover={{}}
+        _active={{}}
+        _focus={{}}
+        onClick={() => window.location.replace("/submit")}
+        p="5px"
+      >
         <BiLinkAlt size="40px" color="#7E8183" />
       </Button>
     </StyledBox>
