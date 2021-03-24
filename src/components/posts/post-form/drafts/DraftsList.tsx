@@ -19,7 +19,7 @@ export default function DraftsList({
   const history = useHistory();
 
   return drafts.length >= 1 ? (
-    <Table>
+    <Table bg="white" borderRadius={5}>
       <Tr>
         <Th>Post Title</Th>
         <Th>Posted to</Th>
@@ -31,7 +31,11 @@ export default function DraftsList({
         <Tr>
           {draft.title ? <Td>{draft.title}</Td> : <Td>null</Td>}
           {draft.postedTo ? <Td>{draft.postedTo.label}</Td> : <Td>null</Td>}
-          {draft.date ? <Td>{timeAgo.format(draft.date)}</Td> : <Td>null</Td>}
+          {draft.date ? (
+            <Td>{timeAgo.format(parseInt(draft.date))}</Td>
+          ) : (
+            <Td>null</Td>
+          )}
           <Td textAlign="right">
             <Button
               onClick={() => history.push(`/submit/?draft=${draft.date}`)}
