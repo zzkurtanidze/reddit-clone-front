@@ -4,6 +4,7 @@ export type PostType = {
   body: string;
   image?: string;
   url?: string;
+  urlData: any;
   postedTo: any;
   postedBy: UserType;
   postedAt: string;
