@@ -18,20 +18,16 @@ export default function HomePage() {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    fetchData();
+    fetchPosts();
   }, []);
 
-  const fetchData = async () => {
-    setLoading(true);
-    await fetchPosts();
-    setLoading(false);
-  };
-
   const fetchPosts = async () => {
+    setLoading(true);
     const response = await getPosts();
     if (response && response.statusText === "OK") {
       setPosts(response.data);
     }
+    setLoading(false);
   };
 
   if (loading) return <Loading />;

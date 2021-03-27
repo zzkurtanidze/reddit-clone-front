@@ -55,7 +55,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
             ></Text>
           )}
         </Link>
-        <Url post={post} />
+        {post.url && <Url post={post} />}
         {post.image && (
           <Image
             src={post.image}
