@@ -1,4 +1,4 @@
-import { Button, Flex, useToast } from "@chakra-ui/react";
+import { Button, Flex, Input, useToast } from "@chakra-ui/react";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { uploadImage } from "../../../../api";
@@ -66,19 +66,31 @@ export default function ImagesTab({
         ) : (
           <Flex direction="column">
             <h2>{imageName}</h2>
-            <Button
+            <label htmlFor="reupload">
+              <Button
+                position="absolute"
+                bottom="10px"
+                left="50%"
+                transform="translateX(-50%)"
+                bg="#0079D3"
+                color="white"
+                _hover={{}}
+                _active={{}}
+                __focus={{}}
+              >
+                Reupload
+              </Button>
+            </label>
+            <Input
               position="absolute"
-              bottom="10px"
+              id="reupload"
+              type="file"
+              opacity="0"
+              bottom="5px"
+              onChange={(e) => onDrop(e.target.files)}
               left="50%"
               transform="translateX(-50%)"
-              bg="#0079D3"
-              color="white"
-              _hover={{}}
-              _active={{}}
-              __focus={{}}
-            >
-              Reupload
-            </Button>
+            />
           </Flex>
         )}
       </Flex>

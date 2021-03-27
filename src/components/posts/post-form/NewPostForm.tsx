@@ -165,7 +165,7 @@ export default function NewPostForm({ match }: { match?: any }) {
   return (
     <Box>
       <Flex justifyContent="space-between">
-        <Text fontWeight="600" fontSize={20}>
+        <Text fontWeight="600" fontSize={20} fontFamily="mono">
           Create a Post
         </Text>
         <Link
