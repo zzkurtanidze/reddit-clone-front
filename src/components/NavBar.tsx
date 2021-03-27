@@ -97,7 +97,28 @@ export default function NavBar() {
             />
           </>
         )}
-        <Dropdown title={user && user.username} icon={<FaUserCircle />}>
+        <Dropdown
+          title={user && user.username}
+          icon={
+            !user ? (
+              <FaUserCircle />
+            ) : (
+              <Box position="relative">
+                <Image src={user.image} w={6} borderRadius={4} />
+                <Box
+                  w={3}
+                  h={3}
+                  position="absolute"
+                  bg="#63E35D"
+                  bottom="-2px"
+                  right="-2px"
+                  border="2px solid white"
+                  borderRadius={5}
+                ></Box>
+              </Box>
+            )
+          }
+        >
           <Box
             w="12%"
             h="max-content"
