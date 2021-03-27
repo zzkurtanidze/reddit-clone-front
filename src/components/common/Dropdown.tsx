@@ -15,7 +15,7 @@ export default function Dropdown({
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const color = useColorModeValue("#333", "white");
+  const color = useColorModeValue("#858887", "white");
 
   const ref = useRef();
 
@@ -29,11 +29,16 @@ export default function Dropdown({
       <Button
         bg="transparent"
         _focus={{ background: "rgba(255,255,255,.1)" }}
-        borderRadius={0}
+        _active={{}}
+        _hover={{ border: "1px solid rgba(133, 136, 135, .7)" }}
+        borderRadius={2}
+        border="1px solid transparent"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         {icon && icon}
-        <Text ml={2}>{title}</Text>
+        <Text fontFamily="mono" fontWeight="light" fontSize={16} ml={2}>
+          {title}
+        </Text>
         <Box ml="10px">
           <AiFillCaretDown size={15} color={color} />
         </Box>
