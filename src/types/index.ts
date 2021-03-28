@@ -21,6 +21,7 @@ export type NotPostedPostType = {
 export type UserType = {
   _id?: string;
   username: string;
+  displayName?: string;
   description?: string;
   email: string;
   password: string;
