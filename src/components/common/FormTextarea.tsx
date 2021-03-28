@@ -14,6 +14,7 @@ export default function FormTextarea({
   error,
   required = false,
   description,
+  sufix,
 }: {
   placeholder?: string;
   label?: string;
@@ -21,6 +22,7 @@ export default function FormTextarea({
   error: string | undefined;
   required?: boolean;
   description?: string;
+  sufix?: string;
 }) {
   return (
     <FormControl isInvalid={error ? true : false} my={2}>
@@ -35,10 +37,16 @@ export default function FormTextarea({
         </FormHelperText>
       )}
       <Field
+        bg="white"
         as={Textarea}
         placeholder={placeholder && `${placeholder} ${required ? "*" : ""}`}
         name={name}
       ></Field>
+      {sufix && (
+        <FormHelperText fontSize={12} fontFamily="mono" my={2}>
+          {sufix}
+        </FormHelperText>
+      )}
     </FormControl>
   );
 }

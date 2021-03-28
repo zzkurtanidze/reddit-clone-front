@@ -16,6 +16,7 @@ type FormFieldProps = {
   error: string | undefined;
   required?: boolean;
   description?: string;
+  sufix?: string;
 };
 
 export default function FormField({
@@ -26,6 +27,7 @@ export default function FormField({
   error,
   required = false,
   description,
+  sufix,
 }: FormFieldProps) {
   return (
     <FormControl isInvalid={error ? true : false}>
@@ -46,6 +48,9 @@ export default function FormField({
         type={type}
         as={Input}
       />
+      <FormHelperText fontSize={12} my={2} fontFamily="mono">
+        {sufix}
+      </FormHelperText>
       <FormErrorMessage>{error}</FormErrorMessage>
     </FormControl>
   );
