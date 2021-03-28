@@ -1,18 +1,20 @@
 //@ts-nocheck
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import Container from "../../components/common/Container";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { IoIosSettings } from "react-icons/io";
 import { Link } from "react-router-dom";
 import AccountTab from "./tabs/AccountTab";
 import ProfileTab from "./tabs/ProfileTab";
+import { UserContext } from "../../context/UserContext";
 
 export default function UserSettingsPage({ match }: { match: any }) {
   const [tab, setTab] = useState<string>("");
+  const user = useContext(UserContext);
   const tabs = {
-    account: <AccountTab />,
-    profile: <ProfileTab />,
+    account: <AccountTab user={user} />,
+    profile: <ProfileTab user={user} />,
   };
 
   useEffect(() => {
