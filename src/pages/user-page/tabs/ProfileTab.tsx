@@ -1,7 +1,7 @@
 import { Box, Flex } from "@chakra-ui/layout";
 import Action from "../../../components/common/Action";
-import { Form, Formik } from "formik";
-import React from "react";
+import { Form, Formik, useFormikContext } from "formik";
+import React, { useCallback, useEffect, useState } from "react";
 import FormField from "../../../components/common/FormField";
 import FormTextarea from "../../../components/common/FormTextarea";
 import SectionTitle from "../../../components/common/SectionTitle";
@@ -10,18 +10,39 @@ import { Image } from "@chakra-ui/image";
 import { UserType } from "../../../types/";
 import SecondaryButton from "../../../components/common/SecondaryButton";
 import { FaEdit } from "react-icons/fa";
+import _ from "lodash";
+import { updateUser } from "../../../api/";
+import { useToast } from "@chakra-ui/toast";
 
 export default function ProfileTab({ user }: { user: UserType }) {
+  const toast = useToast();
+
   return (
     <Box fontFamily="mono">
       <Title label="Customize proflie" />
       <SectionTitle label="Profile Information" />
       <Formik
         initialValues={{
-          displayName: "",
-          description: "",
+          displayName: user.displayName || "",
+          description: user.description || "",
         }}
-        onSubmit={(data) => console.log(data)}
+        onSubmit={async (data) => {
+          const response = await updateUser(data);
+          if (response.statusText === "OK") {
+            console.log(response);
+            toast({
+              title: "Changes saved.",
+              status: "success",
+              isClosable: true,
+            });
+          } else {
+            toast({
+              title: "Changes saved.",
+              status: "success",
+              isClosable: true,
+            });
+          }
+        }}
       >
         {({ errors, values }) => (
           <Form>
@@ -42,6 +63,7 @@ export default function ProfileTab({ user }: { user: UserType }) {
               sufix={`${200 - values.description.length} Characters remaining`}
               error={errors.description}
             />
+            <AutoSave debounceMs={1000} />
           </Form>
         )}
       </Formik>
@@ -104,3 +126,19 @@ export default function ProfileTab({ user }: { user: UserType }) {
     </Box>
   );
 }
+
+const AutoSave = ({ debounceMs = 1000 }: { debounceMs: number }) => {
+  const formik = useFormikContext();
+  const [isSaved, setIsSaved] = useState(false);
+  const debouncedSubmit = useCallback(
+    _.debounce(() => {
+      return formik.submitForm().then(() => setIsSaved(true));
+    }, debounceMs),
+    [formik.submitForm, debounceMs]
+  );
+
+  //@ts-ignore
+  useEffect(() => debouncedSubmit, [debouncedSubmit, formik.values]);
+
+  return <></>;
+};

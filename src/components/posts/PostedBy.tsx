@@ -11,7 +11,9 @@ export default function PostedBy({ post }: { post: PostType }) {
       <Text color="gray.500" ml="10px">
         Posted By{" "}
         <Link href={`/user/${post.postedBy.username}`} _focus={{}} _active={{}}>
-          {post.postedBy.username}
+          {post.postedBy.displayName
+            ? post.postedBy.displayName
+            : post.postedBy.username}
         </Link>
       </Text>
     </Flex>

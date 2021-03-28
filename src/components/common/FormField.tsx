@@ -48,7 +48,7 @@ export default function FormField({
         placeholder={placeholder && `${placeholder} ${required ? "*" : ""}`}
         name={name}
         type={type}
-        fontSize={12}
+        fontSize={14}
         as={Input}
       />
       {sufix && (

@@ -38,6 +38,7 @@ export default function FormTextarea({
       )}
       <Field
         bg="white"
+        fontSize={14}
         as={Textarea}
         placeholder={placeholder && `${placeholder} ${required ? "*" : ""}`}
         name={name}
