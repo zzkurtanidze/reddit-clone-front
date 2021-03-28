@@ -1,14 +1,21 @@
 import { Button } from "@chakra-ui/button";
 import { Box, Flex } from "@chakra-ui/layout";
 import SecondaryButton from "../../../components/common/SecondaryButton";
-import React from "react";
+import React, { useState } from "react";
 import Action from "../../../components/common/Action";
 import SectionTitle from "../../../components/common/SectionTitle";
 import Title from "../../../components/common/Title";
 import { HiTrash } from "react-icons/hi";
 import { UserType } from "../../../types";
+import EmailChange from "../modals/EmailChange";
+import PasswordChange from "../modals/PasswordChange";
 
 export default function AccountTab({ user }: { user: UserType }) {
+  const [emailChangeModal, setEmailChangeModal] = useState<boolean>(false);
+  const [passwordChangeModal, setPasswordChangeModal] = useState<boolean>(
+    false
+  );
+
   return (
     <Box fontFamily="mono">
       <Title label="Account Settings" />
@@ -17,14 +24,20 @@ export default function AccountTab({ user }: { user: UserType }) {
         label="Email address"
         description={user.email}
         button={
-          <SecondaryButton label="Change" onClick={() => console.log("")} />
+          <SecondaryButton
+            label="Change"
+            onClick={() => setEmailChangeModal(true)}
+          />
         }
       />
       <Action
         label="Change password"
         description="Password must be at least 4 characters long"
         button={
-          <SecondaryButton label="Change" onClick={() => console.log("")} />
+          <SecondaryButton
+            label="Change"
+            onClick={() => setPasswordChangeModal(true)}
+          />
         }
       />
       <SectionTitle label="Deactivate account" />
@@ -43,6 +56,15 @@ export default function AccountTab({ user }: { user: UserType }) {
           </Button>
         }
       />
+      {emailChangeModal && (
+        <EmailChange open={emailChangeModal} setOpen={setEmailChangeModal} />
+      )}
+      {passwordChangeModal && (
+        <PasswordChange
+          open={passwordChangeModal}
+          setOpen={setPasswordChangeModal}
+        />
+      )}
     </Box>
   );
 }
