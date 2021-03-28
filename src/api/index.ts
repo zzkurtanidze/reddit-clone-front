@@ -182,6 +182,22 @@ export const submitNewPassword = async (data: {
   }
 };
 
+export const updateMail = async (data: {
+  password: string;
+  newEmail: string;
+}) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/users/update-mail`,
+      data,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 export const updateUser = async (data: {}) => {
   try {
     const response = await axios.put(`${apiUrl}/users/`, data, axiosOptions);

@@ -7,6 +7,8 @@ import { Form, Formik } from "formik";
 import FormField from "../../../components/common/FormField";
 import { Button } from "@chakra-ui/button";
 import * as yup from "yup";
+import { updateMail } from "../../../api";
+import { useToast } from "@chakra-ui/toast";
 
 const validationSchema = yup.object({
   password: yup.string().required().label("Password"),
@@ -23,6 +25,8 @@ export default function EmailChange({
   open: boolean;
   setOpen: Function;
 }) {
+  const toast = useToast();
+
   return (
     <Modal open={open} onClose={() => setOpen(false)} width="400px">
       <Flex alignItems="center" gridGap={4}>
@@ -56,7 +60,25 @@ export default function EmailChange({
       <Formik
         initialValues={{ password: "", newEmail: "" }}
         validationSchema={validationSchema}
-        onSubmit={(data) => console.log(data)}
+        onSubmit={async (data) => {
+          const response = await updateMail(data);
+          if (response.statusText === "OK") {
+            toast({
+              title: response.data,
+              status: "success",
+              isClosable: true,
+            });
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          } else {
+            toast({
+              title: response.data,
+              status: "error",
+              isClosable: true,
+            });
+          }
+        }}
       >
         {({ errors, touched }) => (
           <Form>
@@ -80,6 +102,8 @@ export default function EmailChange({
                 borderRadius={40}
                 px={4}
                 py={2}
+                _hover={{}}
+                _active={{}}
                 alignSelf="flex-end"
                 w="max-content"
                 h="max-content"
