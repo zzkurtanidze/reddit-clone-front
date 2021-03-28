@@ -17,6 +17,7 @@ type FormFieldProps = {
   required?: boolean;
   description?: string;
   sufix?: string;
+  touched?: boolean;
 };
 
 export default function FormField({
@@ -28,9 +29,10 @@ export default function FormField({
   required = false,
   description,
   sufix,
+  touched,
 }: FormFieldProps) {
   return (
-    <FormControl isInvalid={error ? true : false}>
+    <FormControl isInvalid={error && touched ? true : false}>
       {label && (
         <FormLabel fontFamily="mono">
           {label && `${label} ${required ? "*" : ""}`}
@@ -46,12 +48,19 @@ export default function FormField({
         placeholder={placeholder && `${placeholder} ${required ? "*" : ""}`}
         name={name}
         type={type}
+        fontSize={12}
         as={Input}
       />
-      <FormHelperText fontSize={12} my={2} fontFamily="mono">
-        {sufix}
-      </FormHelperText>
-      <FormErrorMessage>{error}</FormErrorMessage>
+      {sufix && (
+        <FormHelperText fontSize={12} my={2} fontFamily="mono">
+          {sufix}
+        </FormHelperText>
+      )}
+      {touched && (
+        <FormErrorMessage fontSize={11} fontWeight="600">
+          {error}
+        </FormErrorMessage>
+      )}
     </FormControl>
   );
 }
