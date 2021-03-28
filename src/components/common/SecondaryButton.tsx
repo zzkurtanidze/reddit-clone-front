@@ -8,17 +8,19 @@ export default function SecondaryButton({
   bg = "white",
   icon = undefined,
   px = 5,
+  ...rest
 }: {
   onClick: any;
-  label: string;
+  label?: string;
   color?: string;
   bg?: string;
   icon?: any;
   px?: number | string;
+  [x: string]: any;
 }) {
   return (
     <Button
-      px={icon ? 4 : px}
+      px={px}
       py="8px"
       h="max-content"
       border="1px solid #0079d3"
@@ -30,9 +32,10 @@ export default function SecondaryButton({
       _hover={{}}
       onClick={onClick}
       gridGap={2}
+      {...rest}
     >
       {icon && icon}
-      {label}
+      {label && label}
     </Button>
   );
 }
