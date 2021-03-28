@@ -6,15 +6,16 @@ import Action from "../../../components/common/Action";
 import SectionTitle from "../../../components/common/SectionTitle";
 import Title from "../../../components/common/Title";
 import { HiTrash } from "react-icons/hi";
+import { UserType } from "../../../types";
 
-export default function AccountTab() {
+export default function AccountTab({ user }: { user: UserType }) {
   return (
     <Box fontFamily="mono">
       <Title label="Account Settings" />
       <SectionTitle label="Account preferences" />
       <Action
         label="Email address"
-        description="zura.kurta@gmail.com"
+        description={user.email}
         button={
           <SecondaryButton label="Change" onClick={() => console.log("")} />
         }
