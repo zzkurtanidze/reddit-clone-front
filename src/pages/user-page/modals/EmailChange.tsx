@@ -6,7 +6,15 @@ import { FaInfoCircle } from "react-icons/fa";
 import { Form, Formik } from "formik";
 import FormField from "../../../components/common/FormField";
 import { Button } from "@chakra-ui/button";
-import PasswordResetPage from "@pages/password-reset";
+import * as yup from "yup";
+
+const validationSchema = yup.object({
+  password: yup.string().required().label("Password"),
+  newEmail: yup
+    .string()
+    .email("Please enter valid email.")
+    .required("This field is required."),
+});
 
 export default function EmailChange({
   open,
@@ -47,33 +55,24 @@ export default function EmailChange({
       </Text>
       <Formik
         initialValues={{ password: "", newEmail: "" }}
-        validate={(values) => {
-          const errors: Record<string, string> = {};
-
-          const emailReg = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-          if (!emailReg.test(values.newEmail)) {
-            errors.newEmail = "Please enter a valid email.";
-          }
-
-          return errors;
-        }}
-        validateOnBlur={true}
-        validateOnChange={false}
+        validationSchema={validationSchema}
         onSubmit={(data) => console.log(data)}
       >
-        {({ errors }) => (
+        {({ errors, touched }) => (
           <Form>
             <Flex direction="column" gridGap={4}>
               <FormField
                 placeholder="Current Password"
                 type="password"
                 error={errors.password}
+                touched={touched.password}
                 name="password"
               />
               <FormField
                 placeholder="New Email"
                 type="email"
                 error={errors.newEmail}
+                touched={touched.newEmail}
                 name="newEmail"
               />
               <Button
