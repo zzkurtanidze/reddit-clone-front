@@ -6,6 +6,7 @@ import { FaInfoCircle } from "react-icons/fa";
 import { Form, Formik } from "formik";
 import FormField from "../../../components/common/FormField";
 import { Button } from "@chakra-ui/button";
+import PasswordResetPage from "@pages/password-reset";
 
 export default function EmailChange({
   open,
@@ -46,36 +47,50 @@ export default function EmailChange({
       </Text>
       <Formik
         initialValues={{ password: "", newEmail: "" }}
+        validate={(values) => {
+          const errors: Record<string, string> = {};
+
+          const emailReg = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+          if (!emailReg.test(values.newEmail)) {
+            errors.newEmail = "Please enter a valid email.";
+          }
+
+          return errors;
+        }}
+        validateOnBlur={true}
+        validateOnChange={false}
         onSubmit={(data) => console.log(data)}
       >
         {({ errors }) => (
           <Form>
-            <FormField
-              placeholder="Current Password"
-              type="password"
-              error={errors.password}
-              name="password"
-            />
-            <FormField
-              placeholder="New Email"
-              type="email"
-              error={errors.newEmail}
-              name="newEmail"
-            />
-            <Button
-              type="submit"
-              borderRadius={40}
-              px={4}
-              py={2}
-              float="right"
-              mb={5}
-              h="max-content"
-              bg="#0079d3"
-              fontSize={12}
-              color="white"
-            >
-              Save email
-            </Button>
+            <Flex direction="column" gridGap={4}>
+              <FormField
+                placeholder="Current Password"
+                type="password"
+                error={errors.password}
+                name="password"
+              />
+              <FormField
+                placeholder="New Email"
+                type="email"
+                error={errors.newEmail}
+                name="newEmail"
+              />
+              <Button
+                type="submit"
+                borderRadius={40}
+                px={4}
+                py={2}
+                alignSelf="flex-end"
+                w="max-content"
+                h="max-content"
+                bg="#0079d3"
+                fontSize={12}
+                color="white"
+              >
+                Save email
+              </Button>
+            </Flex>
           </Form>
         )}
       </Formik>
