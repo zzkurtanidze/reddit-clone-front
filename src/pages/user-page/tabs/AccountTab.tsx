@@ -2,10 +2,9 @@ import { Button } from "@chakra-ui/button";
 import { Box, Flex } from "@chakra-ui/layout";
 import SecondaryButton from "../../../components/common/SecondaryButton";
 import React from "react";
-import Action from "../common/Action";
-import SectionTitle from "../common/SectionTitle";
-import Title from "../common/Title";
-import { GoTrashcan } from "react-icons/go";
+import Action from "../../../components/common/Action";
+import SectionTitle from "../../../components/common/SectionTitle";
+import Title from "../../../components/common/Title";
 import { HiTrash } from "react-icons/hi";
 
 export default function AccountTab() {
