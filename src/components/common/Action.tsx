@@ -11,7 +11,12 @@ export default function Action({
   button?: JSX.Element;
 }) {
   return (
-    <Flex fontFamily="mono" justifyContent="space-between" my={5}>
+    <Flex
+      fontFamily="mono"
+      alignItems="center"
+      justifyContent="space-between"
+      my={5}
+    >
       <Box>
         <Text fontSize={16}>{label && label}</Text>
         {description && (

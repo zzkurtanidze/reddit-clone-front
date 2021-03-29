@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import AccountTab from "./tabs/AccountTab";
 import ProfileTab from "./tabs/ProfileTab";
 import { UserContext } from "../../context/UserContext";
+import PrivacyTab from "./tabs/PrivacyTab";
 
 export default function UserSettingsPage({ match }: { match: any }) {
   const [tab, setTab] = useState<string>("");
@@ -15,6 +16,7 @@ export default function UserSettingsPage({ match }: { match: any }) {
   const tabs = {
     account: <AccountTab user={user} />,
     profile: <ProfileTab user={user} />,
+    privacy: <PrivacyTab user={user} />,
   };
 
   useEffect(() => {
