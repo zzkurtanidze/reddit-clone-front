@@ -18,9 +18,8 @@ export default function ProfilePicture({
     <Box
       w={width}
       h={width}
-      borderRadius="50%"
+      borderRadius="10px"
       overflow="hidden"
-      border={numWidth <= 70 ? "0" : `${numWidth / 20}px solid white`}
       boxShadow={numWidth <= 70 ? "0" : "0 0 10px rgba(0,0,0,.35)"}
     >
       <Box

@@ -26,7 +26,6 @@ export default function UserPictureButton({
 
   const onDrop = useCallback(async (acceptedFiles: any) => {
     const data = new FormData();
-    console.log(acceptedFiles[0]);
     data.append("photo", acceptedFiles[0]);
     const response = await uploadImage(data);
     if (response.statusText === "OK") {
@@ -73,13 +72,13 @@ export default function UserPictureButton({
       width={width}
       height={width}
       overflow="hidden"
-      borderRadius="50%"
+      borderRadius="10px"
     >
       <UserPicture image={image} width={width} />
       <Button
         bg="none"
         position="absolute"
-        bottom="-25%"
+        bottom="-30%"
         left="50%"
         transform="translateX(-50%)"
         _focus={{}}
@@ -94,7 +93,6 @@ export default function UserPictureButton({
         pt="22%"
         pb="22%"
         px="50%"
-        borderBottomRadius="100%"
         onClick={() => setShowProfileChangeModal(!showProfileChangeModal)}
       >
         <FaRegEdit size={18} />

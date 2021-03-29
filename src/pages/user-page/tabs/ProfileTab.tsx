@@ -13,8 +13,13 @@ import { FaEdit } from "react-icons/fa";
 import _ from "lodash";
 import { updateUser } from "../../../api/";
 import { useToast } from "@chakra-ui/toast";
+import { Input } from "@chakra-ui/input";
+import { FormLabel } from "@chakra-ui/form-control";
+import ChangePicture from "../../../components/user/user-modals/ChangePicture";
+import UserPictureButton from "../../../components/user/UserPictureButton";
 
 export default function ProfileTab({ user }: { user: UserType }) {
+  const [changeCover, setChangeCover] = useState(false);
   const toast = useToast();
 
   return (
@@ -80,23 +85,7 @@ export default function ProfileTab({ user }: { user: UserType }) {
           <Form>
             <Flex gridGap={3}>
               <Box position="relative">
-                <Image
-                  src={user.image}
-                  alt={user.username}
-                  borderRadius="10px"
-                  w={125}
-                  h={125}
-                />
-                <SecondaryButton
-                  //@ts-nocheck
-                  position="absolute"
-                  bottom="5px"
-                  right="5px"
-                  px="0"
-                  h="40px"
-                  onClick={() => console.log("")}
-                  icon={<FaEdit />}
-                />
+                <UserPictureButton image={user.image} width="125px" />
               </Box>
               <Box position="relative">
                 <Image
@@ -108,16 +97,21 @@ export default function ProfileTab({ user }: { user: UserType }) {
                   h={125}
                   borderRadius="10px"
                 />
-                <SecondaryButton
-                  //@ts-nocheck
-                  position="absolute"
-                  bottom="5px"
-                  right="5px"
-                  px="0"
-                  h="40px"
-                  onClick={() => console.log("")}
-                  icon={<FaEdit />}
-                />
+                <Input type="file" display="none" id="profile-pic" />
+                <FormLabel htmlFor="profile-pic">
+                  <Box
+                    cursor="pointer"
+                    position="absolute"
+                    bottom="15px"
+                    right="5px"
+                    p="10px"
+                    bg="white"
+                    border="1px solid #0079D3"
+                    borderRadius={50}
+                  >
+                    <FaEdit color="#0079D3" />
+                  </Box>
+                </FormLabel>
               </Box>
             </Flex>
           </Form>
