@@ -2,7 +2,7 @@ import { Box, Image } from "@chakra-ui/react";
 import React, { useState } from "react";
 import ZoomImage from "./ZoomImage";
 
-export default function ProfilePicture({
+export default function Profile({
   width = "200px",
   imageSrc,
   isZoomable = true,
@@ -18,7 +18,7 @@ export default function ProfilePicture({
     <Box
       w={width}
       h={width}
-      borderRadius="10px"
+      borderRadius="50%"
       overflow="hidden"
       boxShadow={numWidth <= 70 ? "0" : "0 0 10px rgba(0,0,0,.35)"}
     >
