@@ -1,6 +1,6 @@
 import React from "react";
-import Modal from "../Modal";
-import NewCommunityForm from "./NewCommunityForm";
+import Modal from "../../Modal";
+import NewCommunityForm from "../form/NewCommunityForm";
 
 export default function CommunityFormModal({
   open,

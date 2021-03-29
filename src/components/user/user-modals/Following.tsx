@@ -1,10 +1,10 @@
-import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
+import { Flex, Link, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { getUserFollowing } from "../../../api";
 import { UserType } from "../../../types";
 import ModalLoading from "../../common/ModalLoading";
 import Modal from "../../Modal";
-import UserPicture from "../UserPicture";
+import UserPicture from "../common/UserPicture";
 
 export default function Following({
   showModal,

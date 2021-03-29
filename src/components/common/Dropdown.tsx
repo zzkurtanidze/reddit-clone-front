@@ -1,7 +1,6 @@
 import { Box, Button, Text, useColorModeValue } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
-import { VscAccount } from "react-icons/vsc";
 import useOutsideClick from "../../utils/useOutsideClick";
 
 export default function Dropdown({

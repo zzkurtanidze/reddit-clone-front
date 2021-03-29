@@ -2,7 +2,7 @@ import { Button, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { ImArrowDown, ImArrowUp } from "react-icons/im";
 import { PostType, UserType } from "../../types";
-import LoginModal from "../form-modals/LoginModal";
+import LoginModal from "../auth-modals/LoginModal";
 
 import { io } from "socket.io-client";
 

@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/button";
 import { Box } from "@chakra-ui/layout";
-import React, { useState } from "react";
+import React from "react";
 import { Cropper } from "react-cropper";
 import Modal from "../../Modal";
 

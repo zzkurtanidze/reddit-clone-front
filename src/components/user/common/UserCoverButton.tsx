@@ -1,9 +1,9 @@
 import { Box, Button, Text, useToast } from "@chakra-ui/react";
 import React, { useCallback, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
-import { updateUser, uploadImage } from "../../api";
-import { UserType } from "../../types";
-import ChangePicture from "./user-modals/ChangePicture";
+import { updateUser, uploadImage } from "../../../api";
+import { UserType } from "../../../types";
+import ChangePicture from "../user-modals/ChangePicture";
 import UserCover from "./UserCover";
 
 export default function UserCoverButton({ user }: { user: UserType }) {

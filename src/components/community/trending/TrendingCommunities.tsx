@@ -1,9 +1,9 @@
 import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
-import { TrendingCommunity } from "./TrendingCommunity";
-import { CommunityType } from "../../types/index";
+import { TrendingCommunity } from "../trending/TrendingCommunity";
+import { CommunityType } from "../../../types/index";
 import React, { useEffect, useState } from "react";
-import { getTrendingCommunities } from "../../api";
-import StyledBox from "../common/StyledBox";
+import { getTrendingCommunities } from "../../../api";
+import StyledBox from "../../common/StyledBox";
 
 export default function TrendingCommunities() {
   const [communities, setCommunities] = useState<undefined | CommunityType[]>();

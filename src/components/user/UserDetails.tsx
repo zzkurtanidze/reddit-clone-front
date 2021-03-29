@@ -7,10 +7,10 @@ import Following from "./user-modals/Following";
 import Followers from "./user-modals/Followers";
 import { followUser } from "../../api";
 import { UserContext } from "../../context/UserContext";
-import UserPicture from "./UserPicture";
-import UserPictureButton from "./UserPictureButton";
-import UserCover from "./UserCover";
-import UserCoverButton from "./UserCoverButton";
+import UserPicture from "./common/UserPicture";
+import UserPictureButton from "./common/UserPictureButton";
+import UserCover from "./common/UserCover";
+import UserCoverButton from "./common/UserCoverButton";
 
 export default function UserDetails({
   user,

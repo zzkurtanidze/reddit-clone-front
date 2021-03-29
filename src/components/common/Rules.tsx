@@ -1,7 +1,7 @@
 import { Image } from "@chakra-ui/image";
 import { Divider, Flex, Text } from "@chakra-ui/layout";
 import React from "react";
-import StyledBox from "./common/StyledBox";
+import StyledBox from "./StyledBox";
 
 export default function Rules() {
   return (

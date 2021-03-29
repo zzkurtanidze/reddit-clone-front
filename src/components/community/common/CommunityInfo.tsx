@@ -1,11 +1,11 @@
 //@ts-nocheck
 import { Box, Divider, Flex, Grid, Link, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
-import { CommunityType } from "../../types";
-import StyledBox from "../common/StyledBox";
+import { CommunityType } from "../../../types";
+import StyledBox from "../../common/StyledBox";
 
-import PrimaryButton from "../common/PrimaryButton";
-import { UserContext } from "../../context/UserContext";
+import PrimaryButton from "../../common/PrimaryButton";
+import { UserContext } from "../../../context/UserContext";
 
 import { FaUserCircle } from "react-icons/fa";
 import { RiCake2Fill } from "react-icons/ri";
