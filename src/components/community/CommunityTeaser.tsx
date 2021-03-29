@@ -3,8 +3,8 @@ import { Box, Grid, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import { CommunityType, UserType } from "../../types";
 import StyledBox from "../common/StyledBox";
-import CommunityPicture from "./CommunityPicture";
-import Join from "./Join";
+import CommunityPicture from "./common/CommunityPicture";
+import Join from "./common/Join";
 
 import { FaUserCircle } from "react-icons/fa";
 import { RiMessage2Fill } from "react-icons/ri";

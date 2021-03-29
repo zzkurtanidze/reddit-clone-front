@@ -19,7 +19,7 @@ import Votes from "./Votes";
 import PostedBy from "./PostedBy";
 import StyledBox from "../common/StyledBox";
 import { PostButton } from "./PostButton";
-import Join from "../community/Join";
+import Join from "../community/common/Join";
 import Url from "./Url";
 
 export default function PostTeaser({ post }: { post: PostType }) {

@@ -6,7 +6,7 @@ import { UserContext } from "../../../context/UserContext";
 import { RiImageLine } from "react-icons/ri";
 import { BiLinkAlt } from "react-icons/bi";
 import StyledBox from "../../common/StyledBox";
-import UserPicture from "../../user/UserPicture";
+import UserPicture from "../../user/common/UserPicture";
 
 export default function NewPostTeaser() {
   const user = useContext(UserContext);
