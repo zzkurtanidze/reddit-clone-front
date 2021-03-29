@@ -9,7 +9,7 @@ import Join from "../../components/community/Join";
 import NewPostTeaser from "../../components/posts/post-form/NewPostTeaser";
 import PostTeaser from "../../components/posts/PostTeaser";
 import { CommunityType } from "../../types";
-import CommunityInfo from "../../components/community/CommunityInfo";
+import CommunityInfo from "../../components/community/common/CommunityInfo";
 import { UserContext } from "../../context/UserContext";
 import Loading from "../../components/common/Loading";
 import FixedElement from "../../components/common/FixedElement";

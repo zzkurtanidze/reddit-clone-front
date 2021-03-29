@@ -16,8 +16,8 @@ import {
 import React, { useState, useContext } from "react";
 
 import Logo from "../assets/reddit-logo.png";
-import LoginModal from "./form-modals/LoginModal";
-import RegisterModal from "./form-modals/register/RegisterModal";
+import LoginModal from "./auth-modals/LoginModal";
+import RegisterModal from "./auth-modals/register/RegisterModal";
 import Dropdown from "./common/Dropdown";
 import {
   DropdownItem,

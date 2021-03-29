@@ -1,5 +1,5 @@
 import { Grid } from "@chakra-ui/layout";
-import RulesSidebar from "../../components/Rules";
+import RulesSidebar from "../../components/common/Rules";
 import React from "react";
 import Container from "../../components/common/Container";
 import NewPostForm from "../../components/posts/post-form/NewPostForm";
