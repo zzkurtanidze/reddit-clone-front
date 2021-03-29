@@ -12,7 +12,7 @@ import { CommunityType } from "../../types";
 import CommunityInfo from "../../components/community/common/CommunityInfo";
 import { UserContext } from "../../context/UserContext";
 import Loading from "../../components/common/Loading";
-import FixedElement from "@components/common/FixedElement";
+import FixedElement from "../../components/common/FixedElement";
 
 export default function CommunityPage({ match }: { match: any }) {
   const [community, setCommunity] = useState<CommunityType | undefined>();
