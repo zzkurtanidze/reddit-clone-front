@@ -1,7 +1,7 @@
-import { Box, Button, Image } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { UserType } from "../../types";
-import ZoomImage from "../common/ZoomImage";
+import { UserType } from "../../../types";
+import ZoomImage from "../../common/ZoomImage";
 
 export default function UserCover({ user }: { user: UserType }) {
   const [zoomed, setZoomed] = useState<boolean>(false);

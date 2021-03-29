@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../context/UserContext";
-import { CommunityType } from "../../types";
-import LoginModal from "../form-modals/LoginModal";
-import Join from "./Join";
-import CommunityPicture from "./CommunityPicture";
+import { UserContext } from "../../../context/UserContext";
+import { CommunityType } from "../../../types";
+import LoginModal from "../../auth-modals/LoginModal";
+import Join from "../common/Join";
+import CommunityPicture from "../common/CommunityPicture";
 
 export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
   community,

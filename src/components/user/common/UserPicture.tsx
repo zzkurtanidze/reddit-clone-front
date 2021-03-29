@@ -1,5 +1,5 @@
 import React from "react";
-import ProfilePicture from "../common/ProfilePicture";
+import ProfilePicture from "../../common/ProfilePicture";
 
 export default function UserPicture({
   image,

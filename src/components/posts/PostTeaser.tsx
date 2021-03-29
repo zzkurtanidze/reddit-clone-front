@@ -11,16 +11,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { PostType } from "../../types/index";
 
 import { FaCommentAlt, FaShare } from "react-icons/fa";
-import { HiExternalLink } from "react-icons/hi";
 import { RiBookmarkFill } from "react-icons/ri";
 
 import { UserContext } from "../../context/UserContext";
-import LoginModal from "../form-modals/LoginModal";
+import LoginModal from "../auth-modals/LoginModal";
 import Votes from "./Votes";
 import PostedBy from "./PostedBy";
 import StyledBox from "../common/StyledBox";
 import { PostButton } from "./PostButton";
-import Join from "../community/Join";
+import Join from "../community/common/Join";
 import Url from "./Url";
 
 export default function PostTeaser({ post }: { post: PostType }) {

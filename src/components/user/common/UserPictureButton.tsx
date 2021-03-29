@@ -1,11 +1,11 @@
 import { Box, Button, useToast } from "@chakra-ui/react";
 import React, { useCallback, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
-import { updateUser, uploadImage } from "../../api";
-import ChangePicture from "./user-modals/ChangePicture";
+import { updateUser, uploadImage } from "../../../api";
+import ChangePicture from "../user-modals/ChangePicture";
 import UserPicture from "./UserPicture";
 import Cropper from "react-cropper";
-import Modal from "../Modal";
+import Modal from "../../Modal";
 var toBlob = require("canvas-to-blob");
 
 export default function UserPictureButton({

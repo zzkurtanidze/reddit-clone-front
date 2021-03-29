@@ -3,7 +3,7 @@ import { Flex, Text } from "@chakra-ui/layout";
 import React, { useState } from "react";
 import PrimaryButton from "./common/PrimaryButton";
 import StyledBox from "./common/StyledBox";
-import CommunityFormModal from "./community/CommunityFormModal";
+import CommunityFormModal from "./community/form/CommunityFormModal";
 
 export default function HomeSidebar() {
   const [communityModal, setCommunityModal] = useState(false);

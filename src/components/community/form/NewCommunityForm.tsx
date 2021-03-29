@@ -1,10 +1,10 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { Box, Divider, Flex, Text } from "@chakra-ui/layout";
-import FormField from "../common/FormField";
-import FormTextarea from "../common/FormTextarea";
+import FormField from "../../common/FormField";
+import FormTextarea from "../../common/FormTextarea";
 import { Button } from "@chakra-ui/button";
-import { createCommunity } from "../../api";
+import { createCommunity } from "../../../api";
 import { useToast } from "@chakra-ui/toast";
 
 export default function NewCommunityForm() {

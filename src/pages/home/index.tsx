@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import PostTeaser from "../../components/posts/PostTeaser";
 import Trending from "../../components/posts/Trending";
-import TrendingCommunities from "../../components/community/TrendingCommunities";
+import TrendingCommunities from "../../components/community/trending/TrendingCommunities";
 import { Box, Flex, Grid, Link, SimpleGrid, Text } from "@chakra-ui/react";
 import { getPosts } from "../../api";
 import { PostType } from "../../types";

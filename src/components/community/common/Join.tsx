@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Flex } from "@chakra-ui/layout";
-import { joinCommunity } from "../../api";
-import { UserContext } from "../../context/UserContext";
-import { CommunityType } from "../../types";
-import PrimaryButton from "../common/PrimaryButton";
-import LoginModal from "../form-modals/LoginModal";
+import { joinCommunity } from "../../../api";
+import { UserContext } from "../../../context/UserContext";
+import { CommunityType } from "../../../types";
+import PrimaryButton from "../../common/PrimaryButton";
+import LoginModal from "../../auth-modals/LoginModal";
 
 import { GoPlus } from "react-icons/go";
 import { BiMinus } from "react-icons/bi";
