@@ -1,6 +1,6 @@
 import { Box, Link, Text } from "@chakra-ui/react";
 import React from "react";
-import ProfilePicture from "../../common/ProfilePicture";
+import Profile from "../../common/Profile";
 const randomColor = require("randomcolor");
 
 export default function CommunityPicture({
@@ -24,10 +24,10 @@ export default function CommunityPicture({
         _active={{}}
         _focus={{}}
       >
-        <ProfilePicture imageSrc={imageSrc} width={width} isZoomable={false} />
+        <Profile imageSrc={imageSrc} width={width} isZoomable={false} />
       </Link>
     ) : (
-      <ProfilePicture imageSrc={imageSrc} width={width} />
+      <Profile imageSrc={imageSrc} width={width} />
     )
   ) : (
     <Box
