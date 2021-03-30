@@ -12,14 +12,11 @@ import { FaEdit } from "react-icons/fa";
 import _ from "lodash";
 import { updateUser } from "../../../api/";
 import { useToast } from "@chakra-ui/toast";
-import { Input } from "@chakra-ui/input";
-import { FormLabel } from "@chakra-ui/form-control";
 import { Button } from "@chakra-ui/button";
 import ChangeUserPicture from "../../../components/user/common/ChangeUserPicture";
 import ChangeUserCover from "../../../components/user/common/ChangeUserCover";
 
 export default function ProfileTab({ user }: { user: UserType }) {
-  const [changeCover, setChangeCover] = useState(false);
   const [showProfileChangeModal, setShowProfileChangeModal] = useState<boolean>(
     false
   );
@@ -139,18 +136,24 @@ export default function ProfileTab({ user }: { user: UserType }) {
   );
 }
 
-const AutoSave = ({ debounceMs = 1000 }: { debounceMs: number }) => {
+const AutoSave = ({ debounceMs = 2000 }: { debounceMs: number }) => {
   const formik = useFormikContext();
   const [isSaved, setIsSaved] = useState(false);
   const debouncedSubmit = useCallback(
     _.debounce(() => {
-      return formik.submitForm().then(() => setIsSaved(true));
+      if (!isSaved) {
+        return formik.submitForm().then(() => setIsSaved(true));
+      } else {
+        return;
+      }
     }, debounceMs),
     [formik.submitForm, debounceMs]
   );
 
   //@ts-ignore
-  useEffect(() => debouncedSubmit, [debouncedSubmit, formik.values]);
+  useEffect(() => {
+    debouncedSubmit();
+  }, [debouncedSubmit, formik.values]);
 
   return <></>;
 };
