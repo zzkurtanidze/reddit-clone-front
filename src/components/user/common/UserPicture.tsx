@@ -1,5 +1,5 @@
 import React from "react";
-import ProfilePicture from "../../common/ProfilePicture";
+import Profile from "../../common/Profile";
 
 export default function UserPicture({
   image,
@@ -12,7 +12,5 @@ export default function UserPicture({
 }) {
   const imageSrc = image ? image : "http://localhost:4000/static/avatar.png";
 
-  return (
-    <ProfilePicture imageSrc={imageSrc} width={width} isZoomable={isZoomable} />
-  );
+  return <Profile imageSrc={imageSrc} width={width} isZoomable={isZoomable} />;
 }

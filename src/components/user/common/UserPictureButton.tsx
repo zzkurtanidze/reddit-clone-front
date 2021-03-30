@@ -1,12 +1,8 @@
-import { Box, Button, useToast } from "@chakra-ui/react";
-import React, { useCallback, useState } from "react";
+import { Box, Button } from "@chakra-ui/react";
+import React, { useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
-import { updateUser, uploadImage } from "../../../api";
-import ChangePicture from "../user-modals/ChangePicture";
 import UserPicture from "./UserPicture";
-import Cropper from "react-cropper";
-import Modal from "../../Modal";
-var toBlob = require("canvas-to-blob");
+import ChangeUserPicture from "./ChangeUserPicture";
 
 export default function UserPictureButton({
   image,
@@ -18,54 +14,6 @@ export default function UserPictureButton({
   const [showProfileChangeModal, setShowProfileChangeModal] = useState<boolean>(
     false
   );
-  const [showCropper, setShowCropper] = useState<boolean>(false);
-  const [imageUrl, setImageUrl] = useState<string>("");
-  const [cropper, setCropper] = useState<any>();
-
-  const toast = useToast();
-
-  const onDrop = useCallback(async (acceptedFiles: any) => {
-    const data = new FormData();
-    console.log(acceptedFiles[0]);
-    data.append("photo", acceptedFiles[0]);
-    const response = await uploadImage(data);
-    if (response.statusText === "OK") {
-      const image = new Image();
-      image.src = response.data;
-      image.onload = async function () {
-        if (image.width - image.height < 100) {
-          await updateUser({ image: response.data });
-          window.location.reload();
-        } else {
-          setShowCropper(true);
-          setImageUrl(response.data);
-        }
-      };
-    } else {
-      toast({
-        title: "Can not upload image",
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-      });
-    }
-  }, []);
-
-  const handleSubmit = async () => {
-    var img = cropper.getCroppedCanvas().toDataURL("image/jpeg", 0.5);
-    var file = toBlob(img);
-
-    const data = new FormData();
-    const date = new Date().getTime().toString();
-    if (file) {
-      data.append("photo", file, date + ".jpg");
-      const response = await uploadImage(data);
-      if (response.statusText === "OK") {
-        await updateUser({ image: response.data });
-        window.location.reload();
-      }
-    }
-  };
 
   return (
     <Box
@@ -79,7 +27,7 @@ export default function UserPictureButton({
       <Button
         bg="none"
         position="absolute"
-        bottom="-25%"
+        bottom="-30%"
         left="50%"
         transform="translateX(-50%)"
         _focus={{}}
@@ -94,34 +42,14 @@ export default function UserPictureButton({
         pt="22%"
         pb="22%"
         px="50%"
-        borderBottomRadius="100%"
         onClick={() => setShowProfileChangeModal(!showProfileChangeModal)}
       >
         <FaRegEdit size={18} />
       </Button>
-      {showProfileChangeModal && (
-        <ChangePicture
-          open={showProfileChangeModal}
-          onClose={() => setShowProfileChangeModal(false)}
-          onDrop={onDrop}
-        />
-      )}
-      {showCropper && (
-        <Modal open={showCropper} onClose={() => setShowCropper(false)}>
-          <Box mt={10}>
-            <Cropper
-              src={imageUrl}
-              initialAspectRatio={1 / 1}
-              aspectRatio={1 / 1}
-              minCropBoxHeight={150}
-              onInitialized={(instance) => setCropper(instance)}
-            />
-            <Button onClick={handleSubmit} mt={5}>
-              Submit
-            </Button>
-          </Box>
-        </Modal>
-      )}
+      <ChangeUserPicture
+        showProfileChangeModal={showProfileChangeModal}
+        setShowProfileChangeModal={setShowProfileChangeModal}
+      />
     </Box>
   );
 }
