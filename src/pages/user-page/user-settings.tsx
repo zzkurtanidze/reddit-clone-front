@@ -9,6 +9,7 @@ import AccountTab from "./tabs/AccountTab";
 import ProfileTab from "./tabs/ProfileTab";
 import { UserContext } from "@context/UserContext";
 import PrivacyTab from "./tabs/PrivacyTab";
+import PremiumTab from "./tabs/PremiumTab";
 
 export default function UserSettingsPage({ match }: { match: any }) {
   const [tab, setTab] = useState<string>("");
@@ -17,6 +18,7 @@ export default function UserSettingsPage({ match }: { match: any }) {
     account: <AccountTab user={user} />,
     profile: <ProfileTab user={user} />,
     privacy: <PrivacyTab user={user} />,
+    premium: <PremiumTab user={user} />,
   };
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export default function UserSettingsPage({ match }: { match: any }) {
         <TabLink name="account" label="Account" tab={tab} />
         <TabLink name="profile" label="Profile" tab={tab} />
         <TabLink name="privacy" label="Safety & Privacy" tab={tab} />
-        <TabLink name="notifications" label="Notifications" tab={tab} />
+        {/* <TabLink name="notifications" label="Notifications" tab={tab} /> */}
         <TabLink name="premium" label="Subscriptions" tab={tab} />
       </Flex>
       <Box my={10} w="60%">
