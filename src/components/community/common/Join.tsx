@@ -70,7 +70,7 @@ export default function Join({
           icon &&
           (joined ? <BiMinus color="black" /> : <GoPlus color="white" />)
         }
-        w="150px"
+        w="130px"
         border={"1px solid #0079D3"}
         borderRadius={50}
         _focus={{}}
