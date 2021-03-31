@@ -70,12 +70,17 @@ export default function Votes({
       alignItems="center"
       my="15px"
       mr="15px"
-      gridGap="5px"
+      gridGap="10px"
+      overflow="hidden"
+      w="30px"
+      h="100px"
+      p={0}
     >
       <Button
-        p={0}
-        m={0}
-        borderRadius={5}
+        px={0}
+        py={1}
+        w="max-content"
+        h="max-content"
         bg={status === "like" ? "gray.200" : "transparent"}
         _focus={{ boxShadow: 0 }}
         name="like"
@@ -83,12 +88,14 @@ export default function Votes({
       >
         <ImArrowUp name="like" color={status === "like" ? `#ff3838` : "gray"} />
       </Button>
-      <Text textAlign="center" fontWeight="bold" fontSize={12}>
+      <Text w="max-content" textAlign="center" fontWeight="bold" fontSize={10}>
         {post.hideVotes ? "Votes" : likes}
       </Text>
       <Button
-        p={0}
-        m={0}
+        px={0}
+        py={1}
+        w="max-content"
+        h="max-content"
         borderRadius={5}
         bg={status === "unlike" ? "gray.200" : "transparent"}
         _focus={{ boxShadow: 0 }}
