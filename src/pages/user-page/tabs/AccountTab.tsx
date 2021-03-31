@@ -1,12 +1,13 @@
 import { Button } from "@chakra-ui/button";
-import { Box, Flex } from "@chakra-ui/layout";
-import SecondaryButton from "../../../components/common/SecondaryButton";
+import { Box } from "@chakra-ui/layout";
+import SecondaryButton from "@components/common/SecondaryButton";
 import React, { useState } from "react";
-import Action from "../../../components/common/Action";
-import SectionTitle from "../../../components/common/SectionTitle";
-import Title from "../../../components/common/Title";
+import Action from "@components/common/Action";
+import SectionTitle from "@components/common/SectionTitle";
+import Title from "@components/common/Title";
 import { HiTrash } from "react-icons/hi";
-import { UserType } from "../../../types";
+//@ts-ignore
+import { UserType } from "@types";
 import EmailChange from "../modals/EmailChange";
 import PasswordChange from "../modals/PasswordChange";
 

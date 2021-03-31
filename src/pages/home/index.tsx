@@ -1,16 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
-import PostTeaser from "../../components/posts/PostTeaser";
-import Trending from "../../components/posts/Trending";
-import TrendingCommunities from "../../components/community/trending/TrendingCommunities";
-import { Box, Flex, Grid, Link, SimpleGrid, Text } from "@chakra-ui/react";
-import { getPosts } from "../../api";
-import { PostType } from "../../types";
-import Loading from "../../components/common/Loading";
-import NewPostTeaser from "../../components/posts/post-form/NewPostTeaser";
-import Container from "../../components/common/Container";
-import { UserContext } from "../../context/UserContext";
-import FixedElement from "../../components/common/FixedElement";
-import HomeSidebar from "../../components/HomeSidebar";
+import PostTeaser from "@components/posts/PostTeaser";
+import Trending from "@components/posts/Trending";
+import TrendingCommunities from "@components/community/trending/TrendingCommunities";
+import { Box, Flex, Link, SimpleGrid, Text } from "@chakra-ui/react";
+//@ts-ignore
+import { getPosts } from "@api";
+//@ts-ignore
+import { PostType } from "@types";
+import Loading from "@components/common/Loading";
+import NewPostTeaser from "@components/posts/post-form/NewPostTeaser";
+import Container from "@components/common/Container";
+import { UserContext } from "@context/UserContext";
+import FixedElement from "@components/common/FixedElement";
+import HomeSidebar from "@components/HomeSidebar";
 
 export default function HomePage() {
   const [posts, setPosts] = useState<PostType[]>([]);

@@ -1,22 +1,24 @@
 /* eslint-disable react/style-prop-object */
 //@ts-nocheck
 import { Box, Flex, Grid, Image, Text, useToast } from "@chakra-ui/react";
-import Url from "../../components/posts/Url";
+import Url from "@components/posts/Url";
 import React, { useContext, useEffect, useState } from "react";
 import { FaShare } from "react-icons/fa";
 import { RiBookmarkFill } from "react-icons/ri";
-import { getPostById } from "../../api";
-import Container from "../../components/common/Container";
-import FixedElement from "../../components/common/FixedElement";
-import Loading from "../../components/common/Loading";
-import StyledBox from "../../components/common/StyledBox";
-import CommunityTeaser from "../../components/community/CommunityTeaser";
-import Date from "../../components/posts/Date";
-import { PostButton } from "../../components/posts/PostButton";
-import PostedBy from "../../components/posts/PostedBy";
-import Votes from "../../components/posts/Votes";
-import { UserContext } from "../../context/UserContext";
-import { PostType } from "../../types";
+//@ts-ignore
+import { getPostById } from "@api";
+import Container from "@components/common/Container";
+import FixedElement from "@components/common/FixedElement";
+import Loading from "@components/common/Loading";
+import StyledBox from "@components/common/StyledBox";
+import CommunityTeaser from "@components/community/CommunityTeaser";
+import Date from "@components/posts/Date";
+import { PostButton } from "@components/posts/PostButton";
+import PostedBy from "@components/posts/PostedBy";
+import Votes from "@components/posts/Votes";
+import { UserContext } from "@context/UserContext";
+//@ts-ignore
+import { PostType } from "@types";
 
 export default function PostPage({ match }: { match: any }) {
   const [post, setPost] = useState<PostType | undefined>();

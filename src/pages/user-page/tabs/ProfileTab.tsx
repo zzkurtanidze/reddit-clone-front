@@ -1,20 +1,22 @@
 import { Box, Flex } from "@chakra-ui/layout";
-import Action from "../../../components/common/Action";
+import Action from "@components/common/Action";
 import { Form, Formik, useFormikContext } from "formik";
 import React, { useCallback, useEffect, useState } from "react";
-import FormField from "../../../components/common/FormField";
-import FormTextarea from "../../../components/common/FormTextarea";
-import SectionTitle from "../../../components/common/SectionTitle";
-import Title from "../../../components/common/Title";
+import FormField from "@components/common/FormField";
+import FormTextarea from "@components/common/FormTextarea";
+import SectionTitle from "@components/common/SectionTitle";
+import Title from "@components/common/Title";
 import { Image } from "@chakra-ui/image";
-import { UserType } from "../../../types/";
+//@ts-ignore
+import { UserType } from "@types";
 import { FaEdit } from "react-icons/fa";
 import _ from "lodash";
-import { updateUser } from "../../../api/";
+//@ts-ignore
+import { updateUser } from "@api";
 import { useToast } from "@chakra-ui/toast";
 import { Button } from "@chakra-ui/button";
-import ChangeUserPicture from "../../../components/user/common/ChangeUserPicture";
-import ChangeUserCover from "../../../components/user/common/ChangeUserCover";
+import ChangeUserPicture from "@components/user/common/ChangeUserPicture";
+import ChangeUserCover from "@components/user/common/ChangeUserCover";
 
 export default function ProfileTab({ user }: { user: UserType }) {
   const [showProfileChangeModal, setShowProfileChangeModal] = useState<boolean>(
@@ -38,7 +40,6 @@ export default function ProfileTab({ user }: { user: UserType }) {
         onSubmit={async (data) => {
           const response = await updateUser(data);
           if (response.statusText === "OK") {
-            console.log(response);
             toast({
               title: "Changes saved.",
               status: "success",

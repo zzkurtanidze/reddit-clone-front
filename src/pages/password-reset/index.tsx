@@ -4,9 +4,10 @@ import { Image } from "@chakra-ui/image";
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import FormField from "../../components/common/FormField";
+import FormField from "@components/common/FormField";
 import jwt_decode from "jwt-decode";
-import { submitNewPassword } from "../../api";
+//@ts-ignore
+import { submitNewPassword } from "@api";
 import { useToast } from "@chakra-ui/toast";
 
 export default function PasswordResetPage({ match }: { match: any }) {

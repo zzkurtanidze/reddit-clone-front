@@ -1,9 +1,9 @@
-import Modal from "../../../components/Modal";
+import Modal from "@components/Modal";
 import React from "react";
 import { Image } from "@chakra-ui/image";
 import { Flex, Text } from "@chakra-ui/layout";
 import { Form, Formik } from "formik";
-import FormField from "../../../components/common/FormField";
+import FormField from "@components/common/FormField";
 import { Button } from "@chakra-ui/button";
 import * as yup from "yup";
 

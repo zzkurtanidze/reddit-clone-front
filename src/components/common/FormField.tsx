@@ -5,7 +5,7 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import { Field } from "formik";
+import { Field, FormikErrors } from "formik";
 import React from "react";
 
 type FormFieldProps = {
@@ -13,7 +13,12 @@ type FormFieldProps = {
   label?: string;
   type: string;
   name: string;
-  error: string | undefined;
+  error:
+    | string
+    | string[]
+    | FormikErrors<any>
+    | FormikErrors<any>[]
+    | undefined;
   required?: boolean;
   description?: string;
   sufix?: string;

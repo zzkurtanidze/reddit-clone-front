@@ -5,7 +5,7 @@ import {
   FormLabel,
   Textarea,
 } from "@chakra-ui/react";
-import { Field } from "formik";
+import { Field, FormikErrors } from "formik";
 
 export default function FormTextarea({
   placeholder,
@@ -19,7 +19,12 @@ export default function FormTextarea({
   placeholder?: string;
   label?: string;
   name: string;
-  error: string | undefined;
+  error:
+    | string
+    | string[]
+    | FormikErrors<any>
+    | FormikErrors<any>[]
+    | undefined;
   required?: boolean;
   description?: string;
   sufix?: string;

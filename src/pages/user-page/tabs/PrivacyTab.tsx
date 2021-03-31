@@ -2,10 +2,11 @@ import { Input } from "@chakra-ui/input";
 import { Box } from "@chakra-ui/layout";
 import { Switch } from "@chakra-ui/switch";
 import React from "react";
-import Action from "../../../components/common/Action";
-import SectionTitle from "../../../components/common/SectionTitle";
-import Title from "../../../components/common/Title";
-import { UserType } from "../../../types";
+import Action from "@components/common/Action";
+import SectionTitle from "@components/common/SectionTitle";
+import Title from "@components/common/Title";
+//@ts-ignore
+import { UserType } from "@types";
 
 export default function PrivacyTab({ user }: { user: UserType }) {
   return (

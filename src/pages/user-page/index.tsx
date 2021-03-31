@@ -2,15 +2,14 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
-import { BiMessageAlt } from "react-icons/bi";
 import { RiMessage2Fill } from "react-icons/ri";
-import { getUser } from "../../api";
-import Container from "../../components/common/Container";
-import Loading from "../../components/common/Loading";
-import TabButton from "../../components/common/TabButton";
-import PostTeaser from "../../components/posts/PostTeaser";
-import UserDetails from "../../components/user/UserDetails";
-import { PostType, UserType } from "../../types";
+import { getUser } from "@api";
+import Container from "@components/common/Container";
+import Loading from "@components/common/Loading";
+import TabButton from "@components/common/TabButton";
+import PostTeaser from "@components/posts/PostTeaser";
+import UserDetails from "@components/user/UserDetails";
+import { PostType, UserType } from "@types";
 
 export default function UserPage({ match }: { match: any }) {
   const username = match.params.username;

@@ -1,10 +1,10 @@
 //@ts-nocheck
 import { useToast } from "@chakra-ui/toast";
 import React, { useEffect, useState } from "react";
-import { getDraftPosts, removeDraftPost } from "../../api";
-import Container from "../../components/common/Container";
-import DraftsList from "../../components/posts/post-form/drafts/DraftsList";
-import { NotPostedPostType } from "../../types";
+import { getDraftPosts, removeDraftPost } from "@api";
+import Container from "@components/common/Container";
+import DraftsList from "@components/posts/post-form/drafts/DraftsList";
+import { NotPostedPostType } from "@types";
 
 export default function PostDraftsPage() {
   const [drafts, setDrafts] = useState<NotPostedPostType>();

@@ -1,18 +1,18 @@
 //@ts-nocheck
 import { Box, Flex, Grid, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
-import { getCommunity } from "../../api";
-import Container from "../../components/common/Container";
-import Cover from "../../components/common/Cover";
-import CommunityPicture from "../../components/community/common/CommunityPicture";
-import Join from "../../components/community/common/Join";
-import NewPostTeaser from "../../components/posts/post-form/NewPostTeaser";
-import PostTeaser from "../../components/posts/PostTeaser";
-import { CommunityType } from "../../types";
-import CommunityInfo from "../../components/community/common/CommunityInfo";
-import { UserContext } from "../../context/UserContext";
-import Loading from "../../components/common/Loading";
-import FixedElement from "../../components/common/FixedElement";
+import { getCommunity } from "@api";
+import Container from "@components/common/Container";
+import Cover from "@components/common/Cover";
+import CommunityPicture from "@components/community/common/CommunityPicture";
+import Join from "@components/community/common/Join";
+import NewPostTeaser from "@components/posts/post-form/NewPostTeaser";
+import PostTeaser from "@components/posts/PostTeaser";
+import { CommunityType } from "@types";
+import CommunityInfo from "@components/community/common/CommunityInfo";
+import { UserContext } from "@context/UserContext";
+import Loading from "@components/common/Loading";
+import FixedElement from "@components/common/FixedElement";
 
 export default function CommunityPage({ match }: { match: any }) {
   const [community, setCommunity] = useState<CommunityType | undefined>();
