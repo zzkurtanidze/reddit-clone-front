@@ -39,12 +39,7 @@ export default function HomePage() {
       {posts && (
         <Trending items={posts.length >= 4 ? posts.slice(0, 4) : posts} />
       )}
-      <SimpleGrid
-        mt={10}
-        columns={[1, 1, 1, 2]}
-        templateColumns="1fr 0.5fr"
-        gap={5}
-      >
+      <SimpleGrid mt={10} templateColumns="1fr 0.5fr" gap={5}>
         <Box>
           {user && <NewPostTeaser />}
           {posts.length >= 1 ? (

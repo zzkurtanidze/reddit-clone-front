@@ -1,8 +1,9 @@
 import React from "react";
 import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../../context/UserContext";
-import { CommunityType } from "../../../types";
+import { UserContext } from "@context/UserContext";
+//@ts-ignore
+import { CommunityType } from "@types";
 import LoginModal from "../../auth-modals/LoginModal";
 import Join from "../common/Join";
 import CommunityPicture from "../common/CommunityPicture";
@@ -10,21 +11,12 @@ import CommunityPicture from "../common/CommunityPicture";
 export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
   community,
 }) => {
-  const user = useContext(UserContext);
-  const [joined, setJoined] = useState<boolean>(false);
   const [joinedNumber, setJoinedNumber] = useState<number>(0);
   const [loginModal, setLoginModal] = useState<boolean>(false);
 
   useEffect(() => {
-    if (user?.joined) {
-      user.joined.forEach((joinedCommunity) => {
-        if (joinedCommunity._id === community._id) {
-          setJoined(true);
-        }
-      });
-    }
     setJoinedNumber(community.members.length);
-  }, [user]);
+  }, [community]);
 
   return (
     <Flex justifyContent="space-between" gridGap={2}>
