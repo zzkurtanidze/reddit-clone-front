@@ -10,9 +10,9 @@ export default function TrendingItem({ item }: { item: PostType }) {
         h="170px"
         bgImage={`linear-gradient(0deg, rgba(0,0,0) -20%, rgba(255,255,255,0) 120%), url(${
           item.image ||
-          (item.urlData.images && item.urlData.images[0]) ||
+          (item.urlData && item.urlData.images && item.urlData.images[0]) ||
           item.url ||
-          item.urlData.favicons[0] ||
+          (item.urlData && item.urlData.favicons[0]) ||
           ""
         })`}
         bgSize="cover"

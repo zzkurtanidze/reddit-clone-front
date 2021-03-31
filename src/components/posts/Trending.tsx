@@ -1,4 +1,4 @@
-import { Box, Grid, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, SimpleGrid, Text } from "@chakra-ui/react";
 import React from "react";
 import { PostType } from "../../types/index";
 import TrendingItem from "./TrendingItem";
