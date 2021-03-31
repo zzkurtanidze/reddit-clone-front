@@ -1,12 +1,24 @@
 import { Flex, Link, Text } from "@chakra-ui/react";
+import CommunityPicture from "@components/community/common/CommunityPicture";
 import React from "react";
 import { PostType } from "../../types";
 
 export default function PostedBy({ post }: { post: PostType }) {
   return (
     <Flex fontSize={12}>
-      <Link fontWeight="bold" _focus={{}} href={`/r/${post.postedTo.username}`}>
-        {post.postedTo["name"]}
+      <Link
+        fontWeight="bold"
+        display="flex"
+        gridGap={1}
+        _focus={{}}
+        href={`/r/${post.postedTo.username}`}
+      >
+        <CommunityPicture
+          communityUsername={post.postedTo.username}
+          imageSrc={post.postedTo.url}
+          width="18px"
+        />
+        r/{post.postedTo.username}
       </Link>
       <Text color="gray.500" ml="10px">
         Posted By{" "}
