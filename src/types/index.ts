@@ -4,7 +4,17 @@ export type PostType = {
   body: string;
   image?: string;
   url?: string;
-  urlData: any;
+  urlData: {
+    contentType: string;
+    description: string;
+    favicons: [string | undefined];
+    images: [string | undefined];
+    mediaType: string;
+    siteName: string;
+    title: string;
+    url: string;
+    videos: [string];
+  };
   postedTo: any;
   postedBy: UserType;
   postedAt: string;
