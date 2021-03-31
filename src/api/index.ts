@@ -21,6 +21,7 @@ export const newPost = async (post: {
   image?: string;
   url?: string;
   postedTo: { value: string; label: string };
+  hideVotes: boolean;
 }) => {
   try {
     const response = await axios.post(
@@ -31,6 +32,7 @@ export const newPost = async (post: {
         image: post.image && post.image,
         url: post.url && post.url,
         postedTo: post.postedTo.value,
+        hideVotes: post.hideVotes,
       },
       axiosOptions
     );
