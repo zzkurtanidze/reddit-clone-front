@@ -5,9 +5,10 @@ export default function PrimaryButton({
   onClick,
   label,
   color = "white",
-  bg = "#1384D7",
+  bg = "#0079D3",
   icon = undefined,
   px = 50,
+  ...rest
 }: {
   onClick: any;
   label: string;
@@ -15,6 +16,7 @@ export default function PrimaryButton({
   bg?: string;
   icon?: any;
   px?: number | string;
+  [x: string]: any;
 }) {
   return (
     <>
@@ -27,8 +29,10 @@ export default function PrimaryButton({
         bg={bg}
         color={color}
         _hover={{}}
+        _active={{}}
         onClick={onClick}
         gridGap={2}
+        {...rest}
       >
         {icon && icon}
         {label}
