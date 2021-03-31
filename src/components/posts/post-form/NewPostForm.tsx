@@ -7,6 +7,7 @@ import {
   Input,
   Link,
   useToast,
+  Checkbox,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import Select from "react-select";
@@ -38,8 +39,9 @@ export default function NewPostForm({ match }: { match?: any }) {
     body: string;
     image?: string;
     url?: string;
+    hideVotes: boolean;
     postedTo: string;
-  }>({ title: "", body: "", postedTo: "" });
+  }>({ title: "", body: "", postedTo: "", hideVotes: false });
   const [selectedTab, setSelectedTab] = useState<string>("post");
   const [draftsLength, setDraftsLength] = useState<number>(0);
   const [drafts, setDrafts] = useState();
@@ -250,6 +252,15 @@ export default function NewPostForm({ match }: { match?: any }) {
               onChange={(e) => setPost({ ...post, ["url"]: e.target.value })}
             />
           )}
+          <Checkbox
+            size="sm"
+            fontFamily="mono"
+            fontWeight="bold"
+            alignSelf="flex-end"
+            onChange={(e) => setPost({ ...post, hideVotes: e.target.checked })}
+          >
+            Hide votes
+          </Checkbox>
           <Flex mt={5} alignSelf="flex-end">
             <Button
               bg="none"

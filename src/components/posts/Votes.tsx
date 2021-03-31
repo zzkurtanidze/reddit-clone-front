@@ -84,7 +84,7 @@ export default function Votes({
         <ImArrowUp name="like" color={status === "like" ? `#ff3838` : "gray"} />
       </Button>
       <Text textAlign="center" fontWeight="bold" fontSize={12}>
-        {likes}
+        {post.hideVotes ? "Votes" : likes}
       </Text>
       <Button
         p={0}

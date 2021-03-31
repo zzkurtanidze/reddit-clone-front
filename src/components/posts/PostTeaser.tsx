@@ -27,8 +27,6 @@ export default function PostTeaser({ post }: { post: PostType }) {
   const [joined, setJoined] = useState<boolean>(false);
   const user = useContext(UserContext);
 
-  const bg = useColorModeValue("gray.100", "gray.900");
-
   useEffect(() => {
     if (user?.joined) {
       user.joined.forEach((joinedCommunity) => {
