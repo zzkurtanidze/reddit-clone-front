@@ -8,7 +8,13 @@ export default function TrendingItem({ item }: { item: PostType }) {
       <Box
         position="relative"
         h="170px"
-        bgImage={`linear-gradient(0deg, rgba(0,0,0) -20%, rgba(255,255,255,0) 120%), url(${item.image})`}
+        bgImage={`linear-gradient(0deg, rgba(0,0,0) -20%, rgba(255,255,255,0) 120%), url(${
+          item.image ||
+          (item.urlData.images && item.urlData.images[0]) ||
+          item.url ||
+          item.urlData.favicons[0] ||
+          ""
+        })`}
         bgSize="cover"
         bgPosition="0 50%"
         bgRepeat="no-repeat"
