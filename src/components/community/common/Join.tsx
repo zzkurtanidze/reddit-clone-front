@@ -8,6 +8,7 @@ import LoginModal from "../../auth-modals/LoginModal";
 
 import { GoPlus } from "react-icons/go";
 import { BiMinus } from "react-icons/bi";
+import { useToast } from "@chakra-ui/toast";
 
 export default function Join({
   community,
@@ -21,6 +22,8 @@ export default function Join({
   const [joined, setJoined] = useState<boolean>(false);
   const [loginModal, setLoginModal] = useState<boolean>(false);
   const user = useContext(UserContext);
+
+  const toast = useToast();
 
   useEffect(() => {
     if (user?.joined) {
@@ -36,6 +39,18 @@ export default function Join({
     const response = await joinCommunity(community._id);
     if (response && response.statusText === "OK") {
       setJoined(!joined);
+      let message;
+      if (!joined) {
+        message = `Sucesfully joined r/${community.username}`;
+      } else {
+        message = `Sucesfully left r/${community.username}`;
+      }
+      toast({
+        title: message,
+        duration: 2000,
+        variant: "left-accent",
+        isClosable: true,
+      });
     } else if (!user) {
       setLoginModal(true);
     }
@@ -48,13 +63,17 @@ export default function Join({
     <Flex>
       <PrimaryButton
         label={joined ? "Leave" : "Join"}
-        bg={joined ? "#e2e2e2" : "#1384D7"}
-        color={joined ? "black" : "white"}
+        bg={joined ? "white" : "#0079D3"}
+        color={joined ? "#0079D3" : "white"}
         onClick={handleJoin}
         icon={
           icon &&
           (joined ? <BiMinus color="black" /> : <GoPlus color="white" />)
         }
+        w="150px"
+        border={"1px solid #0079D3"}
+        borderRadius={50}
+        _focus={{}}
       />
       <LoginModal showModal={loginModal} setShowModal={setLoginModal} />
     </Flex>
