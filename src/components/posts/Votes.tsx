@@ -68,32 +68,33 @@ export default function Votes({
     <Flex
       direction="column"
       alignItems="center"
-      my="15px"
-      mr="15px"
-      gridGap="10px"
+      position="relative"
+      gridGap="5px"
       overflow="hidden"
       w="30px"
-      h="100px"
       p={0}
     >
       <Button
         px={0}
-        py={1}
-        w="max-content"
+        py={2}
         h="max-content"
         bg={status === "like" ? "gray.200" : "transparent"}
         _focus={{ boxShadow: 0 }}
         name="like"
         onClick={handleLike}
       >
-        <ImArrowUp name="like" color={status === "like" ? `#ff3838` : "gray"} />
+        <ImArrowUp
+          name="like"
+          size={14}
+          color={status === "like" ? `#ff3838` : "gray"}
+        />
       </Button>
       <Text w="max-content" textAlign="center" fontWeight="bold" fontSize={10}>
         {post.hideVotes ? "Votes" : likes}
       </Text>
       <Button
         px={0}
-        py={1}
+        py={2}
         w="max-content"
         h="max-content"
         borderRadius={5}
@@ -102,7 +103,10 @@ export default function Votes({
         name="unlike"
         onClick={handleLike}
       >
-        <ImArrowDown color={status === "unlike" ? `#5b6be5` : "gray"} />
+        <ImArrowDown
+          size={14}
+          color={status === "unlike" ? `#5b6be5` : "gray"}
+        />
       </Button>
       {showModal && (
         <LoginModal setShowModal={setShowModal} showModal={showModal} />

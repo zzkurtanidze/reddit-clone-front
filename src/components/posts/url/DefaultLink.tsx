@@ -9,15 +9,15 @@ export default function DefaultLink({ post }: { post: PostType }) {
     <Link
       w="max-content"
       h="max-content"
-      fontSize={12}
+      fontSize={10}
       color="blue.500"
       href={post.url}
     >
       <Flex>
-        <Text textOverflow="ellipsis" maxW="200px" noOfLines={1}>
+        <Text textOverflow="ellipsis" maxW="250px" noOfLines={1}>
           {post.url}
         </Text>
-        <HiExternalLink size={14} />
+        <HiExternalLink size={12} />
       </Flex>
     </Link>
   );

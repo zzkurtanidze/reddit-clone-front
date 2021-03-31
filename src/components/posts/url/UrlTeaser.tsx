@@ -1,5 +1,5 @@
 import { Image } from "@chakra-ui/image";
-import { Box, Flex, Link, Text } from "@chakra-ui/layout";
+import { Box, Flex, Link } from "@chakra-ui/layout";
 //@ts-ignore
 import { PostType } from "@types/";
 import React from "react";

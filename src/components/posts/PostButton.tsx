@@ -13,7 +13,7 @@ export const PostButton: any = ({
       <Link
         mx="5px"
         px="5px"
-        py="2px"
+        py="5px"
         borderRadius={3}
         _hover={{
           backgroundColor: "gray.300",
