@@ -10,7 +10,7 @@ export default function UrlTeaser({ post }: { post: PostType }) {
   return (
     <Flex direction={"row"} minW="100%" justifyContent="space-between">
       <DefaultLink post={post} />
-      {post.urlData.images && (
+      {post.urlData && post.urlData.images && (
         <Box position="relative">
           <Link
             w="max-content"

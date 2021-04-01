@@ -56,9 +56,11 @@ export default function PostPage({ match }: { match: any }) {
       <Grid gridTemplateColumns="1fr .4fr" gridGap={5}>
         {post && (
           <>
-            <StyledBox display="flex">
-              <Votes user={user} post={post} />
-              <Box w="100%">
+            <StyledBox display="flex" pl="0" pt="0" pb="0">
+              <Box bg="#F8F9FA" px="7px" pt="10px" position="relative">
+                <Votes user={user} post={post} />
+              </Box>
+              <Box w="100%" pt="10px" ml="10px">
                 <Flex gridGap={3}>
                   <PostedBy post={post} />
                   <Date post={post} />

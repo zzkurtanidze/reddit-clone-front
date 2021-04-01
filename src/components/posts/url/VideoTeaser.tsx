@@ -11,18 +11,10 @@ export default function VideoTeaser({ post }: { post: PostType }) {
   return (
     <Flex direction="column" minW="100%">
       <DefaultLink post={post} />
-      {post.urlData.images[0] && (
-        <Link
-          href={post.url}
-          _active={{}}
-          _focus={{}}
-          _hover={{}}
-          target="_blank"
-        >
-          <Box marginTop="5px" bg="#eaeaea" position="relative">
-            <ReactPlayer url={post.url} />
-          </Box>
-        </Link>
+      {post.urlData && (
+        <Box marginTop="5px" position="relative">
+          <ReactPlayer url={post.url} />
+        </Box>
       )}
     </Flex>
   );
