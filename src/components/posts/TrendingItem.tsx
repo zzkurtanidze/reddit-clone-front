@@ -3,7 +3,9 @@ import React from "react";
 import { PostType } from "../../types/index";
 
 export default function TrendingItem({ item }: { item: PostType }) {
-  return (
+  return item.image ||
+    (item.urlData && item.urlData.images) ||
+    (item.urlData && item.urlData.favicons[0]) ? (
     <Link _hover={{}} _focus={{}} href={`/post/${item._id}`}>
       <Box
         position="relative"
@@ -27,7 +29,9 @@ export default function TrendingItem({ item }: { item: PostType }) {
           </Text>
           <Text
             fontSize={12}
-            dangerouslySetInnerHTML={{ __html: `${item.body.slice(0, 40)}...` }}
+            dangerouslySetInnerHTML={{
+              __html: `${item.body.slice(0, 40)}...`,
+            }}
           ></Text>
           <Text fontSize={10} m="5px" fontFamily="mono">
             {item.postedTo.name}
@@ -35,5 +39,7 @@ export default function TrendingItem({ item }: { item: PostType }) {
         </Box>
       </Box>
     </Link>
+  ) : (
+    <></>
   );
 }
