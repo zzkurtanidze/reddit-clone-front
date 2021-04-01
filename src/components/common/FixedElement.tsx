@@ -4,9 +4,13 @@ import React, { useEffect, useState } from "react";
 export default function FixedElement({
   children,
   scrollY = 380,
+  top = "75px",
+  ...props
 }: {
   children: any;
+  top?: string;
   scrollY?: number;
+  [x: string]: any;
 }) {
   const [fixed, setFixed] = useState<boolean>(false);
   const [elementWidth, setElementWidth] = useState<number | undefined>(
@@ -36,6 +40,7 @@ export default function FixedElement({
         position={fixed ? "fixed" : "sticky"}
         top="75px"
         w={elementWidth ? elementWidth : "inherit"}
+        {...props}
       >
         {children}
       </Box>

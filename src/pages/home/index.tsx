@@ -13,6 +13,7 @@ import Container from "@components/common/Container";
 import { UserContext } from "@context/UserContext";
 import FixedElement from "@components/common/FixedElement";
 import HomeSidebar from "@components/HomeSidebar";
+import PrimaryButton from "@components/common/PrimaryButton";
 
 export default function HomePage() {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -71,6 +72,17 @@ export default function HomePage() {
             <TrendingCommunities />
             {user && <HomeSidebar />}
           </Flex>
+        </FixedElement>
+        <FixedElement top="0" right="250px">
+          <PrimaryButton
+            label="Back to top"
+            position="absolute"
+            bottom="-700px"
+            w="max-content"
+            borderRadius={50}
+            _focus={{}}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          />
         </FixedElement>
       </SimpleGrid>
     </Container>
