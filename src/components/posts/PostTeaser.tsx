@@ -1,19 +1,13 @@
 //@ts-nocheck
-import {
-  Box,
-  Flex,
-  Image,
-  Link,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
-import { PostType } from "../../types/index";
+//@ts-ignore
+import { PostType } from "@types";
 
 import { FaCommentAlt, FaShare } from "react-icons/fa";
 import { RiBookmarkFill } from "react-icons/ri";
 
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "@context/UserContext";
 import LoginModal from "../auth-modals/LoginModal";
 import Votes from "./Votes";
 import PostedBy from "./PostedBy";
@@ -67,7 +61,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
               src={post.image}
               mt="10px"
               w="100%"
-              maxHeight="500px"
+              maxHeight="400px"
               objectFit="cover"
             />
           )}
