@@ -13,13 +13,15 @@ export default function Url({ post }: { post: PostType }) {
     image: <ImageTeaser post={post} />,
   };
 
-  console.log(post.urlData);
-
-  //@ts-ignore
-  return post.url && mediaTypes[post.urlData.mediaType] ? (
+  return post.url ? (
     //@ts-ignore
-    mediaTypes[post.urlData.mediaType]
+    mediaTypes[post.urlData.mediaType] ? (
+      //@ts-ignore
+      mediaTypes[post.urlData.mediaType]
+    ) : (
+      <UrlTeaser post={post} />
+    )
   ) : (
-    <UrlTeaser post={post} />
+    <></>
   );
 }
