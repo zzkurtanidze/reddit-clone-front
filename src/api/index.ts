@@ -281,6 +281,15 @@ export const logOut = async () => {
   }
 };
 
+export const deactivateAccount = async () => {
+  try {
+    const response = await axios.delete(`${apiUrl}/users/`, axiosOptions);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 export const followUser = async (id: string) => {
   try {
     const response = await axios.post(
