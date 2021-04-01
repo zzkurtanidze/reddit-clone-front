@@ -137,12 +137,10 @@ export default function NavBar() {
                   icon={<FaUserCircle color={color} />}
                   href={`/user/${user.username}`}
                 />
-                <DropdownItem
+                <DropdownLink
                   title="User Settings"
                   icon={<GoGear color={color} />}
-                  onClick={() => {
-                    console.log("");
-                  }}
+                  href="/settings/account"
                 />
               </>
             )}
