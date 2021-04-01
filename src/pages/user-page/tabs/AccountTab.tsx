@@ -10,6 +10,8 @@ import { HiTrash } from "react-icons/hi";
 import { UserType } from "@types";
 import EmailChange from "../modals/EmailChange";
 import PasswordChange from "../modals/PasswordChange";
+//@ts-ignore
+import { deactivateAccount, logOut } from "@api";
 
 export default function AccountTab({ user }: { user: UserType }) {
   const [emailChangeModal, setEmailChangeModal] = useState<boolean>(false);
@@ -51,6 +53,11 @@ export default function AccountTab({ user }: { user: UserType }) {
             _hover={{}}
             _active={{}}
             _focus={{}}
+            onClick={async () => {
+              await deactivateAccount();
+              await logOut();
+              window.location.reload();
+            }}
           >
             <HiTrash color="#FB575A" size={18} />
             DEACTIVATE ACCOUNT
