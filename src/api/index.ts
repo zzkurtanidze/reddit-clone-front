@@ -444,3 +444,14 @@ export const joinCommunity = async (id: string) => {
     return ex.reponse;
   }
 };
+
+// Categories
+
+export const getCategories = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/category/`, axiosOptions);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
