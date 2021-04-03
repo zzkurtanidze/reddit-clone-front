@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@chakra-ui/react";
 import { FaPlus, FaCheck } from "react-icons/fa";
 
@@ -6,16 +6,26 @@ export const CategoryButton = ({
   label,
   checkedIcon = <FaPlus color="#878A8C" size={14} />,
   uncheckedIcon = <FaCheck color="white" size={14} />,
-  onClick,
+  post,
+  setPost,
   ...props
 }: {
   label: string;
   checkedIcon?: JSX.Element;
   uncheckedIcon?: JSX.Element;
-  onClick: Function;
+  post?: any;
+  setPost?: any;
   [x: string]: any;
 }) => {
   const [checked, setChecked] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (post && post.category.includes(label)) {
+      setChecked(true);
+    } else {
+      setChecked(false);
+    }
+  }, []);
 
   return (
     <Button
@@ -39,7 +49,16 @@ export const CategoryButton = ({
       textTransform="uppercase"
       onClick={() => {
         setChecked(!checked);
-        onClick();
+        if (post.category.includes(label)) {
+          const newPost = post;
+          newPost["category"].splice(label, 1);
+          setPost(newPost);
+        } else {
+          setPost({
+            ...post,
+            category: [...post.category, label],
+          });
+        }
       }}
       {...props}
     >

@@ -7,9 +7,13 @@ import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 export const CategoryDropdown = ({
   label,
   items,
+  post,
+  setPost,
 }: {
   label: string;
   items: [];
+  post: any;
+  setPost: any;
 }) => {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -18,7 +22,7 @@ export const CategoryDropdown = ({
       <CategoryButton
         checkedIcon={<AiFillCaretDown color="#878A8C" size={14} />}
         uncheckedIcon={<AiFillCaretUp size={14} color="white" />}
-        label="More categories"
+        label={label}
         onClick={() => setOpen(!open)}
       />
       {open && (
@@ -42,10 +46,11 @@ export const CategoryDropdown = ({
               <CategoryButton
                 label={item.name}
                 w="100%"
-                onClick={() => console.log("hey")}
                 border="0"
                 borderRadius="5px"
                 mx={0}
+                post={post}
+                setPost={setPost}
               />
               {index < items.length - 1 && <Divider />}
             </>

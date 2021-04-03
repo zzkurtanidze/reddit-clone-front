@@ -44,7 +44,8 @@ export default function NewPostForm({ match }: { match?: any }) {
     url?: string;
     hideVotes: boolean;
     postedTo: string;
-  }>({ title: "", body: "", postedTo: "", hideVotes: false });
+    category: Array;
+  }>({ title: "", body: "", postedTo: "", hideVotes: false, category: [] });
   const [selectedTab, setSelectedTab] = useState<string>("post");
   const [draftsLength, setDraftsLength] = useState<number>(0);
   const [drafts, setDrafts] = useState();
@@ -307,7 +308,8 @@ export default function NewPostForm({ match }: { match?: any }) {
                       <CategoryButton
                         label={category.name}
                         key={index}
-                        onClick={() => console.log("hey")}
+                        post={post}
+                        setPost={setPost}
                       />
                     ) : (
                       <></>
@@ -316,6 +318,8 @@ export default function NewPostForm({ match }: { match?: any }) {
                   <CategoryDropdown
                     label="Click me!"
                     items={categories.slice(2, categories.length - 1)}
+                    post={post}
+                    setPost={setPost}
                   />
                 </>
               )}
