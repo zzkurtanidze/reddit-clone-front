@@ -34,11 +34,15 @@ export default function HomeSidebar() {
         <PrimaryButton
           onClick={() => window.location.replace("/submit")}
           label="Create post"
+          _focus={{}}
         />
         <PrimaryButton
           onClick={() => setCommunityModal(true)}
           label="Create community"
-          bg="gray.300"
+          bg="gray.100"
+          borderWidth="1px"
+          borderColor="gray.400"
+          _focus={{}}
           color="black"
         />
       </Flex>
