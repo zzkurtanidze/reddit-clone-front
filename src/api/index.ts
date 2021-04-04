@@ -22,6 +22,7 @@ export const newPost = async (post: {
   url?: string;
   postedTo: { value: string; label: string };
   hideVotes: boolean;
+  category?: [string];
 }) => {
   try {
     const response = await axios.post(
@@ -33,6 +34,7 @@ export const newPost = async (post: {
         url: post.url && post.url,
         postedTo: post.postedTo.value,
         hideVotes: post.hideVotes,
+        category: post.category,
       },
       axiosOptions
     );
@@ -442,5 +444,16 @@ export const joinCommunity = async (id: string) => {
     return response;
   } catch (ex) {
     return ex.reponse;
+  }
+};
+
+// Categories
+
+export const getCategories = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/category/`, axiosOptions);
+    return response;
+  } catch (ex) {
+    return ex.response;
   }
 };

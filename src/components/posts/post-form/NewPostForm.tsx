@@ -20,6 +20,7 @@ import queryString from "query-string";
 import { RiImageFill, RiMessage2Fill } from "react-icons/ri";
 import { IoIosLink } from "react-icons/io";
 import {
+  getCategories,
   getCommunity,
   getDraftPosts,
   newPost,
@@ -27,13 +28,15 @@ import {
   saveDraftPost,
 } from "../../../api";
 import TabButton from "../../common/TabButton";
-import { useLocalStorage } from "../../../utils/useLocalStorage";
 import StyledBox from "../../common/StyledBox";
 import LinkTab from "./tabs/LinkTab";
+import { CategoryButton } from "./common/CategoryButton";
+import { CategoryDropdown } from "./common/CategoryDropdown";
 
 export default function NewPostForm({ match }: { match?: any }) {
   const user = useContext(UserContext);
   const [communityList, setCommunityList] = useState<any>([]);
+  const [categories, setCategories] = useState([]);
   const [post, setPost] = useState<{
     title: string;
     body: string;
@@ -41,7 +44,8 @@ export default function NewPostForm({ match }: { match?: any }) {
     url?: string;
     hideVotes: boolean;
     postedTo: string;
-  }>({ title: "", body: "", postedTo: "", hideVotes: false });
+    category: Array;
+  }>({ title: "", body: "", postedTo: "", hideVotes: false, category: [] });
   const [selectedTab, setSelectedTab] = useState<string>("post");
   const [draftsLength, setDraftsLength] = useState<number>(0);
   const [drafts, setDrafts] = useState();
@@ -64,6 +68,17 @@ export default function NewPostForm({ match }: { match?: any }) {
       return undefined;
     }
   };
+
+  const fetchCategories = async () => {
+    const response = await getCategories();
+    if (response.statusText === "OK") {
+      setCategories(response.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   useEffect(() => {
     if (match && match.params.name) {
@@ -201,14 +216,17 @@ export default function NewPostForm({ match }: { match?: any }) {
         {user && (
           <Select
             value={post.postedTo}
-            onChange={(community: any) =>
-              setPost({ ...post, ["postedTo"]: community })
-            }
+            onChange={async (community: any) => {
+              setPost({
+                ...post,
+                postedTo: community,
+              });
+            }}
             options={communityList}
           />
         )}
       </Box>
-      <StyledBox p={0} fontFamily="mono">
+      <StyledBox p={0} fontFamily="mono" overflow="show">
         <Flex w="100%">
           <TabButton
             selected={selectedTab === "post"}
@@ -232,7 +250,12 @@ export default function NewPostForm({ match }: { match?: any }) {
         <Flex direction="column" m={5}>
           <Input
             value={post.title}
-            onChange={(e) => setPost({ ...post, ["title"]: e.target.value })}
+            onChange={(e) =>
+              setPost({
+                ...post,
+                title: e.target.value,
+              })
+            }
             bg="white"
             placeholder="Title"
           />
@@ -243,13 +266,23 @@ export default function NewPostForm({ match }: { match?: any }) {
             <ImagesTab
               post={post}
               value={post.image}
-              onChange={(imageURL) => setPost({ ...post, ["image"]: imageURL })}
+              onChange={(imageURL) =>
+                setPost({
+                  ...post,
+                  image: imageURL,
+                })
+              }
             />
           )}
           {selectedTab === "link" && (
             <LinkTab
               value={post.url}
-              onChange={(e) => setPost({ ...post, ["url"]: e.target.value })}
+              onChange={(e) =>
+                setPost({
+                  ...post,
+                  url: e.target.value,
+                })
+              }
             />
           )}
           <Checkbox
@@ -257,33 +290,64 @@ export default function NewPostForm({ match }: { match?: any }) {
             fontFamily="mono"
             fontWeight="bold"
             alignSelf="flex-end"
-            onChange={(e) => setPost({ ...post, hideVotes: e.target.checked })}
+            onChange={(e) =>
+              setPost({
+                ...post,
+                hideVotes: e.target.checked,
+              })
+            }
           >
             Hide votes
           </Checkbox>
-          <Flex mt={5} alignSelf="flex-end">
-            <Button
-              bg="none"
-              color="#0079D3"
-              _hover={{}}
-              _active={{}}
-              _focus={{}}
-              onClick={() => handleSaveDraft()}
-              id="draft-save"
-            >
-              Save as draft
-            </Button>
-            <Button
-              bg="#0079D3"
-              _hover={{}}
-              _active={{}}
-              _focus={{}}
-              color="white"
-              onClick={submitPost}
-              disabled={disabled}
-            >
-              Submit
-            </Button>
+          <Flex justifyContent="space-between">
+            <Flex mt={5} alignSelf="flex-start">
+              {categories && (
+                <>
+                  {categories.map((category, index) =>
+                    index <= 1 ? (
+                      <CategoryButton
+                        label={category.name}
+                        key={index}
+                        post={post}
+                        setPost={setPost}
+                      />
+                    ) : (
+                      <></>
+                    )
+                  )}
+                  <CategoryDropdown
+                    label="More"
+                    items={categories.slice(2, categories.length - 1)}
+                    post={post}
+                    setPost={setPost}
+                  />
+                </>
+              )}
+            </Flex>
+            <Flex mt={5} alignSelf="flex-end">
+              <Button
+                bg="none"
+                color="#0079D3"
+                _hover={{}}
+                _active={{}}
+                _focus={{}}
+                onClick={() => handleSaveDraft()}
+                id="draft-save"
+              >
+                Save as draft
+              </Button>
+              <Button
+                bg="#0079D3"
+                _hover={{}}
+                _active={{}}
+                _focus={{}}
+                color="white"
+                onClick={submitPost}
+                disabled={disabled}
+              >
+                Submit
+              </Button>
+            </Flex>
           </Flex>
         </Flex>
       </StyledBox>

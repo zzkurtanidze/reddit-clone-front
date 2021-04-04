@@ -5,7 +5,7 @@ import { PostType } from "../../types";
 
 export default function PostedBy({ post }: { post: PostType }) {
   return (
-    <Flex fontSize={12}>
+    <Flex fontSize={12} zIndex={1}>
       <Link
         fontWeight="bold"
         display="flex"
