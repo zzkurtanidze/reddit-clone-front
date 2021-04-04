@@ -8,7 +8,11 @@ import { BiLinkAlt } from "react-icons/bi";
 import StyledBox from "../../common/StyledBox";
 import UserPicture from "../../user/common/UserPicture";
 
-export default function NewPostTeaser() {
+export default function NewPostTeaser({
+  community = "",
+}: {
+  community?: string;
+}) {
   const user = useContext(UserContext);
 
   return user ? (
@@ -22,7 +26,7 @@ export default function NewPostTeaser() {
         _hover={{
           outline: "1",
         }}
-        onFocus={() => window.location.replace("/submit")}
+        onFocus={() => window.location.replace(`/${community}/submit`)}
         placeholder="Create Post"
       />
       <Button

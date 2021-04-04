@@ -84,7 +84,7 @@ export default function CommunityPage({ match }: { match: any }) {
             </Flex>
             <Grid gridTemplateColumns="1fr .5fr" gridGap={5}>
               <Box>
-                {joined && <NewPostTeaser />}
+                {joined && <NewPostTeaser community={community.username} />}
                 {community.posts.length >= 1 ? (
                   community.posts.map((post) => <PostTeaser post={post} />)
                 ) : (
