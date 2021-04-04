@@ -316,7 +316,7 @@ export default function NewPostForm({ match }: { match?: any }) {
                     )
                   )}
                   <CategoryDropdown
-                    label="Click me!"
+                    label="More"
                     items={categories.slice(2, categories.length - 1)}
                     post={post}
                     setPost={setPost}

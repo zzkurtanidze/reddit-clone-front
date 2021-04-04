@@ -18,6 +18,7 @@ export const CategoryButton = ({
   [x: string]: any;
 }) => {
   const [checked, setChecked] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   useEffect(() => {
     if (post && post.category.includes(label)) {
@@ -41,6 +42,7 @@ export const CategoryButton = ({
       bg={checked ? "#0B0B0B" : "white"}
       display="flex"
       gridGap={2}
+      disabled={disabled}
       _hover={{ background: checked ? "#0B0B0B" : "#FAFAFB" }}
       _focus={{}}
       _active={{
@@ -48,6 +50,7 @@ export const CategoryButton = ({
       }}
       textTransform="uppercase"
       onClick={() => {
+        setDisabled(true);
         setChecked(!checked);
         if (post.category.includes(label)) {
           const newPost = post;
@@ -59,6 +62,7 @@ export const CategoryButton = ({
             category: [...post.category, label],
           });
         }
+        setDisabled(false);
       }}
       {...props}
     >

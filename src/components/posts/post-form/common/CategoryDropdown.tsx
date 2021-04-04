@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Divider, Flex } from "@chakra-ui/react";
 import { CategoryButton } from "./CategoryButton";
 
-import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
+import { AiFillCaretDown } from "react-icons/ai";
 
 export const CategoryDropdown = ({
   label,
@@ -21,7 +21,6 @@ export const CategoryDropdown = ({
     <Flex direction="column">
       <CategoryButton
         checkedIcon={<AiFillCaretDown color="#878A8C" size={14} />}
-        uncheckedIcon={<AiFillCaretUp size={14} color="white" />}
         label={label}
         onClick={() => setOpen(!open)}
       />

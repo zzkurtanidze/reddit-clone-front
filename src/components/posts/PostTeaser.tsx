@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 //@ts-ignore
 import { PostType } from "@types";
 
@@ -13,23 +13,11 @@ import Votes from "./Votes";
 import PostedBy from "./PostedBy";
 import StyledBox from "../common/StyledBox";
 import { PostButton } from "./PostButton";
-import Join from "../community/common/Join";
 import Url from "./Url";
 
 export default function PostTeaser({ post }: { post: PostType }) {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [joined, setJoined] = useState<boolean>(false);
   const user = useContext(UserContext);
-
-  useEffect(() => {
-    if (user?.joined) {
-      user.joined.forEach((joinedCommunity) => {
-        if (joinedCommunity._id === post.postedTo._id) {
-          setJoined(true);
-        }
-      });
-    }
-  }, [user]);
 
   return (
     <Link _hover={{}} _focus={{}} href={`/post/${post._id}`}>
@@ -71,11 +59,6 @@ export default function PostTeaser({ post }: { post: PostType }) {
             <PostButton icon={<RiBookmarkFill color="gray" />} label="Save" />
           </Flex>
         </Box>
-        {!joined && (
-          <Box position="absolute" top={3} right={4}>
-            <Join icon={true} community={post.postedTo} />
-          </Box>
-        )}
         <LoginModal setShowModal={setShowModal} showModal={showModal} />
       </StyledBox>
     </Link>
