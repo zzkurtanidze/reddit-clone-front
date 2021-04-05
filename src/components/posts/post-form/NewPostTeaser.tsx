@@ -26,7 +26,9 @@ export default function NewPostTeaser({
         _hover={{
           outline: "1",
         }}
-        onFocus={() => window.location.replace(`/${community}/submit`)}
+        onFocus={() =>
+          window.location.replace(`${community ? "/" + community : ""}/submit`)
+        }
         placeholder="Create Post"
       />
       <Button
