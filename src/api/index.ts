@@ -73,6 +73,15 @@ export const getPostById = async (id: string) => {
   }
 };
 
+export const getTrendingPosts = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/posts/trending`, axiosOptions);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 export const saveDraftPost = async (post: {}) => {
   try {
     const response = await axios.post(`${apiUrl}/drafts/`, post, axiosOptions);
