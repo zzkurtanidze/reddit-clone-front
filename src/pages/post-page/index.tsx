@@ -65,7 +65,7 @@ export default function PostPage({ match }: { match: any }) {
                   <PostedBy post={post} />
                   <Date post={post} />
                 </Flex>
-                <Text my={3} fontSize={40} fontWeight="bold">
+                <Text my={3} fontSize={28} fontWeight="bold">
                   {post.title}
                 </Text>
                 <Text
