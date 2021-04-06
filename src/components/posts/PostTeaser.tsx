@@ -14,6 +14,7 @@ import PostedBy from "./PostedBy";
 import StyledBox from "../common/StyledBox";
 import { PostButton } from "./PostButton";
 import Url from "./Url";
+import { Waypoint } from "react-waypoint";
 
 export default function PostTeaser({ post }: { post: PostType }) {
   const [showModal, setShowModal] = useState<boolean>(false);

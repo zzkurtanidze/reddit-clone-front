@@ -14,22 +14,29 @@ import { UserContext } from "@context/UserContext";
 import FixedElement from "@components/common/FixedElement";
 import HomeSidebar from "@components/HomeSidebar";
 import PrimaryButton from "@components/common/PrimaryButton";
+import { Waypoint } from "react-waypoint";
 
 export default function HomePage() {
   const [posts, setPosts] = useState<PostType[]>([]);
   const user = useContext(UserContext);
   const [loading, setLoading] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(0);
 
   useEffect(() => {
+    if (page === 0) setLoading(true);
     fetchPosts();
   }, []);
 
   const fetchPosts = async () => {
-    setLoading(true);
-    const response = await getPosts();
+    const response = await getPosts(page);
     if (response && response.statusText === "OK") {
-      setPosts(response.data);
+      if (page >= 1 && response.data.status !== 404) {
+        setPosts([...posts, ...response.data]);
+      } else {
+        setPosts(response.data);
+      }
     }
+    setPage(page + 1);
     setLoading(false);
   };
 
@@ -42,7 +49,18 @@ export default function HomePage() {
         <Box>
           {user && <NewPostTeaser />}
           {posts.length >= 1 ? (
-            posts.map((item) => <PostTeaser key={item._id} post={item} />)
+            posts.map((item, i) => (
+              <React.Fragment key={i}>
+                <PostTeaser key={item._id} post={item} />
+                {i === posts.length - 6 && (
+                  <Waypoint
+                    onEnter={() => {
+                      fetchPosts();
+                    }}
+                  />
+                )}
+              </React.Fragment>
+            ))
           ) : (
             <Box textAlign="center">
               <Text fontWeight="bold" fontSize={20}>
@@ -75,7 +93,7 @@ export default function HomePage() {
           <PrimaryButton
             label="Back to top"
             position="absolute"
-            bottom="-700px"
+            bottom="-640px"
             w="max-content"
             borderRadius={50}
             _focus={{}}

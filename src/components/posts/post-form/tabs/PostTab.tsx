@@ -17,7 +17,7 @@ export default function PostTab({
 }) {
   return (
     <Box bg="white" my={4}>
-      <ReactQuill value={post.body} onChange={onChange} />
+      <ReactQuill value={post.body || ""} onChange={onChange} />
     </Box>
   );
 }

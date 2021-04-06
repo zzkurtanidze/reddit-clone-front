@@ -39,13 +39,13 @@ export default function NewPostForm({ match }: { match?: any }) {
   const [categories, setCategories] = useState([]);
   const [post, setPost] = useState<{
     title: string;
-    body: string;
+    body: string | undefined;
     image?: string;
     url?: string;
     hideVotes: boolean;
     postedTo: string;
     category: Array;
-  }>({ title: "", body: "", postedTo: "", hideVotes: false, category: [] });
+  }>({ title: "", postedTo: "", hideVotes: false, category: [] });
   const [selectedTab, setSelectedTab] = useState<string>("post");
   const [draftsLength, setDraftsLength] = useState<number>(0);
   const [drafts, setDrafts] = useState();
@@ -115,14 +115,14 @@ export default function NewPostForm({ match }: { match?: any }) {
   useEffect(() => {
     document.getElementById("draft-save").disabled = false;
 
-    if (post.body && post.title && post.postedTo) {
+    if (post.title && post.postedTo) {
       setDisabled(false);
     }
   }, [post]);
 
   const fetchDrafts = async () => {
     const response = await getDraftPosts();
-    if (response.statusText === "OK") {
+    if (response && response.statusText === "OK") {
       setDrafts(response.data);
     }
   };
