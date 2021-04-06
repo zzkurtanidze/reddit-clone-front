@@ -49,9 +49,12 @@ export const newPost = async (post: {
  * @returns all Posts.
  */
 
-export const getPosts = async () => {
+export const getPosts = async (page: number) => {
   try {
-    const data = await axios.get(`${apiUrl}/posts`, axiosOptions);
+    const data = await axios.get(
+      `${apiUrl}/posts/?page=${page ? page : 0}`,
+      axiosOptions
+    );
     return data;
   } catch (ex) {
     return;
