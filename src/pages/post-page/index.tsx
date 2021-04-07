@@ -58,8 +58,11 @@ export default function PostPage({ match }: { match: any }) {
                 <Votes user={user} post={post} />
               </Box>
               <Box w="100%" pt="10px" ml="10px">
-                <Flex gridGap={3}>
+                <Flex alignItems="center" gridGap={2}>
                   <PostedBy post={post} />
+                  <Text fontSize={12} color="gray.500">
+                    ●
+                  </Text>
                   <Date post={post} />
                 </Flex>
                 <Text my={3} fontSize={28} fontWeight="bold">

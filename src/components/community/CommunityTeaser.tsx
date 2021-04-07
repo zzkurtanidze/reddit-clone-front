@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Box, Grid, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, Text } from "@chakra-ui/react";
 import React from "react";
 import { CommunityType, UserType } from "../../types";
 import StyledBox from "../common/StyledBox";
@@ -44,7 +44,7 @@ export default function CommunityTeaser({
       <Text fontSize={14} fontFamily="mono">
         {community.description}
       </Text>
-      <Box textAlign="left" my={5}>
+      <Flex direction="column" textAlign="left" gridGap={3} my={5} w="100%">
         <Text
           fontSize={14}
           display="flex"
@@ -67,8 +67,8 @@ export default function CommunityTeaser({
           <RiMessage2Fill />
           {community.posts.length} Posts
         </Text>
-      </Box>
-      <Join community={community} user={user} />
+        <Join community={community} user={user} borderRadius={5} />
+      </Flex>
     </StyledBox>
   );
 }
