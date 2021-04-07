@@ -20,6 +20,7 @@ export type PostType = {
   postedAt: string;
   votes: number;
   hideVotes: boolean;
+  date: number;
 };
 
 export type NotPostedPostType = {
