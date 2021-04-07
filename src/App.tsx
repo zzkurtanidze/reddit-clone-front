@@ -1,21 +1,22 @@
 //@ts-nocheck
-import React, { useState } from "react";
+import React from "react";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import { Route, Switch } from "react-router-dom";
 import HomePage from "./pages/home";
 import { getUser } from "./api/index";
 import { UserContext } from "./context/UserContext";
-import UserPage from "./pages/user-page";
+import UserPage from "./pages/user";
 import Loading from "./components/common/Loading";
-import SubmitPage from "./pages/submit-page";
+import SubmitPage from "./pages/submit";
 import { Fonts } from "./Fonts";
 import ProtectedRoute from "./components/common/ProtectedRoute";
-import PostPage from "./pages/post-page";
-import PostDraftsPage from "./pages/submit-page/drafts";
+import PostPage from "./pages/post";
+import PostDraftsPage from "./pages/submit/drafts";
 import CommunityPage from "./pages/community";
 import PasswordResetPage from "./pages/password-reset";
-import UserSettingsPage from "./pages/user-page/user-settings";
+import UserSettingsPage from "./pages/user/user-settings";
+import SubredditsPage from "@pages/subreddits";
 
 const theme = extendTheme({
   fonts: {
@@ -38,6 +39,7 @@ export default function App() {
           <ProtectedRoute path="/:name/submit" component={SubmitPage} />
           <ProtectedRoute path="/submit" component={SubmitPage} />
           <ProtectedRoute path="/settings/:tab" component={UserSettingsPage} />
+          <Route path="/subreddits/trending" component={SubredditsPage} />
           <Route path="/resetpassword/:token" component={PasswordResetPage} />
           <Route path="/r/:name" component={CommunityPage} />
           <Route path="/user/:username" component={UserPage} />
