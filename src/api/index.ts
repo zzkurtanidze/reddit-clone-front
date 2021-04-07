@@ -3,6 +3,7 @@ import axios from "axios";
 import { GoogleLoginResponse } from "react-google-login";
 import { UserType } from "../types";
 import useSWR, { useSWRInfinite } from "swr";
+import Categories from "@components/Categories";
 
 const apiUrl = "http://localhost:4000/api";
 
@@ -474,11 +475,12 @@ export const joinCommunity = async (id: string) => {
 
 // Categories
 
-export const getCategories = async () => {
-  try {
-    const response = await axios.get(`${apiUrl}/category/`, axiosOptions);
-    return response;
-  } catch (ex) {
-    return ex.response;
-  }
-};
+export function getCategories() {
+  const { data, error } = useSWR(`${apiUrl}/category/`, fetcher);
+
+  return {
+    categories: data,
+    isLoading: !error && !data,
+    error,
+  };
+}
