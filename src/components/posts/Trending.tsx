@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import { PostType } from "../../types/index";
 import TrendingItem from "./TrendingItem";
 
+import { HiTrendingUp } from "react-icons/hi";
+
 export default function Trending() {
   const [posts, setPosts] = useState<[]>([]);
 
@@ -23,8 +25,14 @@ export default function Trending() {
   return (
     <Box my="50px">
       {posts.length > 1 && (
-        <Text fontSize={14} fontWeight="bold">
-          Trending today
+        <Text
+          fontSize={14}
+          display="flex"
+          gridGap={1}
+          alignItems="center"
+          fontWeight="bold"
+        >
+          <HiTrendingUp size={20} /> Trending today
         </Text>
       )}
       <SimpleGrid my="20px" gap="10px" columns={[2, 2, 3, 4]}>

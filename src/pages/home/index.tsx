@@ -89,11 +89,12 @@ export default function HomePage() {
             {user && <HomeSidebar />}
           </Flex>
         </FixedElement>
-        <FixedElement top="0" right="250px">
+        <FixedElement top="0">
           <PrimaryButton
             label="Back to top"
             position="absolute"
             bottom="-640px"
+            right="250px"
             w="max-content"
             borderRadius={50}
             _focus={{}}

@@ -27,14 +27,16 @@ export default function TrendingItem({ item }: { item: PostType }) {
           <Text fontSize="16px" fontWeight="bold">
             {item.title}
           </Text>
-          <Text
-            fontSize={12}
-            dangerouslySetInnerHTML={{
-              __html: `${item.body.slice(0, 40)}...`,
-            }}
-          ></Text>
-          <Text fontSize={10} m="5px" fontFamily="mono">
-            {item.postedTo.name}
+          {item.body && (
+            <Text
+              fontSize={12}
+              dangerouslySetInnerHTML={{
+                __html: `${item.body.slice(0, 40)}...`,
+              }}
+            ></Text>
+          )}
+          <Text fontSize={10} my={1} fontFamily="mono">
+            r/{item.postedTo.username}
           </Text>
         </Box>
       </Box>
