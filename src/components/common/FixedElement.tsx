@@ -20,10 +20,19 @@ export default function FixedElement({
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     setElementWidth(document.getElementById("scrollable")?.clientWidth);
-  }, []);
+
+    return () => {
+      window.removeEventListener("scroll", () => {});
+      setElementWidth(0);
+    };
+  }, [window]);
 
   useEffect(() => {
     setElementWidth(document.getElementById("scrollable")?.clientWidth);
+
+    return () => {
+      setElementWidth(0);
+    };
   }, [window]);
 
   const handleScroll = () => {

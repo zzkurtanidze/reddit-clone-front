@@ -25,21 +25,9 @@ const theme = extendTheme({
 });
 
 export default function App() {
-  const [user, setUser] = useState();
-  const [loading, setLoading] = useState<boolean>(false);
+  const { user, isLoading } = getUser();
 
-  const fetchData = async () => {
-    setLoading(true);
-    const data = await getUser();
-    setUser(data);
-    setLoading(false);
-  };
-
-  React.useEffect(() => {
-    fetchData();
-  }, []);
-
-  if (loading) return <Loading />;
+  if (isLoading) return <Loading />;
   return (
     <ChakraProvider theme={theme}>
       <Fonts />

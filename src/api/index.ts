@@ -2,12 +2,17 @@
 import axios from "axios";
 import { GoogleLoginResponse } from "react-google-login";
 import { UserType } from "../types";
+import useSWR, { useSWRInfinite } from "swr";
 
 const apiUrl = "http://localhost:4000/api";
 
 const axiosOptions = {
   withCredentials: true,
 };
+
+//@ts-ignore
+const fetcher = (url: string) =>
+  axios(url, axiosOptions).then((res) => res.data);
 
 /**
  *
@@ -49,17 +54,22 @@ export const newPost = async (post: {
  * @returns all Posts.
  */
 
-export const getPosts = async (page: number) => {
-  try {
-    const data = await axios.get(
-      `${apiUrl}/posts/?page=${page ? page : 0}`,
-      axiosOptions
-    );
-    return data;
-  } catch (ex) {
-    return;
-  }
-};
+export function getPosts() {
+  const getKey = (page: number, previousPageData: any) => {
+    if (previousPageData && !previousPageData.length) return null;
+    return `${apiUrl}/posts?page=${page ? page : 0}`;
+  };
+
+  const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher);
+
+  return {
+    data,
+    isLoading: !error && !data,
+    size,
+    setSize,
+    error,
+  };
+}
 
 /**
  *
@@ -67,23 +77,28 @@ export const getPosts = async (page: number) => {
  * @returns Post with given id.
  */
 
-export const getPostById = async (id: string) => {
-  try {
-    const response = await axios.get(`${apiUrl}/posts/${id}`, axiosOptions);
-    return response;
-  } catch (ex) {
-    return ex.response;
-  }
-};
+export function getPostById(id: string) {
+  const { data, error } = useSWR(`${apiUrl}/posts/${id}`, fetcher, {
+    errorRetryCount: 0,
+    shouldRetryOnError: false,
+  });
 
-export const getTrendingPosts = async () => {
-  try {
-    const response = await axios.get(`${apiUrl}/posts/trending`, axiosOptions);
-    return response;
-  } catch (ex) {
-    return ex.response;
-  }
-};
+  return {
+    post: data,
+    isLoading: !error && !data,
+    error: error,
+  };
+}
+
+export function getTrendingPosts() {
+  const { data, error } = useSWR(`${apiUrl}/posts/trending`, fetcher);
+
+  return {
+    posts: data,
+    isLoading: !error && !data,
+    error,
+  };
+}
 
 export const saveDraftPost = async (post: {}) => {
   try {
@@ -230,19 +245,17 @@ export const updateUser = async (data: {}) => {
  * Without params this function will return current user information
  *
  */
-export const getUser = async (username = undefined) => {
-  try {
-    let response;
-    if (!username) {
-      response = await axios.get(`${apiUrl}/users/me`, axiosOptions);
-    } else {
-      response = await axios.get(`${apiUrl}/users/${username}`, axiosOptions);
-    }
-    return response.data;
-  } catch (ex) {
-    return undefined;
-  }
-};
+export function getUser(username = undefined) {
+  const { data, error } = useSWR(
+    `${apiUrl}/users/${username ? username : "me"}`,
+    fetcher
+  );
+  return {
+    user: data,
+    isLoading: !data && !error,
+    error,
+  };
+}
 
 /**
  *

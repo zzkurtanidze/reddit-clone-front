@@ -1,30 +1,18 @@
 //@ts-ignore
 import { getTrendingPosts } from "@api/";
 import { Box, SimpleGrid, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { PostType } from "../../types/index";
 import TrendingItem from "./TrendingPost";
 
 import { HiTrendingUp } from "react-icons/hi";
 
 export default function Trending() {
-  const [posts, setPosts] = useState<[]>([]);
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  const fetchPosts = async () => {
-    const response = await getTrendingPosts();
-    if (response.statusText === "OK") {
-      setPosts(response.data);
-    } else {
-    }
-  };
+  const { posts } = getTrendingPosts();
 
   return (
     <Box my="50px">
-      {posts.length > 1 && (
+      {posts && posts.length > 1 && (
         <Text
           fontSize={14}
           display="flex"
