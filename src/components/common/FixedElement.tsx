@@ -49,6 +49,7 @@ export default function FixedElement({
         position={fixed ? "fixed" : "sticky"}
         top="75px"
         w={elementWidth ? elementWidth : "inherit"}
+        maxW="100%"
         {...props}
       >
         {children}
