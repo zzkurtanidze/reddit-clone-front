@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 //@ts-ignore
 import { PostType } from "@types";
@@ -14,7 +14,8 @@ import PostedBy from "./PostedBy";
 import StyledBox from "../common/StyledBox";
 import { PostButton } from "./PostButton";
 import Url from "./Url";
-import { Waypoint } from "react-waypoint";
+
+import { Link } from "react-router-dom";
 
 export default function PostTeaser({ post }: { post: PostType }) {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -33,20 +34,21 @@ export default function PostTeaser({ post }: { post: PostType }) {
       <Box bg="#F8F9FA" px="7px" pt="10px" zIndex={2} position="relative">
         <Votes user={user} post={post} />
       </Box>
-      <Link
+      <Text
         _hover={{}}
         _focus={{}}
-        href={`/post/${post._id}`}
         zIndex={1}
         w="100%"
         h="100%"
         position="absolute"
         top="0"
         left="0"
-      ></Link>
+      >
+        <Link to={`/post/${post._id}`}></Link>
+      </Text>
       <Box w="100%" pt="10px" ml="10px" zIndex={1}>
         <PostedBy post={post} />
-        <Link _hover={{}} _focus={{}} href={`/post/${post._id}`}>
+        <Link to={`/post/${post._id}`}>
           <Text zIndex={0} fontWeight="semibold">
             {post.title}
           </Text>

@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Box, Grid, Link, Text } from "@chakra-ui/react";
+import { Box, Grid, Text } from "@chakra-ui/react";
 import React from "react";
 import { CommunityType, UserType } from "../../types";
 import StyledBox from "../common/StyledBox";
@@ -8,6 +8,8 @@ import Join from "./common/Join";
 
 import { FaUserCircle } from "react-icons/fa";
 import { RiMessage2Fill } from "react-icons/ri";
+
+import { Link } from "react-router-dom";
 
 export default function CommunityTeaser({
   community,
@@ -34,7 +36,7 @@ export default function CommunityTeaser({
           />
         )}
       </Grid>
-      <Link _hover={{}} _focus={{}} href={`/r/${community.username}`}>
+      <Link to={`/r/${community.username}`}>
         <Text my="10px" fontSize={22} fontWeight="bold">
           {community.name}
         </Text>

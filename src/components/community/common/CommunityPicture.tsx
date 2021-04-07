@@ -1,6 +1,8 @@
-import { Box, Link, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 import Profile from "../../common/Profile";
+
+import { Link } from "react-router-dom";
 const randomColor = require("randomcolor");
 
 export default function CommunityPicture({
@@ -18,12 +20,7 @@ export default function CommunityPicture({
 
   return imageSrc && imageSrc !== "" ? (
     withLink ? (
-      <Link
-        href={`/r/${communityUsername}`}
-        _hover={{}}
-        _active={{}}
-        _focus={{}}
-      >
+      <Link to={`/r/${communityUsername}`}>
         <Profile imageSrc={imageSrc} width={width} isZoomable={false} />
       </Link>
     ) : (

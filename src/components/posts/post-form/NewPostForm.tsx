@@ -5,7 +5,6 @@ import {
   Flex,
   Text,
   Input,
-  Link,
   useToast,
   Checkbox,
 } from "@chakra-ui/react";
@@ -32,6 +31,8 @@ import StyledBox from "../../common/StyledBox";
 import LinkTab from "./tabs/LinkTab";
 import { CategoryButton } from "./common/CategoryButton";
 import { CategoryDropdown } from "./common/CategoryDropdown";
+
+import { Link } from "react-router-dom";
 
 export default function NewPostForm({ match }: { match?: any }) {
   const user = useContext(UserContext);
@@ -185,28 +186,29 @@ export default function NewPostForm({ match }: { match?: any }) {
         <Text fontWeight="600" fontSize={20} fontFamily="mono">
           Create a Post
         </Text>
-        <Link
-          href={`/submit/drafts`}
-          bg="none"
-          display="flex"
-          alignItems="center"
-          fontWeight="bold"
-          _hover={{}}
-          _active={{}}
-          _focus={{}}
-          color="#0272C5"
-          fontSize={12}
-        >
-          DRAFTS
+        <Link to={`/submit/drafts`}>
           <Text
-            bg="gray.600"
-            color="white"
-            borderRadius={3}
-            ml="5px"
-            p="2px"
-            fontSize={14}
+            bg="none"
+            display="flex"
+            alignItems="center"
+            fontWeight="bold"
+            _hover={{}}
+            _active={{}}
+            _focus={{}}
+            color="#0272C5"
+            fontSize={12}
           >
-            {draftsLength}
+            DRAFTS
+            <Text
+              bg="gray.600"
+              color="white"
+              borderRadius={3}
+              ml="5px"
+              p="2px"
+              fontSize={14}
+            >
+              {draftsLength}
+            </Text>
           </Text>
         </Link>
       </Flex>

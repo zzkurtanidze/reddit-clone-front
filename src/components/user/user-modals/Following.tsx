@@ -1,10 +1,12 @@
-import { Flex, Link, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { getUserFollowing } from "../../../api";
 import { UserType } from "../../../types";
 import ModalLoading from "../../common/ModalLoading";
 import Modal from "../../Modal";
 import UserPicture from "../common/UserPicture";
+
+import { Link } from "react-router-dom";
 
 export default function Following({
   showModal,
@@ -51,15 +53,16 @@ export default function Following({
               alignItems="center"
               gridGap={5}
             >
-              <Link
-                display="flex"
-                alignItems="center"
-                gridGap={5}
-                _focus={{}}
-                href={`/user/${user.username}`}
-              >
-                <UserPicture image={user.image} width="40px" />
-                {user.username}
+              <Link to={`/user/${user.username}`}>
+                <Text
+                  display="flex"
+                  alignItems="center"
+                  gridGap={5}
+                  _focus={{}}
+                >
+                  <UserPicture image={user.image} width="40px" />
+                  {user.username}
+                </Text>
               </Link>
             </Flex>
           ))

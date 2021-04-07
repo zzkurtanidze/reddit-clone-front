@@ -1,12 +1,12 @@
-import { Box, Link, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 import { PostType } from "../../types/index";
-
+import { Link } from "react-router-dom";
 export default function TrendingItem({ item }: { item: PostType }) {
   return item.image ||
     (item.urlData && item.urlData.images) ||
     (item.urlData && item.urlData.favicons[0]) ? (
-    <Link _hover={{}} _focus={{}} href={`/post/${item._id}`}>
+    <Link to={`/post/${item._id}`}>
       <Box
         position="relative"
         h="170px"
