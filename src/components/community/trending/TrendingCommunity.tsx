@@ -1,12 +1,12 @@
 import React from "react";
-import { Box, Flex, Link, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "@context/UserContext";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 //@ts-ignore
 import { CommunityType } from "@types";
 import LoginModal from "../../auth-modals/LoginModal";
 import Join from "../common/Join";
 import CommunityPicture from "../common/CommunityPicture";
+import { Link } from "react-router-dom";
 
 export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
   community,
@@ -30,17 +30,17 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
           />
         )}
         <Box>
-          <Link
-            _focus={{}}
-            href={`/r/${community.name.split(" ").join("")}`}
+          <Text
             letterSpacing={-0.2}
             textOverflow="ellipsis"
             noOfLines={1}
             fontWeight="bold"
             fontSize={12}
           >
-            r/{community.name}
-          </Link>
+            <Link to={`/r/${community.name.split(" ").join("")}`}>
+              r/{community.name}
+            </Link>
+          </Text>
           <Text fontSize={10}>{joinedNumber} Members</Text>
         </Box>
       </Flex>

@@ -6,6 +6,7 @@ export default function Container({
   ...otherProps
 }: {
   children: React.ReactNode;
+  [x: string]: any;
 }) {
   return (
     <Box mx="17%" my="5%" {...otherProps}>

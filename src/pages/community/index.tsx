@@ -82,7 +82,7 @@ export default function CommunityPage({ match }: { match: any }) {
                 </Box>
               </Flex>
             </Flex>
-            <Grid gridTemplateColumns="1fr .5fr" gridGap={5}>
+            <Grid gridTemplateColumns="1fr 0.5fr" gridGap={3}>
               <Box>
                 {joined && <NewPostTeaser community={community.username} />}
                 {community.posts.length >= 1 ? (
@@ -93,14 +93,17 @@ export default function CommunityPage({ match }: { match: any }) {
                     fontSize={22}
                     fontWeight="bold"
                     fontFamily="mono"
+                    w="100%"
                   >
                     <Text>No posts yet</Text>
                   </Box>
                 )}
               </Box>
-              <FixedElement>
-                <CommunityInfo community={community} />
-              </FixedElement>
+              <Box w="300px">
+                <FixedElement>
+                  <CommunityInfo community={community} />
+                </FixedElement>
+              </Box>
             </Grid>
           </Container>
         </Box>

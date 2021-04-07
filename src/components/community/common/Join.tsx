@@ -14,10 +14,12 @@ export default function Join({
   community,
   icon = false,
   refresh = false,
+  ...props
 }: {
   community: CommunityType;
   icon?: boolean;
   refresh?: boolean;
+  [x: string]: any;
 }) {
   const [joined, setJoined] = useState<boolean>(false);
   const [loginModal, setLoginModal] = useState<boolean>(false);
@@ -47,7 +49,7 @@ export default function Join({
       }
       toast({
         title: message,
-        duration: 2000,
+        duration: 1000,
         variant: "left-accent",
         isClosable: true,
       });
@@ -74,6 +76,7 @@ export default function Join({
         border={"1px solid #0079D3"}
         borderRadius={50}
         _focus={{}}
+        {...props}
       />
       <LoginModal showModal={loginModal} setShowModal={setLoginModal} />
     </Flex>

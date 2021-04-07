@@ -6,6 +6,7 @@ export default function StyledBox({
   ...otherProps
 }: {
   children: any;
+  [x: string]: any;
 }) {
   return (
     <Box

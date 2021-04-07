@@ -13,23 +13,17 @@ import { PostType, UserType } from "@types";
 
 export default function UserPage({ match }: { match: any }) {
   const username = match.params.username;
-  const [user, setUser] = useState<UserType | undefined>();
-  const [likedPosts, setLikedPosts] = useState<PostType | undefined>();
-  const [dislikedPosts, setDislikedPosts] = useState<PostType | undefined>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const { user, isLoading } = getUser(username);
+  const [likedPosts, setLikedPosts] = useState<PostType[]>([]);
+  const [dislikedPosts, setDislikedPosts] = useState<PostType[]>([]);
   const [selectedTab, setSelectedTab] = useState<string>("liked");
 
   useEffect(() => {
-    fetchUser();
-  }, []);
-
-  useEffect(() => {
     if (user) document.title = `u/${user.username}`;
+    fetchUser();
   }, [user]);
 
   const fetchUser = async () => {
-    setLoading(true);
-    const user = await getUser(username);
     if (user) {
       if (user.likedPosts) {
         setLikedPosts(user.likedPosts);
@@ -37,9 +31,7 @@ export default function UserPage({ match }: { match: any }) {
       if (user.dislikedPosts) {
         setDislikedPosts(user.dislikedPosts);
       }
-      setUser(user);
     }
-    setLoading(false);
   };
 
   const selectTab = (tabName: string) => {
@@ -47,7 +39,7 @@ export default function UserPage({ match }: { match: any }) {
     fetchUser();
   };
 
-  if (loading) return <Loading />;
+  if (isLoading) return <Loading />;
   return (
     <Box>
       {user && (

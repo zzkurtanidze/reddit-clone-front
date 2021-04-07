@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Flex, Text, useColorModeValue, Link } from "@chakra-ui/react";
+import { Button, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export const DropdownItem: React.FC<{
   title: string;
@@ -45,7 +46,7 @@ export const DropdownLink: React.FC<{
   href: string;
 }> = ({ title, icon, href }) => {
   return (
-    <Link _hover={{}} _focus={{}} href={href}>
+    <Link to={href}>
       <Flex
         w="100%"
         borderRadius="0"

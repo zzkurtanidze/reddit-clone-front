@@ -12,23 +12,9 @@ export default function ProtectedRoute({
   component: any;
   render?: Function;
 }) {
-  const [user, setUser] = useState(false);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { user, isLoading } = getUser();
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
-  const fetchUser = async () => {
-    setLoading(true);
-    const response = await getUser();
-    if (response) {
-      setUser(true);
-    }
-    setLoading(false);
-  };
-
-  if (loading) return <Loading />;
+  if (isLoading) return <Loading />;
   return (
     <Route
       path={path}

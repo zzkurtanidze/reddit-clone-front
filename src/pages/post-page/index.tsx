@@ -1,8 +1,8 @@
 /* eslint-disable react/style-prop-object */
 //@ts-nocheck
-import { Box, Flex, Grid, Image, Text, useToast } from "@chakra-ui/react";
+import { Box, Flex, Grid, Image, Text } from "@chakra-ui/react";
 import Url from "@components/posts/Url";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { FaShare } from "react-icons/fa";
 import { RiBookmarkFill } from "react-icons/ri";
 //@ts-ignore
@@ -18,42 +18,39 @@ import PostedBy from "@components/posts/PostedBy";
 import Votes from "@components/posts/Votes";
 import { UserContext } from "@context/UserContext";
 //@ts-ignore
-import { PostType } from "@types";
 
 export default function PostPage({ match }: { match: any }) {
-  const [post, setPost] = useState<PostType | undefined>();
-  const [loading, setLoading] = useState<boolean>(false);
   const user = useContext(UserContext);
-
-  const toast = useToast();
   const id = match.params.id;
 
-  useEffect(() => {
-    fetchPost();
-  }, []);
+  const { post, isLoading, error } = getPostById(id);
 
   useEffect(() => {
     if (post) document.title = post.title;
   }, [post]);
 
-  const fetchPost = async () => {
-    setLoading(true);
-    const response = await getPostById(id);
-    if (response.statusText === "OK") {
-      setPost(response.data);
-    } else {
-      toast({
-        status: "error",
-        title: "Error fetching post",
-      });
-    }
-    setLoading(false);
-  };
-
-  if (loading) return <Loading />;
+  if (error)
+    return (
+      <Flex
+        w="100vw"
+        h="100vh"
+        justifyContent="center"
+        alignItems="center"
+        direction="column"
+      >
+        <Image
+          src="http://localhost:4000/static/reddit-not-found.png"
+          w="100px"
+        />
+        <Text fontFamily="mono" opacity="0.4" fontWeight="bold" size={24}>
+          Sorry, there doesn't seem to be anything here.
+        </Text>
+      </Flex>
+    );
+  if (isLoading) return <Loading />;
   return (
-    <Container mx="10%">
-      <Grid gridTemplateColumns="1fr .4fr" gridGap={5}>
+    <Container>
+      <Grid gridTemplateColumns="1fr .5fr" gridGap={5}>
         {post && (
           <>
             <StyledBox display="flex" pl="0" pt="0" pb="0">
@@ -61,8 +58,11 @@ export default function PostPage({ match }: { match: any }) {
                 <Votes user={user} post={post} />
               </Box>
               <Box w="100%" pt="10px" ml="10px">
-                <Flex gridGap={3}>
+                <Flex alignItems="center" gridGap={2}>
                   <PostedBy post={post} />
+                  <Text fontSize={12} color="gray.500">
+                    ●
+                  </Text>
                   <Date post={post} />
                 </Flex>
                 <Text my={3} fontSize={28} fontWeight="bold">
@@ -100,7 +100,7 @@ export default function PostPage({ match }: { match: any }) {
                 </Box>
               </Box>
             </StyledBox>
-            <FixedElement>
+            <FixedElement scrollY={0}>
               <CommunityTeaser community={post.postedTo} user={user} />
             </FixedElement>
           </>

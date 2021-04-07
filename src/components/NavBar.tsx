@@ -8,7 +8,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Link,
   Switch,
   useColorMode,
   useColorModeValue,
@@ -32,6 +31,7 @@ import { GoGear } from "react-icons/go";
 import { FaMoon, FaUserCircle } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
 import { UserContext } from "../context/UserContext";
+import { Link } from "react-router-dom";
 
 type NavLinkProps = {
   text: string;
@@ -65,7 +65,7 @@ export default function NavBar() {
       alignItems="center"
       boxShadow="0 2px 2px rgba(0,0,0,.2)"
     >
-      <Link href="/" _focus={{}} _active={{}}>
+      <Link to="/">
         <Image src={Logo} alt={"Reddit Logo"} w={100} />
       </Link>
       <InputGroup w="30%" mr="25%">

@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Box, Divider, Flex, Grid, Link, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Grid, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { CommunityType } from "../../../types";
 import StyledBox from "../../common/StyledBox";
@@ -9,6 +9,8 @@ import { UserContext } from "../../../context/UserContext";
 
 import { FaUserCircle } from "react-icons/fa";
 import { RiCake2Fill } from "react-icons/ri";
+
+import { Link } from "react-router-dom";
 
 export default function CommunityInfo({
   community,
@@ -52,7 +54,7 @@ export default function CommunityInfo({
           <Flex gridGap={2} alignItems="center" mt={3}>
             <FaUserCircle />
             By
-            <Link href={`/user/${community.createdBy.username}`}>
+            <Link to={`/user/${community.createdBy.username}`}>
               {community.createdBy.username}
             </Link>
           </Flex>
