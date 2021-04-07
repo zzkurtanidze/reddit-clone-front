@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import PostTeaser from "@components/posts/PostTeaser";
-import Trending from "@components/posts/Trending";
+import Trending from "@components/posts/TrendingPosts";
 import TrendingCommunities from "@components/community/trending/TrendingCommunities";
 import { Box, Flex, Link, SimpleGrid, Text } from "@chakra-ui/react";
 //@ts-ignore

@@ -3,7 +3,7 @@ import { getTrendingPosts } from "@api/";
 import { Box, SimpleGrid, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { PostType } from "../../types/index";
-import TrendingItem from "./TrendingItem";
+import TrendingItem from "./TrendingPost";
 
 import { HiTrendingUp } from "react-icons/hi";
 
