@@ -4,6 +4,7 @@ import { Box, Divider, Text } from "@chakra-ui/layout";
 import { CategoryType } from "@types/";
 import React, { useState } from "react";
 import StyledBox from "./common/StyledBox";
+import { useHistory } from "react-router-dom";
 
 export default function Categories({
   categories,
@@ -16,75 +17,31 @@ export default function Categories({
   return (
     <StyledBox maxW="15vw" fontWeight="medium" p={0} fontFamily="mono">
       <Box bg="gray.100" py={2} px={4}>
-        <Text fontSize={18}>Categories</Text>
+        <Text fontSize={17}>Categories</Text>
       </Box>
       <Divider />
-      <Button
-        textAlign="left"
-        fontSize={14}
-        fontWeight="bold"
-        justifyContent="flex-start"
-        borderRadius={0}
-        _focus={{}}
-        _active={{}}
-        w="100%"
-        boxShadow={selected === "All" ? "inset 5px 0px 0px #0079D3" : "0"}
-        bg={selected === "All" ? "gray.100" : "transparent"}
-        onClick={() => setSelected("All")}
-      >
-        All Categories
-      </Button>
+      <CategoryButton
+        category={{ name: "All Categories" }}
+        selected={selected}
+        setSelected={setSelected}
+      />
       {categories &&
         categories.map((category: CategoryType, i: number) => (
           <React.Fragment key={category.name}>
             {!expanded ? (
               i <= 7 && (
-                <>
-                  <Divider />
-                  <Button
-                    textAlign="left"
-                    fontSize={14}
-                    fontWeight="bold"
-                    justifyContent="flex-start"
-                    borderRadius={0}
-                    _focus={{}}
-                    _active={{}}
-                    w="100%"
-                    boxShadow={
-                      selected === category.name
-                        ? "inset 5px 0px 0px #4C6CD8 "
-                        : ""
-                    }
-                    bg={selected === category.name ? "gray.100" : "transparent"}
-                    onClick={() => setSelected(category.name)}
-                  >
-                    {category.name}
-                  </Button>
-                </>
+                <CategoryButton
+                  category={category}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
               )
             ) : (
-              <>
-                <Divider />
-                <Button
-                  textAlign="left"
-                  fontSize={14}
-                  fontWeight="bold"
-                  justifyContent="flex-start"
-                  borderRadius={0}
-                  _focus={{}}
-                  _active={{}}
-                  w="100%"
-                  boxShadow={
-                    selected === category.name
-                      ? "inset 5px 0px 0px #4C6CD8 "
-                      : ""
-                  }
-                  bg={selected === category.name ? "gray.100" : "transparent"}
-                  onClick={() => setSelected(category.name)}
-                >
-                  {category.name}
-                </Button>
-              </>
+              <CategoryButton
+                category={category}
+                selected={selected}
+                setSelected={setSelected}
+              />
             )}
           </React.Fragment>
         ))}
@@ -106,3 +63,48 @@ export default function Categories({
     </StyledBox>
   );
 }
+
+const CategoryButton = ({
+  category,
+  selected,
+  setSelected,
+}: {
+  category: CategoryType;
+  selected: string;
+  setSelected: Function;
+}) => {
+  const history = useHistory();
+
+  return (
+    <>
+      <Divider />
+      <Button
+        textAlign="left"
+        fontSize={12}
+        fontWeight="bold"
+        justifyContent="flex-start"
+        borderRadius={0}
+        _focus={{}}
+        _active={{}}
+        w="100%"
+        boxShadow={
+          selected === category.name ? "inset 5px 0px 0px #4C6CD8 " : ""
+        }
+        bg={selected === category.name ? "gray.100" : "transparent"}
+        onClick={() => {
+          setSelected(category.name);
+          history.push(
+            `/subreddits/trending/${category.name
+              .split(" ")
+              .join("_")
+              .split("&")
+              .join("and")
+              .toLowerCase()}`
+          );
+        }}
+      >
+        {category.name}
+      </Button>
+    </>
+  );
+};
