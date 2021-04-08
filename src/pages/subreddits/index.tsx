@@ -1,11 +1,15 @@
-import { Text } from "@chakra-ui/layout";
+//@ts-ignore
+import { getCategories } from "@api/";
+import Categories from "@components/Categories";
 import Container from "@components/common/Container";
 import React from "react";
 
 export default function SubredditsPage() {
+  const { categories } = getCategories();
+
   return (
     <Container>
-      <Text>This is subreddits page</Text>
+      <Categories categories={categories} />
     </Container>
   );
 }

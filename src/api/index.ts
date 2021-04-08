@@ -474,11 +474,12 @@ export const joinCommunity = async (id: string) => {
 
 // Categories
 
-export const getCategories = async () => {
-  try {
-    const response = await axios.get(`${apiUrl}/category/`, axiosOptions);
-    return response;
-  } catch (ex) {
-    return ex.response;
-  }
-};
+export function getCategories() {
+  const { data, error } = useSWR(`${apiUrl}/category/`, fetcher);
+
+  return {
+    categories: data,
+    isLoading: !error && !data,
+    error,
+  };
+}

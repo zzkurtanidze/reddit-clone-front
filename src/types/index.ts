@@ -60,3 +60,8 @@ export type CommunityType = {
   createdBy: UserType;
   moderators: [UserType];
 };
+
+export type CategoryType = {
+  _id: string;
+  name: string;
+};
