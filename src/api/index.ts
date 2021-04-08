@@ -3,7 +3,6 @@ import axios from "axios";
 import { GoogleLoginResponse } from "react-google-login";
 import { UserType } from "../types";
 import useSWR, { useSWRInfinite } from "swr";
-import Categories from "@components/Categories";
 
 const apiUrl = "http://localhost:4000/api";
 

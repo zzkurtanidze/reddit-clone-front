@@ -1,17 +1,17 @@
-//@ts-ignore
-import { getCategories } from "@api/";
 import { Button } from "@chakra-ui/button";
 import { Box, Divider, Text } from "@chakra-ui/layout";
 //@ts-ignore
 import { CategoryType } from "@types/";
 import React, { useState } from "react";
 import StyledBox from "./common/StyledBox";
-import { CategoryButton } from "./posts/post-form/common/CategoryButton";
 
-export default function Categories() {
+export default function Categories({
+  categories,
+}: {
+  categories: CategoryType[];
+}) {
   const [selected, setSelected] = useState<string>("");
   const [expanded, setExpanded] = useState<boolean>(false);
-  const { categories, isLoading } = getCategories();
 
   return (
     <StyledBox maxW="15vw" fontWeight="medium" p={0} fontFamily="mono">
