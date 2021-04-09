@@ -8,11 +8,13 @@ import { Link } from "react-router-dom";
 import StyledBox from "./common/StyledBox";
 import CommunityPicture from "./community/common/CommunityPicture";
 
-export default function SubredditList() {
-  const { communities } = getTrendingCommunities(10000);
+export default function SubredditList({ category }: { category: string }) {
+  const { communities } = getTrendingCommunities({
+    category: category !== "all" ? category : undefined,
+  });
 
   return (
-    <StyledBox p={0} w="100%">
+    <StyledBox p={0} w="100%" h="max-content">
       <Box bg="gray.100" py={2} px={4}>
         <Text fontSize={17} fontFamily="mono" fontWeight="medium">
           Today's Top Grwoing Communities

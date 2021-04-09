@@ -6,7 +6,7 @@ import { getTrendingCommunities } from "../../../api";
 import StyledBox from "../../common/StyledBox";
 
 export default function TrendingCommunities() {
-  const { communities } = getTrendingCommunities(4);
+  const { communities } = getTrendingCommunities({ limit: 4 });
 
   return communities && communities.length >= 1 ? (
     <StyledBox>

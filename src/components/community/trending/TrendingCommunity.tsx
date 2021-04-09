@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 //@ts-ignore
 import { CommunityType } from "@types";
@@ -20,7 +20,7 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
 
   return (
     <Flex justifyContent="space-between" gridGap={2}>
-      <Flex gridGap={2}>
+      <Grid gridTemplateColumns="0.2fr 1fr" gridGap={2}>
         {community && (
           <CommunityPicture
             communityUsername={community.username}
@@ -31,7 +31,7 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
         )}
         <Box>
           <Text
-            letterSpacing={-0.2}
+            letterSpacing={-0.1}
             textOverflow="ellipsis"
             noOfLines={1}
             fontWeight="bold"
@@ -43,7 +43,7 @@ export const TrendingCommunity: React.FC<{ community: CommunityType }> = ({
           </Text>
           <Text fontSize={10}>{joinedNumber} Members</Text>
         </Box>
-      </Flex>
+      </Grid>
       <Join community={community} />
       <LoginModal setShowModal={setLoginModal} showModal={loginModal} />
     </Flex>
