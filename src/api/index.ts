@@ -429,9 +429,15 @@ export const getCommunities = () => {
  * @returns trending communities
  */
 
-export const getTrendingCommunities = (limit: number | undefined) => {
+export const getTrendingCommunities = ({
+  limit,
+  category,
+}: {
+  limit?: number;
+  category?: string;
+}) => {
   const { data, error } = useSWR(
-    `${apiUrl}/community/trending/?limit=${limit}`
+    `${apiUrl}/community/trending/${category ? category : ""}?limit=${limit}`
   );
 
   return {
