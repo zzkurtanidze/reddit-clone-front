@@ -32,42 +32,43 @@ export default function HomePage() {
       <SimpleGrid mt={10} templateColumns="1fr 0.4fr" gap={5}>
         <Box>
           {user && <NewPostTeaser />}
-          {data.map((posts: PostType[]) =>
-            posts && posts.length >= 1 ? (
-              posts.map((item: PostType, i: number) => (
-                <React.Fragment key={i}>
-                  <PostTeaser key={item._id} post={item} />
-                  {i === posts.length - 3 && (
-                    <Waypoint
-                      onEnter={() => {
-                        setSize(size + 1);
-                      }}
-                    />
-                  )}
-                </React.Fragment>
-              ))
-            ) : (
-              <Box textAlign="center">
-                <Text fontWeight="bold" fontSize={20}>
-                  There are no posts yet.
-                </Text>
-                <Text fontWeight="light" fontSize={16} mb={10}>
-                  Try to join in new communities
-                </Text>
-                <Link
-                  href="#"
-                  bg="#1384D7"
-                  px={5}
-                  py={3}
-                  _hover={{}}
-                  color="white"
-                  borderRadius={10}
-                >
-                  Explore new communities
-                </Link>
-              </Box>
-            )
-          )}
+          {data &&
+            data.map((posts: PostType[]) =>
+              posts && posts.length >= 1 ? (
+                posts.map((item: PostType, i: number) => (
+                  <React.Fragment key={i}>
+                    <PostTeaser key={item._id} post={item} />
+                    {i === posts.length - 3 && (
+                      <Waypoint
+                        onEnter={() => {
+                          setSize(size + 1);
+                        }}
+                      />
+                    )}
+                  </React.Fragment>
+                ))
+              ) : (
+                <Box textAlign="center">
+                  <Text fontWeight="bold" fontSize={20}>
+                    There are no posts yet.
+                  </Text>
+                  <Text fontWeight="light" fontSize={16} mb={10}>
+                    Try to join in new communities
+                  </Text>
+                  <Link
+                    href="#"
+                    bg="#1384D7"
+                    px={5}
+                    py={3}
+                    _hover={{}}
+                    color="white"
+                    borderRadius={10}
+                  >
+                    Explore new communities
+                  </Link>
+                </Box>
+              )
+            )}
         </Box>
         <FixedElement>
           <Flex flexDirection="column" gridGap={5}>

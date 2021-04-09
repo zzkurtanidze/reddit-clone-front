@@ -25,7 +25,7 @@ import {
   newPost,
   removeDraftPost,
   saveDraftPost,
-} from "../../../api";
+} from "@api";
 import TabButton from "../../common/TabButton";
 import StyledBox from "../../common/StyledBox";
 import LinkTab from "./tabs/LinkTab";
@@ -33,11 +33,11 @@ import { CategoryButton } from "./common/CategoryButton";
 import { CategoryDropdown } from "./common/CategoryDropdown";
 
 import { Link } from "react-router-dom";
+import { getCommunities } from "@api/";
 
 export default function NewPostForm({ match }: { match?: any }) {
   const user = useContext(UserContext);
   const [communityList, setCommunityList] = useState<any>([]);
-  const [categories, setCategories] = useState([]);
   const [post, setPost] = useState<{
     title: string;
     body: string | undefined;
@@ -51,6 +51,7 @@ export default function NewPostForm({ match }: { match?: any }) {
   const [draftsLength, setDraftsLength] = useState<number>(0);
   const [drafts, setDrafts] = useState();
   const [disabled, setDisabled] = useState<boolean>(true);
+  const { categories } = getCategories();
 
   const params = queryString.parse(window.location.search);
 
@@ -69,17 +70,6 @@ export default function NewPostForm({ match }: { match?: any }) {
       return undefined;
     }
   };
-
-  const fetchCategories = async () => {
-    const response = await getCategories();
-    if (response.statusText === "OK") {
-      setCategories(response.data);
-    }
-  };
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
 
   useEffect(() => {
     if (match && match.params.name) {

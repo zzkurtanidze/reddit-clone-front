@@ -32,8 +32,8 @@ export default function CommunityPicture({
       h={width}
       color="white"
       bg={randomColor()}
-      borderRadius="50%"
       fontSize={numWidth / 1.8}
+      borderRadius="50%"
       display="grid"
       placeItems="center"
       userSelect="none"

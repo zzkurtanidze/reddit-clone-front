@@ -1,8 +1,9 @@
 //@ts-ignore
 import { getCategories } from "@api/";
-import { Box, Flex, Text } from "@chakra-ui/layout";
+import { Flex, Text } from "@chakra-ui/layout";
 import Categories from "@components/Categories";
 import Container from "@components/common/Container";
+import SubredditList from "@components/SubredditList";
 import React from "react";
 
 export default function SubredditsPage({ match }: { match: any }) {
@@ -30,8 +31,9 @@ export default function SubredditsPage({ match }: { match: any }) {
         </Text>
       </Flex>
 
-      <Container>
+      <Container display="flex" gridGap={5}>
         <Categories categories={categories} selectedCategory={categoryName} />
+        <SubredditList category={categoryName} />
       </Container>
     </>
   );
