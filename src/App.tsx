@@ -39,6 +39,10 @@ export default function App() {
           <ProtectedRoute path="/:name/submit" component={SubmitPage} />
           <ProtectedRoute path="/submit" component={SubmitPage} />
           <ProtectedRoute path="/settings/:tab" component={UserSettingsPage} />
+          <Route
+            path="/subreddits/trending/:categoryName"
+            component={SubredditsPage}
+          />
           <Route path="/subreddits/trending" component={SubredditsPage} />
           <Route path="/resetpassword/:token" component={PasswordResetPage} />
           <Route path="/r/:name" component={CommunityPage} />

@@ -483,3 +483,13 @@ export function getCategories() {
     error,
   };
 }
+
+export function getCategory(value: string) {
+  const { data, error } = useSWR(`${apiUrl}/category/${value}`, fetcher);
+
+  return {
+    category: data,
+    isLoadingL: !error && !data,
+    error,
+  };
+}
