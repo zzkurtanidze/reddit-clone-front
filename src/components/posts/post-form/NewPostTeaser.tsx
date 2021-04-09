@@ -7,6 +7,7 @@ import { RiImageLine } from "react-icons/ri";
 import { BiLinkAlt } from "react-icons/bi";
 import StyledBox from "../../common/StyledBox";
 import UserPicture from "../../user/common/UserPicture";
+import { useHistory } from "react-router-dom";
 
 export default function NewPostTeaser({
   community = "",
@@ -14,6 +15,7 @@ export default function NewPostTeaser({
   community?: string;
 }) {
   const user = useContext(UserContext);
+  const history = useHistory();
 
   return user ? (
     <StyledBox mb={5} display="flex" gridGap={2} alignItems="center">
@@ -27,7 +29,7 @@ export default function NewPostTeaser({
           outline: "1",
         }}
         onFocus={() =>
-          window.location.replace(`${community ? "/" + community : ""}/submit`)
+          history.push(`${community ? "/" + community : ""}/submit`)
         }
         placeholder="Create Post"
       />
@@ -36,7 +38,9 @@ export default function NewPostTeaser({
         _hover={{}}
         _active={{}}
         _focus={{}}
-        onClick={() => window.location.replace("/submit")}
+        onClick={() =>
+          history.push(`${community ? "/" + community : ""}/submit`)
+        }
         p="5px"
       >
         <RiImageLine size="40px" color="#0272C5" />
@@ -46,7 +50,9 @@ export default function NewPostTeaser({
         _hover={{}}
         _active={{}}
         _focus={{}}
-        onClick={() => window.location.replace("/submit")}
+        onClick={() =>
+          history.push(`${community ? "/" + community : ""}/submit`)
+        }
         p="5px"
       >
         <BiLinkAlt size="40px" color="#7E8183" />
