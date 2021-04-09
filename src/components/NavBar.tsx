@@ -54,7 +54,7 @@ export default function NavBar() {
   return (
     <Flex
       w="100%"
-      h="max-content"
+      h="60px"
       bg={bg}
       px={10}
       py={2}
