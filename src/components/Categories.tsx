@@ -32,7 +32,7 @@ export default function Categories({
       </Box>
       <Divider />
       <CategoryButton
-        category={{ name: "All Categories" }}
+        category={{ name: "All Categories", value: "all" }}
         selected={selected}
         setSelected={setSelected}
       />
@@ -95,7 +95,7 @@ const CategoryButton = ({
         fontWeight="bold"
         justifyContent="flex-start"
         borderRadius={0}
-        _focus={{}}
+        _focus={{ background: "#f4f4f4" }}
         _active={{}}
         w="100%"
         boxShadow={
