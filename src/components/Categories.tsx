@@ -26,7 +26,13 @@ export default function Categories({
   }, [category]);
 
   return (
-    <StyledBox maxW="15vw" fontWeight="medium" p={0} fontFamily="mono">
+    <StyledBox
+      h="max-content"
+      minW="13vw"
+      fontWeight="medium"
+      p={0}
+      fontFamily="mono"
+    >
       <Box bg="gray.100" py={2} px={4}>
         <Text fontSize={17}>Categories</Text>
       </Box>
