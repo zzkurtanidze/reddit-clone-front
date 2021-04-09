@@ -2,17 +2,28 @@ import { Button } from "@chakra-ui/button";
 import { Box, Divider, Text } from "@chakra-ui/layout";
 //@ts-ignore
 import { CategoryType } from "@types/";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StyledBox from "./common/StyledBox";
 import { useHistory } from "react-router-dom";
+//@ts-ignore
+import { getCategory } from "@api/";
 
 export default function Categories({
   categories,
+  selectedCategory,
 }: {
   categories: CategoryType[];
+  selectedCategory?: string;
 }) {
   const [selected, setSelected] = useState<string>("");
   const [expanded, setExpanded] = useState<boolean>(false);
+  const { category } = getCategory(selectedCategory);
+
+  useEffect(() => {
+    if (category && category.length >= 1) {
+      setSelected(category[0].name);
+    }
+  }, [category]);
 
   return (
     <StyledBox maxW="15vw" fontWeight="medium" p={0} fontFamily="mono">
@@ -21,7 +32,7 @@ export default function Categories({
       </Box>
       <Divider />
       <CategoryButton
-        category={{ name: "All Categories" }}
+        category={{ name: "All Categories", value: "all" }}
         selected={selected}
         setSelected={setSelected}
       />
@@ -84,7 +95,7 @@ const CategoryButton = ({
         fontWeight="bold"
         justifyContent="flex-start"
         borderRadius={0}
-        _focus={{}}
+        _focus={{ background: "#f4f4f4" }}
         _active={{}}
         w="100%"
         boxShadow={
@@ -93,14 +104,7 @@ const CategoryButton = ({
         bg={selected === category.name ? "gray.100" : "transparent"}
         onClick={() => {
           setSelected(category.name);
-          history.push(
-            `/subreddits/trending/${category.name
-              .split(" ")
-              .join("_")
-              .split("&")
-              .join("and")
-              .toLowerCase()}`
-          );
+          history.push(`/subreddits/trending/${category.value}`);
         }}
       >
         {category.name}
