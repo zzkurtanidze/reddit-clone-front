@@ -1,6 +1,7 @@
 //@ts-ignore
 import { getTrendingCommunities } from "@api/";
-import { Box, Divider, Grid, Text } from "@chakra-ui/layout";
+import { Image } from "@chakra-ui/image";
+import { Box, Divider, Flex, Grid, Text } from "@chakra-ui/layout";
 //@ts-ignore
 import { CommunityType } from "@types/";
 import React from "react";
@@ -20,8 +21,7 @@ export default function SubredditList({ category }: { category: string }) {
           Today's Top Grwoing Communities
         </Text>
       </Box>
-      {communities &&
-        communities.length >= 1 &&
+      {communities && communities.length >= 1 ? (
         communities.map((community: CommunityType, index: number) => (
           <Link to={`/r/${community.username}`}>
             <Grid
@@ -43,7 +43,22 @@ export default function SubredditList({ category }: { category: string }) {
             </Grid>
             <Divider />
           </Link>
-        ))}
+        ))
+      ) : (
+        <Flex
+          alignItems="center"
+          fontFamily="mono"
+          fontWeight="medium"
+          py="20px"
+          direction="column"
+        >
+          <Image
+            src="http://localhost:4000/static/reddit-not-found.png"
+            w="80px"
+          />
+          <Text>Communities not found</Text>
+        </Flex>
+      )}
     </StyledBox>
   );
 }
