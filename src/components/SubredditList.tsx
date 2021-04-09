@@ -6,11 +6,12 @@ import { Box, Divider, Flex, Grid, Text } from "@chakra-ui/layout";
 import { CommunityType } from "@types/";
 import React from "react";
 import { Link } from "react-router-dom";
+import FieldLoading from "./common/loading-animations/FieldLoading";
 import StyledBox from "./common/StyledBox";
 import CommunityPicture from "./community/common/CommunityPicture";
 
 export default function SubredditList({ category }: { category: string }) {
-  const { communities } = getTrendingCommunities({
+  const { communities, isLoading, error } = getTrendingCommunities({
     category: category !== "all" ? category : undefined,
   });
 
@@ -21,7 +22,24 @@ export default function SubredditList({ category }: { category: string }) {
           Today's Top Grwoing Communities
         </Text>
       </Box>
-      {communities && communities.length >= 1 ? (
+      {isLoading && <FieldLoading />}
+      {error && (
+        <Flex
+          alignItems="center"
+          fontFamily="mono"
+          fontWeight="medium"
+          py="20px"
+          direction="column"
+        >
+          <Image
+            src="http://localhost:4000/static/reddit-not-found.png"
+            w="80px"
+          />
+          <Text>Communities not found</Text>
+        </Flex>
+      )}
+      {communities &&
+        communities.length >= 1 &&
         communities.map((community: CommunityType, index: number) => (
           <Link to={`/r/${community.username}`}>
             <Grid
@@ -43,22 +61,7 @@ export default function SubredditList({ category }: { category: string }) {
             </Grid>
             <Divider />
           </Link>
-        ))
-      ) : (
-        <Flex
-          alignItems="center"
-          fontFamily="mono"
-          fontWeight="medium"
-          py="20px"
-          direction="column"
-        >
-          <Image
-            src="http://localhost:4000/static/reddit-not-found.png"
-            w="80px"
-          />
-          <Text>Communities not found</Text>
-        </Flex>
-      )}
+        ))}
     </StyledBox>
   );
 }
