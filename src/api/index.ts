@@ -394,6 +394,7 @@ export const uploadImage = async (image: any) => {
 export const createCommunity = async (data: {
   name: string;
   description: string;
+  category: string;
 }) => {
   try {
     const response = await axios.post(
@@ -412,13 +413,14 @@ export const createCommunity = async (data: {
  * @returns All communities
  */
 
-export const getCommunities = async () => {
-  try {
-    const response = await axios.get(`${apiUrl}/community`);
-    return response;
-  } catch (ex) {
-    return ex.response;
-  }
+export const getCommunities = () => {
+  const { data, error } = useSWR(`${apiUrl}/community`);
+
+  return {
+    communities: data,
+    isLoading: !data && !error,
+    error,
+  };
 };
 
 /**
@@ -427,15 +429,16 @@ export const getCommunities = async () => {
  * @returns trending communities
  */
 
-export const getTrendingCommunities = async (limit = 4) => {
-  try {
-    const response = await axios.get(
-      `${apiUrl}/community/trending/?limit=${limit}`
-    );
-    return response;
-  } catch (ex) {
-    return ex.response;
-  }
+export const getTrendingCommunities = (limit: number | undefined) => {
+  const { data, error } = useSWR(
+    `${apiUrl}/community/trending/?limit=${limit}`
+  );
+
+  return {
+    communities: data,
+    isLoading: !data && !error,
+    error,
+  };
 };
 
 /**
