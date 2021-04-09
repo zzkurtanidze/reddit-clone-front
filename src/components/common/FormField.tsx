@@ -62,7 +62,7 @@ export default function FormField({
         </FormHelperText>
       )}
       {touched && (
-        <FormErrorMessage fontSize={11} fontWeight="600">
+        <FormErrorMessage fontSize={12} fontWeight="600">
           {error}
         </FormErrorMessage>
       )}
