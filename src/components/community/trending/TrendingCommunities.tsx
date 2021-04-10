@@ -80,7 +80,7 @@ export default function TrendingCommunities({
             )
           }
         >
-          View All
+          {category ? `See All ${category.name}` : "View All"}
         </Button>
       </Box>
     </StyledBox>

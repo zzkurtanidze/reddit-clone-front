@@ -16,7 +16,7 @@ export default function Cover({ coverImage }: { coverImage: string }) {
         cursor="pointer"
       ></Box>
       <Image
-        src={coverImage}
+        src={coverImage ? coverImage : "http://localhost:4000/static/123.jpg"}
         alt="profile-cover"
         w="100vw"
         h="200px"
