@@ -22,46 +22,46 @@ export default function SubredditList({ category }: { category: string }) {
           Today's Top Grwoing Communities
         </Text>
       </Box>
-      {isLoading && <FieldLoading />}
-      {error && (
-        <Flex
-          alignItems="center"
-          fontFamily="mono"
-          fontWeight="medium"
-          py="20px"
-          direction="column"
-        >
-          <Image
-            src="http://localhost:4000/static/reddit-not-found.png"
-            w="80px"
-          />
-          <Text>Communities not found</Text>
-        </Flex>
-      )}
-      {communities &&
-        communities.length >= 1 &&
-        communities.map((community: CommunityType, index: number) => (
-          <Link to={`/r/${community.username}`}>
-            <Grid
-              px={5}
-              py={2}
-              templateColumns="0.1fr 0.1fr 2fr"
+      {isLoading && !error && <FieldLoading />}
+      {communities
+        ? communities.length >= 1 &&
+          communities.map((community: CommunityType, index: number) => (
+            <Link to={`/r/${community.username}`}>
+              <Grid
+                px={5}
+                py={2}
+                templateColumns="0.1fr 0.1fr 2fr"
+                alignItems="center"
+                gridGap={5}
+                fontFamily="mono"
+                fontWeight="medium"
+              >
+                <Text>{index + 1}</Text>
+                <CommunityPicture
+                  communityUsername={community.username}
+                  imageSrc={community.image}
+                  width="40px"
+                />
+                <Text>r/{community.username}</Text>
+              </Grid>
+              <Divider />
+            </Link>
+          ))
+        : error && (
+            <Flex
               alignItems="center"
-              gridGap={5}
               fontFamily="mono"
               fontWeight="medium"
+              py="20px"
+              direction="column"
             >
-              <Text>{index + 1}</Text>
-              <CommunityPicture
-                communityUsername={community.username}
-                imageSrc={community.image}
-                width="40px"
+              <Image
+                src="http://localhost:4000/static/reddit-not-found.png"
+                w="80px"
               />
-              <Text>r/{community.username}</Text>
-            </Grid>
-            <Divider />
-          </Link>
-        ))}
+              <Text>Communities not found</Text>
+            </Flex>
+          )}
     </StyledBox>
   );
 }

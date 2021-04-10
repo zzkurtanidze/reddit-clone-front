@@ -34,7 +34,7 @@ export default function TrendingCommunities() {
         mt={4}
         onClick={() => history.push("/subreddits/trending")}
       >
-        More trending communities
+        View All
       </Button>
     </StyledBox>
   ) : (

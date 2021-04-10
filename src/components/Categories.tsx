@@ -15,7 +15,7 @@ export default function Categories({
   categories: CategoryType[];
   selectedCategory?: string;
 }) {
-  const [selected, setSelected] = useState<string>("");
+  const [selected, setSelected] = useState<string>("All Categories");
   const [expanded, setExpanded] = useState<boolean>(false);
   const { category } = getCategory(selectedCategory);
 
@@ -38,7 +38,7 @@ export default function Categories({
       </Box>
       <Divider />
       <CategoryButton
-        category={{ name: "All Categories", value: "all" }}
+        category={{ name: "All Categories", value: "" }}
         selected={selected}
         setSelected={setSelected}
       />
