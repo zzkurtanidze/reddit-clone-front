@@ -9,7 +9,7 @@ export default function Cover({ coverImage }: { coverImage: string }) {
     <Box position="absolute" top="57px" boxShadow="0 0 5px rgba(0,0,0,.2)">
       <Box
         w="99vw"
-        h="200px"
+        h="220px"
         position="absolute"
         onClick={() => setZoomed(!zoomed)}
         zIndex={1}
@@ -19,7 +19,7 @@ export default function Cover({ coverImage }: { coverImage: string }) {
         src={coverImage ? coverImage : "http://localhost:4000/static/123.jpg"}
         alt="profile-cover"
         w="100vw"
-        h="200px"
+        h="220px"
         zIndex={-5}
         objectFit="cover"
         className="user-image"

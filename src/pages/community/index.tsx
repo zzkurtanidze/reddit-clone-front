@@ -13,6 +13,7 @@ import CommunityInfo from "@components/community/common/CommunityInfo";
 import { UserContext } from "@context/UserContext";
 import Loading from "@components/common/Loading";
 import FixedElement from "@components/common/FixedElement";
+import { Link } from "react-router-dom";
 
 export default function CommunityPage({ match }: { match: any }) {
   const [joined, setJoined] = useState<boolean>(false);
@@ -39,8 +40,8 @@ export default function CommunityPage({ match }: { match: any }) {
         <Box>
           <Cover coverImage={community.coverImage} />
           <Container mx="0" mt={260}>
-            <Box bg="white" zIndex={1} position="relative" top="-80px">
-              <Flex px="17%" py="10px" gridGap={3}>
+            <Box bg="white" zIndex={1} position="relative" top="-55px">
+              <Flex px="17%" pt="10px" gridGap={3}>
                 <CommunityPicture
                   imageSrc={community.image}
                   communityUsername={community.username}
@@ -55,7 +56,7 @@ export default function CommunityPage({ match }: { match: any }) {
                 >
                   <Box>
                     <Flex gridGap={5} alignItems="center">
-                      <Text fontSize={32} color="#1c1c1c" fontWeight="bold">
+                      <Text fontSize={28} color="#1c1c1c" fontWeight="bold">
                         {community.name}
                       </Text>
                       <Join community={community} refresh={true} />
@@ -71,8 +72,22 @@ export default function CommunityPage({ match }: { match: any }) {
                   </Box>
                 </Flex>
               </Flex>
+              <Flex
+                gridGap={3}
+                fontFamily="mono"
+                fontWeight="medium"
+                fontSize={13}
+                mx="17%"
+                pb="5px"
+              >
+                <Text color="gray.500" _hover={{ color: "yellow.400" }}>
+                  <Link to={`/r/${community.username}`}>Posts</Link>
+                </Text>
+                <Link to={`/r/${community.username}/wiki/rules`}>Rules</Link>
+                <Link to={`/r/${community.username}/wiki/index`}>Wiki</Link>
+              </Flex>
             </Box>
-            <Container>
+            <Container my={-10}>
               <Grid gridTemplateColumns="1fr 0.5fr" gridGap={3}>
                 <Box>
                   {joined && <NewPostTeaser community={community.username} />}
