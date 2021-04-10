@@ -3,12 +3,25 @@ import { getCategories } from "@api/";
 import { Flex, Text } from "@chakra-ui/layout";
 import Categories from "@components/Categories";
 import Container from "@components/common/Container";
+import TrendingCommunities from "@components/community/trending/TrendingCommunities";
 import SubredditList from "@components/SubredditList";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function SubredditsPage({ match }: { match: any }) {
   const categoryName = match.params.categoryName || undefined;
   const { categories } = getCategories();
+  const [randomCategories, setRandomCategories] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (categories && randomCategories.length < 1) {
+      let firstRandom = Math.floor(Math.random() * categories.length - 1);
+      let secondRandom = Math.floor(Math.random() * categories.length - 1);
+      if (firstRandom === secondRandom)
+        secondRandom = Math.floor(Math.random() * categories.length - 1);
+
+      setRandomCategories([firstRandom, secondRandom]);
+    }
+  }, [categories]);
 
   return (
     <>
@@ -18,7 +31,7 @@ export default function SubredditsPage({ match }: { match: any }) {
         position="relative"
         top="60px"
         bg="white"
-        px="17%"
+        px="10%"
         py="2%"
         fontFamily="mono"
       >
@@ -31,9 +44,22 @@ export default function SubredditsPage({ match }: { match: any }) {
         </Text>
       </Flex>
 
-      <Container display="flex" gridGap={5}>
+      <Container
+        mx="13%"
+        display="grid"
+        gridTemplateColumns="0.3fr 1fr .5fr "
+        gridGap={5}
+      >
         <Categories categories={categories} selectedCategory={categoryName} />
         <SubredditList category={categoryName} />
+        <Flex direction="column" gridGap={5}>
+          <TrendingCommunities
+            category={categories && categories[randomCategories[0]]}
+          />
+          <TrendingCommunities
+            category={categories && categories[randomCategories[1]]}
+          />
+        </Flex>
       </Container>
     </>
   );
