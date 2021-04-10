@@ -43,11 +43,7 @@ export default function CommunityPage({ match }: { match: any }) {
     const response = await getCommunity(name);
     if (response.statusText === "OK") {
       setCommunity(response.data);
-      setCoverImage(
-        response.data.coverImage
-          ? response.data.coverImage
-          : "http://localhost:4000/static/123.jpg"
-      );
+      setCoverImage(response.data.coverImage);
       response.data.image
         ? setCommunityImage(response.data.image && `${response.data.image}`)
         : setCommunityImage();

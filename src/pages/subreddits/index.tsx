@@ -3,6 +3,7 @@ import { getCategories } from "@api/";
 import { Flex, Text } from "@chakra-ui/layout";
 import Categories from "@components/Categories";
 import Container from "@components/common/Container";
+import TrendingCommunities from "@components/community/trending/TrendingCommunities";
 import SubredditList from "@components/SubredditList";
 import React from "react";
 
@@ -18,7 +19,7 @@ export default function SubredditsPage({ match }: { match: any }) {
         position="relative"
         top="60px"
         bg="white"
-        px="17%"
+        px="10%"
         py="2%"
         fontFamily="mono"
       >
@@ -31,9 +32,15 @@ export default function SubredditsPage({ match }: { match: any }) {
         </Text>
       </Flex>
 
-      <Container display="flex" gridGap={5}>
+      <Container
+        mx="13%"
+        display="grid"
+        gridTemplateColumns="0.3fr 1fr .5fr "
+        gridGap={5}
+      >
         <Categories categories={categories} selectedCategory={categoryName} />
         <SubredditList category={categoryName} />
+        <TrendingCommunities category={categories && categories[1]} />
       </Container>
     </>
   );
