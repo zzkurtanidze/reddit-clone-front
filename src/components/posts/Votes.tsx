@@ -38,7 +38,7 @@ export default function Votes({
   }, [user]);
 
   useEffect(() => {
-    socket.on("post-vote", ({ status, counter, postId }) => {
+    socket.on("post-vote", ({ status, counter, postId, userId }) => {
       if (postId === post._id) {
         setStatus(status);
         setLikes((likes) => (likes += counter));
