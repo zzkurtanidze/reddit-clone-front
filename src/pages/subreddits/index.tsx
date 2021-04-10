@@ -31,7 +31,7 @@ export default function SubredditsPage({ match }: { match: any }) {
         position="relative"
         top="60px"
         bg="white"
-        px="10%"
+        px="13%"
         py="2%"
         fontFamily="mono"
       >
