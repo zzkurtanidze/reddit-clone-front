@@ -453,13 +453,14 @@ export const getTrendingCommunities = ({
  * @returns Community with given username
  */
 
-export const getCommunity = async (name: string) => {
-  try {
-    const response = await axios.get(`${apiUrl}/community/${name}`);
-    return response;
-  } catch (ex) {
-    return ex.response;
-  }
+export const getCommunity = (name: string) => {
+  const { data, error } = useSWR(`${apiUrl}/community/${name}`);
+
+  return {
+    community: data,
+    isLoading: !data && !error,
+    error,
+  };
 };
 
 /**

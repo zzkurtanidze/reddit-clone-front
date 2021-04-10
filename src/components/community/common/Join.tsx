@@ -5,6 +5,7 @@ import { UserContext } from "../../../context/UserContext";
 import { CommunityType } from "../../../types";
 import PrimaryButton from "../../common/PrimaryButton";
 import LoginModal from "../../auth-modals/LoginModal";
+import { useHistory } from "react-router-dom";
 
 import { GoPlus } from "react-icons/go";
 import { BiMinus } from "react-icons/bi";
@@ -25,6 +26,7 @@ export default function Join({
   const [loginModal, setLoginModal] = useState<boolean>(false);
   const user = useContext(UserContext);
 
+  const history = useHistory();
   const toast = useToast();
 
   useEffect(() => {
@@ -49,7 +51,7 @@ export default function Join({
       }
       toast({
         title: message,
-        duration: 1000,
+        duration: 2000,
         variant: "left-accent",
         isClosable: true,
       });
@@ -57,7 +59,7 @@ export default function Join({
       setLoginModal(true);
     }
     if (refresh) {
-      window.location.reload();
+      history.push(`/r/${community.username}`);
     }
   };
 
@@ -72,7 +74,7 @@ export default function Join({
           icon &&
           (joined ? <BiMinus color="black" /> : <GoPlus color="white" />)
         }
-        w="130px"
+        w="100px"
         border={"1px solid #0079D3"}
         borderRadius={50}
         _focus={{}}

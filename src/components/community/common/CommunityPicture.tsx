@@ -8,13 +8,15 @@ const randomColor = require("randomcolor");
 export default function CommunityPicture({
   imageSrc,
   communityUsername,
-  width = "200px",
+  width = "80px",
   withLink = false,
+  ...otherProps
 }: {
   imageSrc: string;
   communityUsername: string;
   width?: string;
   withLink?: boolean;
+  [x: string]: any;
 }) {
   const numWidth = parseInt(width.slice(0, width.length - 2));
 
@@ -37,8 +39,8 @@ export default function CommunityPicture({
       display="grid"
       placeItems="center"
       userSelect="none"
-      border={numWidth <= 70 ? "0" : `${numWidth / 20}px solid white`}
-      boxShadow={numWidth >= 50 ? "0 0 10px rgba(0,0,0,.35)" : "0"}
+      border={numWidth <= 70 ? "0" : `${numWidth / 15}px solid white`}
+      {...otherProps}
     >
       <Text textTransform="uppercase" lineHeight="0">
         {communityUsername[0]}

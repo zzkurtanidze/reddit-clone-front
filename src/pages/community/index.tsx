@@ -15,17 +15,10 @@ import Loading from "@components/common/Loading";
 import FixedElement from "@components/common/FixedElement";
 
 export default function CommunityPage({ match }: { match: any }) {
-  const [community, setCommunity] = useState<CommunityType | undefined>();
-  const [coverImage, setCoverImage] = useState<string>("");
-  const [communityImage, setCommunityImage] = useState<string | undefined>();
   const [joined, setJoined] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const name: string = match.params.name;
   const user: UserType | undefined = useContext(UserContext);
-
-  useEffect(() => {
-    fetchCommunity();
-  }, []);
+  const { community, isLoading } = getCommunity(name);
 
   useEffect(() => {
     if (community) document.title = `r/${community?.name}`;
@@ -38,69 +31,72 @@ export default function CommunityPage({ match }: { match: any }) {
     }
   }, [user, community]);
 
-  const fetchCommunity = async () => {
-    setLoading(true);
-    const response = await getCommunity(name);
-    if (response.statusText === "OK") {
-      setCommunity(response.data);
-      setCoverImage(response.data.coverImage);
-      response.data.image
-        ? setCommunityImage(response.data.image && `${response.data.image}`)
-        : setCommunityImage();
-    }
-    setLoading(false);
-  };
-
-  if (loading) return <Loading />;
+  if (isLoading) return <Loading />;
   return (
     <>
       ,
       {community && (
         <Box>
-          <Cover coverImage={coverImage} />
-          <Container mt={260}>
-            <Flex position="relative" top="-80px" gridGap={5}>
-              <CommunityPicture
-                imageSrc={communityImage}
-                communityUsername={community.username}
-              />
-              <Flex gridGap={5} alignItems="center">
-                <Box>
-                  <Flex gridGap={5} alignItems="center">
-                    <Text fontSize={32} fontWeight="bold">
-                      {community.name}
+          <Cover coverImage={community.coverImage} />
+          <Container mx="0" mt={260}>
+            <Box bg="white" zIndex={1} position="relative" top="-80px">
+              <Flex px="17%" py="10px" gridGap={3}>
+                <CommunityPicture
+                  imageSrc={community.image}
+                  communityUsername={community.username}
+                  position="relative"
+                  top="-25px"
+                />
+                <Flex
+                  gridGap={5}
+                  position="relative"
+                  top="-14px"
+                  alignItems="center"
+                >
+                  <Box>
+                    <Flex gridGap={5} alignItems="center">
+                      <Text fontSize={32} color="#1c1c1c" fontWeight="bold">
+                        {community.name}
+                      </Text>
+                      <Join community={community} refresh={true} />
+                    </Flex>
+                    <Text
+                      fontSize={14}
+                      color="#7c7c7c"
+                      fontFamily="mono"
+                      fontWeight="medium"
+                    >
+                      r/{community.username}
                     </Text>
-                    <Join community={community} refresh={true} />
-                  </Flex>
-                  <Text fontSize={14} fontFamily="mono" fontWeight="light">
-                    r/{community.username}
-                  </Text>
-                </Box>
-              </Flex>
-            </Flex>
-            <Grid gridTemplateColumns="1fr 0.5fr" gridGap={3}>
-              <Box>
-                {joined && <NewPostTeaser community={community.username} />}
-                {community.posts.length >= 1 ? (
-                  community.posts.map((post) => <PostTeaser post={post} />)
-                ) : (
-                  <Box
-                    textAlign="center"
-                    fontSize={22}
-                    fontWeight="bold"
-                    fontFamily="mono"
-                    w="100%"
-                  >
-                    <Text>No posts yet</Text>
                   </Box>
-                )}
-              </Box>
-              <Box w="300px">
-                <FixedElement>
-                  <CommunityInfo community={community} />
-                </FixedElement>
-              </Box>
-            </Grid>
+                </Flex>
+              </Flex>
+            </Box>
+            <Container>
+              <Grid gridTemplateColumns="1fr 0.5fr" gridGap={3}>
+                <Box>
+                  {joined && <NewPostTeaser community={community.username} />}
+                  {community.posts.length >= 1 ? (
+                    community.posts.map((post) => <PostTeaser post={post} />)
+                  ) : (
+                    <Box
+                      textAlign="center"
+                      fontSize={22}
+                      fontWeight="bold"
+                      fontFamily="mono"
+                      w="100%"
+                    >
+                      <Text>No posts yet</Text>
+                    </Box>
+                  )}
+                </Box>
+                <Box w="300px">
+                  <FixedElement>
+                    <CommunityInfo community={community} />
+                  </FixedElement>
+                </Box>
+              </Grid>
+            </Container>
           </Container>
         </Box>
       )}
