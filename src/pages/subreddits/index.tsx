@@ -5,11 +5,23 @@ import Categories from "@components/Categories";
 import Container from "@components/common/Container";
 import TrendingCommunities from "@components/community/trending/TrendingCommunities";
 import SubredditList from "@components/SubredditList";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function SubredditsPage({ match }: { match: any }) {
   const categoryName = match.params.categoryName || undefined;
   const { categories } = getCategories();
+  const [randomCategories, setRandomCategories] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (categories && randomCategories.length < 1) {
+      let firstRandom = Math.floor(Math.random() * categories.length - 1);
+      let secondRandom = Math.floor(Math.random() * categories.length - 1);
+      if (firstRandom === secondRandom)
+        secondRandom = Math.floor(Math.random() * categories.length - 1);
+
+      setRandomCategories([firstRandom, secondRandom]);
+    }
+  }, [categories]);
 
   return (
     <>
@@ -40,7 +52,14 @@ export default function SubredditsPage({ match }: { match: any }) {
       >
         <Categories categories={categories} selectedCategory={categoryName} />
         <SubredditList category={categoryName} />
-        <TrendingCommunities category={categories && categories[1]} />
+        <Flex direction="column" gridGap={5}>
+          <TrendingCommunities
+            category={categories && categories[randomCategories[0]]}
+          />
+          <TrendingCommunities
+            category={categories && categories[randomCategories[1]]}
+          />
+        </Flex>
       </Container>
     </>
   );
