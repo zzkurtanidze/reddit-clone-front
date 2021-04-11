@@ -5,7 +5,6 @@ import { PostType, UserType } from "../../types";
 import LoginModal from "../auth-modals/LoginModal";
 
 import { io } from "socket.io-client";
-import UserCover from "@components/user/common/UserCover";
 
 const socket = io("http://localhost:4000", { transports: ["websocket"] });
 
@@ -19,6 +18,7 @@ export default function Votes({
   const [status, setStatus] = useState<string>("");
   const [likes, setLikes] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   useEffect(() => {
     setLikes(post.votes);
@@ -41,6 +41,7 @@ export default function Votes({
   useEffect(() => {
     socket.on("post-vote", ({ status, counter, postId, userId }) => {
       if (postId === post._id && userId === user?._id) {
+        setDisabled(false);
         setStatus(status);
         setLikes((likes) => (likes += counter));
       }
@@ -61,6 +62,7 @@ export default function Votes({
           userId: user._id,
           postId: post._id,
         });
+        setDisabled(true);
       }
     }
   };
@@ -83,6 +85,7 @@ export default function Votes({
         _focus={{ boxShadow: 0 }}
         name="like"
         onClick={handleLike}
+        disabled={disabled}
       >
         <ImArrowUp
           name="like"
@@ -103,6 +106,7 @@ export default function Votes({
         _focus={{ boxShadow: 0 }}
         name="unlike"
         onClick={handleLike}
+        disabled={disabled}
       >
         <ImArrowDown
           size={14}
