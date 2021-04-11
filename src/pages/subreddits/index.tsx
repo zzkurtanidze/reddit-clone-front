@@ -3,6 +3,7 @@ import { getCategories } from "@api/";
 import { Flex, Text } from "@chakra-ui/layout";
 import Categories from "@components/Categories";
 import Container from "@components/common/Container";
+import CommunitiesDictionary from "@components/community/CommunitiesDictionary";
 import TrendingCommunities from "@components/community/trending/TrendingCommunities";
 import SubredditList from "@components/SubredditList";
 import React, { useEffect, useState } from "react";
@@ -59,6 +60,7 @@ export default function SubredditsPage({ match }: { match: any }) {
           <TrendingCommunities
             category={categories && categories[randomCategories[1]]}
           />
+          <CommunitiesDictionary />
         </Flex>
       </Container>
     </>
