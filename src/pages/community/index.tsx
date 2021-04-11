@@ -8,7 +8,6 @@ import CommunityPicture from "@components/community/common/CommunityPicture";
 import Join from "@components/community/common/Join";
 import NewPostTeaser from "@components/posts/post-form/NewPostTeaser";
 import PostTeaser from "@components/posts/PostTeaser";
-import { CommunityType } from "@types";
 import CommunityInfo from "@components/community/common/CommunityInfo";
 import { UserContext } from "@context/UserContext";
 import Loading from "@components/common/Loading";
@@ -83,8 +82,12 @@ export default function CommunityPage({ match }: { match: any }) {
                 <Text color="gray.500" _hover={{ color: "yellow.400" }}>
                   <Link to={`/r/${community.username}`}>Posts</Link>
                 </Text>
-                <Link to={`/r/${community.username}/wiki/rules`}>Rules</Link>
-                <Link to={`/r/${community.username}/wiki/index`}>Wiki</Link>
+                <Text color="gray.500" _hover={{ color: "yellow.400" }}>
+                  <Link to={`/r/${community.username}/wiki/rules`}>Rules</Link>
+                </Text>
+                <Text color="gray.500" _hover={{ color: "yellow.400" }}>
+                  <Link to={`/r/${community.username}/wiki/index`}>Wiki</Link>
+                </Text>
               </Flex>
             </Box>
             <Container my={-10}>
