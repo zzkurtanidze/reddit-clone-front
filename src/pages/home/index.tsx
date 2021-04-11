@@ -80,7 +80,7 @@ export default function HomePage() {
           <PrimaryButton
             label="Back to top"
             position="absolute"
-            bottom="-640px"
+            bottom="-680px"
             w="max-content"
             borderRadius={50}
             _focus={{}}

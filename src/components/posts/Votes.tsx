@@ -5,6 +5,7 @@ import { PostType, UserType } from "../../types";
 import LoginModal from "../auth-modals/LoginModal";
 
 import { io } from "socket.io-client";
+import UserCover from "@components/user/common/UserCover";
 
 const socket = io("http://localhost:4000", { transports: ["websocket"] });
 
@@ -39,7 +40,7 @@ export default function Votes({
 
   useEffect(() => {
     socket.on("post-vote", ({ status, counter, postId, userId }) => {
-      if (postId === post._id) {
+      if (postId === post._id && userId === user?._id) {
         setStatus(status);
         setLikes((likes) => (likes += counter));
       }

@@ -40,7 +40,7 @@ export default function CommunityInfo({
       <Box p="15px">
         <Text>{community.description}</Text>
         <Box mt="20px" fontFamily="mono" fontWeight="bold">
-          <Text>{community.members.length}</Text>
+          <Text>{community.membersCount}</Text>
           <Text fontSize={12}>Members</Text>
         </Box>
         <br />

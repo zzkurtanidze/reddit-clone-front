@@ -17,6 +17,7 @@ import { PostButton } from "@components/posts/PostButton";
 import PostedBy from "@components/posts/PostedBy";
 import Votes from "@components/posts/Votes";
 import { UserContext } from "@context/UserContext";
+import ErrorPage from "@pages/error";
 //@ts-ignore
 
 export default function PostPage({ match }: { match: any }) {
@@ -29,24 +30,7 @@ export default function PostPage({ match }: { match: any }) {
     if (post) document.title = post.title;
   }, [post]);
 
-  if (error)
-    return (
-      <Flex
-        w="100vw"
-        h="100vh"
-        justifyContent="center"
-        alignItems="center"
-        direction="column"
-      >
-        <Image
-          src="http://localhost:4000/static/reddit-not-found.png"
-          w="100px"
-        />
-        <Text fontFamily="mono" opacity="0.4" fontWeight="bold" size={24}>
-          Sorry, there doesn't seem to be anything here.
-        </Text>
-      </Flex>
-    );
+  if (error) return <ErrorPage />;
   if (isLoading) return <Loading />;
   return (
     <Container>

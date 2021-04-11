@@ -13,12 +13,13 @@ import { UserContext } from "@context/UserContext";
 import Loading from "@components/common/Loading";
 import FixedElement from "@components/common/FixedElement";
 import { Link } from "react-router-dom";
+import ErrorPage from "@pages/error";
 
 export default function CommunityPage({ match }: { match: any }) {
   const [joined, setJoined] = useState<boolean>(false);
   const name: string = match.params.name;
   const user: UserType | undefined = useContext(UserContext);
-  const { community, isLoading } = getCommunity(name);
+  const { community, isLoading, error } = getCommunity(name);
 
   useEffect(() => {
     if (community) document.title = `r/${community?.name}`;
@@ -31,6 +32,7 @@ export default function CommunityPage({ match }: { match: any }) {
     }
   }, [user, community]);
 
+  if (error) return <ErrorPage />;
   if (isLoading) return <Loading />;
   return (
     <>
