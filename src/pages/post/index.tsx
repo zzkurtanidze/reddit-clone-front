@@ -65,7 +65,7 @@ export default function PostPage({ match }: { match: any }) {
                   </Text>
                   <Date post={post} />
                 </Flex>
-                <Text my={3} fontSize={28} fontWeight="bold">
+                <Text my={3} fontSize={28} w="70%" fontWeight="bold">
                   {post.title}
                 </Text>
                 <Text

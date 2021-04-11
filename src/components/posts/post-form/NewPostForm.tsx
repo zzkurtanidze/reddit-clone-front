@@ -52,22 +52,19 @@ export default function NewPostForm({ match }: { match?: any }) {
   const [drafts, setDrafts] = useState();
   const [disabled, setDisabled] = useState<boolean>(true);
   const { categories } = getCategories();
+  const { community } = getCommunity(match.params.name);
 
   const params = queryString.parse(window.location.search);
 
   const toast = useToast();
 
   const fetchCommunity = async () => {
-    const response = await getCommunity(match.params.name);
-    if (response.statusText === "OK") {
-      const data = response.data;
-      const community = { label: data.name, value: data._id };
+    if (community) {
+      const newCommunity = { label: community.name, value: community._id };
       if (!post.postedTo) {
-        setCommunityList([community]);
-        setPost({ ...post, postedTo: community });
+        setCommunityList([newCommunity]);
+        setPost({ ...post, postedTo: newCommunity });
       }
-    } else {
-      return undefined;
     }
   };
 
@@ -101,7 +98,7 @@ export default function NewPostForm({ match }: { match?: any }) {
 
       setCommunityList(communityNames);
     }
-  }, [user, post, drafts]);
+  }, [user, post, drafts, community]);
 
   useEffect(() => {
     document.getElementById("draft-save").disabled = false;

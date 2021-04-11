@@ -62,13 +62,15 @@ export default function PostTeaser({ post }: { post: PostType }) {
         </Link>
         {post.url && <Url post={post} />}
         {post.image && (
-          <Image
-            src={post.image}
-            mt="10px"
-            w="100%"
-            maxHeight="400px"
-            objectFit="cover"
-          />
+          <Link to={`/post/${post._id}`}>
+            <Image
+              src={post.image}
+              mt="10px"
+              w="100%"
+              maxHeight="400px"
+              objectFit="cover"
+            />
+          </Link>
         )}
         <Flex>
           <PostButton icon={<FaCommentAlt color="gray" />} label="Comment" />
