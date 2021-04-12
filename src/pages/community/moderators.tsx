@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
+import ErrorPage from "@pages/error";
 
 export default function ModeratorsPage({ match }: { match: any }) {
   const communityName = match.params.name;
@@ -85,7 +86,7 @@ export default function ModeratorsPage({ match }: { match: any }) {
           </Button>
         </Box>
         <Box bg="white" pt="5px">
-          {moderators &&
+          {moderators && moderators.length > 0 ? (
             moderators.map((moderator: UserType) => (
               <React.Fragment key={moderator._id}>
                 <Grid
@@ -126,7 +127,28 @@ export default function ModeratorsPage({ match }: { match: any }) {
                 </Grid>
                 <Divider />
               </React.Fragment>
-            ))}
+            ))
+          ) : (
+            <ErrorPage
+              text={`No results for u/${params.q}`}
+              button={
+                <Button
+                  bg="none"
+                  color="blue.500"
+                  borderRadius={50}
+                  onClick={() => {
+                    history.push(`/r/${community.username}/about/moderators`);
+                    setSearchTerm("");
+                  }}
+                >
+                  See All
+                </Button>
+              }
+              h="100%"
+              p="50px"
+              fontSize={16}
+            />
+          )}
         </Box>
       </Box>
     </Container>
