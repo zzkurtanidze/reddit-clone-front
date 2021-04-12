@@ -20,31 +20,34 @@ export default function CommunityPicture({
 }) {
   const numWidth = parseInt(width.slice(0, width.length - 2));
 
-  return imageSrc && imageSrc !== "" ? (
-    withLink ? (
-      <Link to={`/r/${communityUsername}`}>
-        <Profile imageSrc={imageSrc} width={width} isZoomable={false} />
-      </Link>
-    ) : (
-      <Profile imageSrc={imageSrc} width={width} />
-    )
-  ) : (
-    <Box
-      w={width}
-      h={width}
-      color="white"
-      bg={randomColor()}
-      fontSize={numWidth / 1.8}
-      borderRadius="50%"
-      display="grid"
-      placeItems="center"
-      userSelect="none"
-      border={numWidth <= 70 ? "0" : `${numWidth / 15}px solid white`}
-      {...otherProps}
-    >
-      <Text textTransform="uppercase" lineHeight="0">
-        {communityUsername[0]}
-      </Text>
+  return (
+    <Box {...otherProps}>
+      {imageSrc && imageSrc !== "" ? (
+        withLink ? (
+          <Link to={`/r/${communityUsername}`}>
+            <Profile imageSrc={imageSrc} width={width} isZoomable={false} />
+          </Link>
+        ) : (
+          <Profile imageSrc={imageSrc} width={width} isZoomable={false} />
+        )
+      ) : (
+        <Box
+          w={width}
+          h={width}
+          color="white"
+          bg={randomColor()}
+          fontSize={numWidth / 1.8}
+          borderRadius="50%"
+          display="grid"
+          placeItems="center"
+          userSelect="none"
+          border={numWidth <= 70 ? "0" : `${numWidth / 15}px solid white`}
+        >
+          <Text textTransform="uppercase" lineHeight="0">
+            {communityUsername[0]}
+          </Text>
+        </Box>
+      )}
     </Box>
   );
 }
