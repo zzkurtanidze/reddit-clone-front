@@ -482,9 +482,9 @@ export const joinCommunity = async (id: string) => {
   }
 };
 
-export function getRoleInCommunity(username: string) {
+export function getRoleInCommunity(communityUsername: string) {
   const { data, error } = useSWR(
-    `${apiUrl}/community/role/${username}`,
+    `${apiUrl}/community/role/${communityUsername}`,
     fetcher
   );
 
