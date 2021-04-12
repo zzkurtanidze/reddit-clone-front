@@ -33,6 +33,7 @@ export default function Moderators({
         {moderators &&
           moderators.map((moderator: UserType) => (
             <Text
+              key={moderator._id}
               color="blue.500"
               fontSize={14}
               fontFamily="mono"
