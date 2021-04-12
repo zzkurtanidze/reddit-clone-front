@@ -5,8 +5,8 @@ import React from "react";
 export default function ErrorPage() {
   return (
     <Flex
-      w="100vw"
-      h="100vh"
+      w="100%"
+      h="100%"
       justifyContent="center"
       alignItems="center"
       direction="column"
@@ -15,7 +15,7 @@ export default function ErrorPage() {
         src="http://localhost:4000/static/reddit-not-found.png"
         w="100px"
       />
-      <Text fontFamily="mono" opacity="0.4" fontWeight="bold" fontSize={24}>
+      <Text fontFamily="mono" opacity="0.4" fontWeight="bold" fontSize={18}>
         Sorry, there doesn't seem to be anything here.
       </Text>
     </Flex>
