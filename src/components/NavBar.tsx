@@ -63,7 +63,7 @@ export default function NavBar() {
       top="0"
       zIndex={5}
       alignItems="center"
-      boxShadow="0 2px 2px rgba(0,0,0,.2)"
+      boxShadow="0 1px 0px rgba(0,0,0,.15)"
     >
       <Link to="/">
         <Image src={Logo} alt={"Reddit Logo"} w={100} />
