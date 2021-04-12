@@ -17,14 +17,16 @@ export default function TrendingCommunities({
     communities,
   }: { communities: CommunityType[] } = getTrendingCommunities({
     limit: 4,
-    category: category ? category.value : undefined,
+    category: category ? category.value : "",
   });
   const history = useHistory();
 
-  return communities && communities.length >= 1 ? (
+  console.log(communities);
+
+  return communities && communities.length > 0 ? (
     <StyledBox p={0} position="relative" h="max-content">
       {category ? (
-        <Box w="100%" h="100%">
+        <Box w="100%">
           <Box
             w="100%"
             h="6rem"
@@ -56,7 +58,7 @@ export default function TrendingCommunities({
           Trending Communities
         </Text>
       )}
-      <Box p="15px" pt="0">
+      <Box position="relative" zIndex={2} p="15px" pt="0">
         <Flex direction="column" gridGap={5}>
           {communities.map((community: CommunityType) => (
             <TrendingCommunity key={community._id} community={community} />
