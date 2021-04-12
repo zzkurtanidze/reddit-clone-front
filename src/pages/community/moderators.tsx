@@ -1,20 +1,36 @@
 //@ts-ignore
 import { getCommunity } from "@api/";
-import { Button } from "@chakra-ui/button";
+import { Button, ButtonGroup } from "@chakra-ui/button";
 import { Image } from "@chakra-ui/image";
 import { Input } from "@chakra-ui/input";
-import { Box, Flex, Grid, Text } from "@chakra-ui/layout";
+import { Box, Divider, Flex, Grid, Text } from "@chakra-ui/layout";
 import Container from "@components/common/Container";
 import Loading from "@components/common/Loading";
-import UserPicture from "@components/user/common/UserPicture";
 //@ts-ignore
 import { UserType } from "@types/";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
+import { useHistory } from "react-router-dom";
+import queryString from "query-string";
 
 export default function ModeratorsPage({ match }: { match: any }) {
   const communityName = match.params.name;
   const { community, isLoading } = getCommunity(communityName);
+  const [moderators, setModerators] = useState<UserType[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const history = useHistory();
+  const params = queryString.parse(window.location.search);
+
+  useEffect(() => {
+    if (params && params.q && params.q !== "" && community) {
+      const newModerators = community["moderators"].filter((m: UserType) =>
+        m.username.toLowerCase().includes(params.q)
+      );
+      setModerators(newModerators);
+    } else if (community && community.moderators) {
+      setModerators(community.moderators);
+    }
+  }, [community, params]);
 
   if (isLoading) return <Loading />;
   return (
@@ -25,7 +41,7 @@ export default function ModeratorsPage({ match }: { match: any }) {
       <Box
         w="100%"
         h="max-content"
-        mt={15}
+        my={15}
         borderRadius="5px"
         overflow="hidden"
         bg="gray.100"
@@ -41,6 +57,7 @@ export default function ModeratorsPage({ match }: { match: any }) {
             fontSize={14}
             borderWidth="1px"
             borderColor="gray.600"
+            onChange={(e: any) => setSearchTerm(e.target.value)}
             _focus={{}}
             _hover={{}}
           />
@@ -55,6 +72,11 @@ export default function ModeratorsPage({ match }: { match: any }) {
             top="-1px"
             zIndex={1}
             right="40px"
+            onClick={() =>
+              history.push(
+                `/r/${community.username}/about/moderators/?q=${searchTerm}`
+              )
+            }
             _hover={{}}
             _active={{}}
             _focus={{}}
@@ -62,28 +84,48 @@ export default function ModeratorsPage({ match }: { match: any }) {
             <BiSearchAlt color="white" size={20} />
           </Button>
         </Box>
-        <Box bg="white" px="15px" py="10px">
-          {community.moderators &&
-            community.moderators.map((moderator: UserType) => (
-              <Grid
-                gridTemplateColumns="0.14fr 0.1fr 3fr 0.5fr"
-                alignItems="center"
-                w="90%"
-                m="auto"
-                key={moderator._id}
-              >
-                <Image
-                  src={moderator.image}
-                  w="30px"
-                  h="30px"
-                  borderRadius={5}
-                />
-                <Text>{moderator.username}</Text>
-                <Text></Text>
-                <Text fontSize={14} color="gray.600">
-                  Full Permissions
-                </Text>
-              </Grid>
+        <Box bg="white" pt="5px">
+          {moderators &&
+            moderators.map((moderator: UserType) => (
+              <React.Fragment key={moderator._id}>
+                <Grid
+                  gridTemplateColumns="0.34fr 3fr 0.5fr"
+                  alignItems="center"
+                  w="90%"
+                  m="auto"
+                  my={3}
+                >
+                  <ButtonGroup alignItems="center">
+                    <Button
+                      display="grid"
+                      gridTemplateColumns="1fr 2fr"
+                      bg="0"
+                      transition="0"
+                      alignItems="center"
+                      w="160px"
+                      px="10px"
+                      onClick={() =>
+                        history.push(`/user/${moderator.username}`)
+                      }
+                    >
+                      <Image
+                        src={moderator.image}
+                        w="30px"
+                        minW="30px"
+                        h="30px"
+                        minH="30px"
+                        borderRadius={5}
+                      />
+                      <Text>{moderator.username}</Text>
+                    </Button>
+                  </ButtonGroup>
+                  <Text></Text>
+                  <Text fontSize={14} color="gray.600">
+                    Full Permissions
+                  </Text>
+                </Grid>
+                <Divider />
+              </React.Fragment>
             ))}
         </Box>
       </Box>
