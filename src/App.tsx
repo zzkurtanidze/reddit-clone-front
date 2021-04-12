@@ -44,11 +44,11 @@ export default function App() {
             path="/subreddits/trending/:categoryName"
             component={SubredditsPage}
           />
+          <Route path="/subreddits/trending" component={SubredditsPage} />
           <Route
             path="/subreddits/:letter"
             component={SubredditDirectoryPage}
           />
-          <Route path="/subreddits/trending" component={SubredditsPage} />
           <Route path="/resetpassword/:token" component={PasswordResetPage} />
           <Route path="/r/:name" component={CommunityPage} />
           <Route path="/user/:username" component={UserPage} />

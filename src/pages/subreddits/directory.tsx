@@ -1,6 +1,11 @@
-import { Divider, Flex, Text } from "@chakra-ui/layout";
+//@ts-ignore
+import { getCommunityByLetter } from "@api/";
+import { Divider, Flex, Grid, Text } from "@chakra-ui/layout";
 import Container from "@components/common/Container";
 import StyledBox from "@components/common/StyledBox";
+import ErrorPage from "@pages/error";
+//@ts-ignore
+import { CommunityType } from "@types/";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -35,6 +40,7 @@ export default function SubredditDirectoryPage({ match }: { match: any }) {
     "Z",
     "#",
   ];
+  const { communities } = getCommunityByLetter(letter);
 
   return (
     <>
@@ -60,6 +66,17 @@ export default function SubredditDirectoryPage({ match }: { match: any }) {
             Browse communities starting with '{letter.toUpperCase()}'
           </Text>
           <Divider />
+          {communities && communities.length > 1 ? (
+            <Grid mt={5} gridTemplateColumns="1fr 1fr 1fr 1fr">
+              {communities.map((community: CommunityType) => (
+                <Text color="blue.600">
+                  <Link to={`/r/${community.username}`}>{community.name}</Link>
+                </Text>
+              ))}
+            </Grid>
+          ) : (
+            <ErrorPage />
+          )}
         </StyledBox>
       </Container>
     </>
