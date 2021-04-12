@@ -10,7 +10,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function SubredditDictionaryPage({ match }: { match: any }) {
-  const letter = match.params.letter;
+  const currentLetter = match.params.letter;
   const alphabet = [
     "A",
     "B",
@@ -41,8 +41,8 @@ export default function SubredditDictionaryPage({ match }: { match: any }) {
     "#",
   ];
   let communities;
-  if (letter !== "all") {
-    let response = getCommunityByLetter(letter);
+  if (currentLetter !== "all") {
+    let response = getCommunityByLetter(currentLetter);
     communities = response.communities;
   } else {
     let response = getCommunities();
@@ -66,26 +66,38 @@ export default function SubredditDictionaryPage({ match }: { match: any }) {
         </Text>
         <Flex
           gridGap={1}
-          color="blue.400"
           fontSize={15}
           fontWeight="medium"
           flexWrap="wrap"
           fontFamily="mono"
         >
-          {alphabet.map((letter: string) =>
-            letter !== "#" ? (
-              <Link to={`/subreddits/${letter.toLowerCase()}`}>{letter}</Link>
-            ) : (
-              <Link to={`/subreddits/all`}>#</Link>
-            )
-          )}
+          {alphabet.map((letter: string) => (
+            <Text
+              color={
+                letter.toLowerCase() === currentLetter.toLowerCase()
+                  ? "black"
+                  : "blue.500"
+              }
+              _hover={{
+                color:
+                  letter.toLowerCase() !== currentLetter.toLowerCase() &&
+                  "blue.300",
+              }}
+            >
+              {letter !== "#" ? (
+                <Link to={`/subreddits/${letter.toLowerCase()}`}>{letter}</Link>
+              ) : (
+                <Link to={`/subreddits/all`}>#</Link>
+              )}
+            </Text>
+          ))}
         </Flex>
       </Container>
       <Container my="2%" fontFamily="mono" fontWeight="medium">
         <StyledBox>
           <Text mb="1rem">
             Browse communities starting with '
-            {letter === "all" ? "#" : letter.toUpperCase()}'
+            {currentLetter === "all" ? "#" : currentLetter.toUpperCase()}'
           </Text>
           <Divider />
           {communities && communities.length > 0 ? (
