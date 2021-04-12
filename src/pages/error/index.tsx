@@ -13,8 +13,8 @@ export default function ErrorPage({
 }) {
   return (
     <Flex
-      w="100vw"
-      h="100vh"
+      w="100%"
+      h="100%"
       justifyContent="center"
       alignItems="center"
       direction="column"

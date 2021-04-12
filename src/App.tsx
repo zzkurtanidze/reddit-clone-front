@@ -18,6 +18,7 @@ import PasswordResetPage from "./pages/password-reset";
 import UserSettingsPage from "./pages/user/user-settings";
 import SubredditsPage from "@pages/subreddits";
 import ModeratorsPage from "@pages/community/moderators";
+import SubredditDirectoryPage from "@pages/subreddits/directory";
 
 const theme = extendTheme({
   fonts: {
@@ -45,6 +46,10 @@ export default function App() {
             component={SubredditsPage}
           />
           <Route path="/subreddits/trending" component={SubredditsPage} />
+          <Route
+            path="/subreddits/:letter"
+            component={SubredditDirectoryPage}
+          />
           <Route path="/resetpassword/:token" component={PasswordResetPage} />
           <Route path="/r/:name/about/moderators" component={ModeratorsPage} />
           <Route path="/r/:name" component={CommunityPage} />

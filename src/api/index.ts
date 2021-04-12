@@ -454,7 +454,7 @@ export const getTrendingCommunities = ({
  */
 
 export const getCommunity = (name: string) => {
-  const { data, error } = useSWR(`${apiUrl}/community/${name}`);
+  const { data, error } = useSWR(`${apiUrl}/community/${name}`, fetcher);
 
   return {
     community: data,
@@ -481,6 +481,19 @@ export const joinCommunity = async (id: string) => {
     return ex.reponse;
   }
 };
+
+export function getCommunityByLetter(letter: string) {
+  const { data, error } = useSWR(
+    `${apiUrl}/community/letter/${letter}`,
+    fetcher
+  );
+
+  return {
+    communities: data,
+    isLoading: !data && !error,
+    error,
+  };
+}
 
 // Categories
 
