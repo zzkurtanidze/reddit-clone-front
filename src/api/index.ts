@@ -71,6 +71,18 @@ export function getPosts() {
   };
 }
 
+export function getPostsByCommunity(communityUsername: string) {
+  const { data, error } = useSWR(
+    `${apiUrl}/posts/community/${communityUsername}`
+  );
+
+  return {
+    posts: data,
+    isLoading: !error && !data,
+    error,
+  };
+}
+
 /**
  *
  * @param id
