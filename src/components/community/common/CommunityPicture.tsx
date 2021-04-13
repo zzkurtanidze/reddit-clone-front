@@ -43,9 +43,11 @@ export default function CommunityPicture({
           userSelect="none"
           border={numWidth <= 70 ? "0" : `${numWidth / 15}px solid white`}
         >
-          <Text textTransform="uppercase" lineHeight="0">
-            {communityUsername[0]}
-          </Text>
+          {communityUsername && (
+            <Text textTransform="uppercase" lineHeight="0">
+              {communityUsername[0]}
+            </Text>
+          )}
         </Box>
       )}
     </Box>
