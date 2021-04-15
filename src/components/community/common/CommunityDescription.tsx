@@ -1,6 +1,9 @@
+//@ts-ignore
+import { updateCommunity } from "@api/";
 import { Button } from "@chakra-ui/button";
 import { Box, Text } from "@chakra-ui/layout";
 import { Textarea } from "@chakra-ui/textarea";
+import { useToast } from "@chakra-ui/toast";
 //@ts-ignore
 import { CommunityType } from "@types/";
 import React, { useState, useRef, useEffect } from "react";
@@ -17,6 +20,7 @@ export default function CommunityDescription({
   const [value, setValue] = useState(community.description);
 
   const textareaRef = useRef(null);
+  const toast = useToast();
 
   useEffect(() => {
     if (textareaRef && textareaRef?.current) {
@@ -28,6 +32,20 @@ export default function CommunityDescription({
       textareaRef.current.style.height = scrollHeight + "px";
     }
   }, [value]);
+
+  const handleSave = async () => {
+    const response = await updateCommunity(community._id, {
+      description: value,
+    });
+    if (response.statusText === "OK") {
+      toast({
+        title: `r/${community.username} description updated succesfully`,
+        status: "success",
+        isClosable: true,
+      });
+      setEditMode(false);
+    }
+  };
 
   return role === "admin" ? (
     !editMode ? (
@@ -46,7 +64,7 @@ export default function CommunityDescription({
         onClick={() => setEditMode(true)}
       >
         <Text display="inline" fontSize={14}>
-          {community.description}
+          {value}
         </Text>
         <Box display="inline-block" position="relative" left="2px" top="2px">
           <MdEdit color="#0079D3" size={16} />{" "}
@@ -96,7 +114,7 @@ export default function CommunityDescription({
             fontFamily="mono"
             fontWeight="bold"
             px={1}
-            onClick={() => setEditMode(false)}
+            onClick={() => handleSave()}
           >
             Save
           </Button>

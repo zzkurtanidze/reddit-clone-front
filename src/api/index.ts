@@ -447,6 +447,19 @@ export const getCommunities = () => {
   };
 };
 
+export const updateCommunity = async (id: string, data: any) => {
+  try {
+    const response = await axios.put(
+      `${apiUrl}/community/${id}`,
+      data,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 /**
  *
  * @param limit
