@@ -31,6 +31,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
       pt="0"
       pb="0"
       position="relative"
+      cursor="pointer"
     >
       <Box bg="#F8F9FA" px="7px" pt="10px" zIndex={2} position="relative">
         <Votes user={user} post={post} />

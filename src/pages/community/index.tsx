@@ -103,7 +103,7 @@ export default function CommunityPage({ match }: { match: any }) {
             <Container my={-10}>
               <Grid gridTemplateColumns="1fr 0.5fr" gridGap={3}>
                 <Box>
-                  {role === "admin" && (
+                  {role === "admin" && community.posts.length < 1 && (
                     <GrowCommunity communityUsername={community.username} />
                   )}
                   {joined && <NewPostTeaser community={community.username} />}
