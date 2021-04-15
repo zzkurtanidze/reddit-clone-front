@@ -100,7 +100,10 @@ export default function CommunityDescription({
             fontWeight="bold"
             px={1}
             pl={2}
-            onClick={() => setEditMode(false)}
+            onClick={() => {
+              setEditMode(false);
+              setValue(community.description);
+            }}
           >
             Close
           </Button>
