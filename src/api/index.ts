@@ -83,6 +83,18 @@ export function getPostsByCommunity(communityUsername: string) {
   };
 }
 
+export const removePostById = async (postId: string) => {
+  try {
+    const response = await axios.delete(
+      `${apiUrl}/posts/${postId}`,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 /**
  *
  * @param id

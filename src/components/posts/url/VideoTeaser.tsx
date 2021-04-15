@@ -13,7 +13,7 @@ export default function VideoTeaser({ post }: { post: PostType }) {
       <DefaultLink post={post} />
       {post.urlData && (
         <Box marginTop="5px" position="relative">
-          <ReactPlayer url={post.url} />
+          <ReactPlayer controls={true} url={post.url} />
         </Box>
       )}
     </Flex>
