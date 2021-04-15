@@ -3,7 +3,7 @@ import { Box, Text } from "@chakra-ui/layout";
 import { Textarea } from "@chakra-ui/textarea";
 //@ts-ignore
 import { CommunityType } from "@types/";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { MdEdit } from "react-icons/md";
 
 export default function CommunityDescription({
@@ -14,6 +14,20 @@ export default function CommunityDescription({
   community: CommunityType;
 }) {
   const [editMode, setEditMode] = useState<boolean>(false);
+  const [value, setValue] = useState(community.description);
+
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    if (textareaRef && textareaRef?.current) {
+      //@ts-ignore
+      textareaRef.current.style.height = "0px";
+      //@ts-ignore
+      const scrollHeight = textareaRef.current.scrollHeight;
+      //@ts-ignore
+      textareaRef.current.style.height = scrollHeight + "px";
+    }
+  }, [value]);
 
   return role === "admin" ? (
     !editMode ? (
@@ -51,21 +65,43 @@ export default function CommunityDescription({
           py={1}
           px={2}
           h="fit-content"
+          onChange={(e) => setValue(e.target.value)}
+          ref={textareaRef}
         >
-          {community.description}
+          {value}
         </Textarea>
-        <Button
-          _hover={{}}
-          _focus={{}}
-          _active={{}}
-          bg="none"
-          color="#0079D3"
-          fontSize={12}
-          fontFamily="mono"
-          onClick={() => setEditMode(false)}
-        >
-          Close
-        </Button>
+        <Box float="right">
+          <Button
+            _hover={{}}
+            _focus={{}}
+            _active={{}}
+            bg="none"
+            color="#f72020"
+            fontSize={12}
+            fontFamily="mono"
+            fontWeight="bold"
+            px={1}
+            pl={2}
+            onClick={() => setEditMode(false)}
+          >
+            Close
+          </Button>
+          <Button
+            _hover={{}}
+            _focus={{}}
+            _active={{}}
+            bg="none"
+            color="#0079D3"
+            fontSize={12}
+            fontFamily="mono"
+            fontWeight="bold"
+            px={1}
+            onClick={() => setEditMode(false)}
+          >
+            Save
+          </Button>
+        </Box>
+        <Box style={{ clear: "both" }}></Box>
       </Box>
     )
   ) : (
