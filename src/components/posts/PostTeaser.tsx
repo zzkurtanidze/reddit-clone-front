@@ -24,6 +24,7 @@ export default function PostTeaser({ post }: { post: PostType }) {
   return (
     <StyledBox
       _hover={{ border: "1px solid #898989 " }}
+      w="100%"
       display="flex"
       mb="20px"
       pl="0"

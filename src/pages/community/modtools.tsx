@@ -6,10 +6,15 @@ import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { ImTicket } from "react-icons/im";
 import { IoMdDocument } from "react-icons/io";
+import ModQueue from "./tabs/modqueue";
 
 export default function ModToolsPage({ match }: { match: any }) {
   const tabName = match.params.tabname;
   const community = match.params.name;
+
+  const tabs = {
+    modqueue: <ModQueue communityUsername={community} />,
+  };
 
   return (
     <Grid gridTemplateColumns="0.2fr 1fr">
@@ -56,7 +61,12 @@ export default function ModToolsPage({ match }: { match: any }) {
         />
         <TabLink label="Automod" url="automod" tabName={tabName} />
       </Box>
-      <Box bg="gray.100">test</Box>
+      <Box bg="#DAE0E6">
+        {
+          //@ts-ignore
+          tabs[tabName]
+        }
+      </Box>
     </Grid>
   );
 }

@@ -71,6 +71,30 @@ export function getPosts() {
   };
 }
 
+export function getPostsByCommunity(communityUsername: string) {
+  const { data, error } = useSWR(
+    `${apiUrl}/posts/community/${communityUsername}`
+  );
+
+  return {
+    posts: data,
+    isLoading: !error && !data,
+    error,
+  };
+}
+
+export const removePostById = async (postId: string) => {
+  try {
+    const response = await axios.delete(
+      `${apiUrl}/posts/${postId}`,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 /**
  *
  * @param id

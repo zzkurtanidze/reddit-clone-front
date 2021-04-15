@@ -1,7 +1,7 @@
 import { Box, Grid } from "@chakra-ui/layout";
 import React from "react";
 
-export default function FieldLoading({ count }: { count?: number }) {
+export default function FieldLoading() {
   return (
     <Box w="90%" m="auto">
       <Field />

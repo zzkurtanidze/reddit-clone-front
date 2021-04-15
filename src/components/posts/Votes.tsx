@@ -5,6 +5,7 @@ import { PostType, UserType } from "../../types";
 import LoginModal from "../auth-modals/LoginModal";
 
 import { io } from "socket.io-client";
+import VotesLoading from "@components/common/loading-animations/VotesLoading";
 
 const socket = io("http://localhost:4000", { transports: ["websocket"] });
 
@@ -12,8 +13,8 @@ export default function Votes({
   user,
   post,
 }: {
-  user: UserType | undefined;
-  post: PostType;
+  user?: UserType | undefined;
+  post?: PostType;
 }) {
   const [status, setStatus] = useState<string>("");
   const [likes, setLikes] = useState<number>(0);
@@ -21,36 +22,40 @@ export default function Votes({
   const [disabled, setDisabled] = useState<boolean>(false);
 
   useEffect(() => {
-    setLikes(post.votes);
-    const likedPostIds: [string | undefined] = [""];
-    const dislikedPostIds: [string | undefined] = [""];
-    user?.dislikedPosts?.forEach((post) => {
-      dislikedPostIds.push(post._id);
-    });
-    user?.likedPosts?.forEach((post) => {
-      likedPostIds.push(post._id);
-    });
-    if (likedPostIds.includes(post._id)) {
-      setStatus("like");
-    }
-    if (dislikedPostIds.includes(post._id)) {
-      setStatus("unlike");
+    if (post) {
+      setLikes(post.votes);
+      const likedPostIds: [string | undefined] = [""];
+      const dislikedPostIds: [string | undefined] = [""];
+      user?.dislikedPosts?.forEach((post) => {
+        dislikedPostIds.push(post._id);
+      });
+      user?.likedPosts?.forEach((post) => {
+        likedPostIds.push(post._id);
+      });
+      if (likedPostIds.includes(post._id)) {
+        setStatus("like");
+      }
+      if (dislikedPostIds.includes(post._id)) {
+        setStatus("unlike");
+      }
     }
   }, [user]);
 
   useEffect(() => {
-    socket.on("post-vote", ({ status, counter, postId, userId }) => {
-      if (postId === post._id && userId === user?._id) {
-        setDisabled(false);
-        setStatus(status);
-        setLikes((likes) => (likes += counter));
-      }
-    });
+    if (post) {
+      socket.on("post-vote", ({ status, counter, postId, userId }) => {
+        if (postId === post._id && userId === user?._id) {
+          setDisabled(false);
+          setStatus(status);
+          setLikes((likes) => (likes += counter));
+        }
+      });
+    }
   }, []);
 
   const handleLike = async (e: any) => {
     if (!user) setShowModal(true);
-    else {
+    else if (post) {
       let action =
         e.target.parentNode.name ||
         e.target.parentElement.parentNode.name ||
@@ -67,6 +72,7 @@ export default function Votes({
     }
   };
 
+  if (!post) return <VotesLoading />;
   return (
     <Flex
       direction="column"
@@ -94,7 +100,7 @@ export default function Votes({
         />
       </Button>
       <Text w="max-content" textAlign="center" fontWeight="bold" fontSize={10}>
-        {post.hideVotes ? "Votes" : likes}
+        {post?.hideVotes ? "Votes" : likes}
       </Text>
       <Button
         px={0}
