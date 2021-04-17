@@ -28,7 +28,6 @@ export default function Profile({
         position="absolute"
         onClick={() => setZoomed(!zoomed)}
         zIndex={1}
-        cursor="pointer"
       ></Box>
       <Image
         src={imageSrc}

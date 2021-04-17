@@ -54,6 +54,7 @@ export default function CommunityPage({ match }: { match: any }) {
                 <CommunityPicture
                   imageSrc={community.image}
                   communityUsername={community.username}
+                  uploadButton
                   position="relative"
                   top="-25px"
                 />

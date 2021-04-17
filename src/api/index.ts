@@ -447,13 +447,14 @@ export const getCommunities = () => {
   };
 };
 
-export const updateCommunity = async (id: string, data: any) => {
+export const updateCommunity = async (username: string, data: any) => {
   try {
     const response = await axios.put(
-      `${apiUrl}/community/${id}`,
+      `${apiUrl}/community/${username}`,
       data,
       axiosOptions
     );
+    console.log(response);
     return response;
   } catch (ex) {
     return ex.response;
