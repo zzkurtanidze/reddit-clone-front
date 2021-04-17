@@ -15,7 +15,7 @@ export default function GrowCommunity({
   const history = useHistory();
 
   return (
-    <StyledBox position="relative" fontFamily="mono" my={2}>
+    <StyledBox position="relative" fontFamily="mono" mb={2}>
       <Text fontSize={22} fontWeight="medium">
         Grow your community
       </Text>
