@@ -34,7 +34,7 @@ export default function CommunityDescription({
   }, [value]);
 
   const handleSave = async () => {
-    const response = await updateCommunity(community._id, {
+    const response = await updateCommunity(community.username, {
       description: value,
     });
     if (response.statusText === "OK") {
