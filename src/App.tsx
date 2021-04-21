@@ -18,7 +18,7 @@ import PasswordResetPage from "./pages/password-reset";
 import UserSettingsPage from "./pages/user/user-settings";
 import SubredditsPage from "@pages/subreddits";
 import ModeratorsPage from "@pages/community/moderators";
-import SubredditDirectoryPage from "@pages/subreddits/directory";
+import SubredditDictionaryPage from "@pages/subreddits/directory";
 import ModToolsPage from "@pages/community/modtools";
 
 const theme = extendTheme({
@@ -49,7 +49,7 @@ export default function App() {
           <Route path="/subreddits/trending" component={SubredditsPage} />
           <Route
             path="/subreddits/:letter"
-            component={SubredditDirectoryPage}
+            component={SubredditDictionaryPage}
           />
           <Route path="/resetpassword/:token" component={PasswordResetPage} />
           <Route path="/r/:name/about/:tabname" component={ModToolsPage} />

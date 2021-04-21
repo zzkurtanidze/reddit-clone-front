@@ -1,5 +1,5 @@
 //@ts-ignore
-import { getCommunityByLetter } from "@api/";
+import { getCommunities, getCommunityByLetter } from "@api/";
 import { Divider, Flex, Grid, Text } from "@chakra-ui/layout";
 import Container from "@components/common/Container";
 import StyledBox from "@components/common/StyledBox";
@@ -9,8 +9,8 @@ import { CommunityType } from "@types/";
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function SubredditDirectoryPage({ match }: { match: any }) {
-  const letter = match.params.letter;
+export default function SubredditDictionaryPage({ match }: { match: any }) {
+  const currentLetter = match.params.letter;
   const alphabet = [
     "A",
     "B",
@@ -40,33 +40,67 @@ export default function SubredditDirectoryPage({ match }: { match: any }) {
     "Z",
     "#",
   ];
-  const { communities } = getCommunityByLetter(letter);
+  let communities;
+  if (currentLetter !== "all") {
+    let response = getCommunityByLetter(currentLetter);
+    communities = response.communities;
+  } else {
+    let response = getCommunities();
+    communities = response.communities;
+  }
 
   return (
     <>
-      <Container w="100%" h="100%" mx={0} bg="white" my={0} py="5%" px="17%">
+      <Container
+        w="100%"
+        h="100%"
+        mx={0}
+        bg="white"
+        my={0}
+        py="2%"
+        mt="50px"
+        px="17%"
+      >
         <Text fontFamily="mono" fontWeight="medium" fontSize={24}>
           Community Directory
         </Text>
         <Flex
           gridGap={1}
-          color="blue.400"
           fontSize={15}
-          fontWeight="semibold"
+          fontWeight="medium"
           flexWrap="wrap"
+          fontFamily="mono"
         >
           {alphabet.map((letter: string) => (
-            <Link to={`/subreddits/${letter.toLowerCase()}`}>{letter}</Link>
+            <Text
+              color={
+                letter.toLowerCase() === currentLetter.toLowerCase()
+                  ? "black"
+                  : "blue.500"
+              }
+              _hover={{
+                color:
+                  letter.toLowerCase() !== currentLetter.toLowerCase() &&
+                  "blue.300",
+              }}
+            >
+              {letter !== "#" ? (
+                <Link to={`/subreddits/${letter.toLowerCase()}`}>{letter}</Link>
+              ) : (
+                <Link to={`/subreddits/all`}>#</Link>
+              )}
+            </Text>
           ))}
         </Flex>
       </Container>
       <Container my="2%" fontFamily="mono" fontWeight="medium">
         <StyledBox>
           <Text mb="1rem">
-            Browse communities starting with '{letter.toUpperCase()}'
+            Browse communities starting with '
+            {currentLetter === "all" ? "#" : currentLetter.toUpperCase()}'
           </Text>
           <Divider />
-          {communities && communities.length > 1 ? (
+          {communities && communities.length > 0 ? (
             <Grid mt={5} gridTemplateColumns="1fr 1fr 1fr 1fr">
               {communities.map((community: CommunityType) => (
                 <Text color="blue.600">
