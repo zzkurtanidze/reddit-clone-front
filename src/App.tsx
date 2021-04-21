@@ -17,7 +17,9 @@ import CommunityPage from "./pages/community";
 import PasswordResetPage from "./pages/password-reset";
 import UserSettingsPage from "./pages/user/user-settings";
 import SubredditsPage from "@pages/subreddits";
-import SubredditDictionaryPage from "@pages/subreddits/dictionary";
+import ModeratorsPage from "@pages/community/moderators";
+import SubredditDictionaryPage from "@pages/subreddits/directory";
+import ModToolsPage from "@pages/community/modtools";
 
 const theme = extendTheme({
   fonts: {
@@ -50,6 +52,8 @@ export default function App() {
             component={SubredditDictionaryPage}
           />
           <Route path="/resetpassword/:token" component={PasswordResetPage} />
+          <Route path="/r/:name/about/:tabname" component={ModToolsPage} />
+          <Route path="/r/:name/about/moderators" component={ModeratorsPage} />
           <Route path="/r/:name" component={CommunityPage} />
           <Route path="/user/:username" component={UserPage} />
           <Route path="/post/:id" component={PostPage} />

@@ -24,12 +24,14 @@ export default function PostTeaser({ post }: { post: PostType }) {
   return (
     <StyledBox
       _hover={{ border: "1px solid #898989 " }}
+      w="100%"
       display="flex"
       mb="20px"
       pl="0"
       pt="0"
       pb="0"
       position="relative"
+      cursor="pointer"
     >
       <Box bg="#F8F9FA" px="7px" pt="10px" zIndex={2} position="relative">
         <Votes user={user} post={post} />

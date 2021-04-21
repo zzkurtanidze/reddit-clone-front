@@ -4,11 +4,12 @@ import React from "react";
 import { PostType } from "../../types";
 
 import { Link } from "react-router-dom";
+import Date from "./Date";
 
 export default function PostedBy({ post }: { post: PostType }) {
   return (
-    <Flex fontSize={12}>
-      {post.postedTo && post.postedBy && (
+    <Flex fontSize={12} gridGap={1}>
+      {post.postedTo && post.postedBy && post.date && (
         <>
           <Link to={`/r/${post.postedTo.username}`}>
             <Text fontWeight="bold" display="flex" gridGap={1}>
@@ -20,7 +21,10 @@ export default function PostedBy({ post }: { post: PostType }) {
               r/{post.postedTo.username}
             </Text>
           </Link>
-          <Text color="gray.500" ml="10px">
+          <Text color="gray.500" fontWeight="light">
+            •
+          </Text>
+          <Text color="gray.500">
             Posted By{" "}
             <Link to={`/user/${post.postedBy.username}`}>
               {post.postedBy.displayName
@@ -28,6 +32,7 @@ export default function PostedBy({ post }: { post: PostType }) {
                 : post.postedBy.username}
             </Link>
           </Text>
+          <Date post={post} />
         </>
       )}
     </Flex>

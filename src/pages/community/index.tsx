@@ -14,12 +14,16 @@ import Loading from "@components/common/Loading";
 import FixedElement from "@components/common/FixedElement";
 import { Link } from "react-router-dom";
 import ErrorPage from "@pages/error";
+import Moderators from "@components/community/common/Moderators";
+import { getRoleInCommunity } from "@api/";
+import GrowCommunity from "@components/community/common/GrowCommunity";
 
 export default function CommunityPage({ match }: { match: any }) {
   const [joined, setJoined] = useState<boolean>(false);
   const name: string = match.params.name;
   const user: UserType | undefined = useContext(UserContext);
   const { community, isLoading, error } = getCommunity(name);
+  const { role } = getRoleInCommunity(name);
 
   useEffect(() => {
     if (community) document.title = `r/${community?.name}`;
@@ -31,6 +35,10 @@ export default function CommunityPage({ match }: { match: any }) {
       });
     }
   }, [user, community]);
+
+  useEffect(() => {
+    console.log(role);
+  }, [role]);
 
   if (error) return <ErrorPage />;
   if (isLoading) return <Loading />;
@@ -46,6 +54,7 @@ export default function CommunityPage({ match }: { match: any }) {
                 <CommunityPicture
                   imageSrc={community.image}
                   communityUsername={community.username}
+                  uploadButton
                   position="relative"
                   top="-25px"
                 />
@@ -95,6 +104,9 @@ export default function CommunityPage({ match }: { match: any }) {
             <Container my={-10}>
               <Grid gridTemplateColumns="1fr 0.5fr" gridGap={3}>
                 <Box>
+                  {role === "admin" && community.posts.length < 1 && (
+                    <GrowCommunity communityUsername={community.username} />
+                  )}
                   {joined && <NewPostTeaser community={community.username} />}
                   {community.posts.length >= 1 ? (
                     community.posts.map((post) => <PostTeaser post={post} />)
@@ -113,6 +125,11 @@ export default function CommunityPage({ match }: { match: any }) {
                 <Box w="300px">
                   <FixedElement>
                     <CommunityInfo community={community} />
+                    <br />
+                    <Moderators
+                      moderators={community.moderators}
+                      communityUsername={community.username}
+                    />
                   </FixedElement>
                 </Box>
               </Grid>

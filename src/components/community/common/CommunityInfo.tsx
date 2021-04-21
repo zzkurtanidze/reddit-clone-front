@@ -1,5 +1,13 @@
 //@ts-nocheck
-import { Box, Divider, Flex, Grid, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Grid,
+  Text,
+  Textarea,
+} from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { CommunityType } from "../../../types";
 import StyledBox from "../../common/StyledBox";
@@ -9,8 +17,11 @@ import { UserContext } from "../../../context/UserContext";
 
 import { FaUserCircle } from "react-icons/fa";
 import { RiCake2Fill } from "react-icons/ri";
+import { MdEdit } from "react-icons/md";
 
 import { Link } from "react-router-dom";
+import { getRoleInCommunity } from "@api/";
+import CommunityDescription from "./CommunityDescription";
 
 export default function CommunityInfo({
   community,
@@ -19,6 +30,8 @@ export default function CommunityInfo({
 }) {
   const [joined, setJoined] = useState<boolean>(false);
   const user = useContext(UserContext);
+  const { role } = getRoleInCommunity(community.username);
+  const [editMode, setEditMode] = useState<boolean>(false);
 
   useEffect(() => {
     if (user?.joined) {
@@ -32,13 +45,35 @@ export default function CommunityInfo({
 
   return (
     <StyledBox p={0} h="max-content">
-      <Box bg="gray.800" w="100%" p="15px" py="17px">
-        <Text color="white" fontSize={12}>
-          ABOUT COMMUNITY
+      <Flex
+        justifyContent="space-between"
+        bg="blue.500"
+        w="100%"
+        px="15px"
+        py="13px"
+      >
+        <Text color="white" fontWeight="bold" fontSize={12}>
+          About Community
         </Text>
-      </Box>
+        {role === "admin" && (
+          <Button
+            p="2px"
+            h="max-content"
+            fontSize={12}
+            bg="transparent"
+            _hover={{}}
+            _focus={{}}
+            _active={{}}
+            color="white"
+            textTransform="uppercase"
+            fontFamily="mono"
+          >
+            <Link to={`/r/${community.username}/about/modqueue`}>Mod Tool</Link>
+          </Button>
+        )}
+      </Flex>
       <Box p="15px">
-        <Text>{community.description}</Text>
+        <CommunityDescription role={role} community={community} />
         <Box mt="20px" fontFamily="mono" fontWeight="bold">
           <Text>{community.membersCount}</Text>
           <Text fontSize={12}>Members</Text>

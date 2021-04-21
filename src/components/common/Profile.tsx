@@ -18,9 +18,9 @@ export default function Profile({
     <Box
       w={width}
       h={width}
+      border={numWidth <= 70 ? "0" : `${numWidth / 15}px solid white`}
       borderRadius="50%"
       overflow="hidden"
-      boxShadow={numWidth <= 70 ? "0" : "0 0 10px rgba(0,0,0,.35)"}
     >
       <Box
         w={width}
@@ -28,7 +28,6 @@ export default function Profile({
         position="absolute"
         onClick={() => setZoomed(!zoomed)}
         zIndex={1}
-        cursor="pointer"
       ></Box>
       <Image
         src={imageSrc}

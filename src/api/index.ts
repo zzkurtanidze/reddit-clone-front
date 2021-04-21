@@ -71,6 +71,30 @@ export function getPosts() {
   };
 }
 
+export function getPostsByCommunity(communityUsername: string) {
+  const { data, error } = useSWR(
+    `${apiUrl}/posts/community/${communityUsername}`
+  );
+
+  return {
+    posts: data,
+    isLoading: !error && !data,
+    error,
+  };
+}
+
+export const removePostById = async (postId: string) => {
+  try {
+    const response = await axios.delete(
+      `${apiUrl}/posts/${postId}`,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 /**
  *
  * @param id
@@ -423,6 +447,20 @@ export const getCommunities = () => {
   };
 };
 
+export const updateCommunity = async (username: string, data: any) => {
+  try {
+    const response = await axios.put(
+      `${apiUrl}/community/${username}`,
+      data,
+      axiosOptions
+    );
+    console.log(response);
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 /**
  *
  * @param limit
@@ -481,6 +519,19 @@ export const joinCommunity = async (id: string) => {
     return ex.reponse;
   }
 };
+
+export function getRoleInCommunity(communityUsername: string) {
+  const { data, error } = useSWR(
+    `${apiUrl}/community/role/${communityUsername}`,
+    fetcher
+  );
+
+  return {
+    role: data,
+    isLoading: !data && !error,
+    error,
+  };
+}
 
 export function getCommunityByLetter(letter: string) {
   const { data, error } = useSWR(
