@@ -18,7 +18,7 @@ import PasswordResetPage from "./pages/password-reset";
 import UserSettingsPage from "./pages/user/user-settings";
 import SubredditsPage from "@pages/subreddits";
 import ModeratorsPage from "@pages/community/moderators";
-import SubredditDictionaryPage from "@pages/subreddits/directory";
+import SubredditDictionaryPage from "@pages/subreddits/dictionary";
 import ModToolsPage from "@pages/community/modtools";
 
 const theme = extendTheme({
