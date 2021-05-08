@@ -1,17 +1,13 @@
 import { Box, Image } from "@chakra-ui/react";
-import React, { useState } from "react";
-import ZoomImage from "./ZoomImage";
+import React from "react";
 
 export default function Profile({
   width = "200px",
   imageSrc,
-  isZoomable = true,
 }: {
   width?: string;
   imageSrc: string;
-  isZoomable?: boolean;
 }) {
-  const [zoomed, setZoomed] = useState<boolean>(false);
   const numWidth = parseInt(width.slice(0, width.length - 2));
 
   return (
@@ -22,13 +18,7 @@ export default function Profile({
       borderRadius="50%"
       overflow="hidden"
     >
-      <Box
-        w={width}
-        h={width}
-        position="absolute"
-        onClick={() => setZoomed(!zoomed)}
-        zIndex={1}
-      ></Box>
+      <Box w={width} h={width} position="absolute" zIndex={1}></Box>
       <Image
         src={imageSrc}
         w={width}
@@ -37,9 +27,6 @@ export default function Profile({
         className="user-image"
         objectFit="cover"
       />
-      {isZoomable && zoomed && (
-        <ZoomImage src={imageSrc} onClose={() => setZoomed(!zoomed)} />
-      )}
     </Box>
   );
 }

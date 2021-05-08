@@ -104,7 +104,11 @@ export default function NavBar() {
               <FaUserCircle />
             ) : (
               <Box position="relative">
-                <Image src={user.image} w={6} borderRadius={4} />
+                <Image
+                  src={user.image || "http://localhost:4000/static/avatar.png"}
+                  w={6}
+                  borderRadius={4}
+                />
                 <Box
                   w={3}
                   h={3}

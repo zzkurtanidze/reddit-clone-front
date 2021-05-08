@@ -20,7 +20,7 @@ export default function NewPostTeaser({
   return user ? (
     <StyledBox mb={5} display="flex" gridGap={2} alignItems="center">
       <Box w="max-content">
-        <UserPicture width="40px" isZoomable={false} image={user?.image} />
+        <UserPicture width="40px" image={user?.image} />
       </Box>
       <Input
         type="text"
