@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { RiMessage2Fill } from "react-icons/ri";
@@ -9,7 +9,7 @@ import Loading from "@components/common/Loading";
 import TabButton from "@components/common/TabButton";
 import PostTeaser from "@components/posts/PostTeaser";
 import UserDetails from "@components/user/UserDetails";
-import { PostType, UserType } from "@types";
+import { PostType } from "@types";
 
 export default function UserPage({ match }: { match: any }) {
   const username = match.params.username;
@@ -41,75 +41,17 @@ export default function UserPage({ match }: { match: any }) {
 
   if (isLoading) return <Loading />;
   return (
-    <Box>
-      {user && (
-        <>
-          <UserDetails user={user} id={user._id} />
-          {user.likedPosts && (
-            <Container my={0}>
-              <Flex>
-                <TabButton
-                  selected={selectedTab === "liked"}
-                  label="Liked Posts"
-                  icon={<AiOutlineLike size={20} />}
-                  onClick={() => selectTab("liked")}
-                />
-                <TabButton
-                  selected={selectedTab === "disliked"}
-                  label="Disliked Posts"
-                  icon={<AiOutlineDislike size={20} />}
-                  onClick={() => selectTab("disliked")}
-                />
-                <TabButton
-                  selected={selectedTab === "posted"}
-                  label="Posted"
-                  icon={<RiMessage2Fill size={20} />}
-                  onClick={() => selectTab("posted")}
-                />
-              </Flex>
-              <Box m="auto" my={5} w="80%">
-                {selectedTab === "liked" && likedPosts.length >= 1
-                  ? likedPosts.map((post) => <PostTeaser post={post} />)
-                  : selectedTab === "liked" && (
-                      <Text
-                        textAlign="center"
-                        mt={10}
-                        fontWeight="bold"
-                        fontSize={28}
-                        fontFamily="mono"
-                      >
-                        No posts liked yet
-                      </Text>
-                    )}
-                {selectedTab === "disliked" && dislikedPosts.length >= 1
-                  ? dislikedPosts.map((post) => <PostTeaser post={post} />)
-                  : selectedTab === "disliked" && (
-                      <Text
-                        textAlign="center"
-                        mt={10}
-                        fontWeight="bold"
-                        fontSize={28}
-                        fontFamily="mono"
-                      >
-                        No posts disliked yet
-                      </Text>
-                    )}
-                {selectedTab === "posted" && (
-                  <Text
-                    textAlign="center"
-                    mt={10}
-                    fontWeight="bold"
-                    fontSize={28}
-                    fontFamily="mono"
-                  >
-                    Nothing posted yet.
-                  </Text>
-                )}
-              </Box>
-            </Container>
-          )}
-        </>
-      )}
-    </Box>
+    <Container>
+      <Grid gridGap={5} mt="60px" gridTemplateColumns="1fr 0.4fr">
+        {user && (
+          <>
+            <Text>testing</Text>
+            <Box>
+              <UserDetails user={user} id={user._id} />
+            </Box>
+          </>
+        )}
+      </Grid>
+    </Container>
   );
 }
