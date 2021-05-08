@@ -15,15 +15,21 @@ export default function Cover({ coverImage }: { coverImage: string }) {
         zIndex={1}
         cursor="pointer"
       ></Box>
-      <Image
-        src={coverImage ? coverImage : "http://localhost:4000/static/123.jpg"}
-        alt="profile-cover"
-        w="100vw"
-        h="220px"
-        zIndex={-5}
-        objectFit="cover"
-        className="user-image"
-      />
+      <Box w="99vw" h="220px">
+        {coverImage ? (
+          <Image
+            src={coverImage}
+            alt="profile-cover"
+            w="100%"
+            h="100%"
+            zIndex={-5}
+            objectFit="cover"
+            className="user-image"
+          />
+        ) : (
+          <Box w="100%" h="100%" zIndex={-5} backgroundColor="#0079D3"></Box>
+        )}
+      </Box>
       {zoomed && (
         <ZoomImage src={coverImage} onClose={() => setZoomed(!zoomed)} />
       )}
