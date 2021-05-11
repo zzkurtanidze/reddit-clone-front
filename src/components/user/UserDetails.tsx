@@ -1,28 +1,13 @@
 //@ts-nocheck
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Image,
-  Text,
-  useToast,
-} from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import { Box, Button, Divider, Flex, Text } from "@chakra-ui/react";
+import React from "react";
 import { UserType } from "../../types";
-import Container from "../common/Container";
-import Following from "./user-modals/Following";
-import Followers from "./user-modals/Followers";
-import { followUser } from "../../api";
-import { UserContext } from "../../context/UserContext";
-import UserPicture from "./common/UserPicture";
-import UserPictureButton from "./common/UserPictureButton";
-import UserCover from "./common/UserCover";
-import UserCoverButton from "./common/UserCoverButton";
 import StyledBox from "@components/common/StyledBox";
 import { FaUser } from "react-icons/fa";
 import { IoIosSettings } from "react-icons/io";
 import { useHistory } from "react-router";
+import PrimaryButton from "@components/common/PrimaryButton";
+import ChangePicture from "./common/ChangePicture";
 
 export default function UserDetails({
   user,
@@ -31,54 +16,24 @@ export default function UserDetails({
   user: UserType;
   id: string;
 }) {
-  const [showFollowingModal, setShowFollowingModal] = useState<boolean>(false);
-  const [showFollowersModal, setShowFollowersModal] = useState<boolean>(false);
-  const [followed, setFollowed] = useState<boolean | undefined>(undefined);
-  const loggedUser = useContext(UserContext);
-  const toast = useToast();
   const history = useHistory();
-
-  useEffect(() => {
-    for (var i = 0; i < loggedUser?.following?.length; i++) {
-      if (loggedUser?.following[i]?._id === id) {
-        setFollowed(true);
-        break;
-      }
-    }
-  }, [loggedUser]);
-
-  const handleFollow = async () => {
-    const response = await followUser(id);
-    if (response.statusText === "OK") {
-      if (response.data === "follow") {
-        setFollowed(true);
-      } else {
-        setFollowed(false);
-      }
-    } else if (response.data === "unfollow") {
-      setFollowed(false);
-    } else {
-      toast({
-        title: response.data,
-        isClosable: true,
-      });
-    }
-  };
 
   return (
     <StyledBox p={0} position="relative">
-      <Image src={user.coverImage} h="100px" objectFit="cover" />
-      <Image
-        src={user.image || "http://localhost:4000/static/avatar.png"}
-        w="85px"
-        h="85px"
-        objectFit="cover"
-        border="4px"
-        borderColor="white"
-        position="relative"
-        marginTop="-55px"
+      <ChangePicture
+        image={user.coverImage}
+        maxW="325px"
+        name="coverImage"
+        h="100px"
+        border="0"
+      />
+      <ChangePicture
+        image={user.image || "http://localhost:4000/static/avatar.png"}
+        name="image"
+        top="-45px"
         left="10px"
-        borderRadius={5}
+        maxW="100px"
+        maxH="100px"
       />
       <Button
         bg="none"
@@ -112,6 +67,13 @@ export default function UserDetails({
             {user.followers.length}
           </Text>
         </Flex>
+        <PrimaryButton
+          label="New Post"
+          borderRadius={50}
+          w="100%"
+          my={4}
+          onClick={() => history.push("/submit/")}
+        />
       </Box>
     </StyledBox>
   );

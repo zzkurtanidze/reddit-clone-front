@@ -1,19 +1,23 @@
 import { Button } from "@chakra-ui/button";
-import { Box } from "@chakra-ui/layout";
+import { Image } from "@chakra-ui/image";
+import { Input } from "@chakra-ui/input";
+import { Box, Text } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
 import React, { useCallback, useState } from "react";
 import { Cropper } from "react-cropper";
+import { FaEdit } from "react-icons/fa";
 import { updateUser, uploadImage } from "../../../api";
 import Modal from "../../Modal";
-import ChangePicture from "../user-modals/ChangePicture";
 var toBlob = require("canvas-to-blob");
 
-export default function ChangeUserPicture({
-  showProfileChangeModal,
-  setShowProfileChangeModal,
+export default function ChangePicture({
+  image,
+  name,
+  ...rest
 }: {
-  showProfileChangeModal: boolean;
-  setShowProfileChangeModal: Function;
+  image: string;
+  name: string;
+  [x: string]: any;
 }) {
   const [showCropper, setShowCropper] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
@@ -21,24 +25,14 @@ export default function ChangeUserPicture({
 
   const toast = useToast();
 
-  const onDrop = useCallback(async (acceptedFiles: any) => {
+  const onDrop = useCallback(async (e: any) => {
+    const file = e.target.files[0];
     const data = new FormData();
-    data.append("photo", acceptedFiles[0]);
+    data.append("photo", file);
     const response = await uploadImage(data);
     if (response.statusText === "OK") {
-      const image = new Image();
-      image.src = response.data;
-      image.onload = async function () {
-        if (image.width - image.height < 100) {
-          await updateUser({ image: response.data });
-          window.location.reload();
-        } else {
-          setShowCropper(true);
-          if (setImageUrl) {
-            setImageUrl(response.data);
-          }
-        }
-      };
+      await updateUser({ [name]: response.data });
+      window.location.reload();
     } else {
       toast({
         title: "Can not upload image",
@@ -67,13 +61,30 @@ export default function ChangeUserPicture({
 
   return (
     <>
-      {showProfileChangeModal && (
-        <ChangePicture
-          open={showProfileChangeModal}
-          onClose={() => setShowProfileChangeModal(false)}
-          onDrop={onDrop}
-        />
-      )}
+      <Box
+        w="max-content"
+        position="relative"
+        borderRadius="5px"
+        border="5px solid white"
+        {...rest}
+      >
+        <Image src={image} w="100%" h="100%" objectFit="cover" />
+        <Input type="file" display="none" id="file-input" onChange={onDrop} />
+        <label htmlFor="file-input">
+          <Text
+            position="absolute"
+            cursor="pointer"
+            bottom="7px"
+            right="7px"
+            p="10px"
+            bg="white"
+            border="1px solid #0079D3"
+            borderRadius={50}
+          >
+            <FaEdit color="#0079D3" />
+          </Text>
+        </label>
+      </Box>
       {showCropper && (
         <Modal open={showCropper} onClose={() => setShowCropper(false)}>
           <Box mt={10}>
