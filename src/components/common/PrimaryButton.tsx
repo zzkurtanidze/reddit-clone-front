@@ -28,9 +28,11 @@ export default function PrimaryButton({
         borderRadius={5}
         bg={bg}
         color={color}
-        _hover={{}}
-        _active={{}}
+        _hover={{ background: "#0094ff" }}
+        _active={{ background: "#006bb7" }}
+        _focus={{}}
         onClick={onClick}
+        transition="0"
         gridGap={2}
         {...rest}
       >
