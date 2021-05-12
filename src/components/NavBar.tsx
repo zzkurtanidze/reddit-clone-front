@@ -105,7 +105,7 @@ export default function NavBar() {
             ) : (
               <Box position="relative">
                 <Image
-                  src={user.image || "http://localhost:4000/static/avatar.png"}
+                  src={user.image || "http://localhost:4000/assets/avatar.png"}
                   w={6}
                   borderRadius={4}
                 />

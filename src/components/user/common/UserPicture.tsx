@@ -8,7 +8,7 @@ export default function UserPicture({
   image: string | undefined;
   width?: string;
 }) {
-  const imageSrc = image ? image : "http://localhost:4000/static/avatar.png";
+  const imageSrc = image ? image : "http://localhost:4000/assets/avatar.png";
 
   return <Profile imageSrc={imageSrc} width={width} />;
 }
