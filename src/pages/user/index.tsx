@@ -1,15 +1,13 @@
 //@ts-nocheck
-import { Box, Flex, Grid, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
-import { RiMessage2Fill } from "react-icons/ri";
+import { Box, Grid, Text } from "@chakra-ui/react";
+import React, { useContext, useEffect, useState } from "react";
 import { getUser } from "@api";
 import Container from "@components/common/Container";
 import Loading from "@components/common/Loading";
-import TabButton from "@components/common/TabButton";
-import PostTeaser from "@components/posts/PostTeaser";
 import UserDetails from "@components/user/UserDetails";
 import { PostType } from "@types";
+import { getUserRole } from "@api/";
+import { UserRoleContext } from "@context/UserRoleContext";
 
 export default function UserPage({ match }: { match: any }) {
   const username = match.params.username;
@@ -17,6 +15,7 @@ export default function UserPage({ match }: { match: any }) {
   const [likedPosts, setLikedPosts] = useState<PostType[]>([]);
   const [dislikedPosts, setDislikedPosts] = useState<PostType[]>([]);
   const [selectedTab, setSelectedTab] = useState<string>("liked");
+  const role = getUserRole(username);
 
   useEffect(() => {
     if (user) document.title = `u/${user.username}`;
@@ -34,24 +33,25 @@ export default function UserPage({ match }: { match: any }) {
     }
   };
 
-  const selectTab = (tabName: string) => {
-    setSelectedTab(tabName);
-    fetchUser();
-  };
-
   if (isLoading) return <Loading />;
   return (
-    <Container>
-      <Grid gridGap={5} mt="60px" gridTemplateColumns="1fr 0.4fr">
+    <UserRoleContext.Provider value={role}>
+      <Box mt="60px" px="17%" py={2} w="100vw" h="40px" bg="white">
+        ahaha
+      </Box>
+      <Container my={7}>
         {user && (
-          <>
-            <Text>testing</Text>
+          <Grid gridGap={5} gridTemplateColumns="1fr 0.4fr">
+            <Box>
+              {user.posts && user.posts.map((post) => <Box>{post.title} </Box>)}
+              <Text>testing</Text>
+            </Box>
             <Box>
               <UserDetails user={user} id={user._id} />
             </Box>
-          </>
+          </Grid>
         )}
-      </Grid>
-    </Container>
+      </Container>
+    </UserRoleContext.Provider>
   );
 }

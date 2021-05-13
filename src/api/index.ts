@@ -283,6 +283,20 @@ export function getUser(username = undefined) {
 
 /**
  *
+ * @param id
+ * @returns
+ */
+export const getUserRole = (username?: string) => {
+  const { data, error } = useSWR(`${apiUrl}/users/role/${username}`, fetcher);
+
+  return {
+    role: data,
+    error,
+  };
+};
+
+/**
+ *
  * @param user - User Credentials
  *
  * {

@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { Box, Button, Divider, Flex, Grid, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserType } from "../../types";
 import StyledBox from "@components/common/StyledBox";
 import { FaUser } from "react-icons/fa";
@@ -9,6 +9,7 @@ import { useHistory } from "react-router";
 import PrimaryButton from "@components/common/PrimaryButton";
 import ChangePicture from "./common/ChangePicture";
 import { MdCake } from "react-icons/md";
+import { UserRoleContext } from "@context/UserRoleContext";
 
 export default function UserDetails({
   user,
@@ -19,6 +20,7 @@ export default function UserDetails({
 }) {
   const history = useHistory();
   const [cakeDay, setCakeDay] = useState();
+  const { role } = useContext(UserRoleContext);
 
   useEffect(() => {
     const timestamp = user.cakeDay * 1000;
@@ -30,6 +32,8 @@ export default function UserDetails({
     });
     const year = date.toLocaleString("en-US", { year: "numeric" });
     setCakeDay(month + ", " + year);
+
+    console.log(role);
   }, []);
 
   return (
@@ -44,23 +48,25 @@ export default function UserDetails({
       <ChangePicture
         image={user.image || "http://localhost:4000/assets/avatar.png"}
         name="image"
-        top="-45px"
-        left="10px"
+        marginTop="-45px"
+        marginLeft="10px"
         maxW="100px"
         maxH="100px"
       />
-      <Button
-        bg="none"
-        _hover={{}}
-        _active={{}}
-        _focus={{}}
-        position="absolute"
-        right="0px"
-        top="100px"
-        onClick={() => history.push("/settings/account")}
-      >
-        <IoIosSettings color="#0079D3" size={22} />
-      </Button>
+      {role === "admin" && (
+        <Button
+          bg="none"
+          _hover={{}}
+          _active={{}}
+          _focus={{}}
+          position="absolute"
+          right="0px"
+          top="100px"
+          onClick={() => history.push("/settings/account")}
+        >
+          <IoIosSettings color="#0079D3" size={22} />
+        </Button>
+      )}
       <Box fontFamily="mono" py={2} px="10px">
         <Text fontSize={19} fontWeight="medium">
           {user.displayName}
@@ -96,13 +102,23 @@ export default function UserDetails({
             </Flex>
           </Box>
         </Grid>
-        <PrimaryButton
-          label="New Post"
-          borderRadius={50}
-          w="100%"
-          my={4}
-          onClick={() => history.push("/submit/")}
-        />
+        {role === "admin" ? (
+          <PrimaryButton
+            label="New Post"
+            borderRadius={50}
+            w="100%"
+            my={4}
+            onClick={() => history.push("/submit/")}
+          />
+        ) : (
+          <PrimaryButton
+            label="Follow"
+            borderRadius={50}
+            w="100%"
+            my={4}
+            onClick={() => console.log("Followed")}
+          />
+        )}
       </Box>
     </StyledBox>
   );

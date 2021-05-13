@@ -3,7 +3,8 @@ import { Image } from "@chakra-ui/image";
 import { Input } from "@chakra-ui/input";
 import { Box, Text } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
-import React, { useCallback, useState } from "react";
+import { UserRoleContext } from "@context/UserRoleContext";
+import React, { useCallback, useContext, useState } from "react";
 import { Cropper } from "react-cropper";
 import { FaEdit } from "react-icons/fa";
 import { updateUser, uploadImage } from "../../../api";
@@ -22,6 +23,7 @@ export default function ChangePicture({
   const [showCropper, setShowCropper] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [cropper, setCropper] = useState<any>();
+  const { role } = useContext(UserRoleContext);
 
   const toast = useToast();
 
@@ -69,21 +71,30 @@ export default function ChangePicture({
         {...rest}
       >
         <Image src={image} w="100%" h="100%" objectFit="cover" />
-        <Input type="file" display="none" id="file-input" onChange={onDrop} />
-        <label htmlFor="file-input">
-          <Text
-            position="absolute"
-            cursor="pointer"
-            bottom="7px"
-            right="7px"
-            p="10px"
-            bg="white"
-            border="1px solid #0079D3"
-            borderRadius={50}
-          >
-            <FaEdit color="#0079D3" />
-          </Text>
-        </label>
+        {role === "admin" && (
+          <>
+            <Input
+              type="file"
+              display="none"
+              id="file-input"
+              onChange={onDrop}
+            />
+            <label htmlFor="file-input">
+              <Text
+                position="absolute"
+                cursor="pointer"
+                bottom="7px"
+                right="7px"
+                p="10px"
+                bg="white"
+                border="1px solid #0079D3"
+                borderRadius={50}
+              >
+                <FaEdit color="#0079D3" />
+              </Text>
+            </label>
+          </>
+        )}
       </Box>
       {showCropper && (
         <Modal open={showCropper} onClose={() => setShowCropper(false)}>
