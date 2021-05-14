@@ -1,5 +1,13 @@
 //@ts-nocheck
-import { Box, Button, Divider, Flex, Grid, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Grid,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { UserType } from "../../types";
 import StyledBox from "@components/common/StyledBox";
@@ -10,6 +18,9 @@ import PrimaryButton from "@components/common/PrimaryButton";
 import ChangePicture from "./common/ChangePicture";
 import { MdCake } from "react-icons/md";
 import { UserRoleContext } from "@context/UserRoleContext";
+import { followUser } from "@api/";
+import { UserContext } from "@context/UserContext";
+import SecondaryButton from "@components/common/SecondaryButton";
 
 export default function UserDetails({
   user,
@@ -19,8 +30,24 @@ export default function UserDetails({
   id: string;
 }) {
   const history = useHistory();
+  const toast = useToast();
   const [cakeDay, setCakeDay] = useState();
   const { role } = useContext(UserRoleContext);
+  const currentUser = useContext(UserContext);
+  const [followed, setFollowed] = useState(false);
+
+  useEffect(() => {
+    console.log(currentUser);
+    if (currentUser) {
+      currentUser.following.forEach((followedUser) => {
+        console.log(followedUser._id);
+        console.log(id);
+        if (followedUser._id === id) {
+          setFollowed(true);
+        }
+      });
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     const timestamp = user.cakeDay * 1000;
@@ -32,8 +59,6 @@ export default function UserDetails({
     });
     const year = date.toLocaleString("en-US", { year: "numeric" });
     setCakeDay(month + ", " + year);
-
-    console.log(role);
   }, []);
 
   return (
@@ -110,13 +135,41 @@ export default function UserDetails({
             my={4}
             onClick={() => history.push("/submit/")}
           />
-        ) : (
+        ) : !followed ? (
           <PrimaryButton
             label="Follow"
             borderRadius={50}
             w="100%"
             my={4}
-            onClick={() => console.log("Followed")}
+            onClick={async () => {
+              const response = await followUser(id);
+              if (response.statusText === "OK") {
+                toast({
+                  title: "Succesfully followed",
+                  status: "info",
+                  isClosable: true,
+                });
+                setFollowed(true);
+              }
+            }}
+          />
+        ) : (
+          <SecondaryButton
+            label="Unfollow"
+            borderRadius={50}
+            w="100%"
+            my={4}
+            onClick={async () => {
+              const response = await followUser(id);
+              if (response.statusText === "OK") {
+                toast({
+                  title: "Succesfully unfollowed",
+                  status: "info",
+                  isClosable: true,
+                });
+                setFollowed(false);
+              }
+            }}
           />
         )}
       </Box>
