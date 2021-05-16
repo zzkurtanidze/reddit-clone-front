@@ -10,6 +10,7 @@ import { UserRoleContext } from "@context/UserRoleContext";
 import { useHistory } from "react-router";
 import PostTeaser from "@components/posts/PostTeaser";
 import UserPostsTab from "./tabs/UserPostsTab";
+import UserCommentsTab from "./tabs/UserCommentsTab";
 
 export default function UserPage({ match }: { match: any }) {
   const username = match.params.username;
@@ -42,7 +43,7 @@ export default function UserPage({ match }: { match: any }) {
 
   const tabs = {
     posts: <UserPostsTab user={user} />,
-    // 'comments': <UserCommentsTab />
+    comments: <UserCommentsTab />,
   };
 
   if (isLoading) return <Loading />;
