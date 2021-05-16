@@ -15,16 +15,15 @@ import _ from "lodash";
 import { updateUser } from "@api";
 import { useToast } from "@chakra-ui/toast";
 import { Button } from "@chakra-ui/button";
-import ChangeUserPicture from "@components/user/common/ChangeUserPicture";
+import ChangeUserPicture from "@components/user/common/ChangePicture";
 import ChangeUserCover from "@components/user/common/ChangeUserCover";
+import ChangePicture from "@components/user/common/ChangePicture";
 
 export default function ProfileTab({ user }: { user: UserType }) {
-  const [showProfileChangeModal, setShowProfileChangeModal] = useState<boolean>(
-    false
-  );
-  const [showCoverChangeModal, setShowCoverChangeModal] = useState<boolean>(
-    false
-  );
+  const [showProfileChangeModal, setShowProfileChangeModal] =
+    useState<boolean>(false);
+  const [showCoverChangeModal, setShowCoverChangeModal] =
+    useState<boolean>(false);
 
   const toast = useToast();
 
@@ -97,7 +96,9 @@ export default function ProfileTab({ user }: { user: UserType }) {
           >
             <FaEdit color="#0079D3" />
           </Button>
-          <ChangeUserPicture
+          <ChangePicture
+            image={user.image}
+            name="image"
             showProfileChangeModal={showProfileChangeModal}
             setShowProfileChangeModal={setShowProfileChangeModal}
           />

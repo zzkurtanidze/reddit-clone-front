@@ -52,11 +52,11 @@ export default function CommunityPicture({
       {imageSrc && imageSrc !== "" ? (
         withLink ? (
           <Link to={`/r/${communityUsername}`}>
-            <Profile imageSrc={imageSrc} width={width} isZoomable={false} />
+            <Profile imageSrc={imageSrc} width={width} />
           </Link>
         ) : (
           <>
-            <Profile imageSrc={imageSrc} width={width} isZoomable={false} />
+            <Profile imageSrc={imageSrc} width={width} />
             {uploadButton && role === "admin" && (
               <>
                 <Input

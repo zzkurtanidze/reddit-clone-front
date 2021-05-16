@@ -4,8 +4,9 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import { Route, Switch } from "react-router-dom";
 import HomePage from "./pages/home";
-import { getUser } from "./api/index";
+import { getUser, getUserRole } from "./api/index";
 import { UserContext } from "./context/UserContext";
+import { UserRoleContext } from "./context/UserRoleContext";
 import UserPage from "./pages/user";
 import Loading from "./components/common/Loading";
 import SubmitPage from "./pages/submit";
@@ -55,6 +56,7 @@ export default function App() {
           <Route path="/r/:name/about/:tabname" component={ModToolsPage} />
           <Route path="/r/:name/about/moderators" component={ModeratorsPage} />
           <Route path="/r/:name" component={CommunityPage} />
+          <Route path="/user/:username/:tabname" component={UserPage} />
           <Route path="/user/:username" component={UserPage} />
           <Route path="/post/:id" component={PostPage} />
           <Route path="/" exact component={HomePage} />

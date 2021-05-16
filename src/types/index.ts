@@ -46,6 +46,7 @@ export type UserType = {
   joined?: [CommunityType];
   createdCommunities?: [CommunityType];
   drafts?: [NotPostedPostType];
+  posts?: [PostType];
 };
 
 export type CommunityType = {
@@ -59,6 +60,7 @@ export type CommunityType = {
   createdAt: string;
   createdBy: UserType;
   moderators: [UserType];
+  url?: string;
 };
 
 export type CategoryType = {

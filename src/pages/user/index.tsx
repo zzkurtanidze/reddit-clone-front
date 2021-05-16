@@ -1,115 +1,130 @@
 //@ts-nocheck
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
-import { RiMessage2Fill } from "react-icons/ri";
 import { getUser } from "@api";
 import Container from "@components/common/Container";
 import Loading from "@components/common/Loading";
-import TabButton from "@components/common/TabButton";
-import PostTeaser from "@components/posts/PostTeaser";
 import UserDetails from "@components/user/UserDetails";
-import { PostType, UserType } from "@types";
+import { getUserRole } from "@api/";
+import { UserRoleContext } from "@context/UserRoleContext";
+import { useHistory } from "react-router";
+import PostTeaser from "@components/posts/PostTeaser";
+import UserPostsTab from "./tabs/UserPostsTab";
+import UserCommentsTab from "./tabs/UserCommentsTab";
 
 export default function UserPage({ match }: { match: any }) {
   const username = match.params.username;
+  const tabname = match.params.tabname;
   const { user, isLoading } = getUser(username);
-  const [likedPosts, setLikedPosts] = useState<PostType[]>([]);
-  const [dislikedPosts, setDislikedPosts] = useState<PostType[]>([]);
-  const [selectedTab, setSelectedTab] = useState<string>("liked");
+  const [selectedTab, setSelectedTab] = useState<string>("");
+  const role = getUserRole(username);
+  const history = useHistory();
 
   useEffect(() => {
-    if (user) document.title = `u/${user.username}`;
-    fetchUser();
+    if (tabname) {
+      setSelectedTab(tabname);
+    } else {
+      setSelectedTab("");
+    }
+  }, [tabname]);
+
+  useEffect(() => {
+    if (user) {
+      history.push(`/user/${user.username}/${selectedTab}`);
+    }
+  }, [selectedTab, user]);
+
+  useEffect(() => {
+    if (user)
+      document.title = `${user.displayName || user.username} (u/${
+        user.username
+      }) - Reddit`;
   }, [user]);
 
-  const fetchUser = async () => {
-    if (user) {
-      if (user.likedPosts) {
-        setLikedPosts(user.likedPosts);
-      }
-      if (user.dislikedPosts) {
-        setDislikedPosts(user.dislikedPosts);
-      }
-    }
-  };
-
-  const selectTab = (tabName: string) => {
-    setSelectedTab(tabName);
-    fetchUser();
+  const tabs = {
+    posts: <UserPostsTab user={user} />,
+    comments: <UserCommentsTab />,
   };
 
   if (isLoading) return <Loading />;
   return (
-    <Box>
-      {user && (
-        <>
-          <UserDetails user={user} id={user._id} />
-          {user.likedPosts && (
-            <Container my={0}>
-              <Flex>
-                <TabButton
-                  selected={selectedTab === "liked"}
-                  label="Liked Posts"
-                  icon={<AiOutlineLike size={20} />}
-                  onClick={() => selectTab("liked")}
-                />
-                <TabButton
-                  selected={selectedTab === "disliked"}
-                  label="Disliked Posts"
-                  icon={<AiOutlineDislike size={20} />}
-                  onClick={() => selectTab("disliked")}
-                />
-                <TabButton
-                  selected={selectedTab === "posted"}
-                  label="Posted"
-                  icon={<RiMessage2Fill size={20} />}
-                  onClick={() => selectTab("posted")}
-                />
-              </Flex>
-              <Box m="auto" my={5} w="80%">
-                {selectedTab === "liked" && likedPosts.length >= 1
-                  ? likedPosts.map((post) => <PostTeaser post={post} />)
-                  : selectedTab === "liked" && (
-                      <Text
-                        textAlign="center"
-                        mt={10}
-                        fontWeight="bold"
-                        fontSize={28}
-                        fontFamily="mono"
-                      >
-                        No posts liked yet
-                      </Text>
-                    )}
-                {selectedTab === "disliked" && dislikedPosts.length >= 1
-                  ? dislikedPosts.map((post) => <PostTeaser post={post} />)
-                  : selectedTab === "disliked" && (
-                      <Text
-                        textAlign="center"
-                        mt={10}
-                        fontWeight="bold"
-                        fontSize={28}
-                        fontFamily="mono"
-                      >
-                        No posts disliked yet
-                      </Text>
-                    )}
-                {selectedTab === "posted" && (
-                  <Text
-                    textAlign="center"
-                    mt={10}
-                    fontWeight="bold"
-                    fontSize={28}
-                    fontFamily="mono"
-                  >
-                    Nothing posted yet.
-                  </Text>
-                )}
+    <UserRoleContext.Provider value={role}>
+      <Flex
+        mt="60px"
+        px={selectedTab === "" ? "17%" : "1%"}
+        w="100vw"
+        h="40px"
+        bg="white"
+      >
+        <TabButton
+          label="OVERVIEW"
+          onClick={() => setSelectedTab("")}
+          selected={selectedTab === ""}
+        />
+        <TabButton
+          label="POSTS"
+          onClick={() => setSelectedTab("posts")}
+          selected={selectedTab === "posts"}
+        />
+        <TabButton
+          label="COMMENTS"
+          onClick={() => setSelectedTab("comments")}
+          selected={selectedTab === "comments"}
+        />
+      </Flex>
+      <Container mx={selectedTab === "" ? "17%" : "1%"} my={7}>
+        {user && (
+          <Grid
+            gridGap={5}
+            gridTemplateColumns={`1fr ${
+              selectedTab === "" ? "0.4fr" : "0.27fr"
+            }`}
+          >
+            {tabs[selectedTab] ? (
+              tabs[selectedTab]
+            ) : (
+              <Box>
+                {user.posts &&
+                  user.posts.map((post) => <PostTeaser post={post} />)}
               </Box>
-            </Container>
-          )}
-        </>
-      )}
-    </Box>
+            )}
+            <Box>
+              <UserDetails user={user} id={user._id} />
+            </Box>
+          </Grid>
+        )}
+      </Container>
+    </UserRoleContext.Provider>
   );
 }
+
+const TabButton = ({
+  label,
+  onClick,
+  selected,
+}: {
+  label: string;
+  onClick: Function;
+  selected: boolean;
+}) => {
+  return (
+    <Button
+      bg="none"
+      _hover={{}}
+      _active={{}}
+      _focus={{}}
+      h="100%"
+      py={0}
+      borderRadius={0}
+      fontSize={14}
+      fontFamily="mono"
+      borderBottomWidth={selected ? "3px" : "0"}
+      borderBottomColor="#0079D3"
+      color={selected ? "#0079D3" : "black"}
+      transition="0"
+      onClick={onClick}
+    >
+      {label}
+    </Button>
+  );
+};
