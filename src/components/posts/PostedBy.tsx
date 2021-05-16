@@ -34,7 +34,7 @@ export default function PostedBy({
           </Text>
           <Text color="gray.500">
             Posted By{" "}
-            <Link to={`/user/${post.postedBy.username}`}>
+            <Link to={`/user/${post.postedBy.username}/`}>
               {post.postedBy.displayName
                 ? post.postedBy.displayName
                 : post.postedBy.username}

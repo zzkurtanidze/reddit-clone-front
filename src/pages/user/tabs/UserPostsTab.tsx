@@ -1,7 +1,7 @@
 import { Image } from "@chakra-ui/image";
-import { Box, Flex, Grid, Text } from "@chakra-ui/layout";
+import { Box, Divider, Flex, Grid, Text } from "@chakra-ui/layout";
 import StyledBox from "@components/common/StyledBox";
-import Date from "@components/posts/Date";
+import { PostButton } from "@components/posts/PostButton";
 import PostedBy from "@components/posts/PostedBy";
 import Votes from "@components/posts/Votes";
 //@ts-ignore
@@ -10,9 +10,15 @@ import { PostType } from "@types/";
 import { UserType } from "@types/";
 import React from "react";
 import { BsFilePost } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { HiArrowsExpand, HiOutlineArrowsExpand } from "react-icons/hi";
+import { FaCommentAlt, FaShare } from "react-icons/fa";
+import { RiBookmarkFill } from "react-icons/ri";
+import { ImBlocked } from "react-icons/im";
 
 export default function UserPostsTab({ user }: { user: UserType }) {
+  const history = useHistory();
+
   return (
     <Box>
       {user.posts.length > 0 ? (
@@ -55,14 +61,38 @@ export default function UserPostsTab({ user }: { user: UserType }) {
                   <BsFilePost size={27} color="#878A8C" />
                 </Flex>
               )}
-              <Box fontFamily="mono">
-                <Text fontWeight="medium">
-                  <Link to={`/post/${post._id}`}>{post.title}</Link>
-                </Text>
-                <Flex gridGap={1}>
-                  <PostedBy post={post} withIcon={false} />
+              <Flex
+                direction="column"
+                justifyContent="space-between"
+                fontFamily="mono"
+              >
+                <Box>
+                  <Text fontWeight="medium">
+                    <Link to={`/post/${post._id}`}>{post.title}</Link>
+                  </Text>
+                  <Flex gridGap={1}>
+                    <PostedBy post={post} withIcon={false} />
+                  </Flex>
+                </Box>
+                <Flex alignItems="center" gridGap={1}>
+                  <PostButton
+                    label=""
+                    icon={<HiOutlineArrowsExpand size={18} color="gray" />}
+                    onClick={() => history.push(`/post/${post._id}`)}
+                  />
+                  <Divider orientation="vertical" />
+                  <PostButton
+                    icon={<FaCommentAlt color="gray" />}
+                    label="Comment"
+                  />
+                  <PostButton icon={<FaShare color="gray" />} label="Share" />
+                  <PostButton
+                    icon={<RiBookmarkFill color="gray" />}
+                    label="Save"
+                  />
+                  <PostButton icon={<ImBlocked color="gray" />} label="Hide" />
                 </Flex>
-              </Box>
+              </Flex>
             </Flex>
           </StyledBox>
         ))

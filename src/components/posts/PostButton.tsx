@@ -1,31 +1,47 @@
-import { Flex, Link, Text } from "@chakra-ui/react";
+import { Button, Flex, Link, Text } from "@chakra-ui/react";
 import React, { Component } from "react";
 
 export const PostButton: any = ({
   icon,
   label,
+  onClick,
 }: {
   icon?: Component;
-  label: string;
+  label?: string;
+  onClick?: any;
 }) => {
   return (
     <Flex>
-      <Link
+      <Button
+        bg="none"
+        h="max-content"
+        w="max-content"
         mx="5px"
-        px="5px"
+        px={0}
         py="5px"
         borderRadius={3}
+        _focus={{}}
+        _active={{}}
         _hover={{
-          backgroundColor: "gray.300",
+          backgroundColor: "#E7E7E7",
         }}
+        onClick={onClick ? onClick : () => console.log("test")}
       >
-        <Flex h="max-content" alignItems="center" fontSize={12} gridGap="5px">
+        <Flex
+          h="max-content"
+          alignItems="center"
+          fontSize={12}
+          gridGap="5px"
+          px="10px"
+        >
           {icon && icon}
-          <Text fontWeight="bold" color="#808080">
-            {label}
-          </Text>
+          {label && (
+            <Text fontWeight="bold" color="#808080">
+              {label}
+            </Text>
+          )}
         </Flex>
-      </Link>
+      </Button>
     </Flex>
   );
 };

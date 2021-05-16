@@ -22,8 +22,10 @@ export default function UserPage({ match }: { match: any }) {
   useEffect(() => {
     if (tabname) {
       setSelectedTab(tabname);
+    } else {
+      setSelectedTab("");
     }
-  }, []);
+  }, [tabname]);
 
   useEffect(() => {
     if (user) {
@@ -74,7 +76,7 @@ export default function UserPage({ match }: { match: any }) {
           <Grid
             gridGap={5}
             gridTemplateColumns={`1fr ${
-              selectedTab === "" ? "0.4fr" : "0.3fr"
+              selectedTab === "" ? "0.4fr" : "0.27fr"
             }`}
           >
             {tabs[selectedTab] ? (
