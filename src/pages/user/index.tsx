@@ -119,6 +119,7 @@ const TabButton = ({
       fontFamily="mono"
       borderBottomWidth={selected ? "3px" : "0"}
       borderBottomColor="#0079D3"
+      color={selected ? "#0079D3" : "black"}
       transition="0"
       onClick={onClick}
     >
