@@ -24,12 +24,15 @@ export default function SecondaryButton({
       py="8px"
       h="max-content"
       border="1px solid #0079d3"
-      fontSize={15}
+      fontSize={14}
       borderRadius={50}
       fontWeight="bold"
       bg={bg}
       color={color}
-      _hover={{}}
+      _hover={{ background: "rgba(0,0,0,.05)" }}
+      _active={{}}
+      _focus={{}}
+      transition="0"
       onClick={onClick}
       gridGap={2}
       {...rest}

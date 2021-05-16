@@ -32,7 +32,7 @@ export default function FormTextarea({
   return (
     <FormControl isInvalid={error ? true : false} my={2}>
       {label && (
-        <FormLabel fontFamily="mono">{`${label} ${
+        <FormLabel fontSize={14} fontFamily="mono">{`${label} ${
           required ? "*" : ""
         }`}</FormLabel>
       )}

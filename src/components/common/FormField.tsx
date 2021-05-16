@@ -39,7 +39,7 @@ export default function FormField({
   return (
     <FormControl isInvalid={error && touched ? true : false}>
       {label && (
-        <FormLabel fontFamily="mono">
+        <FormLabel fontSize={14} fontFamily="mono">
           {label && `${label} ${required ? "*" : ""}`}
         </FormLabel>
       )}

@@ -1,13 +1,67 @@
-import { Button } from "@chakra-ui/button";
-import { Box, Flex, Grid, Text } from "@chakra-ui/layout";
-import Container from "@components/common/Container";
+import { Box, Divider, Flex, Text } from "@chakra-ui/layout";
+import FormField from "@components/common/FormField";
+import FormTextarea from "@components/common/FormTextarea";
 import PrimaryButton from "@components/common/PrimaryButton";
-import React from "react";
+import SecondaryButton from "@components/common/SecondaryButton";
+import Modal from "@components/Modal";
+import { Form, Formik } from "formik";
+import React, { useState } from "react";
 import { CgNotes } from "react-icons/cg";
 
 export default function RulesTab() {
+  const [showModal, setShowModal] = useState<boolean>(false);
+
   return (
     <Box>
+      {showModal && (
+        <Modal
+          open={showModal}
+          w="400px"
+          px={5}
+          onClose={() => setShowModal(false)}
+        >
+          <Text fontSize={18} fontFamily="mono" fontWeight="medium">
+            Add Rule
+          </Text>
+          <Divider my={4} />
+          <Formik
+            initialValues={{ name: "", description: "" }}
+            onSubmit={(data) => console.log(data)}
+          >
+            {({ errors, values }) => (
+              <Form>
+                <Flex direction="column" gridGap={2}>
+                  <FormField
+                    label="Rule"
+                    placeholder='Rule displayed (e.g "No Photos")'
+                    sufix={`${100 - values.name.length} Characters remaining`}
+                    name="name"
+                    type="input"
+                    error={errors.name}
+                  />
+                  <FormTextarea
+                    label="Full Description"
+                    placeholder="Enter the full description of the rule"
+                    name="description"
+                    sufix={`${
+                      500 - values.description.length
+                    } Characters remaining`}
+                    error={errors.description}
+                  />
+                  <Flex gridGap={2}>
+                    <SecondaryButton
+                      label="Cancel"
+                      onClick={() => setShowModal(false)}
+                      py="7px"
+                    />
+                    <PrimaryButton label="Add new rule" type="submit" />
+                  </Flex>
+                </Flex>
+              </Form>
+            )}
+          </Formik>
+        </Modal>
+      )}
       <Flex
         justifyContent="flex-end"
         w="100%"
@@ -18,7 +72,7 @@ export default function RulesTab() {
       >
         <PrimaryButton
           label="Add Rule"
-          onClick={() => console.log("test")}
+          onClick={() => setShowModal(true)}
           borderRadius={50}
           px={4}
         />
