@@ -56,6 +56,7 @@ export default function App() {
           <Route path="/r/:name/about/:tabname" component={ModToolsPage} />
           <Route path="/r/:name/about/moderators" component={ModeratorsPage} />
           <Route path="/r/:name" component={CommunityPage} />
+          <Route path="/user/:username/:tabname" component={UserPage} />
           <Route path="/user/:username" component={UserPage} />
           <Route path="/post/:id" component={PostPage} />
           <Route path="/" exact component={HomePage} />

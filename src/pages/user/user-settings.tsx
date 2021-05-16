@@ -5,11 +5,11 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { IoIosSettings } from "react-icons/io";
 import { Link } from "react-router-dom";
-import AccountTab from "./tabs/AccountTab";
-import ProfileTab from "./tabs/ProfileTab";
+import AccountTab from "./settings-tabs/AccountTab";
+import ProfileTab from "./settings-tabs/ProfileTab";
 import { UserContext } from "@context/UserContext";
-import PrivacyTab from "./tabs/PrivacyTab";
-import PremiumTab from "./tabs/PremiumTab";
+import PrivacyTab from "./settings-tabs/PrivacyTab";
+import PremiumTab from "./settings-tabs/PremiumTab";
 
 export default function UserSettingsPage({ match }: { match: any }) {
   const [tab, setTab] = useState<string>("");
