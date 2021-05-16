@@ -7,6 +7,7 @@ import { FaUser } from "react-icons/fa";
 import { ImTicket } from "react-icons/im";
 import { IoMdDocument } from "react-icons/io";
 import ModQueue from "./tabs/modqueue";
+import RulesTab from "./tabs/rules";
 
 export default function ModToolsPage({ match }: { match: any }) {
   const tabName = match.params.tabname;
@@ -14,6 +15,7 @@ export default function ModToolsPage({ match }: { match: any }) {
 
   const tabs = {
     modqueue: <ModQueue communityUsername={community} />,
+    rules: <RulesTab />,
   };
 
   return (
