@@ -95,7 +95,7 @@ export default function Votes({
       >
         <ImArrowUp
           name="like"
-          size={14}
+          size={13}
           color={status === "like" ? `#ff3838` : "gray"}
         />
       </Button>
@@ -115,7 +115,7 @@ export default function Votes({
         disabled={disabled}
       >
         <ImArrowDown
-          size={14}
+          size={13}
           color={status === "unlike" ? `#5b6be5` : "gray"}
         />
       </Button>
