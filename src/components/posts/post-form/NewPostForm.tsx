@@ -32,8 +32,7 @@ import LinkTab from "./tabs/LinkTab";
 import { CategoryButton } from "./common/CategoryButton";
 import { CategoryDropdown } from "./common/CategoryDropdown";
 
-import { Link } from "react-router-dom";
-import { getCommunities } from "@api/";
+import { Link, useHistory } from "react-router-dom";
 
 export default function NewPostForm({ match }: { match?: any }) {
   const user = useContext(UserContext);
@@ -56,6 +55,7 @@ export default function NewPostForm({ match }: { match?: any }) {
 
   const params = queryString.parse(window.location.search);
 
+  const history = useHistory();
   const toast = useToast();
 
   const fetchCommunity = async () => {
@@ -206,6 +206,7 @@ export default function NewPostForm({ match }: { match?: any }) {
           <Select
             value={post.postedTo}
             onChange={async (community: any) => {
+              history.push(`/${community.label}/submit`);
               setPost({
                 ...post,
                 postedTo: community,
