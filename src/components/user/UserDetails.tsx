@@ -62,11 +62,11 @@ export default function UserDetails({
   }, []);
 
   return (
-    <StyledBox p={0} position="relative">
+    <StyledBox p={0} maxW="350px" position="relative">
       <ChangePicture
         image={user.coverImage}
-        maxW="325px"
         name="coverImage"
+        w="100%"
         h="100px"
         border="0"
       />
