@@ -23,7 +23,7 @@ export default function UserPage({ match }: { match: any }) {
   useEffect(() => {
     if (tabname) {
       setSelectedTab(tabname);
-    } else {
+    } else if (user) {
       setSelectedTab("");
     }
   }, [tabname]);
