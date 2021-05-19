@@ -73,7 +73,7 @@ export default function Modal({
             _active={{}}
             _focus={{}}
             top="5"
-            right="5"
+            right="2"
           >
             <RiCloseLine size={24} />
           </Button>

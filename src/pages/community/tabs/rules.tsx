@@ -1,15 +1,22 @@
-import { Box, Divider, Flex, Text } from "@chakra-ui/layout";
-import FormField from "@components/common/FormField";
-import FormTextarea from "@components/common/FormTextarea";
+import { Box, Divider, Flex, Grid, Text } from "@chakra-ui/layout";
 import PrimaryButton from "@components/common/PrimaryButton";
-import SecondaryButton from "@components/common/SecondaryButton";
 import Modal from "@components/Modal";
-import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { CgNotes } from "react-icons/cg";
+//@ts-ignore
+import { CommunityType } from "@types/";
+import RulesForm from "../forms/RulesForm";
+//@ts-ignore
+import { getRules } from "@api/";
+import { Button } from "@chakra-ui/button";
+import { BsPencil } from "react-icons/bs";
+import { HiOutlineArrowsExpand } from "react-icons/hi";
 
-export default function RulesTab() {
+export default function RulesTab({ community }: { community: CommunityType }) {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const { rules, isLoading } = getRules(community);
+
+  console.log(rules);
 
   return (
     <Box>
@@ -24,42 +31,7 @@ export default function RulesTab() {
             Add Rule
           </Text>
           <Divider my={4} />
-          <Formik
-            initialValues={{ name: "", description: "" }}
-            onSubmit={(data) => console.log(data)}
-          >
-            {({ errors, values }) => (
-              <Form>
-                <Flex direction="column" gridGap={2}>
-                  <FormField
-                    label="Rule"
-                    placeholder='Rule displayed (e.g "No Photos")'
-                    sufix={`${100 - values.name.length} Characters remaining`}
-                    name="name"
-                    type="input"
-                    error={errors.name}
-                  />
-                  <FormTextarea
-                    label="Full Description"
-                    placeholder="Enter the full description of the rule"
-                    name="description"
-                    sufix={`${
-                      500 - values.description.length
-                    } Characters remaining`}
-                    error={errors.description}
-                  />
-                  <Flex gridGap={2}>
-                    <SecondaryButton
-                      label="Cancel"
-                      onClick={() => setShowModal(false)}
-                      py="7px"
-                    />
-                    <PrimaryButton label="Add new rule" type="submit" />
-                  </Flex>
-                </Flex>
-              </Form>
-            )}
-          </Formik>
+          <RulesForm community={community} setShowModal={setShowModal} />
         </Modal>
       )}
       <Flex
@@ -83,24 +55,67 @@ export default function RulesTab() {
         </Text>
         <Flex
           w="100%"
-          minH="300px"
+          minH={rules && rules.length > 0 ? "max-content" : "300px"}
           bg="white"
-          borderRadius={5}
+          borderRadius={2}
           mt={5}
           direction="column"
-          justifyContent="center"
-          placeItems="center"
+          justifyContent={rules && rules.length > 0 ? "" : "center"}
+          placeItems={rules && rules.length > 0 ? "" : "center"}
           gridGap={10}
         >
-          <CgNotes color="gray" size={27} />
-          <Text
-            color="gray"
-            fontSize={18}
-            fontWeight="semibold"
-            fontFamily="mono"
-          >
-            No rules yet
-          </Text>
+          {rules && rules.length > 0 ? (
+            <Box>
+              {rules.map((rule: any, index: number) => (
+                <Grid
+                  fontFamily="mono"
+                  flexDirection="column"
+                  gridTemplateColumns="0.05fr 1fr 0.05fr 0.05fr"
+                  py={3}
+                  px={5}
+                  borderBottom="1px solid #edeff1"
+                  alignItems="center"
+                >
+                  <Text>{index + 1}</Text>
+                  <Text fontSize={14}>{rule.name}</Text>
+                  <Button
+                    _hover={{}}
+                    p={0}
+                    _active={{}}
+                    _focus={{}}
+                    h="max-content"
+                    w="max-content"
+                    bg="none"
+                  >
+                    <BsPencil className="icon" size={17} />
+                  </Button>
+                  <Button
+                    _hover={{}}
+                    p={0}
+                    _active={{}}
+                    _focus={{}}
+                    h="max-content"
+                    w="max-content"
+                    bg="none"
+                  >
+                    <HiOutlineArrowsExpand className="icon" size={17} />
+                  </Button>
+                </Grid>
+              ))}
+            </Box>
+          ) : (
+            <>
+              <CgNotes color="gray" size={27} />
+              <Text
+                color="gray"
+                fontSize={18}
+                fontWeight="semibold"
+                fontFamily="mono"
+              >
+                No rules yet
+              </Text>
+            </>
+          )}
         </Flex>
       </Box>
     </Box>

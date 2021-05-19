@@ -15,7 +15,7 @@ export default function ModToolsPage({ match }: { match: any }) {
 
   const tabs = {
     modqueue: <ModQueue communityUsername={community} />,
-    rules: <RulesTab />,
+    rules: <RulesTab community={community} />,
   };
 
   return (

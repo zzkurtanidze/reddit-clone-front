@@ -468,11 +468,33 @@ export const updateCommunity = async (username: string, data: any) => {
       data,
       axiosOptions
     );
-    console.log(response);
     return response;
   } catch (ex) {
     return ex.response;
   }
+};
+
+export const newRule = async (username: string, data: any) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/rules/${username}`,
+      data,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const getRules = (username: string) => {
+  console.log(username);
+  const { data, error } = useSWR(`${apiUrl}/rules/${username}`);
+  return {
+    rules: data,
+    isLoading: !data && !error,
+    error: error,
+  };
 };
 
 /**

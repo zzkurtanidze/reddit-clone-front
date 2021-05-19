@@ -33,6 +33,17 @@ export default function PrimaryButton({
       onClick={onClick ? onClick : () => {}}
       transition="0"
       gridGap={2}
+      _disabled={{
+        background: "gray",
+        color: "white",
+        cursor: "default",
+        _hover: {
+          background: "gray",
+        },
+        _active: {
+          background: "gray",
+        },
+      }}
       {...rest}
     >
       {icon && icon}
