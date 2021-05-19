@@ -72,8 +72,10 @@ export default function Modal({
             _hover={{}}
             _active={{}}
             _focus={{}}
+            float="right"
             top="5"
             right="2"
+            zIndex={1}
           >
             <RiCloseLine size={24} />
           </Button>
