@@ -1,5 +1,8 @@
 //@ts-ignore
-import { newRule } from "@api/";
+import { removeRule } from "@api/";
+//@ts-ignore
+import { updateRule } from "@api/";
+import { Button } from "@chakra-ui/button";
 import { Flex } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
 import FormField from "@components/common/FormField";
@@ -19,11 +22,11 @@ const validationSchema = yup.object({
 
 export default function EditRulesForm({
   community,
-  setShowModal,
+  onClose,
   rule,
 }: {
   community: CommunityType;
-  setShowModal: any;
+  onClose: any;
   rule: any;
 }) {
   const toast = useToast();
@@ -32,21 +35,21 @@ export default function EditRulesForm({
     <Formik
       initialValues={{ name: rule.name, description: rule.description }}
       onSubmit={async (data) => {
-        const response = await newRule(community, data);
+        const response = await updateRule(community, data, rule.name);
         if (response.statusText === "OK") {
           toast({
-            title: "Rule has been added.",
+            title: "Rule has been updated.",
             status: "success",
             duration: 2000,
             isClosable: true,
           });
-          setShowModal(false);
+          onClose();
         }
       }}
       validateOnMount={true}
       validationSchema={validationSchema}
     >
-      {({ errors, values, touched }) => (
+      {({ errors, values }) => (
         <Form>
           <Flex direction="column" gridGap={2}>
             <FormField
@@ -57,7 +60,7 @@ export default function EditRulesForm({
               type="input"
               required={true}
               error={errors.name}
-              // touched={touched.name}
+              touched={true}
             />
             <FormTextarea
               label="Full Description"
@@ -65,16 +68,39 @@ export default function EditRulesForm({
               name="description"
               sufix={`${500 - values.description.length} Characters remaining`}
               error={errors.description}
-              // touched={touched.description}
+              touched={true}
             />
+            <Button
+              bg="none"
+              _hover={{}}
+              _active={{}}
+              _focus={{}}
+              fontFamily="mono"
+              fontWeight="bold"
+              color="red"
+              float="left"
+              w="max-content"
+              position="absolute"
+              bottom="25px"
+              right="15px"
+              fontSize={14}
+              onClick={async () => {
+                const response = await removeRule(community, rule.name);
+                if (response && response.statusText === "OK") {
+                  toast({
+                    title: "Removed succesfully",
+                    status: "success",
+                    isClosable: true,
+                  });
+                }
+              }}
+            >
+              Delete
+            </Button>
             <Flex gridGap={2}>
-              <SecondaryButton
-                label="Cancel"
-                onClick={() => setShowModal(false)}
-                py="7px"
-              />
+              <SecondaryButton label="Cancel" onClick={onClose} py="7px" />
               <PrimaryButton
-                label="Add new rule"
+                label="Save"
                 type="submit"
                 isDisabled={errors.name || errors.description}
               />

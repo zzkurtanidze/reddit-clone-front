@@ -85,7 +85,7 @@ export default function RulesTab({ community }: { community: CommunityType }) {
                     >
                       <EditRulesForm
                         community={community}
-                        setShowModal={setEditModal}
+                        onClose={() => setEditModal(-1)}
                         rule={rule}
                       />
                     </Modal>

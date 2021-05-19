@@ -488,13 +488,37 @@ export const newRule = async (username: string, data: any) => {
 };
 
 export const getRules = (username: string) => {
-  console.log(username);
   const { data, error } = useSWR(`${apiUrl}/rules/${username}`);
   return {
     rules: data,
     isLoading: !data && !error,
     error: error,
   };
+};
+
+export const removeRule = async (username: string, rule: string) => {
+  try {
+    const response = await axios.delete(
+      `${apiUrl}/rules/${username}/${rule}`,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const updateRule = async (username: string, data: any, rule: string) => {
+  try {
+    const response = await axios.put(
+      `${apiUrl}/rules/${username}/${rule}`,
+      data,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
 };
 
 /**
