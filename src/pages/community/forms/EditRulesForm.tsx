@@ -13,6 +13,7 @@ import SecondaryButton from "@components/common/SecondaryButton";
 import { CommunityType } from "@types/";
 import { Form, Formik } from "formik";
 import React from "react";
+import { useHistory } from "react-router";
 import * as yup from "yup";
 
 const validationSchema = yup.object({
@@ -30,6 +31,7 @@ export default function EditRulesForm({
   rule: any;
 }) {
   const toast = useToast();
+  const history = useHistory();
 
   return (
     <Formik
@@ -85,14 +87,13 @@ export default function EditRulesForm({
               right="15px"
               fontSize={14}
               onClick={async () => {
-                const response = await removeRule(community, rule.name);
-                if (response && response.statusText === "OK") {
-                  toast({
-                    title: "Removed succesfully",
-                    status: "success",
-                    isClosable: true,
-                  });
-                }
+                removeRule(community, rule.name);
+                toast({
+                  title: "Removed succesfully",
+                  status: "info",
+                  isClosable: true,
+                });
+                onClose();
               }}
             >
               Delete

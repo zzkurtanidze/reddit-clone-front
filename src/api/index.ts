@@ -488,7 +488,9 @@ export const newRule = async (username: string, data: any) => {
 };
 
 export const getRules = (username: string) => {
-  const { data, error } = useSWR(`${apiUrl}/rules/${username}`);
+  const { data, error } = useSWR(`${apiUrl}/rules/${username}`, fetcher, {
+    refreshInterval: 2000,
+  });
   return {
     rules: data,
     isLoading: !data && !error,
