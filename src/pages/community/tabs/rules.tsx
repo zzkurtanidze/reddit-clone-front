@@ -11,12 +11,11 @@ import { getRules } from "@api/";
 import { Button } from "@chakra-ui/button";
 import { BsPencil } from "react-icons/bs";
 import { HiOutlineArrowsExpand } from "react-icons/hi";
+import FieldLoading from "@components/common/loading-animations/FieldLoading";
 
 export default function RulesTab({ community }: { community: CommunityType }) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { rules, isLoading } = getRules(community);
-
-  console.log(rules);
 
   return (
     <Box>
@@ -64,6 +63,12 @@ export default function RulesTab({ community }: { community: CommunityType }) {
           placeItems={rules && rules.length > 0 ? "" : "center"}
           gridGap={10}
         >
+          {isLoading && (
+            <>
+              <FieldLoading width="97%" withImage={false} />
+              <FieldLoading width="97%" withImage={false} />
+            </>
+          )}
           {rules && rules.length > 0 ? (
             <Box>
               {rules.map((rule: any, index: number) => (
