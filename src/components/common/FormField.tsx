@@ -39,7 +39,7 @@ export default function FormField({
   return (
     <FormControl isInvalid={error && touched ? true : false}>
       {label && (
-        <FormLabel fontFamily="mono">
+        <FormLabel fontSize={14} fontFamily="mono">
           {label && `${label} ${required ? "*" : ""}`}
         </FormLabel>
       )}
@@ -53,18 +53,20 @@ export default function FormField({
         placeholder={placeholder && `${placeholder} ${required ? "*" : ""}`}
         name={name}
         type={type}
+        fontFamily="mono"
+        transition="0"
         fontSize={14}
         as={Input}
       />
+      {touched && (
+        <FormErrorMessage fontSize={11} fontFamily="mono" fontWeight="semibold">
+          {error}
+        </FormErrorMessage>
+      )}
       {sufix && (
         <FormHelperText fontSize={12} my={2} fontFamily="mono">
           {sufix}
         </FormHelperText>
-      )}
-      {touched && (
-        <FormErrorMessage fontSize={12} fontWeight="600">
-          {error}
-        </FormErrorMessage>
       )}
     </FormControl>
   );

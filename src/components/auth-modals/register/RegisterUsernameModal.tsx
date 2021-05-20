@@ -70,7 +70,6 @@ export default function RegisterUsernameModal({
               userCopy.password = password;
               setUser(userCopy);
               const response = await register(user);
-              console.log(response);
               if (response.status >= 200 && response.status <= 200) {
                 toast({
                   title: "Account created.",

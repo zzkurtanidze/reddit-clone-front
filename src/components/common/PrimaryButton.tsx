@@ -7,10 +7,10 @@ export default function PrimaryButton({
   color = "white",
   bg = "#0079D3",
   icon = undefined,
-  px = 50,
+  px = 5,
   ...rest
 }: {
-  onClick: any;
+  onClick?: any;
   label: string;
   color?: string;
   bg?: string;
@@ -19,26 +19,35 @@ export default function PrimaryButton({
   [x: string]: any;
 }) {
   return (
-    <>
-      <Button
-        px={icon ? 4 : px}
-        py="8px"
-        h="max-content"
-        fontSize={14}
-        borderRadius={5}
-        bg={bg}
-        color={color}
-        _hover={{ background: "#0094ff" }}
-        _active={{ background: "#006bb7" }}
-        _focus={{}}
-        onClick={onClick}
-        transition="0"
-        gridGap={2}
-        {...rest}
-      >
-        {icon && icon}
-        {label}
-      </Button>
-    </>
+    <Button
+      px={icon ? 4 : px}
+      py="8px"
+      h="max-content"
+      fontSize={14}
+      borderRadius={50}
+      bg={bg}
+      color={color}
+      _hover={{ background: "#0094ff" }}
+      _active={{ background: "#006bb7" }}
+      _focus={{}}
+      onClick={onClick ? onClick : () => {}}
+      transition="0"
+      gridGap={2}
+      _disabled={{
+        background: "gray",
+        color: "white",
+        cursor: "default",
+        _hover: {
+          background: "gray",
+        },
+        _active: {
+          background: "gray",
+        },
+      }}
+      {...rest}
+    >
+      {icon && icon}
+      {label && label}
+    </Button>
   );
 }

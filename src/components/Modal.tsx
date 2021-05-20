@@ -8,13 +8,15 @@ export default function Modal({
   children,
   onClose,
   withImage = false,
-  width = "53%",
+  py = 29,
+  px = 30,
+  ...rest
 }: {
   open: boolean;
   children?: React.ReactNode;
   onClose: any;
   withImage?: boolean;
-  width?: string | number;
+  [x: string]: any;
 }) {
   const bg = useColorModeValue("white", "gray.900");
 
@@ -38,7 +40,8 @@ export default function Modal({
         zIndex={5}
       ></Box>
       <Box
-        w={width}
+        w="53%"
+        minW="300px"
         h="max-content"
         bg={bg}
         position="fixed"
@@ -47,6 +50,8 @@ export default function Modal({
         minHeight="150px"
         zIndex={5}
         transform="translate(-50%, -50%)"
+        borderRadius={4}
+        {...rest}
       >
         {withImage && (
           <Image
@@ -60,10 +65,21 @@ export default function Modal({
           />
         )}
         <Box position="relative">
-          <Button onClick={onClose} position="absolute" top="5" right="5">
+          <Button
+            onClick={onClose}
+            position="absolute"
+            bg="none"
+            _hover={{}}
+            _active={{}}
+            _focus={{}}
+            float="right"
+            top="5"
+            right="2"
+            zIndex={1}
+          >
             <RiCloseLine size={24} />
           </Button>
-          <Box py={29} px={30}>
+          <Box py={py} px={px}>
             {children}
           </Box>
         </Box>

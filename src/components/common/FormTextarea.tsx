@@ -1,6 +1,7 @@
 import React from "react";
 import {
   FormControl,
+  FormErrorMessage,
   FormHelperText,
   FormLabel,
   Textarea,
@@ -15,6 +16,7 @@ export default function FormTextarea({
   required = false,
   description,
   sufix,
+  touched,
 }: {
   placeholder?: string;
   label?: string;
@@ -28,11 +30,12 @@ export default function FormTextarea({
   required?: boolean;
   description?: string;
   sufix?: string;
+  touched?: boolean;
 }) {
   return (
-    <FormControl isInvalid={error ? true : false} my={2}>
+    <FormControl isInvalid={error && touched ? true : false} my={2}>
       {label && (
-        <FormLabel fontFamily="mono">{`${label} ${
+        <FormLabel fontSize={14} fontFamily="mono">{`${label} ${
           required ? "*" : ""
         }`}</FormLabel>
       )}
@@ -44,10 +47,17 @@ export default function FormTextarea({
       <Field
         bg="white"
         fontSize={14}
+        fontFamily="mono"
+        transition="0"
         as={Textarea}
         placeholder={placeholder && `${placeholder} ${required ? "*" : ""}`}
         name={name}
       ></Field>
+      {touched && (
+        <FormErrorMessage fontSize={11} fontFamily="mono" fontWeight="semibold">
+          {error}
+        </FormErrorMessage>
+      )}
       {sufix && (
         <FormHelperText fontSize={12} fontFamily="mono" my={2}>
           {sufix}

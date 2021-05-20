@@ -69,3 +69,10 @@ h3 {
     background-position: 1000px 0;
   }
 }
+
+.icon {
+  color: #878a8c;
+}
+.icon:hover {
+  color: #1c1c1c;
+}
