@@ -141,10 +141,11 @@ export default function RulesTab({ community }: { community: CommunityType }) {
                     <Flex
                       bg="#EDEFF1"
                       w="100%"
+                      maxW="100%"
                       h="max-content"
                       px={5}
                       py={3}
-                      gridGap={10}
+                      gridGap={20}
                     >
                       <Box>
                         <Text
@@ -170,12 +171,30 @@ export default function RulesTab({ community }: { community: CommunityType }) {
                           textTransform="uppercase"
                           fontWeight="bold"
                         >
+                          Created At
+                        </Text>
+                        <Text
+                          fontSize={13}
+                          fontFamily="mono"
+                          fontWeight="normal"
+                        >
+                          {rule.date}
+                        </Text>
+                      </Box>
+                      <Box>
+                        <Text
+                          fontFamily="mono"
+                          fontSize={12}
+                          textTransform="uppercase"
+                          fontWeight="bold"
+                        >
                           Full Description
                         </Text>
                         <Text
                           fontSize={13}
                           fontFamily="mono"
                           fontWeight="normal"
+                          maxW="400px"
                         >
                           {rule.description}
                         </Text>
