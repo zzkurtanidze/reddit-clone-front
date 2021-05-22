@@ -510,11 +510,24 @@ export const removeRule = async (username: string, rule: string) => {
   }
 };
 
-export const updateRule = async (username: string, data: any, rule: string) => {
+export const updateRule = async (username: string, rule: string, data: any) => {
   try {
     const response = await axios.put(
       `${apiUrl}/rules/${username}/${rule}`,
       data,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const reorderRules = async (username: string, reorderedRules: any) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/rules/${username}/reorderRules`,
+      reorderedRules,
       axiosOptions
     );
     return response;
