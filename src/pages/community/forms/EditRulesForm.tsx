@@ -31,13 +31,12 @@ export default function EditRulesForm({
   rule: any;
 }) {
   const toast = useToast();
-  const history = useHistory();
 
   return (
     <Formik
       initialValues={{ name: rule.name, description: rule.description }}
       onSubmit={async (data) => {
-        const response = await updateRule(community, data, rule.name);
+        const response = await updateRule(community, rule.name, data);
         if (response.statusText === "OK") {
           toast({
             title: "Rule has been updated.",
