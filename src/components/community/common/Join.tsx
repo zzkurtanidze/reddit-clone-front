@@ -66,7 +66,7 @@ export default function Join({
 
   return (
     <Flex>
-      {joined ? (
+      {!joined ? (
         <PrimaryButton
           label="Join"
           bg="#0079D3"

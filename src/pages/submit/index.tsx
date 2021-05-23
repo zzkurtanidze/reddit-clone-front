@@ -1,11 +1,12 @@
-import { Box, Flex, Grid } from "@chakra-ui/layout";
+import { Flex, Grid } from "@chakra-ui/layout";
 import RulesSidebar from "@components/common/Rules";
-import React, { useEffect } from "react";
+import React from "react";
 import Container from "@components/common/Container";
 import NewPostForm from "@components/posts/post-form/NewPostForm";
 //@ts-ignore
 import { getCommunity } from "@api/";
 import CommunityTeaser from "@components/community/CommunityTeaser";
+import RulesListing from "@components/community/common/RulesListing";
 
 export default function SubmitPage({ match }: { match?: any }) {
   const name = match.params.name;
@@ -17,6 +18,7 @@ export default function SubmitPage({ match }: { match?: any }) {
         <NewPostForm match={match} />
         <Flex direction="column" gridGap={5}>
           {community && <CommunityTeaser community={community} />}
+          {community && <RulesListing community={community} />}
           <RulesSidebar />
         </Flex>
       </Grid>

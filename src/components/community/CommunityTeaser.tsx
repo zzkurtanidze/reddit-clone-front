@@ -19,7 +19,7 @@ export default function CommunityTeaser({
   user?: UserType;
 }) {
   return (
-    <StyledBox w="100%" minWidth="350px" maxWidth="max-content" h="max-content">
+    <StyledBox w="100%" h="max-content">
       <Flex alignItems="center" gridGap={2}>
         {community && (
           <CommunityPicture

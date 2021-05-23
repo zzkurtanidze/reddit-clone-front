@@ -27,7 +27,7 @@ export default function StyledBox({
         color="white"
         fontWeight="bold"
         fontFamily="mono"
-        fontSize={14}
+        fontSize={12}
         bg={titleBackground}
         h="max-content"
         px="15px"
