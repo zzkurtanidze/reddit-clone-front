@@ -19,29 +19,23 @@ export default function CommunityTeaser({
   user?: UserType;
 }) {
   return (
-    <StyledBox
-      w="100%"
-      minWidth="350px"
-      textAlign="center"
-      maxWidth="max-content"
-      h="max-content"
-    >
-      <Grid placeItems="center">
+    <StyledBox w="100%" minWidth="350px" maxWidth="max-content" h="max-content">
+      <Flex alignItems="center" gridGap={2}>
         {community && (
           <CommunityPicture
             imageSrc={community.image}
             communityUsername={community.username}
-            width="75px"
+            width="50px"
             withLink
           />
         )}
-      </Grid>
-      <Link to={`/r/${community.username}`}>
-        <Text my="10px" fontSize={22} fontWeight="bold">
-          {community.name}
-        </Text>
-      </Link>
-      <Text fontSize={14} fontFamily="mono">
+        <Link to={`/r/${community.username}`}>
+          <Text my="10px" fontSize={16} fontFamily="mono" fontWeight="bold">
+            r/{community.name}
+          </Text>
+        </Link>
+      </Flex>
+      <Text fontSize={14} mt={5} fontFamily="mono">
         {community.description}
       </Text>
       <Flex direction="column" textAlign="left" gridGap={3} my={5} w="100%">
@@ -67,7 +61,7 @@ export default function CommunityTeaser({
           <RiMessage2Fill />
           {community.posts.length} Posts
         </Text>
-        <Join community={community} user={user} borderRadius={5} />
+        <Join community={community} borderRadius={50} w="100%" user={user} />
       </Flex>
     </StyledBox>
   );

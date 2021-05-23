@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import { GoPlus } from "react-icons/go";
 import { BiMinus } from "react-icons/bi";
 import { useToast } from "@chakra-ui/toast";
+import SecondaryButton from "@components/common/SecondaryButton";
 
 export default function Join({
   community,
@@ -65,21 +66,36 @@ export default function Join({
 
   return (
     <Flex>
-      <PrimaryButton
-        label={joined ? "Leave" : "Join"}
-        bg={joined ? "white" : "#0079D3"}
-        color={joined ? "#0079D3" : "white"}
-        onClick={handleJoin}
-        icon={
-          icon &&
-          (joined ? <BiMinus color="black" /> : <GoPlus color="white" />)
-        }
-        w="100px"
-        border={"1px solid #0079D3"}
-        borderRadius={50}
-        _focus={{}}
-        {...props}
-      />
+      {joined ? (
+        <PrimaryButton
+          label="Join"
+          bg="#0079D3"
+          color="white"
+          onClick={handleJoin}
+          icon={
+            icon &&
+            (joined ? <BiMinus color="black" /> : <GoPlus color="white" />)
+          }
+          w="100px"
+          border={"1px solid #0079D3"}
+          borderRadius={50}
+          _focus={{}}
+          {...props}
+        />
+      ) : (
+        <SecondaryButton
+          label="Leave"
+          onClick={handleJoin}
+          icon={
+            icon &&
+            (joined ? <BiMinus color="black" /> : <GoPlus color="white" />)
+          }
+          borderRadius={50}
+          _focus={{}}
+          {...props}
+        />
+      )}
+
       <LoginModal showModal={loginModal} setShowModal={setLoginModal} />
     </Flex>
   );
