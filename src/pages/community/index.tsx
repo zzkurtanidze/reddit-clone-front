@@ -17,6 +17,7 @@ import ErrorPage from "@pages/error";
 import Moderators from "@components/community/common/Moderators";
 import { getRoleInCommunity } from "@api/";
 import GrowCommunity from "@components/community/common/GrowCommunity";
+import StyleCommunity from "@components/community/common/StyleCommunity";
 
 export default function CommunityPage({ match }: { match: any }) {
   const [joined, setJoined] = useState<boolean>(false);
@@ -124,12 +125,15 @@ export default function CommunityPage({ match }: { match: any }) {
                 </Box>
                 <Box w="300px">
                   <FixedElement>
+                    {role === "admin" && <StyleCommunity />}
+                    <br />
                     <CommunityInfo community={community} />
                     <br />
                     <Moderators
                       moderators={community.moderators}
                       communityUsername={community.username}
                     />
+                    <br />
                   </FixedElement>
                 </Box>
               </Grid>
