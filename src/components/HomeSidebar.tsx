@@ -2,6 +2,7 @@ import { Image } from "@chakra-ui/image";
 import { Flex, Text } from "@chakra-ui/layout";
 import React, { useState } from "react";
 import PrimaryButton from "./common/PrimaryButton";
+import SecondaryButton from "./common/SecondaryButton";
 import StyledBox from "./common/StyledBox";
 import CommunityFormModal from "./community/form/CommunityFormModal";
 
@@ -14,11 +15,11 @@ export default function HomeSidebar() {
         position="absolute"
         top="0"
         left="0"
-        src="http://localhost:4000/static/home-sidebar-banner.png"
+        src="http://localhost:4000/assets/home-sidebar-banner.png"
       />
       <Flex alignItems="center" mb={5}>
         <Image
-          src="http://localhost:4000/static/reddit-guy.png"
+          src="http://localhost:4000/assets/reddit-guy.png"
           w="50px"
           zIndex={4}
         />
@@ -36,14 +37,10 @@ export default function HomeSidebar() {
           label="Create post"
           _focus={{}}
         />
-        <PrimaryButton
+        <SecondaryButton
           onClick={() => setCommunityModal(true)}
           label="Create community"
-          bg="gray.100"
           borderWidth="1px"
-          borderColor="gray.400"
-          _focus={{}}
-          color="black"
         />
       </Flex>
       <CommunityFormModal

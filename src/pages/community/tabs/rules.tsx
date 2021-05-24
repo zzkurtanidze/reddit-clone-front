@@ -123,10 +123,10 @@ export default function RulesTab({ community }: { community: CommunityType }) {
           placeItems={rules && rules.length > 0 ? "" : "center"}
         >
           {isLoading && (
-            <>
+            <Flex direction="column" w="100%" p={5} gridGap={5}>
               <FieldLoading width="97%" withImage={false} />
               <FieldLoading width="97%" withImage={false} />
-            </>
+            </Flex>
           )}
           {orderedRules && orderedRules.length > 0 ? (
             reorderMode ? (
