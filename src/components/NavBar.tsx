@@ -32,6 +32,8 @@ import { FaMoon, FaUserCircle } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
 import { UserContext } from "../context/UserContext";
 import { Link } from "react-router-dom";
+import PrimaryButton from "./common/PrimaryButton";
+import SecondaryButton from "./common/SecondaryButton";
 
 type NavLinkProps = {
   text: string;
@@ -81,18 +83,24 @@ export default function NavBar() {
       <HStack spacing="25px" alignSelf="center">
         {!user && (
           <>
-            <NavLink
-              text="Log In"
+            <PrimaryButton
+              label="Log In"
               bg={useColorModeValue("#fff", "#222223")}
               color={useColorModeValue("#1384D7", "white")}
               borderWidth="1px"
               borderColor={useColorModeValue("#1384D7", "white")}
+              _hover={{}}
+              _active={{}}
+              w="120px"
               onClick={() => setShowLoginModal(!showLoginModal)}
             />
-            <NavLink
-              text="Sign Up"
+            <SecondaryButton
+              label="Sign Up"
               bg={useColorModeValue("#1384D7", "#C8CBCD")}
               color={useColorModeValue("white", "#222223")}
+              _hover={{}}
+              _active={{}}
+              w="120px"
               onClick={() => setShowRegisterModal(!showRegisterModal)}
             />
           </>
