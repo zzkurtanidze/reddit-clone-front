@@ -103,8 +103,11 @@ export default function NewPostForm({ match }: { match?: any }) {
   useEffect(() => {
     document.getElementById("draft-save").disabled = false;
 
-    if (post.title && post.postedTo) {
+    if (post.title || post.postedTo) {
       setDisabled(false);
+    }
+    if (post.title === "" || post.postedTo === "") {
+      setDisabled(true);
     }
   }, [post]);
 
