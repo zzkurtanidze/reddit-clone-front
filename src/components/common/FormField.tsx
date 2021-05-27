@@ -51,6 +51,7 @@ export default function FormField({
       <Field
         bg="white"
         placeholder={placeholder && `${placeholder} ${required ? "*" : ""}`}
+        _focus={{ border: "1px solid black" }}
         name={name}
         type={type}
         fontFamily="mono"

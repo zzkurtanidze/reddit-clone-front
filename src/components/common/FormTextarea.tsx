@@ -50,6 +50,7 @@ export default function FormTextarea({
         fontFamily="mono"
         transition="0"
         as={Textarea}
+        _focus={{ border: "1px solid black" }}
         placeholder={placeholder && `${placeholder} ${required ? "*" : ""}`}
         name={name}
       ></Field>
