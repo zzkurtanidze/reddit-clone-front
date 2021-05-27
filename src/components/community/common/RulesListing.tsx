@@ -16,6 +16,7 @@ export default function RulesListing({
   const [expanded, setExpanded] = useState<string[]>([]);
   const { rules } = getRules(community.username);
 
+  if (rules.length < 1) return <></>;
   return (
     <StyledBox
       titleBackground="#0079D3"
