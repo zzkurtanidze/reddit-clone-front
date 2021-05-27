@@ -85,6 +85,7 @@ export default function Join({
       ) : (
         <SecondaryButton
           label="Leave"
+          w="100px"
           onClick={handleJoin}
           icon={
             icon &&
