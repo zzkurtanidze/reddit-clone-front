@@ -34,6 +34,7 @@ import { UserContext } from "../context/UserContext";
 import { Link } from "react-router-dom";
 import PrimaryButton from "./common/PrimaryButton";
 import SecondaryButton from "./common/SecondaryButton";
+import { AiOutlinePlus } from "react-icons/ai";
 
 type NavLinkProps = {
   text: string;
@@ -81,7 +82,7 @@ export default function NavBar() {
         />
       </InputGroup>
       <HStack spacing="25px" alignSelf="center">
-        {!user && (
+        {!user ? (
           <>
             <PrimaryButton
               label="Log In"
@@ -103,6 +104,12 @@ export default function NavBar() {
               w="120px"
               onClick={() => setShowRegisterModal(!showRegisterModal)}
             />
+          </>
+        ) : (
+          <>
+            <Link to="/submit">
+              <AiOutlinePlus size={18} />
+            </Link>
           </>
         )}
         <Dropdown
