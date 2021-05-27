@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import PostTeaser from "@components/posts/PostTeaser";
 import Trending from "@components/posts/TrendingPosts";
 import TrendingCommunities from "@components/community/trending/TrendingCommunities";
-import { Box, Flex, Link, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 //@ts-ignore
 import { PostType } from "@types";
 import Loading from "@components/common/Loading";
@@ -15,6 +15,7 @@ import PrimaryButton from "@components/common/PrimaryButton";
 import { Waypoint } from "react-waypoint";
 //@ts-ignore
 import { getPosts } from "@api";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   const user = useContext(UserContext);
@@ -24,8 +25,9 @@ export default function HomePage() {
     document.title = `Reddit`;
   }, []);
 
-  if (isLoading) return <Loading />;
+  console.log(data);
 
+  if (isLoading) return <Loading />;
   return (
     <Container>
       <Trending />
@@ -34,10 +36,10 @@ export default function HomePage() {
           {user && <NewPostTeaser />}
           {data &&
             data.map((posts: PostType[]) =>
-              posts && posts.length >= 1 ? (
+              posts && posts.length > 0 ? (
                 posts.map((item: PostType, i: number) => (
                   <React.Fragment key={i}>
-                    <PostTeaser key={item._id} post={item} />
+                    <PostTeaser post={item} />
                     {i === posts.length - 3 && (
                       <Waypoint
                         onEnter={() => {
@@ -55,17 +57,20 @@ export default function HomePage() {
                   <Text fontWeight="light" fontSize={16} mb={10}>
                     Try to join in new communities
                   </Text>
-                  <Link
-                    href="#"
+                  <Text
                     bg="#1384D7"
                     px={5}
                     py={3}
                     _hover={{}}
                     color="white"
                     borderRadius={10}
+                    w="max-content"
+                    m="auto"
                   >
-                    Explore new communities
-                  </Link>
+                    <Link to="/subreddits/trending">
+                      Explore new communities
+                    </Link>
+                  </Text>
                 </Box>
               )
             )}

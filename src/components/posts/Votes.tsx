@@ -39,7 +39,7 @@ export default function Votes({
         setStatus("unlike");
       }
     }
-  }, [user]);
+  }, [user, post]);
 
   useEffect(() => {
     if (post) {
