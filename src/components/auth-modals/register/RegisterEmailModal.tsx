@@ -1,12 +1,13 @@
 //@ts-nocheck
 import React from "react";
-import { Box, Button, Flex, Text, useToast } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Text, useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { GoogleLogin, GoogleLoginResponse } from "react-google-login";
 
 import { checkUser } from "../../../api";
 import FormField from "../../common/FormField";
 import Modal from "../../Modal";
+import PrimaryButton from "@components/common/PrimaryButton";
 
 export default function RegisterModal({
   showModal,
@@ -35,7 +36,6 @@ export default function RegisterModal({
     if (imageUrl) {
       userCopy.image = imageUrl;
     }
-    console.log(userCopy);
     setUser(userCopy);
     let response = await checkUser(email);
     if (response.status === 200) {
@@ -85,23 +85,31 @@ export default function RegisterModal({
                   }
                   cookiePolicy={"single_host_origin"}
                 />
+                <Flex my={3} alignItems="center">
+                  <Divider />
+                  <Text
+                    fontWeight="medium"
+                    color="gray.300"
+                    w="100%"
+                    textAlign="center"
+                    fontFamily="mono"
+                  >
+                    OR
+                  </Text>
+                  <Divider />
+                </Flex>
                 <FormField
                   placeholder="Email"
                   name="email"
                   type="input"
                   error={errors.email}
                 />
-                <Button
+                <PrimaryButton
+                  label="Continue"
+                  py={3}
                   type="submit"
-                  bg="#1384D7"
-                  color="white"
-                  px="50px"
-                  borderRadius="50px"
-                  _hover={{}}
-                  _active={{}}
-                >
-                  Continue
-                </Button>
+                  borderRadius={50}
+                />
               </Flex>
             </Form>
           )}
