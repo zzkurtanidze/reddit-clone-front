@@ -40,6 +40,7 @@ export default function Modal({
         zIndex={5}
       ></Box>
       <Box
+        overflow="hidden"
         w="53%"
         minW="300px"
         h="max-content"
@@ -55,10 +56,10 @@ export default function Modal({
       >
         {withImage && (
           <Image
-            float="left"
+            position="absolute"
             mr="30px"
             w="100px"
-            h="max-content"
+            h="500px"
             src="https://www.redditstatic.com/accountmanager/bbb584033aa89e39bad69436c504c9bd.png"
             alt="Art"
             objectFit="cover"
@@ -79,7 +80,7 @@ export default function Modal({
           >
             <RiCloseLine size={24} />
           </Button>
-          <Box py={py} px={px}>
+          <Box ml="100px" py={py} px={px}>
             {children}
           </Box>
         </Box>

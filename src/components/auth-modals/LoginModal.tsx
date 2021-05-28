@@ -1,5 +1,13 @@
 //@ts-nocheck
-import { Box, Button, Flex, Link, Text, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Link,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import FormField from "../common/FormField";
@@ -8,6 +16,7 @@ import { GoogleLogin, GoogleLoginResponse } from "react-google-login";
 
 import { login, loginWithGoogle } from "../../api/index";
 import ForgotPasswordModal from "./ForgotPasswordModal";
+import PrimaryButton from "@components/common/PrimaryButton";
 
 export default function LoginModal({
   showModal,
@@ -16,9 +25,8 @@ export default function LoginModal({
   showModal: boolean;
   setShowModal: Function;
 }) {
-  const [forgotPasswordModal, setForgotPasswordModal] = useState<boolean>(
-    false
-  );
+  const [forgotPasswordModal, setForgotPasswordModal] =
+    useState<boolean>(false);
 
   const toast = useToast();
 
@@ -93,6 +101,19 @@ export default function LoginModal({
                   onFailure={(response) => onGoogleLogin(response)}
                   cookiePolicy={"single_host_origin"}
                 />
+                <Flex my={3} alignItems="center">
+                  <Divider />
+                  <Text
+                    fontWeight="medium"
+                    color="gray.300"
+                    w="100%"
+                    textAlign="center"
+                    fontFamily="mono"
+                  >
+                    OR
+                  </Text>
+                  <Divider />
+                </Flex>
                 <FormField
                   placeholder="Email"
                   name="email"
@@ -105,17 +126,13 @@ export default function LoginModal({
                   type="password"
                   error={errors.password}
                 />
-                <Button
+                <PrimaryButton
+                  mt={1}
+                  py={3}
+                  label="Submit"
                   type="submit"
-                  bg="#1384D7"
-                  color="white"
-                  px="50px"
-                  borderRadius="50px"
-                  _hover={{}}
-                  _active={{}}
-                >
-                  Submit
-                </Button>
+                  borderRadius={50}
+                />
                 <Button
                   bg="transparent"
                   p={0}
