@@ -57,7 +57,6 @@ export default function Modal({
         {withImage && (
           <Image
             position="absolute"
-            mr="30px"
             w="100px"
             h="500px"
             src="https://www.redditstatic.com/accountmanager/bbb584033aa89e39bad69436c504c9bd.png"
@@ -80,7 +79,7 @@ export default function Modal({
           >
             <RiCloseLine size={24} />
           </Button>
-          <Box ml="100px" py={py} px={px}>
+          <Box py={py} px={px} ml={withImage ? "100px" : 0}>
             {children}
           </Box>
         </Box>
