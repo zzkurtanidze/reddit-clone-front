@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Text, useToast } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 //@ts-ignore
 import { PostType } from "@types";
@@ -20,6 +20,20 @@ import { Link } from "react-router-dom";
 export default function PostTeaser({ post }: { post: PostType }) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const user = useContext(UserContext);
+  const toast = useToast();
+
+  const handleCopy = () => {
+    const url = "http://localhost:3000/post/" + post._id;
+
+    navigator.clipboard.writeText(url);
+
+    toast({
+      title: "Link copied succesfully.",
+      status: "success",
+      isClosable: true,
+      duration: "2000",
+    });
+  };
 
   return (
     <StyledBox
@@ -76,7 +90,11 @@ export default function PostTeaser({ post }: { post: PostType }) {
         )}
         <Flex>
           <PostButton icon={<FaCommentAlt color="gray" />} label="Comment" />
-          <PostButton icon={<FaShare color="gray" />} label="Share" />
+          <PostButton
+            onClick={handleCopy}
+            icon={<FaShare color="gray" />}
+            label="Share"
+          />
           <PostButton icon={<RiBookmarkFill color="gray" />} label="Save" />
         </Flex>
       </Box>

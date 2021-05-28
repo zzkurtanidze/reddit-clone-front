@@ -1,4 +1,4 @@
-import { Button, Flex, Link, Text } from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import React, { Component } from "react";
 
 export const PostButton: any = ({
@@ -25,7 +25,7 @@ export const PostButton: any = ({
         _hover={{
           backgroundColor: "#E7E7E7",
         }}
-        onClick={onClick ? onClick : () => console.log("test")}
+        onClick={onClick ? onClick : () => {}}
       >
         <Flex
           h="max-content"
