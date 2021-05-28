@@ -3,7 +3,7 @@ import { getCommunity } from "@api/";
 import { Button, ButtonGroup } from "@chakra-ui/button";
 import { Image } from "@chakra-ui/image";
 import { Input } from "@chakra-ui/input";
-import { Box, Divider, Flex, Grid, Text } from "@chakra-ui/layout";
+import { Box, Divider, Grid, Text } from "@chakra-ui/layout";
 import Container from "@components/common/Container";
 import Loading from "@components/common/Loading";
 //@ts-ignore
@@ -14,7 +14,13 @@ import { useHistory } from "react-router-dom";
 import queryString from "query-string";
 import ErrorPage from "@pages/error";
 
-export default function ModeratorsPage({ match }: { match: any }) {
+export default function ModeratorsPage({
+  match,
+  role,
+}: {
+  match: any;
+  role?: string;
+}) {
   const communityName = match.params.name;
   const { community, isLoading } = getCommunity(communityName);
   const [moderators, setModerators] = useState<UserType[]>([]);
@@ -35,7 +41,10 @@ export default function ModeratorsPage({ match }: { match: any }) {
 
   if (isLoading) return <Loading />;
   return (
-    <Container mx="3%" my="11%">
+    <Container
+      mx={role === "admin" ? "3%" : "10%"}
+      my={role === "admin" ? "11%" : "10%"}
+    >
       <Text fontSize={18} fontFamily="mono" fontWeight="medium">
         Moderators of r/{community.username}
       </Text>
@@ -105,6 +114,9 @@ export default function ModeratorsPage({ match }: { match: any }) {
                       alignItems="center"
                       w="160px"
                       px="10px"
+                      _hover={{}}
+                      _active={{}}
+                      _focus={{}}
                       onClick={() =>
                         history.push(`/user/${moderator.username}`)
                       }
