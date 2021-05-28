@@ -13,15 +13,12 @@ export default function TrendingCommunities({
 }: {
   category?: CategoryType;
 }) {
-  const {
-    communities,
-  }: { communities: CommunityType[] } = getTrendingCommunities({
-    limit: 4,
-    category: category ? category.value : "",
-  });
+  const { communities }: { communities: CommunityType[] } =
+    getTrendingCommunities({
+      limit: 4,
+      category: category ? category.value : "",
+    });
   const history = useHistory();
-
-  console.log(communities);
 
   return communities && communities.length > 0 ? (
     <StyledBox p={0} position="relative" h="max-content">
@@ -34,10 +31,10 @@ export default function TrendingCommunities({
             ${
               communities[0].image
                 ? communities[0].image
-                : "http://localhost:4000/static/123.jpg"
+                : "http://localhost:4000/assets/banner.png"
             }
           )`}
-            boxShadow="inset 0px -25px 50px rgba(0,0,0,.9)"
+            boxShadow="inset 0px -24px 50px rgba(0,0,0,.8)"
             bgSize="cover"
           ></Box>
           <Text

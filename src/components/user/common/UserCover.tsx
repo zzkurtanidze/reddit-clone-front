@@ -16,7 +16,7 @@ export default function UserCover({ user }: { user: UserType }) {
         src={
           user.coverImage
             ? user.coverImage
-            : "https://www.zipjob.com/blog/wp-content/uploads/2020/08/linkedin-default-background-cover-photo-1.png"
+            : "http://localhost:4000/assets/banner.png"
         }
         alt="profile-cover"
         w="100vw"

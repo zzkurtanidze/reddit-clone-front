@@ -15,10 +15,13 @@ export default function SubredditsPage({ match }: { match: any }) {
 
   useEffect(() => {
     if (categories && randomCategories.length < 1) {
-      let firstRandom = Math.floor(Math.random() * categories.length - 1);
-      let secondRandom = Math.floor(Math.random() * categories.length - 1);
+      let firstRandom = Math.floor(Math.random() * categories.length);
+      let secondRandom = Math.floor(Math.random() * categories.length);
       if (firstRandom === secondRandom)
         secondRandom = Math.floor(Math.random() * categories.length - 1);
+
+      console.log(firstRandom);
+      console.log(secondRandom);
 
       setRandomCategories([firstRandom, secondRandom]);
     }
