@@ -62,7 +62,7 @@ export default function Categories({
             )}
           </React.Fragment>
         ))}
-      {categories.length > 7 && (
+      {categories && categories.length > 7 && (
         <Button
           w="100%"
           borderRadius={50}
