@@ -62,21 +62,23 @@ export default function Categories({
             )}
           </React.Fragment>
         ))}
-      <Button
-        w="100%"
-        borderRadius={50}
-        height={0}
-        py="15px"
-        fontSize={15}
-        color="#4C6CD8"
-        bg="none"
-        _focus={{}}
-        _active={{}}
-        transition="0s"
-        onClick={() => setExpanded(!expanded)}
-      >
-        {expanded ? "Show Less" : "Show More"}
-      </Button>
+      {categories.length > 7 && (
+        <Button
+          w="100%"
+          borderRadius={50}
+          height={0}
+          py="15px"
+          fontSize={15}
+          color="#4C6CD8"
+          bg="none"
+          _focus={{}}
+          _active={{}}
+          transition="0s"
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? "Show Less" : "Show More"}
+        </Button>
+      )}
     </StyledBox>
   );
 }
