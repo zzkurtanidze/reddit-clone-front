@@ -1,6 +1,6 @@
 /* eslint-disable react/style-prop-object */
 //@ts-nocheck
-import { Box, Flex, Grid, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, Image, Text, useToast } from "@chakra-ui/react";
 import Url from "@components/posts/Url";
 import React, { useContext, useEffect } from "react";
 import { FaShare } from "react-icons/fa";
@@ -23,12 +23,26 @@ import ErrorPage from "@pages/error";
 export default function PostPage({ match }: { match: any }) {
   const user = useContext(UserContext);
   const id = match.params.id;
+  const toast = useToast();
 
   const { post, isLoading, error } = getPostById(id);
 
   useEffect(() => {
     if (post) document.title = post.title;
   }, [post]);
+
+  const handleCopy = () => {
+    const url = "http://localhost:3000/post/" + post._id;
+
+    navigator.clipboard.writeText(url);
+
+    toast({
+      title: "Link copied succesfully.",
+      status: "info",
+      isClosable: true,
+      duration: 2000,
+    });
+  };
 
   if (error) return <ErrorPage />;
   if (isLoading) return <Loading />;
@@ -57,7 +71,11 @@ export default function PostPage({ match }: { match: any }) {
                   <Image src={post.image} alt={post.title} mt={5} />
                 )}
                 <Flex mt={5} gridGap={5}>
-                  <PostButton icon={<FaShare color="gray" />} label="Share" />
+                  <PostButton
+                    onClick={handleCopy}
+                    icon={<FaShare color="gray" />}
+                    label="Share"
+                  />
                   <PostButton
                     icon={<RiBookmarkFill color="gray" />}
                     label="Save"

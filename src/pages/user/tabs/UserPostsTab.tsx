@@ -15,9 +15,24 @@ import { HiArrowsExpand, HiOutlineArrowsExpand } from "react-icons/hi";
 import { FaCommentAlt, FaShare } from "react-icons/fa";
 import { RiBookmarkFill } from "react-icons/ri";
 import { ImBlocked } from "react-icons/im";
+import { useToast } from "@chakra-ui/toast";
 
 export default function UserPostsTab({ user }: { user: UserType }) {
   const history = useHistory();
+  const toast = useToast();
+
+  const handleCopy = (post: PostType) => {
+    const url = "http://localhost:3000/post/" + post._id;
+
+    navigator.clipboard.writeText(url);
+
+    toast({
+      title: "Link copied succesfully.",
+      status: "info",
+      isClosable: true,
+      duration: 2000,
+    });
+  };
 
   return (
     <Box>
@@ -85,7 +100,11 @@ export default function UserPostsTab({ user }: { user: UserType }) {
                     icon={<FaCommentAlt color="gray" />}
                     label="Comment"
                   />
-                  <PostButton icon={<FaShare color="gray" />} label="Share" />
+                  <PostButton
+                    icon={<FaShare color="gray" />}
+                    onClick={() => handleCopy(post)}
+                    label="Share"
+                  />
                   <PostButton
                     icon={<RiBookmarkFill color="gray" />}
                     label="Save"

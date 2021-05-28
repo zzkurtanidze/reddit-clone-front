@@ -29,9 +29,9 @@ export default function PostTeaser({ post }: { post: PostType }) {
 
     toast({
       title: "Link copied succesfully.",
-      status: "success",
+      status: "info",
       isClosable: true,
-      duration: "2000",
+      duration: 2000,
     });
   };
 
