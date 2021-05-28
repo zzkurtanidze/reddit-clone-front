@@ -19,7 +19,7 @@ export default function SubredditList({ category }: { category: string }) {
     <StyledBox p={0} w="100%" h="max-content">
       <Box bg="gray.100" py={2} px={4}>
         <Text fontSize={17} fontFamily="mono" fontWeight="medium">
-          Today's Top Grwoing Communities
+          Today's Top Growing Communities
         </Text>
       </Box>
       {isLoading && !error && <FieldLoading />}
