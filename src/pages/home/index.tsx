@@ -36,43 +36,43 @@ export default function HomePage() {
           {user && <NewPostTeaser />}
           {data &&
             data.map((posts: PostType[]) =>
-              posts && posts.length > 0 ? (
-                posts.map((item: PostType, i: number) => (
-                  <React.Fragment key={i}>
-                    <PostTeaser post={item} />
-                    {i === posts.length - 3 && (
-                      <Waypoint
-                        onEnter={() => {
-                          setSize(size + 1);
-                        }}
-                      />
-                    )}
-                  </React.Fragment>
-                ))
-              ) : (
-                <Box textAlign="center">
-                  <Text fontWeight="bold" fontSize={20}>
-                    There are no posts yet.
-                  </Text>
-                  <Text fontWeight="light" fontSize={16} mb={10}>
-                    Try to join in new communities
-                  </Text>
-                  <Text
-                    bg="#1384D7"
-                    px={5}
-                    py={3}
-                    _hover={{}}
-                    color="white"
-                    borderRadius={10}
-                    w="max-content"
-                    m="auto"
-                  >
-                    <Link to="/subreddits/trending">
-                      Explore new communities
-                    </Link>
-                  </Text>
-                </Box>
-              )
+              posts && posts.length > 0
+                ? posts.map((item: PostType, i: number) => (
+                    <React.Fragment key={i}>
+                      <PostTeaser post={item} />
+                      {i === posts.length - 3 && (
+                        <Waypoint
+                          onEnter={() => {
+                            setSize(size + 1);
+                          }}
+                        />
+                      )}
+                    </React.Fragment>
+                  ))
+                : posts.length < 0 && (
+                    <Box textAlign="center">
+                      <Text fontWeight="bold" fontSize={20}>
+                        There are no posts yet.
+                      </Text>
+                      <Text fontWeight="light" fontSize={16} mb={10}>
+                        Try to join in new communities
+                      </Text>
+                      <Text
+                        bg="#1384D7"
+                        px={5}
+                        py={3}
+                        _hover={{}}
+                        color="white"
+                        borderRadius={10}
+                        w="max-content"
+                        m="auto"
+                      >
+                        <Link to="/subreddits/trending">
+                          Explore new communities
+                        </Link>
+                      </Text>
+                    </Box>
+                  )
             )}
         </Box>
         <FixedElement>
