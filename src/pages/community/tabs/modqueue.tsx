@@ -182,7 +182,7 @@ export default function ModQueueTab({
             gridGap={2}
             fontFamily="mono"
           >
-            <Image src="http://localhost:4000/static/cat_blep.png" w="25%" />
+            <Image src="http://localhost:4000/assets/cat_blep.png" w="25%" />
             <Text fontSize={18} fontWeight="semibold">
               The queue is clean!
             </Text>

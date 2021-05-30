@@ -124,6 +124,16 @@ export function getTrendingPosts() {
   };
 }
 
+export const getNotifications = async () => {
+  const { data, error } = useSWR(`${apiUrl}/users/notifications`);
+
+  return {
+    notifications: data,
+    isLoading: !error && !data,
+    error,
+  };
+};
+
 export const saveDraftPost = async (post: {}) => {
   try {
     const response = await axios.post(`${apiUrl}/drafts/`, post, axiosOptions);
@@ -220,6 +230,19 @@ export const updateActiveStatus = async ({ active }: { active: boolean }) => {
     const response = await axios.put(
       `${apiUrl}/users/activeStatus`,
       { active },
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const sendNotification = async (to: string, data: object) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/users/notification/${to}`,
+      data,
       axiosOptions
     );
     return response;
