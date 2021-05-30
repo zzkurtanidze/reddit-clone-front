@@ -14,7 +14,7 @@ import FormField from "../common/FormField";
 import Modal from "../Modal";
 import { GoogleLogin, GoogleLoginResponse } from "react-google-login";
 
-import { login, loginWithGoogle } from "../../api/index";
+import { login, loginWithGoogle, updateActiveStatus } from "../../api/index";
 import ForgotPasswordModal from "./ForgotPasswordModal";
 import PrimaryButton from "@components/common/PrimaryButton";
 
@@ -76,6 +76,7 @@ export default function LoginModal({
                 duration: 9000,
                 isClosable: true,
               });
+              await updateActiveStatus({ active: true });
               setTimeout(() => {
                 window.location.reload();
               }, 2000);

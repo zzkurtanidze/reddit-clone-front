@@ -156,7 +156,9 @@ export default function NavBar() {
                 <CustomDropdownItem title={activeStatus ? "On" : "Off"}>
                   <Switch
                     onChange={async () => {
-                      const { data, statusText } = await updateActiveStatus();
+                      const { data, statusText } = await updateActiveStatus({
+                        active: !activeStatus,
+                      });
                       if (statusText === "OK") {
                         setActiveStatus(data);
                       }
@@ -200,8 +202,9 @@ export default function NavBar() {
               <DropdownItem
                 title="Log Out"
                 icon={<RiLoginBoxFill color={color} />}
-                onClick={() => {
-                  logOut();
+                onClick={async () => {
+                  await logOut();
+                  await updateActiveStatus({ active: false });
                   window.location.reload();
                 }}
               />
