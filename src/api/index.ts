@@ -124,8 +124,8 @@ export function getTrendingPosts() {
   };
 }
 
-export const getNotifications = async () => {
-  const { data, error } = useSWR(`${apiUrl}/users/notifications`);
+export const getNotifications = () => {
+  const { data, error } = useSWR(`${apiUrl}/users/notifications`, fetcher);
 
   return {
     notifications: data,

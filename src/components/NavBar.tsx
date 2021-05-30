@@ -9,6 +9,7 @@ import {
   InputGroup,
   InputLeftElement,
   Switch,
+  Text,
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -24,9 +25,9 @@ import {
   CustomDropdownItem,
   DropdownLink,
 } from "./common/DropdownItems";
-import { logOut, updateActiveStatus } from "../api/index";
+import { getNotifications, logOut, updateActiveStatus } from "../api/index";
 
-import { BiSearchAlt } from "react-icons/bi";
+import { BiBell, BiSearchAlt } from "react-icons/bi";
 import { GoGear } from "react-icons/go";
 import { FaMoon, FaUserCircle } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
@@ -41,6 +42,7 @@ export default function NavBar() {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [activeStatus, setActiveStatus] = useState<boolean | undefined>();
   const user = useContext(UserContext);
+  const { notifications, error } = getNotifications();
 
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -107,6 +109,36 @@ export default function NavBar() {
           </>
         ) : (
           <>
+            <Button
+              bg="none"
+              _hover={{}}
+              _active={{}}
+              position="relative"
+              _focus={{}}
+            >
+              <BiBell size={22} />
+              <Box
+                w="17px"
+                h="17px"
+                borderRadius={50}
+                position="absolute"
+                top="4px"
+                right="12px"
+                bg="#FB4729"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Text
+                  color="white"
+                  fontFamily="mono"
+                  fontSize={12}
+                  fontWeight="medium"
+                >
+                  {notifications && notifications.length}
+                </Text>
+              </Box>
+            </Button>
             <Link to="/submit">
               <AiOutlinePlus size={18} />
             </Link>
