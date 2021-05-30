@@ -215,6 +215,19 @@ export const resetPassword = async (data: {
   }
 };
 
+export const updateActiveStatus = async ({ active }: { active: boolean }) => {
+  try {
+    const response = await axios.put(
+      `${apiUrl}/users/activeStatus`,
+      { active },
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 /**
  *
  * @param { password: string, userId: string }

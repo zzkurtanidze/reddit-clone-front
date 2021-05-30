@@ -77,6 +77,7 @@ export const DropdownTitle: React.FC<{
   return (
     <Text
       fontSize="11px"
+      fontFamily="mono"
       fontWeight="bold"
       color={popUpText}
       letterSpacing="0.6px"
@@ -109,7 +110,7 @@ export const CustomDropdownItem: React.FC<{
       }}
     >
       {icon && icon}
-      <Text fontSize={14} ml="13px">
+      <Text fontFamily="mono" fontSize={14} ml={icon ? "13px" : "0px"}>
         {title}
       </Text>
       {children}

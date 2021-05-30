@@ -12,7 +12,7 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import Logo from "../assets/reddit-logo.png";
 import LoginModal from "./auth-modals/LoginModal";
@@ -24,7 +24,7 @@ import {
   CustomDropdownItem,
   DropdownLink,
 } from "./common/DropdownItems";
-import { logOut } from "../api/index";
+import { logOut, updateActiveStatus } from "../api/index";
 
 import { BiSearchAlt } from "react-icons/bi";
 import { GoGear } from "react-icons/go";
@@ -36,23 +36,23 @@ import PrimaryButton from "./common/PrimaryButton";
 import SecondaryButton from "./common/SecondaryButton";
 import { AiOutlinePlus } from "react-icons/ai";
 
-type NavLinkProps = {
-  text: string;
-  bg: string;
-  color: string;
-  href?: string;
-  [x: string]: any;
-};
-
 export default function NavBar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [activeStatus, setActiveStatus] = useState<boolean | undefined>();
   const user = useContext(UserContext);
 
   const { colorMode, toggleColorMode } = useColorMode();
 
   const bg = useColorModeValue("white", "gray.600");
   const color = useColorModeValue("#333", "white");
+
+  useEffect(() => {
+    if (user) {
+      //@ts-ignore
+      setActiveStatus(user.active);
+    }
+  }, [user]);
 
   return (
     <Flex
@@ -124,16 +124,18 @@ export default function NavBar() {
                   w={6}
                   borderRadius={4}
                 />
-                <Box
-                  w={3}
-                  h={3}
-                  position="absolute"
-                  bg="#63E35D"
-                  bottom="-2px"
-                  right="-2px"
-                  border="2px solid white"
-                  borderRadius={5}
-                ></Box>
+                {activeStatus && (
+                  <Box
+                    w={3}
+                    h={3}
+                    position="absolute"
+                    bg="#63E35D"
+                    bottom="-2px"
+                    right="-2px"
+                    border="2px solid white"
+                    borderRadius={5}
+                  ></Box>
+                )}
               </Box>
             )
           }
@@ -150,6 +152,20 @@ export default function NavBar() {
           >
             {user && (
               <>
+                <DropdownTitle label="Online Status" />
+                <CustomDropdownItem title={activeStatus ? "On" : "Off"}>
+                  <Switch
+                    onChange={async () => {
+                      const { data, statusText } = await updateActiveStatus({
+                        active: !activeStatus,
+                      });
+                      if (statusText === "OK") {
+                        setActiveStatus(data);
+                      }
+                    }}
+                    isChecked={activeStatus}
+                  />
+                </CustomDropdownItem>
                 <DropdownTitle label={"My Stuff"} />
                 <DropdownLink
                   title="Profile"
@@ -186,8 +202,9 @@ export default function NavBar() {
               <DropdownItem
                 title="Log Out"
                 icon={<RiLoginBoxFill color={color} />}
-                onClick={() => {
-                  logOut();
+                onClick={async () => {
+                  await logOut();
+                  await updateActiveStatus({ active: false });
                   window.location.reload();
                 }}
               />
@@ -203,32 +220,3 @@ export default function NavBar() {
     </Flex>
   );
 }
-
-const NavLink: React.FC<NavLinkProps> = ({
-  text,
-  bg,
-  color,
-  onClick,
-  ...otherProps
-}) => {
-  return (
-    <Button
-      px="34px"
-      py="8px"
-      h="max-content"
-      borderRadius={5}
-      color={color}
-      bg={bg}
-      fontWeight="bold"
-      fontFamily="Noto Sans"
-      _hover={{
-        textDecor: "none",
-      }}
-      _active={{}}
-      onClick={onClick}
-      {...otherProps}
-    >
-      {text}
-    </Button>
-  );
-};
