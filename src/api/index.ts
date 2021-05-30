@@ -128,7 +128,8 @@ export const getNotifications = () => {
   const { data, error } = useSWR(`${apiUrl}/users/notifications`, fetcher);
 
   return {
-    notifications: data,
+    notifications: data["notifications"],
+    unread: data["unread"],
     isLoading: !error && !data,
     error,
   };
