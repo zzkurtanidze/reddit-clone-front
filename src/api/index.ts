@@ -215,11 +215,11 @@ export const resetPassword = async (data: {
   }
 };
 
-export const updateActiveStatus = async () => {
+export const updateActiveStatus = async ({ active }: { active: boolean }) => {
   try {
     const response = await axios.put(
       `${apiUrl}/users/activeStatus`,
-      undefined,
+      { active },
       axiosOptions
     );
     return response;
