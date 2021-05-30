@@ -19,6 +19,8 @@ import { Form, Formik } from "formik";
 import FormField from "@components/common/FormField";
 import SecondaryButton from "@components/common/SecondaryButton";
 import * as yup from "yup";
+//@ts-ignore
+import { sendNotification } from "@api/";
 
 const validationSchema = yup.object({
   username: yup.string().required().min(5).label("Username"),
@@ -80,7 +82,13 @@ export default function ModeratorsPage({
             <Divider my={5} />
             <Formik
               initialValues={{ username: "" }}
-              onSubmit={({ username }) => console.log(username)}
+              onSubmit={async ({ username }) => {
+                const response = await sendNotification(username, {
+                  title: "You have been invited as Tech moderator",
+                  description: "Rame ra",
+                });
+                console.log(response);
+              }}
               validationSchema={validationSchema}
             >
               {({ errors, touched }) => (
