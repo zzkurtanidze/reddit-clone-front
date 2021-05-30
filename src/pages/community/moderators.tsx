@@ -86,8 +86,8 @@ export default function ModeratorsPage({
                 const response = await sendNotification(username, {
                   title: "You have been invited as Tech moderator",
                   description: "Rame ra",
+                  type: "moderator",
                 });
-                console.log(response);
               }}
               validationSchema={validationSchema}
             >
