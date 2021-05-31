@@ -11,6 +11,7 @@ import { Button } from "@chakra-ui/button";
 import { BiBell } from "react-icons/bi";
 import SecondaryButton from "./common/SecondaryButton";
 import CommunityPicture from "./community/common/CommunityPicture";
+import { Link } from "react-router-dom";
 
 TimeAgo.addLocale(en);
 
@@ -89,53 +90,58 @@ export default function Notifications() {
                 notifications.map(
                   (notification: any, i: number) =>
                     i < 5 && (
-                      <Flex
-                        direction="column"
-                        p={3}
-                        bg={notification.seen ? "white" : "#E5F1FB"}
-                        cursor="pointer"
-                        position="relative"
+                      <Link
+                        to={notification.more?.url}
+                        onClick={() => setNotificationsTab(false)}
                       >
-                        <Flex alignItems="center" mt={4} gridGap={1}>
-                          <CommunityPicture
-                            imageSrc={notification.more?.community?.image}
-                            width="35px"
-                            communityUsername={
-                              notification.more?.community?.username
-                            }
-                          />
-                          <Text
-                            fontSize={14}
-                            fontFamily="mono"
-                            maxW="190px"
-                            lineHeight="15px"
-                            textOverflow="ellipsis"
-                            fontWeight="medium"
-                            ml={2}
-                          >
-                            {notification.title}
+                        <Flex
+                          direction="column"
+                          p={3}
+                          bg={notification.seen ? "white" : "#E5F1FB"}
+                          cursor="pointer"
+                          position="relative"
+                        >
+                          <Flex alignItems="center" mt={4} gridGap={1}>
+                            <CommunityPicture
+                              imageSrc={notification.more?.community?.image}
+                              width="35px"
+                              communityUsername={
+                                notification.more?.community?.username
+                              }
+                            />
+                            <Text
+                              fontSize={14}
+                              fontFamily="mono"
+                              maxW="190px"
+                              lineHeight="15px"
+                              textOverflow="ellipsis"
+                              fontWeight="medium"
+                              ml={2}
+                            >
+                              {notification.title}
+                            </Text>
+                            <Text fontSize={12} color="gray.500">
+                              •
+                            </Text>
+                            <Text fontSize={12} color="gray.500">
+                              {timeAgo.format(parseInt(notification.date))}
+                            </Text>
+                            {!notification.seen && (
+                              <Box
+                                w="8px"
+                                h="8px"
+                                borderRadius={50}
+                                background="blue.500"
+                                position="relative"
+                                left="20px"
+                              ></Box>
+                            )}
+                          </Flex>
+                          <Text fontSize={12} color="gray.600" ml="45px">
+                            {notification.description}
                           </Text>
-                          <Text fontSize={12} color="gray.500">
-                            •
-                          </Text>
-                          <Text fontSize={12} color="gray.500">
-                            {timeAgo.format(parseInt(notification.date))}
-                          </Text>
-                          {!notification.seen && (
-                            <Box
-                              w="8px"
-                              h="8px"
-                              borderRadius={50}
-                              background="blue.500"
-                              position="relative"
-                              left="20px"
-                            ></Box>
-                          )}
                         </Flex>
-                        <Text fontSize={12} color="gray.600" ml="45px">
-                          {notification.description}
-                        </Text>
-                      </Flex>
+                      </Link>
                     )
                 )}
               {notifications.length > 5 && (
