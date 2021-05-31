@@ -3,6 +3,7 @@ import axios from "axios";
 import { GoogleLoginResponse } from "react-google-login";
 import { UserType } from "../types";
 import useSWR, { useSWRInfinite } from "swr";
+import { FaCreativeCommonsShare } from "react-icons/fa";
 
 const apiUrl = "http://localhost:4000/api";
 
@@ -503,6 +504,22 @@ export const updateCommunity = async (username: string, data: any) => {
     const response = await axios.put(
       `${apiUrl}/community/${username}`,
       data,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const inviteModerator = async (username: string, id: string) => {
+  try {
+    const response = await axios.put(
+      `${apiUrl}/community/invite-mod/`,
+      {
+        username,
+        id,
+      },
       axiosOptions
     );
     return response;
