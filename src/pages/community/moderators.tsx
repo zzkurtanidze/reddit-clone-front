@@ -22,6 +22,8 @@ import * as yup from "yup";
 //@ts-ignore
 import { sendNotification } from "@api/";
 //@ts-ignore
+import { inviteModerator } from "@api/";
+//@ts-ignore
 
 const validationSchema = yup.object({
   username: yup.string().required().min(5).label("Username"),
@@ -84,16 +86,17 @@ export default function ModeratorsPage({
             <Formik
               initialValues={{ username: "" }}
               onSubmit={async ({ username }) => {
-                const response = await sendNotification(username, {
+                await sendNotification(username, {
                   title: `You have been invited for u/${communityName} moderator`,
                   description: "",
                   type: "moderator",
                   more: {
                     community: community._id,
-                    url: `http://localhost:3000/r/${communityName}`,
+                    url: `/r/${communityName}/about/moderators`,
                   },
                 });
-                console.log(response);
+                const res = await inviteModerator(username, community._id);
+                console.log(res);
               }}
               validationSchema={validationSchema}
             >
