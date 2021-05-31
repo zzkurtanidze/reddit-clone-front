@@ -21,6 +21,7 @@ import SecondaryButton from "@components/common/SecondaryButton";
 import * as yup from "yup";
 //@ts-ignore
 import { sendNotification } from "@api/";
+//@ts-ignore
 
 const validationSchema = yup.object({
   username: yup.string().required().min(5).label("Username"),
@@ -87,6 +88,10 @@ export default function ModeratorsPage({
                   title: `You have been invited for u/${communityName} moderator`,
                   description: "",
                   type: "moderator",
+                  more: {
+                    community: community._id,
+                    url: `http://localhost:3000/r/${communityName}`,
+                  },
                 });
                 console.log(response);
               }}

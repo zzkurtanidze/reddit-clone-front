@@ -9,8 +9,8 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import { Button } from "@chakra-ui/button";
 import { BiBell } from "react-icons/bi";
-import PrimaryButton from "./common/PrimaryButton";
 import SecondaryButton from "./common/SecondaryButton";
+import CommunityPicture from "./community/common/CommunityPicture";
 
 TimeAgo.addLocale(en);
 
@@ -97,12 +97,12 @@ export default function Notifications() {
                         position="relative"
                       >
                         <Flex alignItems="center" mt={4} gridGap={1}>
-                          <Image
-                            src="http://localhost:4000/assets/avatar.png"
-                            w="35px"
-                            h="35px"
-                            borderRadius={50}
-                            mr={1}
+                          <CommunityPicture
+                            imageSrc={notification.more?.community?.image}
+                            width="35px"
+                            communityUsername={
+                              notification.more?.community?.username
+                            }
                           />
                           <Text
                             fontSize={14}
@@ -111,6 +111,7 @@ export default function Notifications() {
                             lineHeight="15px"
                             textOverflow="ellipsis"
                             fontWeight="medium"
+                            ml={2}
                           >
                             {notification.title}
                           </Text>
