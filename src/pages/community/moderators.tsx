@@ -84,10 +84,11 @@ export default function ModeratorsPage({
               initialValues={{ username: "" }}
               onSubmit={async ({ username }) => {
                 const response = await sendNotification(username, {
-                  title: "You have been invited as Tech moderator",
-                  description: "Rame ra",
+                  title: `You have been invited for u/${communityName} moderator`,
+                  description: "",
                   type: "moderator",
                 });
+                console.log(response);
               }}
               validationSchema={validationSchema}
             >

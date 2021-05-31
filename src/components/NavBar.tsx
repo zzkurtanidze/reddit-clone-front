@@ -26,10 +26,6 @@ import {
   DropdownLink,
 } from "./common/DropdownItems";
 import { getNotifications, logOut, updateActiveStatus } from "../api/index";
-//@ts-ignore
-import TimeAgo from "javascript-time-ago";
-//@ts-ignore
-import en from "javascript-time-ago/locale/en";
 
 import { BiBell, BiSearchAlt } from "react-icons/bi";
 import { GoGear } from "react-icons/go";
@@ -40,17 +36,15 @@ import { Link } from "react-router-dom";
 import PrimaryButton from "./common/PrimaryButton";
 import SecondaryButton from "./common/SecondaryButton";
 import { AiOutlinePlus } from "react-icons/ai";
-
-TimeAgo.addLocale(en);
+import Notifications from "./Notifications";
 
 export default function NavBar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [activeStatus, setActiveStatus] = useState<boolean | undefined>();
   const user = useContext(UserContext);
-  const { notifications, unread } = getNotifications();
+  const { unread } = getNotifications();
   const [notificationsTab, setNotificationsTab] = useState(false);
-  const timeAgo = new TimeAgo("en-US");
 
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -118,97 +112,7 @@ export default function NavBar() {
         ) : (
           <>
             <Box position="relative">
-              <Button
-                bg="none"
-                _hover={{}}
-                _active={{}}
-                _focus={{}}
-                onClick={() => setNotificationsTab(!notificationsTab)}
-              >
-                <BiBell size={22} />
-                <Box
-                  w="17px"
-                  h="17px"
-                  borderRadius={50}
-                  position="absolute"
-                  top="4px"
-                  right="12px"
-                  bg="#FB4729"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <Text
-                    color="white"
-                    fontFamily="mono"
-                    fontSize={12}
-                    fontWeight="medium"
-                  >
-                    {unread && unread}
-                  </Text>
-                </Box>
-              </Button>
-              {notificationsTab && (
-                <Box
-                  position="absolute"
-                  top="40px"
-                  right="-15px"
-                  minW="400px"
-                  minH="100px"
-                  bg="white"
-                  borderRadius={3}
-                  boxShadow="0px 3px 5px rgba(0,0,0,.3)"
-                >
-                  <Text
-                    fontSize={13}
-                    fontFamily="mono"
-                    textAlign="left"
-                    fontWeight="bold"
-                    p={3}
-                  >
-                    Notifications
-                  </Text>
-                  <Box>
-                    {notifications &&
-                      notifications.map((notification: any) => (
-                        <Flex
-                          direction="column"
-                          p={3}
-                          bg={notification.seen ? "white" : "#E5F1FB"}
-                          cursor="pointer"
-                        >
-                          <Flex alignItems="center" mt={4} gridGap={1}>
-                            <Image
-                              src="http://localhost:4000/assets/avatar.png"
-                              w="35px"
-                              h="35px"
-                              borderRadius={50}
-                              mr={1}
-                            />
-                            <Text
-                              fontSize={14}
-                              fontFamily="mono"
-                              maxW="190px"
-                              noOfLines={1}
-                              textOverflow="ellipsis"
-                            >
-                              {notification.title}
-                            </Text>
-                            <Text fontSize={12} color="gray.500">
-                              •
-                            </Text>
-                            <Text fontSize={12} color="gray.500">
-                              {timeAgo.format(parseInt(notification.date))}
-                            </Text>
-                          </Flex>
-                          <Text fontSize={12} color="gray.600" ml="45px">
-                            {notification.description}
-                          </Text>
-                        </Flex>
-                      ))}
-                  </Box>
-                </Box>
-              )}
+              <Notifications />
             </Box>
             <Link to="/submit">
               <AiOutlinePlus size={18} />
