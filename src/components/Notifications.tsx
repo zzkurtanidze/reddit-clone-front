@@ -65,6 +65,8 @@ export default function Notifications() {
             top="35px"
             right="20px"
             boxShadow="0px 3px 8px rgba(0,0,0,.3)"
+            borderWidth="1px"
+            borderColor="gray.200"
           ></Box>
           <Box
             position="absolute"
@@ -75,6 +77,8 @@ export default function Notifications() {
             bg="white"
             borderRadius={3}
             boxShadow="0px 5px 5px rgba(0,0,0,.3)"
+            borderWidth="1px"
+            borderColor="gray.200"
           >
             <Text
               fontSize={13}
@@ -86,7 +90,7 @@ export default function Notifications() {
               Notifications
             </Text>
             <Box>
-              {notifications &&
+              {notifications && notifications.length > 0 ? (
                 notifications.map(
                   (notification: any, i: number) =>
                     i < 5 && (
@@ -143,7 +147,19 @@ export default function Notifications() {
                         </Flex>
                       </Link>
                     )
-                )}
+                )
+              ) : (
+                <Flex
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  mt={3}
+                >
+                  <Text fontSize={14} fontFamily="mono" fontWeight="medium">
+                    No notifications yet
+                  </Text>
+                </Flex>
+              )}
               {notifications.length > 5 && (
                 <SecondaryButton
                   label="See All"
