@@ -166,7 +166,7 @@ export default function ModeratorsPage({
                     type: "moderator",
                     more: {
                       community: community._id,
-                      url: `http://localhost:3000/r/${community.username}/about/moderators`,
+                      url: `/r/${community.username}/about/moderators`,
                     },
                   });
                 });
@@ -176,7 +176,7 @@ export default function ModeratorsPage({
             <PrimaryButton
               label="Accept"
               onClick={async () => {
-                await acceptModerator(community._id);
+                await acceptModerator(community._id, true);
                 community.moderators.forEach(async (moderator: UserType) => {
                   await sendNotification(moderator.username, {
                     title: `u/${user?.username} accepted your invitation`,
@@ -184,7 +184,7 @@ export default function ModeratorsPage({
                     type: "moderator",
                     more: {
                       community: community._id,
-                      url: `http://localhost:3000/r/${community.username}/about/moderators`,
+                      url: `/r/${community.username}/about/moderators`,
                     },
                   });
                 });
