@@ -528,6 +528,19 @@ export const inviteModerator = async (username: string, id: string) => {
   }
 };
 
+export const acceptModerator = async (id: string, answer: boolean) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/community/invite-mod/`,
+      { id, answer },
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 export const newRule = async (username: string, data: any) => {
   try {
     const response = await axios.post(
