@@ -3,6 +3,7 @@ import axios from "axios";
 import { GoogleLoginResponse } from "react-google-login";
 import { UserType } from "../types";
 import useSWR, { useSWRInfinite } from "swr";
+import { FaCreativeCommonsShare } from "react-icons/fa";
 
 const apiUrl = "http://localhost:4000/api";
 
@@ -124,11 +125,12 @@ export function getTrendingPosts() {
   };
 }
 
-export const getNotifications = async () => {
-  const { data, error } = useSWR(`${apiUrl}/users/notifications`);
+export const getNotifications = () => {
+  const { data, error } = useSWR(`${apiUrl}/users/notifications`, fetcher);
 
   return {
-    notifications: data,
+    notifications: data?.notifications,
+    unread: data?.unread,
     isLoading: !error && !data,
     error,
   };
@@ -246,6 +248,18 @@ export const sendNotification = async (to: string, data: object) => {
       axiosOptions
     );
     return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const seenNotification = async (id: string) => {
+  try {
+    const { data } = await axios.get(
+      `${apiUrl}/users/seen/${id}`,
+      axiosOptions
+    );
+    return { unread: data.unread, notifications: data.notifications };
   } catch (ex) {
     return ex.response;
   }
@@ -502,6 +516,35 @@ export const updateCommunity = async (username: string, data: any) => {
     const response = await axios.put(
       `${apiUrl}/community/${username}`,
       data,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const inviteModerator = async (username: string, id: string) => {
+  try {
+    const response = await axios.put(
+      `${apiUrl}/community/invite-mod/`,
+      {
+        username,
+        id,
+      },
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const acceptModerator = async (id: string, answer: boolean) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/community/invite-mod/`,
+      { id, answer },
       axiosOptions
     );
     return response;

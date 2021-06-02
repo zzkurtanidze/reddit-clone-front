@@ -9,6 +9,7 @@ import {
   InputGroup,
   InputLeftElement,
   Switch,
+  Text,
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -24,9 +25,9 @@ import {
   CustomDropdownItem,
   DropdownLink,
 } from "./common/DropdownItems";
-import { logOut, updateActiveStatus } from "../api/index";
+import { getNotifications, logOut, updateActiveStatus } from "../api/index";
 
-import { BiSearchAlt } from "react-icons/bi";
+import { BiBell, BiSearchAlt } from "react-icons/bi";
 import { GoGear } from "react-icons/go";
 import { FaMoon, FaUserCircle } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
@@ -35,12 +36,15 @@ import { Link } from "react-router-dom";
 import PrimaryButton from "./common/PrimaryButton";
 import SecondaryButton from "./common/SecondaryButton";
 import { AiOutlinePlus } from "react-icons/ai";
+import Notifications from "./Notifications";
 
 export default function NavBar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [activeStatus, setActiveStatus] = useState<boolean | undefined>();
   const user = useContext(UserContext);
+  const { unread } = getNotifications();
+  const [notificationsTab, setNotificationsTab] = useState(false);
 
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -107,6 +111,9 @@ export default function NavBar() {
           </>
         ) : (
           <>
+            <Box position="relative">
+              <Notifications />
+            </Box>
             <Link to="/submit">
               <AiOutlinePlus size={18} />
             </Link>
