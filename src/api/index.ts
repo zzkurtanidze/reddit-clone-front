@@ -253,6 +253,18 @@ export const sendNotification = async (to: string, data: object) => {
   }
 };
 
+export const seenNotification = async (id: string) => {
+  try {
+    const { data } = await axios.get(
+      `${apiUrl}/users/seen/${id}`,
+      axiosOptions
+    );
+    return { unread: data.unread, notifications: data.notifications };
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 /**
  *
  * @param { password: string, userId: string }
