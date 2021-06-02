@@ -7,7 +7,7 @@ import Container from "@components/common/Container";
 import Loading from "@components/common/Loading";
 //@ts-ignore
 import { UserType } from "@types/";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { useHistory } from "react-router-dom";
 import PrimaryButton from "@components/common/PrimaryButton";
@@ -23,6 +23,11 @@ import { inviteModerator } from "@api/";
 import ModeratorsListing from "@components/community/common/ModeratorsListing";
 //@ts-ignore
 import queryString from "query-string";
+//@ts-ignore
+import { UserContext } from "@context/UserContext";
+import { Image } from "@chakra-ui/image";
+//@ts-ignore
+import { acceptModerator } from "@api/";
 
 const validationSchema = yup.object({
   username: yup.string().required().min(5).label("Username"),
@@ -37,9 +42,22 @@ export default function ModeratorsPage({
 }) {
   const communityName = match.params.name;
   const { community, isLoading } = getCommunity(communityName);
+  const user = useContext(UserContext);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [moderatorForm, setModeratorForm] = useState<boolean>(false);
   const history = useHistory();
+  const params = queryString.parse(window.location.search);
+  const [inviteModal, setInviteModal] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (params.acceptInvite && user && community) {
+      community.invitedModerators.forEach((moderator: UserType) => {
+        if (moderator.username === user.username) {
+          setInviteModal(true);
+        }
+      });
+    }
+  }, [user, community]);
 
   if (isLoading) return <Loading />;
   return (
@@ -78,7 +96,7 @@ export default function ModeratorsPage({
                   type: "moderator",
                   more: {
                     community: community._id,
-                    url: `/r/${communityName}/about/moderators`,
+                    url: `/r/${communityName}/about/moderators/?acceptInvite=true`,
                   },
                 });
                 await inviteModerator(username, community._id);
@@ -119,6 +137,64 @@ export default function ModeratorsPage({
           </Modal>
         </>
       )}
+      <Modal open={inviteModal} onClose={() => setInviteModal(false)} w="430px">
+        <Flex direction="column" alignItems="center" mt={5}>
+          <Image
+            src="http://localhost:4000/assets/congrats.png"
+            w="80px"
+            h="80px"
+          />
+          <Text fontSize={14} mt={5}>
+            Congrats! You are invited to become a moderator!
+          </Text>
+          <Flex
+            mt={5}
+            position="relative"
+            top="10px"
+            gridGap={2}
+            justifyContent="flex-end"
+            w="100%"
+          >
+            <SecondaryButton
+              label="Decline"
+              onClick={async () => {
+                await acceptModerator(community._id, false);
+                community.moderators.forEach(async (moderator: UserType) => {
+                  await sendNotification(moderator.username, {
+                    title: `u/${user?.username} declined your invitation`,
+                    description: `u/${user?.username} delined your invitation to be r/${community.username} moderator`,
+                    type: "moderator",
+                    more: {
+                      community: community._id,
+                      url: `http://localhost:3000/r/${community.username}/about/moderators`,
+                    },
+                  });
+                });
+                setInviteModal(false);
+              }}
+            />
+            <PrimaryButton
+              label="Accept"
+              onClick={async () => {
+                await acceptModerator(community._id);
+                community.moderators.forEach(async (moderator: UserType) => {
+                  await sendNotification(moderator.username, {
+                    title: `u/${user?.username} accepted your invitation`,
+                    description: `u/${user?.username} is now r/${community.username} moderator`,
+                    type: "moderator",
+                    more: {
+                      community: community._id,
+                      url: `http://localhost:3000/r/${community.username}/about/moderators`,
+                    },
+                  });
+                });
+                setInviteModal(false);
+                history.push(`/r/${community.username}/about/moderators`);
+              }}
+            />
+          </Flex>
+        </Flex>
+      </Modal>
       <Container
         mx={role === "admin" ? "3%" : "10%"}
         my={role === "admin" ? "5%" : "10%"}
