@@ -141,7 +141,13 @@ export default function Notifications() {
                               ></Box>
                             )}
                           </Flex>
-                          <Text fontSize={12} color="gray.600" ml="45px">
+                          <Text
+                            fontSize={12}
+                            w="50%"
+                            noOfLines={2}
+                            color="gray.600"
+                            ml="45px"
+                          >
                             {notification.description}
                           </Text>
                         </Flex>
