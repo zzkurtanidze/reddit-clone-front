@@ -619,6 +619,32 @@ export const reorderRules = async (username: string, reorderedRules: any) => {
   }
 };
 
+export const getFlairs = async (username: string) => {
+  const { data, error } = useSWR(
+    `${apiUrl}/community/flairs/${username}`,
+    fetcher
+  );
+
+  return {
+    flairs: data,
+    isLoading: !data && !error,
+    error,
+  };
+};
+
+export const newFlair = async (username: string, data: any) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/community/new/flair/${username}`,
+      data,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
 /**
  *
  * @param limit
