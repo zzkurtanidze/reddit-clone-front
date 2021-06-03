@@ -28,6 +28,7 @@ import { UserContext } from "@context/UserContext";
 import { Image } from "@chakra-ui/image";
 //@ts-ignore
 import { acceptModerator } from "@api/";
+import { useToast } from "@chakra-ui/toast";
 
 const validationSchema = yup.object({
   username: yup.string().required().min(5).label("Username"),
@@ -48,6 +49,8 @@ export default function ModeratorsPage({
   const history = useHistory();
   const params = queryString.parse(window.location.search);
   const [inviteModal, setInviteModal] = useState<boolean>(false);
+
+  const toast = useToast();
 
   useEffect(() => {
     if (params.acceptInvite && user && community) {
@@ -99,8 +102,23 @@ export default function ModeratorsPage({
                     url: `/r/${communityName}/about/moderators/?acceptInvite=true`,
                   },
                 });
-                await inviteModerator(username, community._id);
-                setModeratorForm(false);
+                const response = await inviteModerator(username, community._id);
+                if (response.statusText === "OK") {
+                  toast({
+                    title: "User has been invited succesfully",
+                    status: "success",
+                    duration: 2000,
+                    isClosable: true,
+                  });
+                  setModeratorForm(false);
+                } else {
+                  toast({
+                    title: response.data,
+                    status: "error",
+                    duration: 2000,
+                    isClosable: true,
+                  });
+                }
               }}
               validationSchema={validationSchema}
             >

@@ -526,7 +526,7 @@ export const updateCommunity = async (username: string, data: any) => {
 
 export const inviteModerator = async (username: string, id: string) => {
   try {
-    const response = await axios.put(
+    const response = await axios.post(
       `${apiUrl}/community/invite-mod/`,
       {
         username,
@@ -540,11 +540,15 @@ export const inviteModerator = async (username: string, id: string) => {
   }
 };
 
-export const acceptModerator = async (id: string, answer: boolean) => {
+export const acceptModerator = async (
+  communityId: string,
+  answer: boolean,
+  userId?: string
+) => {
   try {
     const response = await axios.post(
-      `${apiUrl}/community/invite-mod/`,
-      { id, answer },
+      `${apiUrl}/community/answer-mod/`,
+      { communityId, answer, userId },
       axiosOptions
     );
     return response;
