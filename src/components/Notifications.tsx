@@ -107,13 +107,14 @@ export default function Notifications() {
                 updatedNotifications?.map((notification: any) => (
                   <Link
                     to={notification.more?.url}
-                    onClick={async () => {
-                      setNotificationsTab(false);
+                    onClick={async (e: any) => {
+                      e.preventDefault();
                       const { unread, notifications } = await seenNotification(
                         notification._id
                       );
                       setUpdatedNotifications(notifications);
                       setUpdatedUnread(unread);
+                      setNotificationsTab(false);
                     }}
                   >
                     <Flex
@@ -149,14 +150,29 @@ export default function Notifications() {
                           {timeAgo.format(parseInt(notification.date))}
                         </Text>
                         {!notification.seen && (
-                          <Box
+                          <Button
+                            bg="red"
+                            zIndex={2}
+                            _hover={{}}
+                            _focus={{}}
+                            _active={{}}
+                            minW="0px"
+                            p={0}
+                            m={0}
+                            onClick={async (e: any) => {
+                              e.preventDefault();
+                              const { unread, notifications } =
+                                await seenNotification(notification._id);
+                              setUpdatedNotifications(notifications);
+                              setUpdatedUnread(unread);
+                            }}
                             w="8px"
                             h="8px"
                             borderRadius={50}
                             background="blue.500"
                             position="relative"
                             left="20px"
-                          ></Box>
+                          ></Button>
                         )}
                       </Flex>
                       <Text
