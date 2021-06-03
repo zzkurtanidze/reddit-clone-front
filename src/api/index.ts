@@ -540,11 +540,15 @@ export const inviteModerator = async (username: string, id: string) => {
   }
 };
 
-export const acceptModerator = async (id: string, answer: boolean) => {
+export const acceptModerator = async (
+  communityId: string,
+  answer: boolean,
+  userId?: string
+) => {
   try {
     const response = await axios.post(
       `${apiUrl}/community/answer-mod/`,
-      { id, answer },
+      { communityId, answer, userId },
       axiosOptions
     );
     return response;

@@ -9,6 +9,9 @@ import { useHistory } from "react-router";
 //@ts-ignore
 import { CommunityType } from "@types/";
 import { IoMdClose } from "react-icons/io";
+//@ts-ignore
+import { acceptModerator } from "@api/";
+import { useToast } from "@chakra-ui/toast";
 
 export default function ModeratorsListing({
   community,
@@ -20,6 +23,7 @@ export default function ModeratorsListing({
   moderators: [UserType];
 }) {
   const history = useHistory();
+  const toast = useToast();
 
   return (
     <>
@@ -75,6 +79,16 @@ export default function ModeratorsListing({
                   _hover={{}}
                   p={0}
                   ml="100px"
+                  onClick={async () => {
+                    await acceptModerator(community._id, false, moderator._id);
+                    toast({
+                      title: "Invite canceled succesfully",
+                      status: "success",
+                      duration: 2000,
+                      isClosable: true,
+                    });
+                    window.location.reload();
+                  }}
                 >
                   <IoMdClose size={25} />
                 </Button>
