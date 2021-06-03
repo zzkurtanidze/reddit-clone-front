@@ -11,6 +11,7 @@ import RulesTab from "./tabs/rules";
 import ModeratorsPage from "./moderators";
 //@ts-ignore
 import { getRoleInCommunity } from "@api/";
+import PostFlairs from "./tabs/postFlairs";
 
 export default function ModToolsPage({ match }: { match: any }) {
   const tabName = match.params.tabname;
@@ -21,6 +22,7 @@ export default function ModToolsPage({ match }: { match: any }) {
     modqueue: <ModQueue communityUsername={community} />,
     rules: <RulesTab community={community} />,
     moderators: <ModeratorsPage match={match} role={role} />,
+    postflairs: <PostFlairs community={community} />,
   };
 
   return (
