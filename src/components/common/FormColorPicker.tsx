@@ -9,14 +9,28 @@ export default function FormColorPicker({
   values,
   name,
   label,
+  initialColor,
 }: {
   setValues: any;
   values: any;
   name: string;
   label: string;
+  initialColor?: string;
 }) {
   const [showPicker, setShowPicker] = useState<boolean>(false);
-  const [color, setColor] = useState<any>("white");
+  const [color, setColor] = useState<any>(initialColor);
+
+  const colors = [
+    "#ABB8C3",
+    "#000000",
+    "#FFFFFF",
+    "#ccc",
+    "#2598f7",
+    "#27ea7f",
+    "#e0e035",
+    "#f72020",
+    "#9833ea",
+  ];
 
   useEffect(() => {
     setValues({ ...values, [name]: color });
@@ -55,6 +69,7 @@ export default function FormColorPicker({
       {showPicker && (
         <Box zIndex={2} position="absolute" right="-78%" top="39px">
           <TwitterPicker
+            colors={colors}
             onChangeComplete={(col: ColorResult) => setColor(col.hex)}
           />
         </Box>
