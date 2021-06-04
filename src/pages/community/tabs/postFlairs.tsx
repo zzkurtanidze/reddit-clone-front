@@ -9,9 +9,13 @@ import FormField from "@components/common/FormField";
 import PrimaryButton from "@components/common/PrimaryButton";
 import SecondaryButton from "@components/common/SecondaryButton";
 //@ts-ignore
-import { CommunityType } from "@types/";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
+import * as yup from "yup";
+
+const validationSchema = yup.object({
+  text: yup.string().required("Error: text or emoji is required"),
+});
 
 export default function PostFlairs({ community }: { community: string }) {
   const { flairs, isLoading } = getFlairs(community);
@@ -99,6 +103,7 @@ export default function PostFlairs({ community }: { community: string }) {
                 ModOnly: false,
                 type: "post",
               }}
+              validationSchema={validationSchema}
               onSubmit={(data) => console.log(data)}
             >
               {({ errors, touched, values, setValues }) => (
@@ -121,7 +126,7 @@ export default function PostFlairs({ community }: { community: string }) {
                         error={errors.text}
                         label="Flair text"
                         sufix={`${
-                          (64 - values.text?.length) | 64
+                          64 - values.text?.length
                         } characters remaining`}
                       />
                       <FormField
