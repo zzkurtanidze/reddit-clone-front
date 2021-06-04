@@ -1,8 +1,9 @@
 //@ts-ignore
 import { getFlairs } from "@api/";
+import { Button } from "@chakra-ui/button";
 import { Image } from "@chakra-ui/image";
 import { Box, Flex, Text } from "@chakra-ui/layout";
-import { Table, Td, Thead, Tr } from "@chakra-ui/table";
+import { Table, Tbody, Td, Thead, Tr } from "@chakra-ui/table";
 import FormCheckbox from "@components/common/FormCheckbox";
 import FormColorPicker from "@components/common/FormColorPicker";
 import FormField from "@components/common/FormField";
@@ -10,16 +11,30 @@ import PrimaryButton from "@components/common/PrimaryButton";
 import SecondaryButton from "@components/common/SecondaryButton";
 //@ts-ignore
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
+import { v4 as uuidv4 } from "uuid";
+//@ts-ignore
+import { newFlair } from "@api/";
+import Flair from "@components/common/Flair";
 
 const validationSchema = yup.object({
   text: yup.string().required("Error: text or emoji is required"),
 });
 
 export default function PostFlairs({ community }: { community: string }) {
-  const { flairs, isLoading } = getFlairs(community);
+  const { flairs } = getFlairs(community);
   const [flairForm, setFlairForm] = useState<boolean>(false);
+  const [form, setForm] = useState<FormValues>();
+
+  type FormValues = {
+    text: string;
+    backgroundColor: string;
+    textColor: string;
+    ModOnly: boolean;
+    CSSClass: string;
+    type: string;
+  };
 
   return (
     <Box>
@@ -68,6 +83,75 @@ export default function PostFlairs({ community }: { community: string }) {
               <Td>Flair ID</Td>
             </Tr>
           </Thead>
+          <Tbody>
+            {flairs &&
+              flairs.map((flair: any) => (
+                <Tr
+                  bg="white"
+                  fontSize={14}
+                  fontFamily="mono"
+                  fontWeight="light"
+                >
+                  <Td>
+                    <Flair flair={flair} />
+                  </Td>
+                  <Td>{flair.CSSClass}</Td>
+                  <Td>{flair.ModOnly && "ModOnly"}</Td>
+                  <Td>
+                    <Button
+                      bg="none"
+                      textTransform="uppercase"
+                      color="gray.500"
+                      transition="0"
+                      borderRadius={50}
+                      fontFamily="mono"
+                      fontSize={14}
+                      px={0}
+                      h="max-content"
+                      py={2}
+                    >
+                      Copy Id
+                    </Button>
+                  </Td>
+                </Tr>
+              ))}
+            {flairForm && (
+              <Tr bg="white" fontSize={14} fontFamily="mono" fontWeight="light">
+                <Td>
+                  <Text
+                    bg={form?.backgroundColor}
+                    color={form?.textColor}
+                    w="max-content"
+                    h="max-content"
+                    fontSize={13}
+                    px="5px"
+                    py="0px"
+                    borderRadius={3}
+                  >
+                    {form?.text}
+                  </Text>
+                </Td>
+                <Td>{form?.CSSClass}</Td>
+                <Td>{form?.ModOnly && "ModOnly"}</Td>
+                <Td>
+                  <Button
+                    bg="none"
+                    textTransform="uppercase"
+                    color="gray.500"
+                    transition="0"
+                    borderRadius={50}
+                    fontFamily="mono"
+                    fontSize={14}
+                    px={0}
+                    h="max-content"
+                    py={2}
+                  >
+                    Copy Id
+                  </Button>
+                </Td>
+              </Tr>
+            )}
+          </Tbody>
         </Table>
         {!flairs && !flairForm && (
           <Flex
@@ -97,14 +181,25 @@ export default function PostFlairs({ community }: { community: string }) {
             <Formik
               initialValues={{
                 text: "",
-                backgroundColor: "",
-                textColor: "",
+                backgroundColor: "#ccc",
+                textColor: "black",
                 CSSClass: "",
                 ModOnly: false,
                 type: "post",
               }}
               validationSchema={validationSchema}
-              onSubmit={(data) => console.log(data)}
+              onSubmit={async (data) => {
+                const flair = {
+                  id: uuidv4(),
+                  ...data,
+                };
+                console.log(flair);
+                const response = await newFlair(community, flair);
+                console.log(response);
+              }}
+              //@ts-ignore
+              innerRef={(data) => setForm(data?.values)}
+              enableReinitialize
             >
               {({ errors, touched, values, setValues }) => (
                 <Form>
@@ -113,7 +208,7 @@ export default function PostFlairs({ community }: { community: string }) {
                       <Text
                         fontWeight="bold"
                         fontFamily="mono"
-                        fontSize={10}
+                        fontSize={11}
                         textTransform="uppercase"
                         color="gray.500"
                       >
@@ -140,12 +235,14 @@ export default function PostFlairs({ community }: { community: string }) {
                       <FormColorPicker
                         label="Flair background color"
                         name="backgroundColor"
+                        initialColor="#ccc"
                         values={values}
                         setValues={setValues}
                       />
                       <FormColorPicker
                         label="Flair text color"
                         name="textColor"
+                        initialColor="black"
                         values={values}
                         setValues={setValues}
                       />
@@ -154,7 +251,7 @@ export default function PostFlairs({ community }: { community: string }) {
                       <Text
                         fontWeight="bold"
                         fontFamily="mono"
-                        fontSize={10}
+                        fontSize={11}
                         textTransform="uppercase"
                         color="gray.500"
                       >
