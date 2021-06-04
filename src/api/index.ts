@@ -3,7 +3,6 @@ import axios from "axios";
 import { GoogleLoginResponse } from "react-google-login";
 import { UserType } from "../types";
 import useSWR, { useSWRInfinite } from "swr";
-import { FaCreativeCommonsShare } from "react-icons/fa";
 
 const apiUrl = "http://localhost:4000/api";
 
@@ -619,7 +618,7 @@ export const reorderRules = async (username: string, reorderedRules: any) => {
   }
 };
 
-export const getFlairs = async (username: string) => {
+export const getFlairs = (username: string) => {
   const { data, error } = useSWR(
     `${apiUrl}/community/flairs/${username}`,
     fetcher
