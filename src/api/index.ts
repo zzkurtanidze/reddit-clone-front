@@ -644,6 +644,18 @@ export const newFlair = async (username: string, data: any) => {
   }
 };
 
+export const deleteFlair = async (username: string, id: string) => {
+  try {
+    const response = await axios.delete(
+      `${apiUrl}/community/flair/${username}/${id}`,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.respones;
+  }
+};
+
 /**
  *
  * @param limit
