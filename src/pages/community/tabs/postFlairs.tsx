@@ -11,12 +11,17 @@ import PrimaryButton from "@components/common/PrimaryButton";
 import SecondaryButton from "@components/common/SecondaryButton";
 //@ts-ignore
 import { Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as yup from "yup";
 import { v4 as uuidv4 } from "uuid";
 //@ts-ignore
 import { newFlair } from "@api/";
 import Flair from "@components/common/Flair";
+import { useToast } from "@chakra-ui/toast";
+import { HiTrash } from "react-icons/hi";
+import { useHistory } from "react-router";
+import { scrollIntoView } from "react-select/src/utils";
+import { useTimeout } from "@chakra-ui/hooks";
 
 const validationSchema = yup.object({
   text: yup.string().required("Error: text or emoji is required"),
@@ -26,6 +31,8 @@ export default function PostFlairs({ community }: { community: string }) {
   const { flairs } = getFlairs(community);
   const [flairForm, setFlairForm] = useState<boolean>(false);
   const [form, setForm] = useState<FormValues>();
+  const toast = useToast();
+  const history = useHistory();
 
   type FormValues = {
     text: string;
@@ -35,6 +42,14 @@ export default function PostFlairs({ community }: { community: string }) {
     CSSClass: string;
     type: string;
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({ top: 10000000, behavior: "smooth" });
+    }, 10);
+  }, [flairForm]);
+
+  const formRef = useRef<any>();
 
   return (
     <Box>
@@ -61,7 +76,9 @@ export default function PostFlairs({ community }: { community: string }) {
         />
         <PrimaryButton
           label="Add flair"
-          onClick={() => setFlairForm(!flairForm)}
+          onClick={() => {
+            setFlairForm(!flairForm);
+          }}
         />
       </Flex>
       <Box p={10}>
@@ -81,6 +98,8 @@ export default function PostFlairs({ community }: { community: string }) {
               <Td w="10%">Css Class</Td>
               <Td w="40%">Settings</Td>
               <Td>Flair ID</Td>
+              <Td></Td>
+              <Td></Td>
             </Tr>
           </Thead>
           <Tbody>
@@ -109,14 +128,67 @@ export default function PostFlairs({ community }: { community: string }) {
                       px={0}
                       h="max-content"
                       py={2}
+                      _focus={{}}
+                      _active={{}}
+                      onClick={() => {
+                        navigator.clipboard.writeText(flair.id);
+                        toast({
+                          title: "ID Copied succesfully",
+                          isClosable: true,
+                        });
+                      }}
                     >
                       Copy Id
+                    </Button>
+                  </Td>
+                  <Td>
+                    <Button
+                      bg="none"
+                      textTransform="uppercase"
+                      color="gray.500"
+                      transition="0"
+                      borderRadius={50}
+                      fontFamily="mono"
+                      fontSize={14}
+                      px={0}
+                      h="max-content"
+                      py={2}
+                      _focus={{}}
+                      _active={{}}
+                      onClick={() => {}}
+                    >
+                      Edit
+                    </Button>
+                  </Td>
+                  <Td>
+                    <Button
+                      bg="none"
+                      textTransform="uppercase"
+                      color="gray.500"
+                      transition="0"
+                      borderRadius={50}
+                      fontFamily="mono"
+                      fontSize={14}
+                      px={0}
+                      h="max-content"
+                      py={2}
+                      _focus={{}}
+                      _active={{}}
+                      onClick={() => {}}
+                    >
+                      <HiTrash color="#9b9b9b" size={18} />
                     </Button>
                   </Td>
                 </Tr>
               ))}
             {flairForm && (
-              <Tr bg="white" fontSize={14} fontFamily="mono" fontWeight="light">
+              <Tr
+                bg="white"
+                fontSize={14}
+                fontFamily="mono"
+                fontWeight="light"
+                ref={formRef}
+              >
                 <Td>
                   <Text
                     bg={form?.backgroundColor}
@@ -145,10 +217,13 @@ export default function PostFlairs({ community }: { community: string }) {
                     px={0}
                     h="max-content"
                     py={2}
+                    disabled
                   >
                     Copy Id
                   </Button>
                 </Td>
+                <Td></Td>
+                <Td></Td>
               </Tr>
             )}
           </Tbody>
@@ -193,9 +268,16 @@ export default function PostFlairs({ community }: { community: string }) {
                   id: uuidv4(),
                   ...data,
                 };
-                console.log(flair);
-                const response = await newFlair(community, flair);
-                console.log(response);
+                await newFlair(community, flair);
+                toast({
+                  title: "Flair created succesfully",
+                  status: "success",
+                  isClosable: true,
+                });
+                setFlairForm(false);
+                await setTimeout(() => {
+                  history.push(`/test`);
+                }, 1000);
               }}
               //@ts-ignore
               innerRef={(data) => setForm(data?.values)}
