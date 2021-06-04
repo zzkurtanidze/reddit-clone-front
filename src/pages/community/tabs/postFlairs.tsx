@@ -20,19 +20,26 @@ import Flair from "@components/common/Flair";
 import { useToast } from "@chakra-ui/toast";
 import { HiTrash } from "react-icons/hi";
 import { useHistory } from "react-router";
-import { scrollIntoView } from "react-select/src/utils";
-import { useTimeout } from "@chakra-ui/hooks";
+//@ts-ignore
+import { deleteFlair } from "@api/";
 
 const validationSchema = yup.object({
   text: yup.string().required("Error: text or emoji is required"),
 });
 
 export default function PostFlairs({ community }: { community: string }) {
-  const { flairs } = getFlairs(community);
+  const { flairs: initialFlairs } = getFlairs(community);
   const [flairForm, setFlairForm] = useState<boolean>(false);
   const [form, setForm] = useState<FormValues>();
+  const [flairs, setFlairs] = useState<[]>([]);
   const toast = useToast();
   const history = useHistory();
+
+  useEffect(() => {
+    if (initialFlairs) {
+      setFlairs(initialFlairs);
+    }
+  }, [initialFlairs]);
 
   type FormValues = {
     text: string;
@@ -97,7 +104,7 @@ export default function PostFlairs({ community }: { community: string }) {
               <Td w="35%">Post Flair Preview</Td>
               <Td w="10%">Css Class</Td>
               <Td w="40%">Settings</Td>
-              <Td>Flair ID</Td>
+              <Td w="10%">Flair ID</Td>
               <Td></Td>
               <Td></Td>
             </Tr>
@@ -174,7 +181,17 @@ export default function PostFlairs({ community }: { community: string }) {
                       py={2}
                       _focus={{}}
                       _active={{}}
-                      onClick={() => {}}
+                      onClick={async () => {
+                        const response = await deleteFlair(community, flair.id);
+                        if (response.statusText === "OK") {
+                          toast({
+                            title: "Flair removed succesfully",
+                            status: "info",
+                            isClosable: true,
+                          });
+                          setFlairs(response.data);
+                        }
+                      }}
                     >
                       <HiTrash color="#9b9b9b" size={18} />
                     </Button>
@@ -228,29 +245,30 @@ export default function PostFlairs({ community }: { community: string }) {
             )}
           </Tbody>
         </Table>
-        {!flairs && !flairForm && (
-          <Flex
-            placeItems="center"
-            justifyContent="center"
-            direction="column"
-            bg="white"
-            w="100%"
-            minH="400px"
-            gridGap={3}
-          >
-            <Image
-              src="http://localhost:4000/assets/label.svg"
-              w="50px"
-              h="50px"
-            />
-            <Text fontFamily="mono" fontSize={22} fontWeight="medium">
-              You do not have any post flair
-            </Text>
-            <Text fontFamily="mono" fontSize={14} fontWeight="medium">
-              Create post flair in your community today
-            </Text>
-          </Flex>
-        )}
+        {!flairs ||
+          (flairs.length < 1 && !flairForm && (
+            <Flex
+              placeItems="center"
+              justifyContent="center"
+              direction="column"
+              bg="white"
+              w="100%"
+              minH="400px"
+              gridGap={3}
+            >
+              <Image
+                src="http://localhost:4000/assets/label.svg"
+                w="50px"
+                h="50px"
+              />
+              <Text fontFamily="mono" fontSize={22} fontWeight="medium">
+                You do not have any post flair
+              </Text>
+              <Text fontFamily="mono" fontSize={14} fontWeight="medium">
+                Create post flair in your community today
+              </Text>
+            </Flex>
+          ))}
         {flairForm && (
           <Box p={5} bg="gray.200">
             <Formik
@@ -268,15 +286,18 @@ export default function PostFlairs({ community }: { community: string }) {
                   id: uuidv4(),
                   ...data,
                 };
-                await newFlair(community, flair);
-                toast({
-                  title: "Flair created succesfully",
-                  status: "success",
-                  isClosable: true,
-                });
+                const response = await newFlair(community, flair);
+                if (response.statusText === "OK") {
+                  toast({
+                    title: "Flair created succesfully",
+                    status: "success",
+                    isClosable: true,
+                  });
+                  setFlairs(response.data);
+                }
                 setFlairForm(false);
                 await setTimeout(() => {
-                  history.push(`/test`);
+                  history.push(`/r/${community}/about/postflairs`);
                 }, 1000);
               }}
               //@ts-ignore
