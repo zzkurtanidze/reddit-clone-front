@@ -32,6 +32,7 @@
     "socket.io-client": "^4.0.0",
     "swr": "^0.5.5",
     "typescript": "^3.9.7",
+    "uuid": "^8.3.2",
     "web-vitals": "^0.2.4",
     "yup": "^0.32.8"
   },
@@ -71,6 +72,7 @@
     "@types/react-dom": "^17.0.2",
     "@types/react-router-dom": "^5.1.7",
     "@types/react-select": "^4.0.13",
+    "@types/uuid": "^8.3.0",
     "craco-alias": "^2.2.0"
   }
 }
