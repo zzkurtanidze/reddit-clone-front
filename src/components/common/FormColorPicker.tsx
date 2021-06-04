@@ -1,7 +1,8 @@
 import { Button } from "@chakra-ui/button";
 import { Box, Flex, Text } from "@chakra-ui/layout";
-import React, { useState } from "react";
-import { TwitterPicker } from "react-color";
+import React, { useRef, useState } from "react";
+import { ColorResult, TwitterPicker } from "react-color";
+import useOutsideClick from "@utils/useOutsideClick";
 
 export default function FormColorPicker({
   setValues,
@@ -11,7 +12,13 @@ export default function FormColorPicker({
   label: string;
 }) {
   const [showPicker, setShowPicker] = useState<boolean>(false);
-  const [color, setColor] = useState("white");
+  const [color, setColor] = useState<any>("white");
+
+  const ref = useRef();
+
+  useOutsideClick(ref, () => {
+    setShowPicker(false);
+  });
 
   return (
     <Flex
@@ -19,6 +26,8 @@ export default function FormColorPicker({
       justifyContent="space-between"
       w="99%"
       position="relative"
+      //@ts-ignore
+      ref={ref}
     >
       <Text fontFamily="mono" fontSize={14} fontWeight="medium">
         {label}
@@ -37,7 +46,9 @@ export default function FormColorPicker({
       </Button>
       {showPicker && (
         <Box position="absolute" right="-78%" top="39px">
-          <TwitterPicker />
+          <TwitterPicker
+            onChangeComplete={(col: ColorResult) => setColor(col.hex)}
+          />
         </Box>
       )}
     </Flex>
