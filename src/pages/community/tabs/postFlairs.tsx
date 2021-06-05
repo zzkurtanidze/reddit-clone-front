@@ -71,17 +71,6 @@ export default function PostFlairs({ community }: { community: string }) {
         alignItems="center"
         gridGap={5}
       >
-        <SecondaryButton
-          label="Post flair settings"
-          onClick={() => {}}
-          bg="none"
-        />
-        <SecondaryButton
-          label="Reorder"
-          disabled={flairs && flairs.length > 0 ? false : true}
-          onClick={() => {}}
-          bg="none"
-        />
         <PrimaryButton
           label="Add flair"
           onClick={() => {
@@ -106,7 +95,6 @@ export default function PostFlairs({ community }: { community: string }) {
               <Td w="10%">Css Class</Td>
               <Td w="40%">Settings</Td>
               <Td w="10%">Flair ID</Td>
-              <Td></Td>
               <Td></Td>
             </Tr>
           </Thead>
@@ -154,25 +142,6 @@ export default function PostFlairs({ community }: { community: string }) {
                       }}
                     >
                       Copy Id
-                    </Button>
-                  </Td>
-                  <Td>
-                    <Button
-                      bg="none"
-                      textTransform="uppercase"
-                      color="gray.500"
-                      transition="0"
-                      borderRadius={50}
-                      fontFamily="mono"
-                      fontSize={14}
-                      px={0}
-                      h="max-content"
-                      py={2}
-                      _focus={{}}
-                      _active={{}}
-                      onClick={() => {}}
-                    >
-                      Edit
                     </Button>
                   </Td>
                   <Td>
@@ -247,7 +216,6 @@ export default function PostFlairs({ community }: { community: string }) {
                     Copy Id
                   </Button>
                 </Td>
-                <Td></Td>
                 <Td></Td>
               </Tr>
             )}
