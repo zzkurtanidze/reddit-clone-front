@@ -59,7 +59,7 @@ export default function FormField({
         fontSize={14}
         as={Input}
       />
-      {touched && (
+      {touched && error && (
         <FormErrorMessage fontSize={11} fontFamily="mono" fontWeight="semibold">
           {error}
         </FormErrorMessage>

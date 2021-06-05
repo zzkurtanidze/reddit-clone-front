@@ -4,12 +4,14 @@ import React from "react";
 export default function FieldLoading({
   width = "90%",
   withImage = true,
+  bg,
 }: {
   width?: string;
   withImage?: boolean;
+  bg?: string;
 }) {
   return (
-    <Box w={width}>
+    <Box w={width} bg={bg}>
       <Grid
         gridTemplateColumns="0.1fr 2fr"
         alignItems="center"

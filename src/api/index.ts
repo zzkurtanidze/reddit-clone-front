@@ -3,7 +3,6 @@ import axios from "axios";
 import { GoogleLoginResponse } from "react-google-login";
 import { UserType } from "../types";
 import useSWR, { useSWRInfinite } from "swr";
-import { FaCreativeCommonsShare } from "react-icons/fa";
 
 const apiUrl = "http://localhost:4000/api";
 
@@ -616,6 +615,44 @@ export const reorderRules = async (username: string, reorderedRules: any) => {
     return response;
   } catch (ex) {
     return ex.response;
+  }
+};
+
+export const getFlairs = (username: string) => {
+  const { data, error } = useSWR(
+    `${apiUrl}/community/flairs/${username}`,
+    fetcher
+  );
+
+  return {
+    flairs: data,
+    isLoading: !data && !error,
+    error,
+  };
+};
+
+export const newFlair = async (username: string, data: any) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/community/new/flair/${username}`,
+      data,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const deleteFlair = async (username: string, id: string) => {
+  try {
+    const response = await axios.delete(
+      `${apiUrl}/community/flair/${username}/${id}`,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.respones;
   }
 };
 

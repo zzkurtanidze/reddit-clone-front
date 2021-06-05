@@ -36,7 +36,6 @@ export default function RulesTab({ community }: { community: CommunityType }) {
   }, [rules]);
 
   const handleDragEnd = async (result: any) => {
-    console.log(result);
     if (!result.destination) return;
     const newItems = [...orderedRules];
     // with new array we should find previous index and remove from the array
