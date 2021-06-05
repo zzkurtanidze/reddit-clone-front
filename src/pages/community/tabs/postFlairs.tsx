@@ -22,13 +22,14 @@ import { HiTrash } from "react-icons/hi";
 import { useHistory } from "react-router";
 //@ts-ignore
 import { deleteFlair } from "@api/";
+import FieldLoading from "@components/common/loading-animations/FieldLoading";
 
 const validationSchema = yup.object({
   text: yup.string().required("Error: text or emoji is required"),
 });
 
 export default function PostFlairs({ community }: { community: string }) {
-  const { flairs: initialFlairs } = getFlairs(community);
+  const { flairs: initialFlairs, isLoading } = getFlairs(community);
   const [flairForm, setFlairForm] = useState<boolean>(false);
   const [form, setForm] = useState<FormValues>();
   const [flairs, setFlairs] = useState<[]>([]);
@@ -77,7 +78,7 @@ export default function PostFlairs({ community }: { community: string }) {
         />
         <SecondaryButton
           label="Reorder"
-          disabled={flairs ? false : true}
+          disabled={flairs && flairs.length > 0 ? false : true}
           onClick={() => {}}
           bg="none"
         />
@@ -92,7 +93,7 @@ export default function PostFlairs({ community }: { community: string }) {
         <Text fontFamily="mono" fontWeight="medium" fontSize={22}>
           Post flair management
         </Text>
-        <Table borderRadius={4} mt="50px">
+        <Table borderRadius={4} overflow="hidden" mt="50px">
           <Thead bg="#F6F7F8">
             <Tr
               fontSize={12}
@@ -110,6 +111,13 @@ export default function PostFlairs({ community }: { community: string }) {
             </Tr>
           </Thead>
           <Tbody>
+            {isLoading && (
+              <Flex direction="column" gridGap={10} bg="white" p={6} w="350%">
+                <FieldLoading withImage={false} />
+                <FieldLoading withImage={false} />
+                <FieldLoading withImage={false} />
+              </Flex>
+            )}
             {flairs &&
               flairs.map((flair: any) => (
                 <Tr
@@ -246,7 +254,7 @@ export default function PostFlairs({ community }: { community: string }) {
           </Tbody>
         </Table>
         {!flairs ||
-          (flairs.length < 1 && !flairForm && (
+          (flairs.length < 1 && !flairForm && !isLoading && (
             <Flex
               placeItems="center"
               justifyContent="center"
