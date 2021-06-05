@@ -1,8 +1,9 @@
 import { Button } from "@chakra-ui/button";
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import React, { useEffect, useRef, useState } from "react";
-import { ColorResult, TwitterPicker } from "react-color";
+import { ChromePicker, ColorResult, TwitterPicker } from "react-color";
 import useOutsideClick from "@utils/useOutsideClick";
+import SecondaryButton from "./SecondaryButton";
 
 export default function FormColorPicker({
   setValues,
@@ -19,17 +20,30 @@ export default function FormColorPicker({
 }) {
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const [color, setColor] = useState<any>(initialColor);
+  const [showChromePicker, setShowChromePicker] = useState<boolean>(false);
 
   const colors = [
-    "#ABB8C3",
-    "#000000",
-    "#FFFFFF",
-    "#ccc",
-    "#2598f7",
-    "#27ea7f",
-    "#e0e035",
-    "#f72020",
-    "#9833ea",
+    "#EB3C29",
+    "#FB4729",
+    "#FEB133",
+    "#FFD639",
+    "#94E044",
+    "#58D160",
+    "#3ED3BB",
+    "#B92E20",
+    "#CC381F",
+    "#CB8C27",
+    "#CCAC2B",
+    "#73AD34",
+    "#419E48",
+    "#2CA18F",
+    "#0079D3",
+    "#004980",
+    "#7291FB",
+    "#F766AB",
+    "#9E8D49",
+    "#EDEFF1",
+    "#373C3F",
   ];
 
   useEffect(() => {
@@ -67,12 +81,46 @@ export default function FormColorPicker({
         <Box bg={color} w="25px" h="25px" borderRadius={2}></Box>
       </Button>
       {showPicker && (
-        <Box zIndex={2} position="absolute" right="-78%" top="39px">
+        <Flex
+          direction="column"
+          zIndex={2}
+          position="absolute"
+          right="-79%"
+          top="36px"
+          bg="white"
+          alignItems="center"
+          boxShadow="0px 3px 5px rgba(0,0,0,.2)"
+        >
           <TwitterPicker
             colors={colors}
+            styles={{
+              default: {
+                card: {
+                  boxShadow: "",
+                },
+              },
+            }}
             onChangeComplete={(col: ColorResult) => setColor(col.hex)}
           />
-        </Box>
+          <SecondaryButton
+            w="80%"
+            m="auto"
+            mt={1}
+            label="Use Browser Color Picker"
+            onClick={() => setShowChromePicker(!showChromePicker)}
+            textTransform="uppercase"
+            bg="none"
+            border="0"
+          />
+          {showChromePicker && (
+            <Box position="absolute" top="-90px">
+              <ChromePicker
+                color={color}
+                onChangeComplete={(col: ColorResult) => setColor(col.hex)}
+              />
+            </Box>
+          )}
+        </Flex>
       )}
     </Flex>
   );
