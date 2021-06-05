@@ -209,7 +209,7 @@ export default function NewPostForm({ match }: { match?: any }) {
           <Select
             value={post.postedTo}
             onChange={async (community: any) => {
-              history.push(`/${community.label}/submit`);
+              history.push(`/${community.label.replace(/\s/g, "")}/submit`);
               setPost({
                 ...post,
                 postedTo: community,
