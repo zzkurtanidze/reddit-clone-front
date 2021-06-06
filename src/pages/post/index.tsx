@@ -18,6 +18,7 @@ import PostedBy from "@components/posts/PostedBy";
 import Votes from "@components/posts/Votes";
 import { UserContext } from "@context/UserContext";
 import ErrorPage from "@pages/error";
+import Flair from "@components/common/Flair";
 //@ts-ignore
 
 export default function PostPage({ match }: { match: any }) {
@@ -69,6 +70,11 @@ export default function PostPage({ match }: { match: any }) {
                 <Url post={post} />
                 {post.image && (
                   <Image src={post.image} alt={post.title} mt={5} />
+                )}
+                {post.flair && (
+                  <Box my={2}>
+                    <Flair flair={post.flair} />
+                  </Box>
                 )}
                 <Flex mt={5} gridGap={5}>
                   <PostButton

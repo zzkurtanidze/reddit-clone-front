@@ -16,11 +16,14 @@ import { PostButton } from "./PostButton";
 import Url from "./Url";
 
 import { Link } from "react-router-dom";
+import Flair from "@components/common/Flair";
 
 export default function PostTeaser({ post }: { post: PostType }) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const user = useContext(UserContext);
   const toast = useToast();
+
+  console.log(post);
 
   const handleCopy = () => {
     const url = "http://localhost:3000/post/" + post._id;
@@ -87,6 +90,11 @@ export default function PostTeaser({ post }: { post: PostType }) {
               objectFit="cover"
             />
           </Link>
+        )}
+        {post.flair && (
+          <Box my={2}>
+            <Flair flair={post.flair} />
+          </Box>
         )}
         <Flex>
           <PostButton icon={<FaCommentAlt color="gray" />} label="Comment" />

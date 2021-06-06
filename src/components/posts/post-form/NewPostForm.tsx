@@ -30,7 +30,7 @@ import TabButton from "../../common/TabButton";
 import StyledBox from "../../common/StyledBox";
 import LinkTab from "./tabs/LinkTab";
 import { CategoryButton } from "./common/CategoryButton";
-import { CategoryDropdown } from "./common/CategoryDropdown";
+import { FlairsDropdown } from "./common/FlairsDropdown";
 
 import { Link, useHistory } from "react-router-dom";
 
@@ -45,6 +45,7 @@ export default function NewPostForm({ match }: { match?: any }) {
     hideVotes: boolean;
     postedTo: string;
     category: Array;
+    flair: any;
   }>({ title: "", postedTo: "", hideVotes: false, category: [] });
   const [selectedTab, setSelectedTab] = useState<string>("post");
   const [draftsLength, setDraftsLength] = useState<number>(0);
@@ -294,7 +295,7 @@ export default function NewPostForm({ match }: { match?: any }) {
           </Checkbox>
           <Flex justifyContent="space-between">
             <Flex mt={5} alignSelf="flex-start">
-              {categories && (
+              {categories && community && (
                 <>
                   {categories.map((category, index) =>
                     index <= 1 ? (
@@ -308,9 +309,9 @@ export default function NewPostForm({ match }: { match?: any }) {
                       <></>
                     )
                   )}
-                  <CategoryDropdown
-                    label="More"
-                    items={categories.slice(2, categories.length - 1)}
+                  <FlairsDropdown
+                    label="Flairs"
+                    community={community.username}
                     post={post}
                     setPost={setPost}
                   />
