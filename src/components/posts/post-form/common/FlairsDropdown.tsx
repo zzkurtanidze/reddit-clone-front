@@ -16,6 +16,8 @@ import { AiFillCaretDown } from "react-icons/ai";
 import { getFlairs } from "@api/";
 import Flair from "@components/common/Flair";
 import { IoMdClose } from "react-icons/io";
+import SecondaryButton from "@components/common/SecondaryButton";
+import PrimaryButton from "@components/common/PrimaryButton";
 
 export const FlairsDropdown = ({
   label,
@@ -32,6 +34,7 @@ export const FlairsDropdown = ({
   const { flairs: initialFlairs, isLoading } = getFlairs(community);
   const [flairs, setFlairs] = useState<[]>();
   const [search, setSearch] = useState("");
+  const [selectedFlair, setSelectedFlair] = useState("");
 
   useEffect(() => {
     if (initialFlairs) {
@@ -51,13 +54,13 @@ export const FlairsDropdown = ({
           bg="white"
           position="absolute"
           top="100px"
-          right="120px"
+          right="135px"
           borderRadius="5px"
           w="300px"
           minH="400px"
           px="5px"
           zIndex={5}
-          boxShadow="0 1px 10px rgba(0,0,0,.3)"
+          boxShadow="0 1px 15px rgba(0,0,0,.3)"
           fontWeight="bold"
           fontSize={13}
           color="#878A8C"
@@ -92,17 +95,48 @@ export const FlairsDropdown = ({
             mb={2}
             onChange={(e: any) => setSearch(e.target.value)}
           />
-          <RadioGroup>
+          <RadioGroup
+            value={selectedFlair}
+            onChange={(value: string) => setSelectedFlair(value)}
+          >
             {flairs
               ?.filter((flair: any) => flair.text.includes(search))
               .map((flair: any) => (
                 <Box mt={3}>
-                  <Radio _focus={{}} value={flair.text}>
+                  <Radio
+                    _focus={{}}
+                    isChecked={selectedFlair === flair.text}
+                    value={flair.text}
+                  >
                     <Flair flair={flair} />
                   </Radio>
                 </Box>
               ))}
           </RadioGroup>
+          <Flex
+            w="100%"
+            justifyContent="flex-end"
+            position="absolute"
+            bottom="10px"
+            right="15px"
+            gridGap={2}
+          >
+            <SecondaryButton
+              label="Clear Flair"
+              onClick={() => setSelectedFlair("")}
+              disabled={!selectedFlair}
+            />
+            <PrimaryButton
+              label="Apply"
+              onClick={() => {
+                setPost({
+                  ...post,
+                  flair: flairs.find((f: any) => f.text === selectedFlair),
+                });
+                setOpen(false);
+              }}
+            />
+          </Flex>
         </Box>
       )}
     </Flex>

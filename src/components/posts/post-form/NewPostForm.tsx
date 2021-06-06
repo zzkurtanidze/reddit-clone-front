@@ -45,6 +45,7 @@ export default function NewPostForm({ match }: { match?: any }) {
     hideVotes: boolean;
     postedTo: string;
     category: Array;
+    flair: any;
   }>({ title: "", postedTo: "", hideVotes: false, category: [] });
   const [selectedTab, setSelectedTab] = useState<string>("post");
   const [draftsLength, setDraftsLength] = useState<number>(0);
