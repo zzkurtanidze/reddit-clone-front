@@ -28,6 +28,7 @@ export const newPost = async (post: {
   postedTo: { value: string; label: string };
   hideVotes: boolean;
   category?: [string];
+  flair: any;
 }) => {
   try {
     const response = await axios.post(
@@ -40,6 +41,7 @@ export const newPost = async (post: {
         postedTo: post.postedTo.value,
         hideVotes: post.hideVotes,
         category: post.category,
+        flair: post.flair,
       },
       axiosOptions
     );
