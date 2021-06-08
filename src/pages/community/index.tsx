@@ -18,6 +18,7 @@ import Moderators from "@components/community/common/Moderators";
 import { getRoleInCommunity } from "@api/";
 import GrowCommunity from "@components/community/common/GrowCommunity";
 import StyleCommunity from "@components/community/common/StyleCommunity";
+import CommunityFlairs from "@components/community/common/CommunityFlairs";
 
 export default function CommunityPage({ match }: { match: any }) {
   const [joined, setJoined] = useState<boolean>(false);
@@ -126,6 +127,10 @@ export default function CommunityPage({ match }: { match: any }) {
                 <Box w="300px">
                   <FixedElement>
                     {role === "admin" && <StyleCommunity />}
+                    <br />
+                    {community.flairs && (
+                      <CommunityFlairs community={community} />
+                    )}
                     <br />
                     <CommunityInfo community={community} />
                     <br />
