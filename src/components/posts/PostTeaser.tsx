@@ -23,8 +23,6 @@ export default function PostTeaser({ post }: { post: PostType }) {
   const user = useContext(UserContext);
   const toast = useToast();
 
-  console.log(post);
-
   const handleCopy = () => {
     const url = "http://localhost:3000/post/" + post._id;
 

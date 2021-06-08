@@ -19,6 +19,7 @@ import { getRoleInCommunity } from "@api/";
 import GrowCommunity from "@components/community/common/GrowCommunity";
 import StyleCommunity from "@components/community/common/StyleCommunity";
 import CommunityFlairs from "@components/community/common/CommunityFlairs";
+import queryString from "query-string";
 
 export default function CommunityPage({ match }: { match: any }) {
   const [joined, setJoined] = useState<boolean>(false);
@@ -26,6 +27,9 @@ export default function CommunityPage({ match }: { match: any }) {
   const user: UserType | undefined = useContext(UserContext);
   const { community, isLoading, error } = getCommunity(name);
   const { role } = getRoleInCommunity(name);
+  const [posts, setPosts] = useState<[]>([]);
+
+  const params = queryString.parse(window.location.search);
 
   useEffect(() => {
     if (community) document.title = `r/${community?.name}`;
@@ -39,8 +43,16 @@ export default function CommunityPage({ match }: { match: any }) {
   }, [user, community]);
 
   useEffect(() => {
-    console.log(role);
-  }, [role]);
+    if (community) {
+      if (params.f) {
+        setPosts(
+          community.posts.filter((post) => post.flair?.text === params.f)
+        );
+      } else {
+        setPosts(community.posts);
+      }
+    }
+  }, [community, window.location.search]);
 
   if (error) return <ErrorPage />;
   if (isLoading) return <Loading />;
@@ -110,8 +122,8 @@ export default function CommunityPage({ match }: { match: any }) {
                     <GrowCommunity communityUsername={community.username} />
                   )}
                   {joined && <NewPostTeaser community={community.username} />}
-                  {community.posts.length >= 1 ? (
-                    community.posts.map((post) => <PostTeaser post={post} />)
+                  {posts.length >= 1 ? (
+                    posts.map((post) => <PostTeaser post={post} />)
                   ) : (
                     <Box
                       textAlign="center"
