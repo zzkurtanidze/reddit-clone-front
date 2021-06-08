@@ -137,21 +137,25 @@ export default function CommunityPage({ match }: { match: any }) {
                   )}
                 </Box>
                 <Box w="300px">
-                  <FixedElement>
-                    {role === "admin" && <StyleCommunity />}
-                    <br />
-                    {community.flairs && (
+                  <CommunityInfo community={community} />
+                  <br />
+                  {community.flairs && community.flairs.length > 0 && (
+                    <>
                       <CommunityFlairs community={community} />
-                    )}
-                    <br />
-                    <CommunityInfo community={community} />
-                    <br />
-                    <Moderators
-                      moderators={community.moderators}
-                      communityUsername={community.username}
-                    />
-                    <br />
-                  </FixedElement>
+                      <br />
+                    </>
+                  )}
+                  {role === "admin" && (
+                    <>
+                      <StyleCommunity />
+                      <br />
+                    </>
+                  )}
+                  <Moderators
+                    moderators={community.moderators}
+                    communityUsername={community.username}
+                  />
+                  <br />
                 </Box>
               </Grid>
             </Container>
