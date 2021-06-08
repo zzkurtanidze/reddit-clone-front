@@ -46,7 +46,9 @@ export default function CommunityFlairs({
                     _hover={{}}
                     _active={{}}
                     _focus={{}}
-                    zIndex={2}
+                    onClick={() =>
+                      window.location.replace(`/r/${community.username}`)
+                    }
                   >
                     <IoMdClose color={flair.backgroundColor} size={18} />
                   </Button>
