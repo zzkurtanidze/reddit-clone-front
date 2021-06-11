@@ -180,7 +180,7 @@ export default function ModeratorsPage({
                 community.moderators.forEach(async (moderator: UserType) => {
                   await sendNotification(moderator.username, {
                     title: `u/${user?.username} declined your invitation`,
-                    description: `u/${user?.username} delined your invitation to be r/${community.username} moderator`,
+                    description: `u/${user?.username} declined your invitation to be r/${community.username} moderator`,
                     type: "moderator",
                     more: {
                       community: community._id,

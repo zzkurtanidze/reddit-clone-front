@@ -60,7 +60,7 @@ export default function CommunityPage({ match }: { match: any }) {
       ) {
         setRequested(true);
       }
-      setPrivacy("private");
+      setPrivacy(community.privacy);
     }
   }, [user, community]);
 
