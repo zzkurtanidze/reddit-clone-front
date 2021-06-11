@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Flex } from "@chakra-ui/layout";
-import { joinCommunity } from "../../../api";
+import { joinCommunity, leaveCommunity } from "../../../api";
 import { UserContext } from "../../../context/UserContext";
 import { CommunityType } from "../../../types";
 import PrimaryButton from "../../common/PrimaryButton";
@@ -44,12 +44,26 @@ export default function Join({
     const response = await joinCommunity(community._id);
     if (response && response.statusText === "OK") {
       setJoined(!joined);
-      let message;
-      if (!joined) {
-        message = `Sucesfully joined r/${community.username}`;
-      } else {
-        message = `Sucesfully left r/${community.username}`;
-      }
+      let message = `Sucesfully joined r/${community.username}`;
+      toast({
+        title: message,
+        duration: 2000,
+        variant: "left-accent",
+        isClosable: true,
+      });
+    } else if (!user) {
+      setLoginModal(true);
+    }
+    if (refresh) {
+      history.push(`/r/${community.username}`);
+    }
+  };
+
+  const handleLeave = async () => {
+    const response = await leaveCommunity(community._id);
+    if (response && response.statusText === "OK") {
+      setJoined(!joined);
+      let message = `Succesfully leaved r/${community.username}`;
       toast({
         title: message,
         duration: 2000,
@@ -86,7 +100,7 @@ export default function Join({
         <SecondaryButton
           label="Leave"
           w="100px"
-          onClick={handleJoin}
+          onClick={handleLeave}
           icon={
             icon &&
             (joined ? <BiMinus color="black" /> : <GoPlus color="white" />)
