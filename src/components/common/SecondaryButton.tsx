@@ -32,6 +32,10 @@ export default function SecondaryButton({
       _hover={{ background: "rgba(0,0,0,.05)" }}
       _active={{}}
       _focus={{}}
+      _disabled={{
+        color: "gray.400",
+        borderColor: "gray.400",
+      }}
       transition="0"
       onClick={onClick}
       gridGap={2}

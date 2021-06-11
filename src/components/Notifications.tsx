@@ -108,7 +108,6 @@ export default function Notifications() {
                   <Link
                     to={notification.more?.url}
                     onClick={async (e: any) => {
-                      e.preventDefault();
                       const { unread, notifications } = await seenNotification(
                         notification._id
                       );
