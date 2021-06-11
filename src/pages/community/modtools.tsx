@@ -45,6 +45,7 @@ export default function ModToolsPage({ match }: { match: any }) {
             mt={9}
             mb={1}
           />
+          <TabLink label="Pending" url="pending" tabName={tabName} />
           <TabLink label="Banned" url="banned" tabName={tabName} />
           <TabLink label="Moderators" url="moderators" tabName={tabName} />
           <SectionTitle
