@@ -241,7 +241,15 @@ export const updateActiveStatus = async ({ active }: { active: boolean }) => {
   }
 };
 
-export const sendNotification = async (to: string, data: object) => {
+export const sendNotification = async (
+  to: string,
+  data: {
+    title: string;
+    description: string;
+    type: string;
+    more: { community?: string; url?: string };
+  }
+) => {
   try {
     const response = await axios.post(
       `${apiUrl}/users/notification/${to}`,
@@ -714,6 +722,32 @@ export const joinCommunity = async (id: string) => {
     return response;
   } catch (ex) {
     return ex.reponse;
+  }
+};
+
+export const leaveCommunity = async (id: string) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/community/${id}/leave`,
+      null,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.response;
+  }
+};
+
+export const responseOnJoinRequest = async (id: string, data: any) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/community/${id}/pending`,
+      data,
+      axiosOptions
+    );
+    return response;
+  } catch (ex) {
+    return ex.repsonse;
   }
 };
 
