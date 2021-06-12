@@ -75,7 +75,6 @@ export default function RulesTab({ community }: { community: CommunityType }) {
         justifyContent="flex-end"
         w="100%"
         h="max-content"
-        mt="60px"
         p={2}
         bg="#EDEFF1"
         alignItems="center"

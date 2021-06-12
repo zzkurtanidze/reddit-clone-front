@@ -12,6 +12,7 @@ import ModeratorsPage from "./moderators";
 //@ts-ignore
 import { getRoleInCommunity } from "@api/";
 import PostFlairs from "./tabs/postFlairs";
+import PendingTab from "./tabs/pending";
 
 export default function ModToolsPage({ match }: { match: any }) {
   const tabName = match.params.tabname;
@@ -21,6 +22,7 @@ export default function ModToolsPage({ match }: { match: any }) {
   const tabs = {
     modqueue: <ModQueue communityUsername={community} />,
     rules: <RulesTab community={community} />,
+    pending: <PendingTab communityUsername={community} />,
     moderators: <ModeratorsPage match={match} role={role} />,
     postflairs: <PostFlairs community={community} />,
   };
@@ -45,6 +47,7 @@ export default function ModToolsPage({ match }: { match: any }) {
             mt={9}
             mb={1}
           />
+          <TabLink label="Pending" url="pending" tabName={tabName} />
           <TabLink label="Banned" url="banned" tabName={tabName} />
           <TabLink label="Moderators" url="moderators" tabName={tabName} />
           <SectionTitle
@@ -76,6 +79,7 @@ export default function ModToolsPage({ match }: { match: any }) {
         w={role !== "admin" ? "100vw" : "100%"}
         h={role !== "admin" ? "100vh" : "100%"}
         bg="#DAE0E6"
+        mt="60px"
       >
         {
           //@ts-ignore
