@@ -20,6 +20,7 @@ import { UserType } from "@types/";
 import { CommunityType } from "@types/";
 import React, { useEffect, useState } from "react";
 import { HiOutlineArrowsExpand } from "react-icons/hi";
+import { CgMinimize } from 'react-icons/cg';
 
 export default function PendingTab({
   communityUsername,
@@ -157,7 +158,11 @@ export default function PendingTab({
                     }
                   }}
                 >
-                  <HiOutlineArrowsExpand />
+									{expanded.includes(index) ? (
+										<CgMinimize />
+									) : (
+                  	<HiOutlineArrowsExpand />
+									)}
                 </Button>
               </Grid>
               {expanded.includes(index) && (

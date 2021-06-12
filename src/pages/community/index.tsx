@@ -22,10 +22,13 @@ import CommunityFlairs from "@components/community/common/CommunityFlairs";
 import queryString from "query-string";
 import PrimaryButton from "@components/common/PrimaryButton";
 import SecondaryButton from "@components/common/SecondaryButton";
+import FormTextarea from "@components/common/FormTextarea";
+import Modal from "@components/Modal";
 import { responseOnJoinRequest } from "@api/";
 import { joinCommunity } from "@api/";
 import { sendNotification } from "@api/";
 import { UserType } from "@types/";
+import { Formik, Form } from "formik";
 
 export default function CommunityPage({ match }: { match: any }) {
   const [joined, setJoined] = useState<boolean>(false);
@@ -36,6 +39,7 @@ export default function CommunityPage({ match }: { match: any }) {
   const [posts, setPosts] = useState<[]>([]);
   const [privacy, setPrivacy] = useState("public");
   const [requested, setRequested] = useState(false);
+  const [messageForm, setMessageForm] = useState(false);
 
   const history = useHistory();
   const params = queryString.parse(window.location.search);
@@ -129,24 +133,64 @@ export default function CommunityPage({ match }: { match: any }) {
           The moderators of r/rameprosta have set this community as private.
           Only approved members can view and take part in its discussions.
         </Text>
+        {messageForm && (
+          <Modal
+            open={messageForm}
+            onClose={() => setMessageForm(false)}
+            w="400px"
+          >
+            <Text fontSize={18} w="60%" fontFamily="mono" fontWeight="bold">
+              Enter message you want to send to mods
+            </Text>
+            <br />
+            <Formik
+              initialValues={{ message: "" }}
+							onSubmit={async ({ message }) => {
+                await joinCommunity(community._id, { message });
+                community.moderators.forEach(async (moderator: UserType) => {
+                await sendNotification(moderator.username, {
+		               title: `u/${user.username} requested to join r/${community.username} community`,
+ 		               description: "",
+ 		               type: "request",
+ 		               more: {
+ 		              	 community: community._id,
+ 		              	 url: `/r/${community.username}/about/pending`,
+ 		               },
+ 	               });
+                });
+                setRequested(true);
+								setMessageForm(false);
+								}
+							}
+            >
+              {({ value, touched, errors }) => (
+                <Form>
+                  <Flex direction="column" gridGap={3}>
+                    <FormTextarea
+                      name="message"
+                      touched={touched.message}
+                      error={errors.message}
+                      label="Message"
+                    />
+                    <Flex gridGap={3} justifyContent="flex-end" w="100%">
+                      <SecondaryButton
+                        label="Cancel"
+                        onClick={() => setMessageForm(false)}
+                      />
+                      <PrimaryButton label="Send request" type="submit" />
+                    </Flex>
+                  </Flex>
+                </Form>
+              )}
+            </Formik>
+          </Modal>
+        )}
         <Flex gridGap={5}>
           <SecondaryButton
             label={requested ? "Pending for approval" : "Request to join"}
             onClick={async () => {
               if (user) {
-                await joinCommunity(community._id);
-                community.moderators.forEach(async (moderator: UserType) => {
-                  await sendNotification(moderator.username, {
-                    title: `u/${user.username} requested to join r/${community.username} community`,
-                    description: "",
-                    type: "request",
-                    more: {
-                      community: community._id,
-                      url: `/r/${community.username}/about/pending`,
-                    },
-                  });
-                });
-                setRequested(true);
+                setMessageForm(true);
               }
             }}
             bg="none"
