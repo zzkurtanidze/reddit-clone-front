@@ -241,6 +241,13 @@ export const updateActiveStatus = async ({ active }: { active: boolean }) => {
   }
 };
 
+/**
+ *
+ * @param to username
+ * @param data
+ * @returns
+ */
+
 export const sendNotification = async (
   to: string,
   data: {
@@ -738,10 +745,10 @@ export const leaveCommunity = async (id: string) => {
   }
 };
 
-export const responseOnJoinRequest = async (id: string, data: any) => {
+export const responseOnJoinRequest = async (username: string, data: any) => {
   try {
     const response = await axios.post(
-      `${apiUrl}/community/${id}/pending`,
+      `${apiUrl}/community/${username}/pending`,
       data,
       axiosOptions
     );
@@ -749,6 +756,16 @@ export const responseOnJoinRequest = async (id: string, data: any) => {
   } catch (ex) {
     return ex.repsonse;
   }
+};
+
+export const getPendingMembers = (id: string) => {
+  const { data, error } = useSWR(`${apiUrl}/community/${id}/pending`, fetcher);
+
+  return {
+    initialPendingMembers: data,
+    isLoading: !data && !error,
+    error,
+  };
 };
 
 export function getRoleInCommunity(communityUsername: string) {
