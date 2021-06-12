@@ -46,7 +46,7 @@ export default function CommunityPage({ match }: { match: any }) {
     let joined = false;
 
     if (community && user) {
-      if (user?.joined) {
+      if (user.joined) {
         user.joined.forEach((joinedCommunity) => {
           if (joinedCommunity._id === community._id) {
             joined = true;
@@ -78,7 +78,7 @@ export default function CommunityPage({ match }: { match: any }) {
 
   if (error) return <ErrorPage />;
   if (isLoading) return <Loading />;
-  if (privacy === "private")
+  if (privacy === "private" && !joined)
     return (
       <Flex
         w="100%"
