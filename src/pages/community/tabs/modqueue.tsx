@@ -62,7 +62,7 @@ export default function ModQueueTab({
   };
 
   return (
-    <Container fontFamily="mono" size="big">
+    <Container fontFamily="mono" size="norm">
       <Text fontSize={20} fontWeight="medium">
         Mod Queue
       </Text>

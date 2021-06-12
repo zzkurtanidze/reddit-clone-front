@@ -65,7 +65,6 @@ export default function PostFlairs({ community }: { community: string }) {
         justifyContent="flex-end"
         w="100%"
         h="max-content"
-        mt="60px"
         p={2}
         bg="#EDEFF1"
         alignItems="center"
