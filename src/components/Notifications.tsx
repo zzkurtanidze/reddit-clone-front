@@ -1,8 +1,7 @@
 //@ts-ignore
 import { getNotifications } from "@api/";
-import { Image } from "@chakra-ui/image";
-import { Box, Flex, Text } from "@chakra-ui/layout";
-import React, { useEffect, useState } from "react";
+import { Box, Divider, Flex, Text } from "@chakra-ui/layout";
+import React, { useEffect, useState, useRef } from "react";
 //@ts-ignore
 import TimeAgo from "javascript-time-ago";
 //@ts-ignore
@@ -14,6 +13,7 @@ import CommunityPicture from "./community/common/CommunityPicture";
 //@ts-ignore
 import { seenNotification } from "@api/";
 import { Link } from "react-router-dom";
+import useOutsideClick from "@utils/useOutsideClick";
 
 TimeAgo.addLocale(en);
 
@@ -23,6 +23,14 @@ export default function Notifications() {
   const [notificationsTab, setNotificationsTab] = useState(false);
   const [updatedNotifications, setUpdatedNotifications] = useState<[]>();
   const [updatedUnread, setUpdatedUnread] = useState<number>(0);
+
+	const ref = useRef();
+
+	useOutsideClick(ref, () => {
+		if(notificationsTab) {
+			setNotificationsTab(false);
+		}
+	});
 
   useEffect(() => {
     if (notifications) {
@@ -66,7 +74,8 @@ export default function Notifications() {
         )}
       </Button>
       {notificationsTab && (
-        <Box position="absolute" top="2px" right="0">
+				//@ts-ignore
+        <Box position="absolute" top="2px" right="0" ref={ref}>
           <Box
             w="15px"
             h="15px"
@@ -105,86 +114,88 @@ export default function Notifications() {
             <Box>
               {updatedNotifications && updatedNotifications?.length > 0 ? (
                 updatedNotifications?.map((notification: any) => (
-                  <Link
-                    to={notification.more?.url}
-                    onClick={async (e: any) => {
-                      const { unread, notifications } = await seenNotification(
-                        notification._id
-                      );
-                      setUpdatedNotifications(notifications);
-                      setUpdatedUnread(unread);
-                      setNotificationsTab(false);
-                    }}
-                  >
-                    <Flex
-                      direction="column"
-                      p={3}
-                      bg={notification.seen ? "white" : "#E5F1FB"}
-                      cursor="pointer"
-                      position="relative"
+                  <>
+                    <Link
+                      to={notification.more?.url}
+                      onClick={async (e: any) => {
+                        const { unread, notifications } =
+                          await seenNotification(notification._id);
+                        setUpdatedNotifications(notifications);
+                        setUpdatedUnread(unread);
+                        setNotificationsTab(false);
+                      }}
                     >
-                      <Flex alignItems="center" mt={4} gridGap={1}>
-                        <CommunityPicture
-                          imageSrc={notification.more?.community?.image}
-                          width="35px"
-                          communityUsername={
-                            notification.more?.community?.username
-                          }
-                        />
-                        <Text
-                          fontSize={14}
-                          fontFamily="mono"
-                          maxW="190px"
-                          lineHeight="15px"
-                          textOverflow="ellipsis"
-                          fontWeight="medium"
-                          ml={2}
-                        >
-                          {notification.title}
-                        </Text>
-                        <Text fontSize={12} color="gray.500">
-                          •
-                        </Text>
-                        <Text fontSize={12} color="gray.500">
-                          {timeAgo.format(parseInt(notification.date))}
-                        </Text>
-                        {!notification.seen && (
-                          <Button
-                            bg="red"
-                            zIndex={2}
-                            _hover={{}}
-                            _focus={{}}
-                            _active={{}}
-                            minW="0px"
-                            p={0}
-                            m={0}
-                            onClick={async (e: any) => {
-                              e.preventDefault();
-                              const { unread, notifications } =
-                                await seenNotification(notification._id);
-                              setUpdatedNotifications(notifications);
-                              setUpdatedUnread(unread);
-                            }}
-                            w="8px"
-                            h="8px"
-                            borderRadius={50}
-                            background="blue.500"
-                            position="relative"
-                            left="20px"
-                          ></Button>
-                        )}
-                      </Flex>
-                      <Text
-                        fontSize={12}
-                        w="50%"
-                        noOfLines={2}
-                        color="gray.600"
-                        ml="45px"
+                      <Flex
+                        direction="column"
+                        p={2}
+                        bg={notification.seen ? "white" : "#E5F1FB"}
+                        cursor="pointer"
+                        position="relative"
                       >
-                        {notification.description}
-                      </Text>
-                    </Flex>
-                  </Link>
+                        <Flex alignItems="center" my={2} gridGap={1}>
+                          <CommunityPicture
+                            imageSrc={notification.more?.community?.image}
+                            width="35px"
+                            communityUsername={
+                              notification.more?.community?.username
+                            }
+                          />
+                          <Text
+                            fontSize={14}
+                            fontFamily="mono"
+                            maxW="190px"
+                            lineHeight="15px"
+                            textOverflow="ellipsis"
+                            fontWeight="medium"
+                            ml={2}
+                          >
+                            {notification.title}
+                          </Text>
+                          <Text fontSize={12} color="gray.500">
+                            •
+                          </Text>
+                          <Text fontSize={12} color="gray.500">
+                            {timeAgo.format(parseInt(notification.date))}
+                          </Text>
+                          {!notification.seen && (
+                            <Button
+                              bg="red"
+                              zIndex={2}
+                              _hover={{}}
+                              _focus={{}}
+                              _active={{}}
+                              minW="0px"
+                              p={0}
+                              m={0}
+                              onClick={async (e: any) => {
+                                e.preventDefault();
+                                const { unread, notifications } =
+                                  await seenNotification(notification._id);
+                                setUpdatedNotifications(notifications);
+                                setUpdatedUnread(unread);
+                              }}
+                              w="8px"
+                              h="8px"
+                              borderRadius={50}
+                              background="blue.500"
+                              position="relative"
+                              left="20px"
+                            ></Button>
+                          )}
+                        </Flex>
+                        <Text
+                          fontSize={12}
+                          w="50%"
+                          noOfLines={2}
+                          color="gray.600"
+                          ml="45px"
+                        >
+                          {notification.description}
+                        </Text>
+                      </Flex>
+                    </Link>
+                    <Box w="100%" h="1px" bg="rgba(0,0,0,.1)"></Box>
+                  </>
                 ))
               ) : (
                 <Flex
@@ -204,4 +215,5 @@ export default function Notifications() {
       )}
     </>
   );
+
 }
