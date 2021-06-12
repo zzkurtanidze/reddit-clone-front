@@ -68,7 +68,7 @@ export default function PendingTab({
           </Flex>
         )}
 				{pendingMembers && pendingMembers.length > 0 ?
-          pendingMembers.map((member: UserType, index: number) => (
+          pendingMembers.map(({ user: member, message }: { user: UserType, message: string }, index: number) => (
             <>
               <Grid
                 gridTemplateColumns="0.7fr 10fr 1.3fr 1.3fr 1fr"
@@ -162,12 +162,13 @@ export default function PendingTab({
               </Grid>
               {expanded.includes(index) && (
                 <Box
-                  bg="gray.200"
-                  boxShadow="inset 0 2px 5px rgba(0,0,0,.2)"
-                  minH="200px"
+                  bg="#EDEFF1"
+                  minH="100px"
+								  borderRadius={5}
                   p={5}
                 >
-                  <Text fontFamily="mono">{"{{Message from user}}"}</Text>
+									<Text fontFamily="mono" fontSize={11} fontWeight="extrabold" textTransform="uppercase"> Message From User </Text>
+                  <Text fontFamily="mono">{message}</Text>
                 </Box>
               )}
             </>
