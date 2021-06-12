@@ -719,11 +719,11 @@ export const getCommunity = (name: string) => {
  * @returns
  */
 
-export const joinCommunity = async (id: string) => {
+export const joinCommunity = async (id: string, data?: any) => {
   try {
     const response = await axios.post(
       `${apiUrl}/community/${id}/join`,
-      null,
+      data,
       axiosOptions
     );
     return response;
