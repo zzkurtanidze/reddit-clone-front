@@ -67,7 +67,7 @@ export default function PendingTab({
             <FieldLoading />
           </Flex>
         )}
-        {pendingMembers &&
+				{pendingMembers && pendingMembers.length > 0 ?
           pendingMembers.map((member: UserType, index: number) => (
             <>
               <Grid
@@ -171,7 +171,12 @@ export default function PendingTab({
                 </Box>
               )}
             </>
-          ))}
+						)) : (
+							<Flex alignItems="center" direction="column" justifyContent="center" minH="500px" gridGap={10}>
+								<Image src="http://localhost:4000/assets/cat_blep.png" w="200px"/>
+								<Text textAlign="center" fontSize={20} fontFamily="mono" fontWeight="bold">No users pending</Text>
+						  </Flex>
+						)}
       </Box>
     </Container>
   );
