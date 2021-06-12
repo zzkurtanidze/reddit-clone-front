@@ -105,7 +105,7 @@ export default function PostFlairs({ community }: { community: string }) {
                 <FieldLoading withImage={false} />
               </Flex>
             )}
-            {flairs &&
+						{flairs && flairs.length > 0 &&
               flairs.map((flair: any) => (
                 <Tr
                   bg="white"
@@ -268,7 +268,7 @@ export default function PostFlairs({ community }: { community: string }) {
                     status: "success",
                     isClosable: true,
                   });
-                  setFlairs(response.data);
+									setFlairs(response.data.flairs);
                 }
                 setFlairForm(false);
                 await setTimeout(() => {
