@@ -7,7 +7,7 @@ export default function Container({
   ...otherProps
 }: {
   children: React.ReactNode;
-  size?: string;
+  size?: "sm" | "norm" | "big";
   [x: string]: any;
 }) {
   const sizes = {
