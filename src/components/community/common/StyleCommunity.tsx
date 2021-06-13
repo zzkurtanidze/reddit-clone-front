@@ -4,7 +4,6 @@ import { Box, Flex, Text } from "@chakra-ui/layout";
 import SecondaryButton from "@components/common/SecondaryButton";
 import StyledBox from "@components/common/StyledBox";
 import React, { useState } from "react";
-import { BsCheckCircle } from "react-icons/bs";
 import { IoIosCheckmarkCircleOutline, IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
 

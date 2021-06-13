@@ -13,7 +13,8 @@ export default function LinkTab({
   const [error, setError] = useState<string | undefined>();
 
   useEffect(() => {
-    const urlReg = /https?:\/\/w{0,3}\w*?\.(\w*?\.)?\w{2,3}\S*|www\.(\w*?\.)?\w*?\.\w{2,3}\S*|(\w*?\.)?\w*?\.\w{2,3}[\/\?]\S*/;
+    const urlReg =
+      /https?:\/\/w{0,3}\w*?\.(\w*?\.)?\w{2,3}\S*|www\.(\w*?\.)?\w*?\.\w{2,3}\S*|(\w*?\.)?\w*?\.\w{2,3}[\\/?]\S*/;
     if (value) {
       if (!urlReg.test(value)) {
         setError("You did not entered valid URL.");

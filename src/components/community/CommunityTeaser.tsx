@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Box, Flex, Grid, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { CommunityType, UserType } from "../../types";
 import StyledBox from "../common/StyledBox";

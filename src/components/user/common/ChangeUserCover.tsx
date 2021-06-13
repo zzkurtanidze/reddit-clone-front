@@ -27,6 +27,7 @@ export default function ChangeUserCover({
         isClosable: true,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return showCoverChangeModal ? (

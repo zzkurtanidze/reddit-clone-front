@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { TrendingCommunity } from "../trending/TrendingCommunity";
 //@ts-ignore
 import { CategoryType, CommunityType } from "@types/index";

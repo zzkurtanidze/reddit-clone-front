@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 //@ts-ignore
 import { getCategories } from "@api/";
 import { Flex, Text } from "@chakra-ui/layout";

@@ -13,7 +13,6 @@ import SecondaryButton from "@components/common/SecondaryButton";
 import { CommunityType } from "@types/";
 import { Form, Formik } from "formik";
 import React from "react";
-import { useHistory } from "react-router";
 import * as yup from "yup";
 
 const validationSchema = yup.object({

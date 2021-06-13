@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
 import { Flex } from "@chakra-ui/layout";
 import { joinCommunity, leaveCommunity } from "../../../api";

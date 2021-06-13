@@ -23,6 +23,7 @@ export default function PasswordResetPage({ match }: { match: any }) {
       setBrokenLink(true);
     }
     setUserId(decoded.userId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return brokenLink ? (

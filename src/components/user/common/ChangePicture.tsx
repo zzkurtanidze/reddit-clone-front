@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button } from "@chakra-ui/button";
 import { Image } from "@chakra-ui/image";
 import { Input } from "@chakra-ui/input";
@@ -21,7 +22,6 @@ export default function ChangePicture({
   [x: string]: any;
 }) {
   const [showCropper, setShowCropper] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
   const [cropper, setCropper] = useState<any>();
   const { role } = useContext(UserRoleContext);
 
@@ -100,7 +100,7 @@ export default function ChangePicture({
         <Modal open={showCropper} onClose={() => setShowCropper(false)}>
           <Box mt={10}>
             <Cropper
-              src={imageUrl}
+              src={image}
               initialAspectRatio={1 / 1}
               aspectRatio={1 / 1}
               minCropBoxHeight={150}

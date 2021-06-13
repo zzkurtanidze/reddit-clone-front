@@ -11,7 +11,7 @@ import { UserType } from "@types/";
 import React from "react";
 import { BsFilePost } from "react-icons/bs";
 import { Link, useHistory } from "react-router-dom";
-import { HiArrowsExpand, HiOutlineArrowsExpand } from "react-icons/hi";
+import { HiOutlineArrowsExpand } from "react-icons/hi";
 import { FaCommentAlt, FaShare } from "react-icons/fa";
 import { RiBookmarkFill } from "react-icons/ri";
 import { ImBlocked } from "react-icons/im";

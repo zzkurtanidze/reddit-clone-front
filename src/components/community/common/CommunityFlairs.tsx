@@ -7,7 +7,7 @@ import StyledBox from "@components/common/StyledBox";
 //@ts-ignore
 import { CommunityType } from "@types/";
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import queryString from "query-string";
 import { IoMdClose } from "react-icons/io";
 
@@ -18,7 +18,6 @@ export default function CommunityFlairs({
 }) {
   const { flairs } = getFlairs(community.username);
   const params = queryString.parse(window.location.search);
-  const history = useHistory();
 
   return (
     <StyledBox title="Filter by flairs" titleBackground={community.theme.main}>

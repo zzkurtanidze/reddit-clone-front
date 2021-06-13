@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Text } from "@chakra-ui/layout";
+import { Divider, Flex, Text } from "@chakra-ui/layout";
 import React from "react";
 
 export default function SectionTitle({

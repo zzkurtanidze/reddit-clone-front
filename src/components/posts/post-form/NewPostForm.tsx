@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable eqeqeq */
 //@ts-nocheck
 import {
   Box,

@@ -31,7 +31,7 @@ export const FlairsDropdown = ({
   setPost: any;
 }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const { flairs: initialFlairs, isLoading } = getFlairs(community);
+  const { flairs: initialFlairs } = getFlairs(community);
   const [flairs, setFlairs] = useState<[]>();
   const [search, setSearch] = useState("");
   const [selectedFlair, setSelectedFlair] = useState("");

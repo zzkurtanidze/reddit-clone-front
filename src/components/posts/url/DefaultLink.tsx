@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Flex, Link, Text } from "@chakra-ui/layout";
 //@ts-ignore
 import { PostType } from "@types/";

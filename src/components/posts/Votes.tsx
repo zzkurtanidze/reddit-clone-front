@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { ImArrowDown, ImArrowUp } from "react-icons/im";

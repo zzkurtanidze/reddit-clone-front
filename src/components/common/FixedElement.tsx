@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box } from "@chakra-ui/layout";
 import React, { useEffect, useState } from "react";
 

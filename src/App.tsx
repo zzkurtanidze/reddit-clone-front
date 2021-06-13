@@ -4,9 +4,8 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import { Route, Switch } from "react-router-dom";
 import HomePage from "./pages/home";
-import { getUser, getUserRole } from "./api/index";
+import { getUser } from "./api/index";
 import { UserContext } from "./context/UserContext";
-import { UserRoleContext } from "./context/UserRoleContext";
 import UserPage from "./pages/user";
 import Loading from "./components/common/Loading";
 import SubmitPage from "./pages/submit";
@@ -52,6 +51,7 @@ export default function App() {
             path="/subreddits/:letter"
             component={SubredditDictionaryPage}
           />
+
           <Route path="/resetpassword/:token" component={PasswordResetPage} />
           <Route path="/r/:name/about/:tabname" component={ModToolsPage} />
           <Route path="/r/:name/about/moderators" component={ModeratorsPage} />

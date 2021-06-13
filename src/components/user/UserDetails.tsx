@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 //@ts-nocheck
 import {
   Box,
@@ -37,7 +38,6 @@ export default function UserDetails({
   const [followed, setFollowed] = useState(false);
 
   useEffect(() => {
-    console.log(currentUser);
     if (currentUser) {
       currentUser.following.forEach((followedUser) => {
         console.log(followedUser._id);

@@ -12,7 +12,6 @@ import FixedElement from "@components/common/FixedElement";
 import Loading from "@components/common/Loading";
 import StyledBox from "@components/common/StyledBox";
 import CommunityTeaser from "@components/community/CommunityTeaser";
-import Date from "@components/posts/Date";
 import { PostButton } from "@components/posts/PostButton";
 import PostedBy from "@components/posts/PostedBy";
 import Votes from "@components/posts/Votes";

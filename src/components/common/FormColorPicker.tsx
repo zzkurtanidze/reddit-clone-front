@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button } from "@chakra-ui/button";
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import React, { useEffect, useRef, useState } from "react";

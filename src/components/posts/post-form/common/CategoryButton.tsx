@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Button } from "@chakra-ui/react";
 import { FaPlus, FaCheck } from "react-icons/fa";

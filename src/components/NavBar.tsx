@@ -1,7 +1,5 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import {
   Box,
-  Button,
   Flex,
   HStack,
   Image,
@@ -9,7 +7,6 @@ import {
   InputGroup,
   InputLeftElement,
   Switch,
-  Text,
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -25,9 +22,9 @@ import {
   CustomDropdownItem,
   DropdownLink,
 } from "./common/DropdownItems";
-import { getNotifications, logOut, updateActiveStatus } from "../api/index";
+import { logOut, updateActiveStatus } from "../api/index";
 
-import { BiBell, BiSearchAlt } from "react-icons/bi";
+import { BiSearchAlt } from "react-icons/bi";
 import { GoGear } from "react-icons/go";
 import { FaMoon, FaUserCircle } from "react-icons/fa";
 import { RiLoginBoxFill } from "react-icons/ri";
@@ -43,8 +40,6 @@ export default function NavBar() {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [activeStatus, setActiveStatus] = useState<boolean | undefined>();
   const user = useContext(UserContext);
-  const { unread } = getNotifications();
-  const [notificationsTab, setNotificationsTab] = useState(false);
 
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -88,23 +83,13 @@ export default function NavBar() {
       <HStack spacing="25px" alignSelf="center">
         {!user ? (
           <>
-            <PrimaryButton
+            <SecondaryButton
               label="Log In"
-              bg={useColorModeValue("#fff", "#222223")}
-              color={useColorModeValue("#1384D7", "white")}
-              borderWidth="1px"
-              borderColor={useColorModeValue("#1384D7", "white")}
-              _hover={{}}
-              _active={{}}
               w="120px"
               onClick={() => setShowLoginModal(!showLoginModal)}
             />
-            <SecondaryButton
+            <PrimaryButton
               label="Sign Up"
-              bg={useColorModeValue("#1384D7", "#C8CBCD")}
-              color={useColorModeValue("white", "#222223")}
-              _hover={{}}
-              _active={{}}
               w="120px"
               onClick={() => setShowRegisterModal(!showRegisterModal)}
             />

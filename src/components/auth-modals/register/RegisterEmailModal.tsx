@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React from "react";
-import { Box, Button, Divider, Flex, Text, useToast } from "@chakra-ui/react";
+// eslint-disable-next-line
+import { Box, Divider, Flex, Text, useToast } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { GoogleLogin, GoogleLoginResponse } from "react-google-login";
 

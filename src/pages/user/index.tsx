@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 //@ts-nocheck
-import { Box, Button, Flex, Grid, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { getUser } from "@api";
 import Container from "@components/common/Container";

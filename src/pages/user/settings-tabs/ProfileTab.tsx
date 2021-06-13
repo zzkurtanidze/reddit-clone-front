@@ -15,7 +15,6 @@ import _ from "lodash";
 import { updateUser } from "@api";
 import { useToast } from "@chakra-ui/toast";
 import { Button } from "@chakra-ui/button";
-import ChangeUserPicture from "@components/user/common/ChangePicture";
 import ChangeUserCover from "@components/user/common/ChangeUserCover";
 import ChangePicture from "@components/user/common/ChangePicture";
 
@@ -141,6 +140,7 @@ export default function ProfileTab({ user }: { user: UserType }) {
 const AutoSave = ({ debounceMs = 2000 }: { debounceMs: number }) => {
   const formik = useFormikContext();
   const [isSaved, setIsSaved] = useState(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSubmit = useCallback(
     _.debounce(() => {
       if (!isSaved) {

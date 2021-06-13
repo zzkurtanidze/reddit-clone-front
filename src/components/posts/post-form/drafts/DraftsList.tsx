@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Button, Link, Table, Td, Text, Th, Tr } from "@chakra-ui/react";
+import { Button, Table, Td, Text, Th, Tr } from "@chakra-ui/react";
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBinLine } from "react-icons/ri";
@@ -11,10 +11,10 @@ import en from "javascript-time-ago/locale/en";
 
 TimeAgo.addLocale(en);
 
-export default function DraftsList({
-  drafts,
-  handleRemove,
-}): { drafts: NotPostedPostType[]; handleRemove: Function } {
+export default function DraftsList({ drafts, handleRemove }): {
+  drafts: NotPostedPostType[];
+  handleRemove: Function;
+} {
   const timeAgo = new TimeAgo("en-US");
   const history = useHistory();
 

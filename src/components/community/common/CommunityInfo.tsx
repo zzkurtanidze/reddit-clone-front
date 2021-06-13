@@ -1,13 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 //@ts-nocheck
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Grid,
-  Text,
-  Textarea,
-} from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Grid, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { CommunityType } from "../../../types";
 import StyledBox from "../../common/StyledBox";
@@ -17,7 +10,6 @@ import { UserContext } from "../../../context/UserContext";
 
 import { FaUserCircle } from "react-icons/fa";
 import { RiCake2Fill } from "react-icons/ri";
-import { MdEdit } from "react-icons/md";
 
 import { Link } from "react-router-dom";
 import { getRoleInCommunity } from "@api/";
@@ -31,7 +23,6 @@ export default function CommunityInfo({
   const [joined, setJoined] = useState<boolean>(false);
   const user = useContext(UserContext);
   const { role } = getRoleInCommunity(community.username);
-  const [editMode, setEditMode] = useState<boolean>(false);
 
   useEffect(() => {
     if (user?.joined) {

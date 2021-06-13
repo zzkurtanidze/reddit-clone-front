@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box, Grid, Text } from "@chakra-ui/layout";
 import SectionTitle from "@components/common/SectionTitle";
 import { RiDatabaseLine } from "react-icons/ri";

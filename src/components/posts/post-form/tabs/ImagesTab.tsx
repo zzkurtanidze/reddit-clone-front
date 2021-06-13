@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Flex, Input, useToast } from "@chakra-ui/react";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";

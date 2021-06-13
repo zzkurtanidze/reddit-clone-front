@@ -1,13 +1,7 @@
-import { Checkbox } from "@chakra-ui/checkbox";
-import {
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-} from "@chakra-ui/form-control";
-import { Box, Flex } from "@chakra-ui/layout";
+import { FormHelperText, FormLabel } from "@chakra-ui/form-control";
+import { Flex } from "@chakra-ui/layout";
 import { Switch } from "@chakra-ui/switch";
-import { Field, FormikErrors } from "formik";
+import { Field } from "formik";
 import React from "react";
 
 export default function FormCheckbox({

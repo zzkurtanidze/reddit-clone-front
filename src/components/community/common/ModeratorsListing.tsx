@@ -4,7 +4,7 @@ import { Divider, Grid, Text } from "@chakra-ui/layout";
 import ErrorPage from "@pages/error";
 //@ts-ignore
 import { UserType } from "@types/";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useHistory } from "react-router";
 //@ts-ignore
 import { CommunityType } from "@types/";

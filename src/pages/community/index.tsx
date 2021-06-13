@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 //@ts-nocheck
-import { Box, Button, Flex, Grid, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, Image, Text } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { getCommunity } from "@api";
 import Container from "@components/common/Container";
@@ -11,7 +12,6 @@ import PostTeaser from "@components/posts/PostTeaser";
 import CommunityInfo from "@components/community/common/CommunityInfo";
 import { UserContext } from "@context/UserContext";
 import Loading from "@components/common/Loading";
-import FixedElement from "@components/common/FixedElement";
 import { Link, useHistory } from "react-router-dom";
 import ErrorPage from "@pages/error";
 import Moderators from "@components/community/common/Moderators";
@@ -24,7 +24,6 @@ import PrimaryButton from "@components/common/PrimaryButton";
 import SecondaryButton from "@components/common/SecondaryButton";
 import FormTextarea from "@components/common/FormTextarea";
 import Modal from "@components/Modal";
-import { responseOnJoinRequest } from "@api/";
 import { joinCommunity } from "@api/";
 import { sendNotification } from "@api/";
 import { UserType } from "@types/";
@@ -145,23 +144,22 @@ export default function CommunityPage({ match }: { match: any }) {
             <br />
             <Formik
               initialValues={{ message: "" }}
-							onSubmit={async ({ message }) => {
+              onSubmit={async ({ message }) => {
                 await joinCommunity(community._id, { message });
                 community.moderators.forEach(async (moderator: UserType) => {
-                await sendNotification(moderator.username, {
-		               title: `u/${user.username} requested to join r/${community.username} community`,
- 		               description: "",
- 		               type: "request",
- 		               more: {
- 		              	 community: community._id,
- 		              	 url: `/r/${community.username}/about/pending`,
- 		               },
- 	               });
+                  await sendNotification(moderator.username, {
+                    title: `u/${user.username} requested to join r/${community.username} community`,
+                    description: "",
+                    type: "request",
+                    more: {
+                      community: community._id,
+                      url: `/r/${community.username}/about/pending`,
+                    },
+                  });
                 });
                 setRequested(true);
-								setMessageForm(false);
-								}
-							}
+                setMessageForm(false);
+              }}
             >
               {({ value, touched, errors }) => (
                 <Form>

@@ -1,6 +1,6 @@
 //@ts-ignore
 import { getNotifications } from "@api/";
-import { Box, Divider, Flex, Text } from "@chakra-ui/layout";
+import { Box, Flex, Text } from "@chakra-ui/layout";
 import React, { useEffect, useState, useRef } from "react";
 //@ts-ignore
 import TimeAgo from "javascript-time-ago";
@@ -8,7 +8,6 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import { Button } from "@chakra-ui/button";
 import { BiBell } from "react-icons/bi";
-import SecondaryButton from "./common/SecondaryButton";
 import CommunityPicture from "./community/common/CommunityPicture";
 //@ts-ignore
 import { seenNotification } from "@api/";
@@ -24,13 +23,13 @@ export default function Notifications() {
   const [updatedNotifications, setUpdatedNotifications] = useState<[]>();
   const [updatedUnread, setUpdatedUnread] = useState<number>(0);
 
-	const ref = useRef();
+  const ref = useRef();
 
-	useOutsideClick(ref, () => {
-		if(notificationsTab) {
-			setNotificationsTab(false);
-		}
-	});
+  useOutsideClick(ref, () => {
+    if (notificationsTab) {
+      setNotificationsTab(false);
+    }
+  });
 
   useEffect(() => {
     if (notifications) {
@@ -74,7 +73,7 @@ export default function Notifications() {
         )}
       </Button>
       {notificationsTab && (
-				//@ts-ignore
+        //@ts-ignore
         <Box position="absolute" top="2px" right="0" ref={ref}>
           <Box
             w="15px"
@@ -215,5 +214,4 @@ export default function Notifications() {
       )}
     </>
   );
-
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 //@ts-ignore
 import { getCommunity } from "@api/";
 import { Button } from "@chakra-ui/button";
