@@ -29,6 +29,7 @@ export default function AccountTab({ user }: { user: UserType }) {
         button={
           <SecondaryButton
             label="Change"
+            bg="none"
             onClick={() => setEmailChangeModal(true)}
           />
         }
@@ -39,6 +40,7 @@ export default function AccountTab({ user }: { user: UserType }) {
         button={
           <SecondaryButton
             label="Change"
+            bg="none"
             onClick={() => setPasswordChangeModal(true)}
           />
         }

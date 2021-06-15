@@ -206,6 +206,15 @@ export const checkUser = async (email: string) => {
   }
 };
 
+export const updatePassword = async (data: { oldPassword: string, newPassword: string }) => {
+  try {
+    const response = await axios.post(`${apiUrl}/users/update-password`, data, axiosOptions);
+    return response;
+  }catch(ex) {
+    return ex.response;
+  }
+}
+
 /**
  *
  * @param { username: string, email: string }

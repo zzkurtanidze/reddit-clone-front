@@ -4,8 +4,11 @@ import { Image } from "@chakra-ui/image";
 import { Flex, Text } from "@chakra-ui/layout";
 import { Form, Formik } from "formik";
 import FormField from "@components/common/FormField";
-import { Button } from "@chakra-ui/button";
 import * as yup from "yup";
+//@ts-ignore
+import {updatePassword} from "@api/";
+import {useToast} from "@chakra-ui/react";
+import PrimaryButton from "@components/common/PrimaryButton";
 
 const validationSchema = yup.object({
   oldPassword: yup.string().required().label("Old password"),
@@ -20,6 +23,8 @@ export default function PasswordChange({
   open: boolean;
   setOpen: Function;
 }) {
+  const toast = useToast()
+
   return (
     <Modal open={open} onClose={() => setOpen(false)} withImage>
       <Flex py={70} direction="column" gridGap={3}>
@@ -38,7 +43,21 @@ export default function PasswordChange({
             confirmNewPassword: "",
           }}
           validationSchema={validationSchema}
-          onSubmit={(data) => console.log(data)}
+          onSubmit={async ({ oldPassword, newPassword, confirmNewPassword }, errors) => {
+            if(newPassword !== confirmNewPassword) {
+              errors.setErrors({ confirmNewPassword: "Passwords are not equal" });
+            } else {
+              const response = await updatePassword({ oldPassword, newPassword });
+              if(response.statusText === "OK") {
+                toast({
+                  title: "Password changed succesfully",
+                  status: "success",
+                  isClosable: true,
+                })
+                setOpen(false);
+              }
+            }
+          }}
         >
           {({ errors, touched }) => (
             <Form>
@@ -64,16 +83,7 @@ export default function PasswordChange({
                   name="confirmNewPassword"
                   placeholder="Confirm New Password"
                 />
-                <Button
-                  bg="#0079d3"
-                  borderRadius={30}
-                  color="white"
-                  fontSize={14}
-                  w="max-content"
-                  px={10}
-                >
-                  Save
-                </Button>
+                <PrimaryButton label="Save" type="submit" w="max-content" px={10}/>
               </Flex>
             </Form>
           )}
