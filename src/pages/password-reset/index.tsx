@@ -11,7 +11,7 @@ import { submitNewPassword } from "@api";
 import { useToast } from "@chakra-ui/toast";
 
 export default function PasswordResetPage({ match }: { match: any }) {
-  const [brokenLink, setBrokenLink] = useState<boolean>(false);
+  const [expiredLink, setExpiredLink] = useState<boolean>(false);
   const [userId, setUserId] = useState<string>("");
   const token = match.params.token;
   const toast = useToast();
@@ -20,13 +20,13 @@ export default function PasswordResetPage({ match }: { match: any }) {
     const decoded: { expire: number; userId: string } = jwt_decode(token);
     const time = Math.floor(Date.now() / 1000);
     if (time > decoded.expire) {
-      setBrokenLink(true);
+      setExpiredLink(true);
     }
     setUserId(decoded.userId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return brokenLink ? (
+  return expiredLink ? (
     <Flex alignItems="center" h="100vh" justifyContent="center">
       <Text textAlign="center" fontSize={50} fontFamily="mono">
         Link is expired.

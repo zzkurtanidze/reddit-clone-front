@@ -4,7 +4,7 @@ import { GoogleLoginResponse } from "react-google-login";
 import { UserType } from "../types";
 import useSWR, { useSWRInfinite } from "swr";
 
-const apiUrl = "http://localhost:4000/api";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const axiosOptions = {
   withCredentials: true,
@@ -206,14 +206,21 @@ export const checkUser = async (email: string) => {
   }
 };
 
-export const updatePassword = async (data: { oldPassword: string, newPassword: string }) => {
+export const updatePassword = async (data: {
+  oldPassword: string;
+  newPassword: string;
+}) => {
   try {
-    const response = await axios.post(`${apiUrl}/users/update-password`, data, axiosOptions);
+    const response = await axios.post(
+      `${apiUrl}/users/update-password`,
+      data,
+      axiosOptions
+    );
     return response;
-  }catch(ex) {
+  } catch (ex) {
     return ex.response;
   }
-}
+};
 
 /**
  *

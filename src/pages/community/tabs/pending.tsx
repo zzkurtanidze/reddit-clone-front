@@ -80,7 +80,8 @@ export default function PendingTab({
                 >
                   <Image
                     src={
-                      member.image || "http://localhost:4000/assets/avatar.png"
+                      member.image ||
+                      `${process.env.REACT_APP_ASSETS_URL}/avatar.png`
                     }
                     w="30px"
                     borderRadius={5}
@@ -191,7 +192,10 @@ export default function PendingTab({
             minH="500px"
             gridGap={10}
           >
-            <Image src="http://localhost:4000/assets/cat_blep.png" w="200px" />
+            <Image
+              src={`${process.env.REACT_APP_ASSETS_URL}/cat_blep.png`}
+              w="200px"
+            />
             <Text
               textAlign="center"
               fontSize={20}

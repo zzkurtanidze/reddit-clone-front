@@ -112,7 +112,10 @@ export default function NavBar() {
             ) : (
               <Box position="relative">
                 <Image
-                  src={user.image || "http://localhost:4000/assets/avatar.png"}
+                  src={
+                    user.image ||
+                    `${process.env.REACT_APP_ASSETS_URL}/avatar.png"`
+                  }
                   w={6}
                   borderRadius={4}
                 />

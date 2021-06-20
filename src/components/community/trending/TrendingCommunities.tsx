@@ -31,7 +31,7 @@ export default function TrendingCommunities({
             ${
               communities[0].image
                 ? communities[0].image
-                : "http://localhost:4000/assets/banner.png"
+                : `${process.env.REACT_APP_ASSETS_URL}/banner.png`
             }
           )`}
             boxShadow="inset 0px -24px 50px rgba(0,0,0,.8)"

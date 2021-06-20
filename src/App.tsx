@@ -20,6 +20,7 @@ import SubredditsPage from "@pages/subreddits";
 import ModeratorsPage from "@pages/community/moderators";
 import SubredditDictionaryPage from "@pages/subreddits/dictionary";
 import ModToolsPage from "@pages/community/modtools";
+import { UserRoleContext } from "@context/UserRoleContext";
 
 const theme = extendTheme({
   fonts: {
