@@ -321,7 +321,7 @@ export const updateMail = async (data: {
       `${apiUrl}/users/update-mail`,
       data,
       axiosOptions
-    );
+      );
     return response;
   } catch (ex) {
     return ex.response;
@@ -336,6 +336,15 @@ export const updateUser = async (data: {}) => {
     return ex.response;
   }
 };
+
+export const verifyMail = async () => {
+  try {
+    const response = await axios.post(`${apiUrl}/users/request-confirm-email`, null, axiosOptions); 
+    return response;
+  } catch(ex) {
+    return ex.response;
+  }
+}
 
 /**
  *
