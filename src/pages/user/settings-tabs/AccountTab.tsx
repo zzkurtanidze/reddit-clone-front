@@ -12,6 +12,8 @@ import EmailChange from "../modals/EmailChange";
 import PasswordChange from "../modals/PasswordChange";
 //@ts-ignore
 import { deactivateAccount, logOut } from "@api";
+//@ts-ignore
+import {verifyMail} from "@api/";
 
 export default function AccountTab({ user }: { user: UserType }) {
   const [emailChangeModal, setEmailChangeModal] = useState<boolean>(false);
@@ -24,14 +26,27 @@ export default function AccountTab({ user }: { user: UserType }) {
       <Title label="Account Settings" />
       <SectionTitle label="Account preferences" />
       <Action
+        prefix={!user.emailConfirmed ? "Email is not confirmed" : ""}
         label="Email address"
         description={user.email}
-        button={
+        secondButton={
           <SecondaryButton
             label="Change"
             bg="none"
             onClick={() => setEmailChangeModal(true)}
           />
+        }
+        button={!user.emailConfirmed ? (
+          <SecondaryButton
+            label="Verify email"
+            bg="none"
+            onClick={async () => {
+              await verifyMail(); 
+            }}
+          />
+            ) : (
+            <></>
+          )
         }
       />
       <Action
