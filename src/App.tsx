@@ -20,7 +20,7 @@ import SubredditsPage from "@pages/subreddits";
 import ModeratorsPage from "@pages/community/moderators";
 import SubredditDictionaryPage from "@pages/subreddits/dictionary";
 import ModToolsPage from "@pages/community/modtools";
-import { UserRoleContext } from "@context/UserRoleContext";
+import VerificationPage from '@pages/user/verification';
 
 const theme = extendTheme({
   fonts: {
@@ -54,6 +54,7 @@ export default function App() {
           />
 
           <Route path="/resetpassword/:token" component={PasswordResetPage} />
+          <Route path="/verification/:token" component={VerificationPage} />
           <Route path="/r/:name/about/:tabname" component={ModToolsPage} />
           <Route path="/r/:name/about/moderators" component={ModeratorsPage} />
           <Route path="/r/:name" component={CommunityPage} />
