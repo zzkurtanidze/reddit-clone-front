@@ -13,7 +13,9 @@ export default function StyleCommunity() {
   if (!show) return <></>;
   return (
     <StyledBox p={0}>
-      <Image src="http://localhost:4000/assets/style-component-banner.png" />
+      <Image
+        src={`${process.env.REACT_APP_ASSETS_URL}/style-component-banner.png" `}
+      />
       <Button
         bg="none"
         position="absolute"
@@ -32,7 +34,7 @@ export default function StyleCommunity() {
       <Box p="13px">
         <Flex gridGap={3}>
           <Image
-            src="http://localhost:4000/assets/reddit-painter.png"
+            src={`${process.env.REACT_APP_ASSETS_URL}/reddit-painter.png`}
             position="relative"
             top="-20px"
             w="50px"

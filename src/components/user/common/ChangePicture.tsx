@@ -33,8 +33,9 @@ export default function ChangePicture({
     data.append("photo", file);
     const response = await uploadImage(data);
     if (response.statusText === "OK") {
+      console.log(name);
       await updateUser({ [name]: response.data });
-      window.location.reload();
+      //window.location.reload();
     } else {
       toast({
         title: "Can not upload image",
@@ -55,7 +56,7 @@ export default function ChangePicture({
       data.append("photo", file, date + ".jpg");
       const response = await uploadImage(data);
       if (response.statusText === "OK") {
-        await updateUser({ image: response.data });
+        await updateUser({ [name]: response.data });
         window.location.reload();
       }
     }

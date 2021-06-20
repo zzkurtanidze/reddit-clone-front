@@ -22,7 +22,7 @@ export default function ErrorPage({
       fontSize={24}
     >
       <Image
-        src="http://localhost:4000/static/reddit-not-found.png"
+        src={`${process.env.REACT_APP_ASSETS_URL}/reddit-not-found.png`}
         w="100px"
       />
       <Text fontFamily="mono" opacity="0.4" fontWeight="bold">

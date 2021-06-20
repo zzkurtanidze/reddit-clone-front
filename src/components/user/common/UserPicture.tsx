@@ -8,7 +8,9 @@ export default function UserPicture({
   image: string | undefined;
   width?: string;
 }) {
-  const imageSrc = image ? image : "http://localhost:4000/assets/avatar.png";
+  const imageSrc = image
+    ? image
+    : `${process.env.REACT_APP_ASSETS_URL}/avatar.png"`;
 
   return <Profile imageSrc={imageSrc} width={width} />;
 }

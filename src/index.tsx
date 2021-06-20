@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
 import "cropperjs/dist/cropper.css";
 import "./main.css";
+require("dotenv").config();
 
 ReactDOM.render(
   <BrowserRouter>

@@ -16,7 +16,7 @@ export default function UserCover({ user }: { user: UserType }) {
         src={
           user.coverImage
             ? user.coverImage
-            : "http://localhost:4000/assets/banner.png"
+            : `${process.env.REACT_APP_ASSETS_URL}/banner.png`
         }
         alt="profile-cover"
         w="100vw"

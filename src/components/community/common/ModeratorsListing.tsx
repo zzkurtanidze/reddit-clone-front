@@ -54,7 +54,7 @@ export default function ModeratorsListing({
                   <Image
                     src={
                       moderator.image ||
-                      "http://localhost:4000/assets/avatar.png"
+                      `${process.env.REACT_APP_ASSETS_URL}/avatar.png`
                     }
                     w="30px"
                     minW="30px"

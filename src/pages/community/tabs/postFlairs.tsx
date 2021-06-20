@@ -105,7 +105,8 @@ export default function PostFlairs({ community }: { community: string }) {
                 <FieldLoading withImage={false} />
               </Flex>
             )}
-						{flairs && flairs.length > 0 &&
+            {flairs &&
+              flairs.length > 0 &&
               flairs.map((flair: any) => (
                 <Tr
                   bg="white"
@@ -232,7 +233,7 @@ export default function PostFlairs({ community }: { community: string }) {
               gridGap={3}
             >
               <Image
-                src="http://localhost:4000/assets/label.svg"
+                src={`${process.env.REACT_APP_ASSETS_URL}/label.svg`}
                 w="50px"
                 h="50px"
               />
@@ -268,7 +269,7 @@ export default function PostFlairs({ community }: { community: string }) {
                     status: "success",
                     isClosable: true,
                   });
-									setFlairs(response.data.flairs);
+                  setFlairs(response.data.flairs);
                 }
                 setFlairForm(false);
                 await setTimeout(() => {
