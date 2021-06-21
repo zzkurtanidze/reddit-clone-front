@@ -93,7 +93,7 @@ export default function CommunityPage({ match }: { match: any }) {
         gridGap={7}
       >
         <Image
-          src="http://localhost:4000/assets/key.svg"
+          src={`${process.env.REACT_APP_ASSETS_URL}/key.svg`}
           w="100px"
           h="100px"
           borderRadius={50}

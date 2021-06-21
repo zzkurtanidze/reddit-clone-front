@@ -82,19 +82,6 @@ export default function ProfileTab({ user }: { user: UserType }) {
       />
       <Flex gridGap={3}>
         <Box position="relative">
-          <Image src={user.image} w={125} h={125} borderRadius="10px" />
-          <Button
-            position="absolute"
-            bottom="5px"
-            right="5px"
-            p="10px"
-            bg="white"
-            border="1px solid #0079D3"
-            onClick={() => setShowProfileChangeModal(true)}
-            borderRadius={50}
-          >
-            <FaEdit color="#0079D3" />
-          </Button>
           <ChangePicture
             image={user.image}
             name="image"

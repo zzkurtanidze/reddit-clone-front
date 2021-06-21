@@ -9,7 +9,7 @@ export default function Rules() {
     <StyledBox h="max-content">
       <Flex alignItems="center" gridGap={3} mb="10px">
         <Image
-          src="http://localhost:4000/assets/reddit-rules.png"
+          src={`${process.env.REACT_APP_ASSETS_URL}/reddit-rules.png`}
           alt="Reddit-rules"
           w="35px"
         />

@@ -15,11 +15,11 @@ export default function HomeSidebar() {
         position="absolute"
         top="0"
         left="0"
-        src="http://localhost:4000/assets/home-sidebar-banner.png"
+        src={`${process.env.REACT_APP_ASSETS_URL}/home-sidebar-banner.png`}
       />
       <Flex alignItems="center" mb={5}>
         <Image
-          src="http://localhost:4000/assets/reddit-guy.png"
+          src={`${process.env.REACT_APP_ASSETS_URL}/reddit-guy.png`}
           w="50px"
           zIndex={4}
         />

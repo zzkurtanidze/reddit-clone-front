@@ -40,8 +40,6 @@ export default function UserDetails({
   useEffect(() => {
     if (currentUser) {
       currentUser.following.forEach((followedUser) => {
-        console.log(followedUser._id);
-        console.log(id);
         if (followedUser._id === id) {
           setFollowed(true);
         }
@@ -71,7 +69,7 @@ export default function UserDetails({
         border="0"
       />
       <ChangePicture
-        image={user.image || "http://localhost:4000/assets/avatar.png"}
+        image={user.image || `${process.env.REACT_APP_ASSETS_URL}/avatar.png"`}
         name="image"
         marginTop="-45px"
         marginLeft="10px"

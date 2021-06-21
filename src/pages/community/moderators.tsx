@@ -159,7 +159,7 @@ export default function ModeratorsPage({
       <Modal open={inviteModal} onClose={() => setInviteModal(false)} w="430px">
         <Flex direction="column" alignItems="center" mt={5}>
           <Image
-            src="http://localhost:4000/assets/congrats.png"
+            src={`${process.env.REACT_APP_ASSETS_URL}/congrats.png`}
             w="80px"
             h="80px"
           />

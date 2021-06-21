@@ -56,7 +56,7 @@ export default function SubredditList({ category }: { category: string }) {
               direction="column"
             >
               <Image
-                src="http://localhost:4000/static/reddit-not-found.png"
+                src={`${process.env.REACT_APP_ASSETS_URL}/reddit-not-found.png`}
                 w="80px"
               />
               <Text>Communities not found</Text>

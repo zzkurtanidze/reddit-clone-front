@@ -26,15 +26,9 @@ export default function ForgotPasswordModal({
         duration: 3000,
         isClosable: true,
       });
-    } else {
-      toast({
-        title: response.data,
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-    }
+    }   
   };
+
 
   return (
     <Modal open={showModal} width="500px" onClose={() => setShowModal(false)}>
