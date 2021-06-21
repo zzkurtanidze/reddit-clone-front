@@ -36,7 +36,7 @@ export default function TrendingItem({ item }: { item: PostType }) {
             ></Text>
           )}
           <Text fontSize={10} my={1} fontFamily="mono">
-            r/{item.postedTo.username}
+            r/{item.postedTo?.username}
           </Text>
         </Box>
       </Box>

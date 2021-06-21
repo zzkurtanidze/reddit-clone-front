@@ -1,8 +1,9 @@
+//@ts-nocheck
 import React from "react";
 import { Box, Grid, Text } from "@chakra-ui/layout";
 import SectionTitle from "@components/common/SectionTitle";
 import { RiDatabaseLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { ImTicket } from "react-icons/im";
 import { IoMdDocument } from "react-icons/io";
@@ -13,11 +14,13 @@ import ModeratorsPage from "./moderators";
 import { getRoleInCommunity } from "@api/";
 import PostFlairs from "./tabs/postFlairs";
 import PendingTab from "./tabs/pending";
+import PrimaryButton from "@components/common/PrimaryButton";
 
 export default function ModToolsPage({ match }: { match: any }) {
   const tabName = match.params.tabname;
   const community = match.params.name;
   const { role } = getRoleInCommunity(community);
+  const history = useHistory();
 
   const tabs = {
     modqueue: <ModQueue communityUsername={community} />,
@@ -81,10 +84,23 @@ export default function ModToolsPage({ match }: { match: any }) {
         bg="#DAE0E6"
         mt="60px"
       >
-        {
-          //@ts-ignore
+        {role === "admin" || tabName === "moderators" ? (
           tabs[tabName]
-        }
+        ) : (
+          //@ts-ignore
+          <Grid w="100%" h="80vh" placeItems="center">
+            <PrimaryButton
+              label="Go Back"
+              onClick={() => history.push(`/r/${community}/`)}
+              position="absolute"
+              top="80px"
+              left="50px"
+            />
+            <Text fontFamily="mono" fontSize={22} fontWeight="bold">
+              You don't have permissions to see this page.
+            </Text>
+          </Grid>
+        )}
       </Box>
     </Grid>
   );
