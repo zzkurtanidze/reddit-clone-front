@@ -42,6 +42,10 @@ export default function Join({
   }, [user]);
 
   const handleJoin = async () => {
+    if(community.privacy === "private") {
+      history.push(`/r/${community.username}`)
+      return;
+    }
     const response = await joinCommunity(community._id);
     if (response && response.statusText === "OK") {
       setJoined(!joined);
