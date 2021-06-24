@@ -62,6 +62,7 @@ export type CommunityType = {
   createdBy: UserType;
   moderators: [UserType];
   url?: string;
+  privacy: "public" | "private";
 };
 
 export type CategoryType = {
