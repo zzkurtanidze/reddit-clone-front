@@ -33,8 +33,8 @@ export default function SelectField({
   field?: any;
 }) {
   return (
-    <FormControl fontFamily="mono" isInvalid={error && touched ? true : false}>
-      {label && <FormLabel>{label}</FormLabel>}
+    <FormControl fontFamily="mono" isInvalid={error && touched ? true : false} my={2}>
+      {label && <FormLabel fontSize={15}>{label}</FormLabel>}
       {description && (
         <FormHelperText fontSize={12} mb={2}>
           {description}

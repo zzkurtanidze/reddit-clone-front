@@ -31,7 +31,7 @@ export default function ModToolsPage({ match }: { match: any }) {
     pending: <PendingTab communityUsername={communityUsername} />,
     moderators: <ModeratorsPage match={match} role={role} />,
     postflairs: <PostFlairs community={communityUsername} />,
-    banned: <BannedUsers community={community} />,
+    banned: <BannedUsers communityUsername={communityUsername} community={community} />,
   };
 
   return (

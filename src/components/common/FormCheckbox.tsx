@@ -8,14 +8,16 @@ export default function FormCheckbox({
   label,
   description,
   name,
+  side = "left",
 }: {
   label: string;
   description?: string;
   name: string;
+  side?: "left" | "right"
 }) {
   return (
-    <Flex justifyContent="space-between">
-      {label && (
+    <Flex justifyContent="space-between" gridGap={2}>
+      {label && side === "left" && (
         <FormLabel fontSize={14} fontFamily="mono">
           {label && label}
         </FormLabel>
@@ -34,6 +36,11 @@ export default function FormCheckbox({
         fontSize={14}
         as={Switch}
       />
+      {label && side === "right" && (
+        <FormLabel fontSize={14} fontFamily="mono">
+          {label && label}
+        </FormLabel>
+      )}
     </Flex>
   );
 }
