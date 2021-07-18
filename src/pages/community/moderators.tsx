@@ -32,6 +32,7 @@ import { useToast } from "@chakra-ui/toast";
 import { UsersList } from "@components/user/UsersList";
 import ErrorPage from "@pages/error";
 import { IoMdClose } from "react-icons/io";
+import {UserTeaser} from "@components/user/UserTeaser";
 
 const validationSchema = yup.object({
   username: yup.string().required().min(5).label("Username"),
@@ -238,36 +239,7 @@ export default function ModeratorsPage({
                   m="auto"
                   my={3}
                 >
-                  <ButtonGroup alignItems="center">
-                    <Button
-                      display="grid"
-                      gridTemplateColumns="1fr 2fr"
-                      bg="0"
-                      transition="0"
-                      alignItems="center"
-                      w="160px"
-                      px="10px"
-                      _hover={{}}
-                      _active={{}}
-                      _focus={{}}
-                      onClick={() =>
-                        history.push(`/user/${moderator.username}`)
-                      }
-                    >
-                      <Image
-                        src={
-                          moderator.image ||
-                          `${process.env.REACT_APP_ASSETS_URL}/avatar.png`
-                        }
-                        w="30px"
-                        minW="30px"
-                        h="30px"
-                        minH="30px"
-                        borderRadius={5}
-                      />
-                      <Text>{moderator.username}</Text>
-                    </Button>
-                  </ButtonGroup>
+                  <UserTeaser user={moderator} />
                   <Text></Text>
                   {community.moderators.includes(moderator) && (
                     <Text fontSize={14} color="gray.600">

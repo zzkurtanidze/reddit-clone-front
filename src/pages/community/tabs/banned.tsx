@@ -3,12 +3,11 @@ import {
   Text,
   Box,
   Flex,
-  Table,
-  Thead,
-  Tr,
   Divider,
   useToast,
   Grid,
+  ButtonGroup,
+  Button,
 } from "@chakra-ui/react";
 //@ts-ignore
 import { CommunityType } from "@types/";
@@ -19,13 +18,23 @@ import { Formik, Form, Field } from "formik";
 import FormField from "@components/common/FormField";
 import SelectField from "@components/common/SelectField";
 //@ts-ignore
-import { getRules, banUser } from "@api/";
+import { getRules, banUser, getBannedUsers } from "@api/";
 import FormCheckbox from "@components/common/FormCheckbox";
 import FormTextarea from "@components/common/FormTextarea";
 import SecondaryButton from "@components/common/SecondaryButton";
 import * as yup from "yup";
+import { UsersList } from "@components/user/UsersList";
 //@ts-ignore
-import {getBannedUsers} from "@api/";
+import { UserTeaser } from "@components/user/UserTeaser";
+//@ts-ignore
+import daysleft from "daysleft";
+import { HiOutlineArrowsExpand } from "react-icons/hi";
+import { CgMinimize } from "react-icons/cg";
+//@ts-ignore
+import { UserType } from "@types/";
+import ErrorPage from "@pages/error";
+//@ts-ignore
+import {removeBan} from "@api/";
 
 const validationSchema = yup.object({
   username: yup.string().required().min(3).label("Username"),
@@ -48,13 +57,15 @@ export default function BannedUsers({
   const [rules, setRules] = useState<any[]>([]);
   const toast = useToast();
   const [bannedUsers, setBannedUsers] = useState([]);
-  const { banned, isLoading } = getBannedUsers(communityUsername) 
+  const { banned } = getBannedUsers(communityUsername);
+  const [bannedUsersSearch, setBannedUsersSearch] = useState<string>("");
+  const [expanded, setExpanded] = useState<number[]>([]);
 
   useEffect(() => {
-    if(bannedUsers) {
-      setBannedUsers(banned)
+    if (banned) {
+      setBannedUsers(banned);
     }
-  }, [banned])
+  }, [banned]);
 
   useEffect(() => {
     if (initialRules) {
@@ -94,14 +105,15 @@ export default function BannedUsers({
             }}
             onSubmit={async (data) => {
               const response = await banUser(data, community._id);
-              if(response.statusText === "OK") {
+              if (response.statusText === "OK") {
                 toast({
                   title: "User banned succesfully",
                   status: "success",
-                  isClosable: true
-                }) 
+                  isClosable: true,
+                });
                 setBanUserModal(false);
-              } 
+                setBannedUsers(response.data);
+              }
             }}
           >
             {({ values, touched, errors, isValid }) => (
@@ -131,7 +143,14 @@ export default function BannedUsers({
                   error={errors.note}
                   touched={touched.note}
                 />
-                <Text fontSize={14} fontFamily="mono" fontWeight="medium" mb={2}>How Long?</Text>
+                <Text
+                  fontSize={14}
+                  fontFamily="mono"
+                  fontWeight="medium"
+                  mb={2}
+                >
+                  How Long?
+                </Text>
                 <Flex w="64%" alignItems="center" gridGap={2}>
                   <FormField
                     name="until"
@@ -141,7 +160,11 @@ export default function BannedUsers({
                     inlineSufix="Days"
                     disabled={values.permanent}
                   />
-                  <FormCheckbox label="Permanent" name="permanent" side="right" />
+                  <FormCheckbox
+                    label="Permanent"
+                    name="permanent"
+                    side="right"
+                  />
                 </Flex>
                 <FormTextarea
                   label="Note to include in ban message"
@@ -156,7 +179,11 @@ export default function BannedUsers({
                     onClick={() => setBanUserModal(false)}
                     label="Cancel"
                   />
-                  <PrimaryButton type="submit" label="Ban user" disabled={!isValid} />
+                  <PrimaryButton
+                    type="submit"
+                    label="Ban user"
+                    disabled={!isValid}
+                  />
                 </Flex>
               </Form>
             )}
@@ -178,35 +205,155 @@ export default function BannedUsers({
         <Text fontSize={22} fontFamily="mono" fontWeight="medium">
           Banned users
         </Text>
-        {bannedUsers && bannedUsers.length < 1 ? (
-          <Flex
-            direction="column"
-            w="100%"
-            h="40vh"
-            bg="white"
-            borderRadius={5}
-            justifyContent="center"
-            alignItems="center"
-            gridGap={10}
-            mt={5}
-          >
-            <ImHammer2 color="gray" fontSize={30} />
-            <Text
-              fontFamily="mono"
-              fontSize={20}
-              fontWeight="medium"
-              color="gray.500"
-            >
-              No banned users in r/{communityUsername}
-            </Text>
-          </Flex>
-        ) : (
-          <Grid gridTemplateColumns="2fr 7fr 1fr 1.4fr" bg="white" p={3} borderRadius={5}>
-            <Box>
-              Just testing :D 
-             </Box> 
-          </Grid>
-        )}
+        <UsersList setSearchTerm={setBannedUsersSearch}>
+          {bannedUsers && bannedUsers.filter((banned: UserType) => banned.user.username.includes(bannedUsersSearch)).length > 0 ?
+            bannedUsers
+              .filter((banned: { user: UserType }) =>
+                banned.user.username.includes(bannedUsersSearch)
+              )
+              .map((banned: any, index: number) => (
+                <React.Fragment key={banned._id}>
+                  <Grid
+                    gridTemplateColumns="2fr 5fr 0.5fr"
+                    alignItems="center"
+                    w="90%"
+                    m="auto"
+                    my={3}
+                  >
+                    <UserTeaser user={banned.user} />
+                    <Text>
+                      {daysleft(new Date(banned.until * 1000))} Days left
+                    </Text>
+                    <Flex gridGap={5} alignItems="center">
+                      <SecondaryButton
+                        label="Remove ban"
+                        onClick={async () => {
+                          const response = await removeBan({ username:  banned.user.username }, community._id)
+                          if(response.status === 200) {
+                            toast({ 
+                              title: "User unbanned succesfully",
+                              status: "info",
+                              isClosable: true,
+                            })
+                            setBannedUsers(response.data);
+                          }
+                        }}
+                      />
+                      <Button
+                        _hover={{}}
+                        p={0}
+                        _active={{}}
+                        _focus={{}}
+                        h="max-content"
+                        w="max-content"
+                        bg="none"
+                        onClick={() => {
+                          if (expanded.indexOf(index) >= 0) {
+                            setExpanded(
+                              expanded.filter((exp) => exp !== index)
+                            );
+                          } else {
+                            setExpanded(expanded.concat(index));
+                          }
+                        }}
+                      >
+                        {expanded.indexOf(index) >= 0 ? (
+                          <CgMinimize className="icon" size={17} />
+                        ) : (
+                          <HiOutlineArrowsExpand className="icon" size={17} />
+                        )}
+                      </Button>
+                    </Flex>
+                  </Grid>
+                  {expanded.indexOf(index) >= 0 && (
+                    <Flex
+                      bg="#EDEFF1"
+                      w="100%"
+                      maxW="100%"
+                      h="max-content"
+                      px={5}
+                      py={3}
+                      gridGap={20}
+                    >
+                      <Box>
+                        <Text
+                          fontFamily="mono"
+                          fontSize={12}
+                          textTransform="uppercase"
+                          fontWeight="bold"
+                        >
+                          Report reason
+                        </Text>
+                        <Text
+                          fontSize={13}
+                          fontFamily="mono"
+                          fontWeight="normal"
+                        >
+                          {banned.reason.name}
+                        </Text>
+                      </Box>
+                      <Box>
+                        <Text
+                          fontFamily="mono"
+                          fontSize={12}
+                          textTransform="uppercase"
+                          fontWeight="bold"
+                        >
+                          Note
+                        </Text>
+                        <Text
+                          fontSize={13}
+                          fontFamily="mono"
+                          fontWeight="normal"
+                        >
+                          {banned.note}
+                        </Text>
+                      </Box>
+                      <Box>
+                        <Text
+                          fontFamily="mono"
+                          fontSize={12}
+                          textTransform="uppercase"
+                          fontWeight="bold"
+                        >
+                          Moderator message
+                        </Text>
+                        <Text
+                          fontSize={13}
+                          fontFamily="mono"
+                          fontWeight="normal"
+                          maxW="400px"
+                        >
+                          {banned.message}
+                        </Text>
+                      </Box>
+                    </Flex>
+                  )}
+                  <Divider />
+                </React.Fragment>
+              )): (
+                <ErrorPage
+                  text={`No results`}
+                  button={
+                    <Button
+                      bg="none"
+                      color="blue.500"
+                      borderRadius={50}
+                      onClick={() => {
+                        if (setBannedUsersSearch) {
+                          setBannedUsersSearch("");
+                        }
+                      }}
+                    >
+                      See All
+                    </Button>
+                  }
+                  h="100%"
+                  p="50px"
+                  fontSize={16}
+                />
+              )}
+        </UsersList>
       </Box>
     </Box>
   );

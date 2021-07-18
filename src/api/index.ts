@@ -828,6 +828,15 @@ export async function banUser (data: any, communityId: string) {
   }
 }
 
+export async function removeBan (data: any, communityId: string) {
+  try {
+    const response = await axios.delete(`${apiUrl}/community/${communityId}/unban-user`, { ...axiosOptions, data })
+    return response;
+  } catch(ex) {
+    return ex.response;
+  }
+}
+
 export function getBannedUsers(communityId: string) {
   const { data, error } = useSWR(`${apiUrl}/community/${communityId}/banned`, fetcher);
 
