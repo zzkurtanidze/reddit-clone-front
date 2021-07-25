@@ -10,6 +10,7 @@ import { IoMdDocument } from "react-icons/io";
 import ModQueue from "./tabs/modqueue";
 import RulesTab from "./tabs/rules";
 import ModeratorsPage from "./moderators";
+import BannedUsers from "./tabs/banned";
 //@ts-ignore
 import { getRoleInCommunity } from "@api/";
 import PostFlairs from "./tabs/postFlairs";
@@ -30,6 +31,7 @@ export default function ModToolsPage({ match }: { match: any }) {
     pending: <PendingTab communityUsername={communityUsername} />,
     moderators: <ModeratorsPage match={match} role={role} />,
     postflairs: <PostFlairs community={communityUsername} />,
+    banned: <BannedUsers communityUsername={communityUsername} community={community} />,
   };
 
   return (

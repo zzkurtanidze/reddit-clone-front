@@ -4,6 +4,8 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  InputRightAddon,
+  InputGroup,
 } from "@chakra-ui/react";
 import { Field, FormikErrors } from "formik";
 import React from "react";
@@ -22,7 +24,9 @@ type FormFieldProps = {
   required?: boolean;
   description?: string;
   sufix?: string;
+  inlineSufix?: string;
   touched?: boolean;
+  disabled?: boolean;
 };
 
 export default function FormField({
@@ -35,6 +39,8 @@ export default function FormField({
   description,
   sufix,
   touched,
+  inlineSufix,
+  disabled,
 }: FormFieldProps) {
   return (
     <FormControl isInvalid={error && touched ? true : false}>
@@ -48,17 +54,25 @@ export default function FormField({
           {description}
         </FormHelperText>
       )}
-      <Field
-        bg="white"
-        placeholder={placeholder && `${placeholder} ${required ? "*" : ""}`}
-        _focus={{ border: "1px solid black" }}
-        name={name}
-        type={type}
-        fontFamily="mono"
-        transition="0"
-        fontSize={14}
-        as={Input}
-      />
+      <InputGroup>
+        <Field
+          bg="white"
+          placeholder={placeholder && `${placeholder} ${required ? "*" : ""}`}
+          _focus={{ border: "1px solid black" }}
+          name={name}
+          type={type}
+          fontFamily="mono"
+          transition="0"
+          fontSize={14}
+          borderRadius={5}
+          borderRightRadius={inlineSufix ? 0 : 5}
+          disabled={disabled}
+          as={Input}
+        />
+        {inlineSufix && (
+            <InputRightAddon fontSize={14} bg="white">{inlineSufix}</InputRightAddon>
+        )}
+      </InputGroup>
       {touched && error && (
         <FormErrorMessage fontSize={11} fontFamily="mono" fontWeight="semibold">
           {error}

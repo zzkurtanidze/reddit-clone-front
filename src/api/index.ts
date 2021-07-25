@@ -75,7 +75,7 @@ export function getPosts() {
 
 export function getPostsByCommunity(communityUsername: string) {
   const { data, error } = useSWR(
-    `${apiUrl}/posts/community/${communityUsername}`
+    `${apiUrl}/posts/community/${communityUsername}`, fetcher
   );
 
   return {
@@ -543,7 +543,7 @@ export const createCommunity = async (data: {
  */
 
 export const getCommunities = () => {
-  const { data, error } = useSWR(`${apiUrl}/community`);
+  const { data, error } = useSWR(`${apiUrl}/community`, fetcher);
 
   return {
     communities: data,
@@ -712,7 +712,7 @@ export const getTrendingCommunities = ({
   category?: string;
 }) => {
   const { data, error } = useSWR(
-    `${apiUrl}/community/trending/${category ? category : ""}?limit=${limit}`
+    `${apiUrl}/community/trending/${category ? category : ""}?limit=${limit}`, fetcher
   );
 
   return {
@@ -819,6 +819,34 @@ export function getCommunityByLetter(letter: string) {
   };
 }
 
+export async function banUser (data: any, communityId: string) {
+  try {
+    const response = await axios.post(`${apiUrl}/community/${communityId}/ban-user`, data, axiosOptions);
+    return response;
+  } catch(ex) {
+    return ex.response;
+  }
+}
+
+export async function removeBan (data: any, communityId: string) {
+  try {
+    const response = await axios.delete(`${apiUrl}/community/${communityId}/unban-user`, { ...axiosOptions, data })
+    return response;
+  } catch(ex) {
+    return ex.response;
+  }
+}
+
+export function getBannedUsers(communityId: string) {
+  const { data, error } = useSWR(`${apiUrl}/community/${communityId}/banned`, fetcher);
+
+  return {
+    banned: data,
+    isLoading: !data && !error,
+    error
+  }
+}
+
 // Categories
 
 export function getCategories() {
@@ -840,3 +868,4 @@ export function getCategory(value: string) {
     error,
   };
 }
+
