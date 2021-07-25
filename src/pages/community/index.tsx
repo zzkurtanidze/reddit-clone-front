@@ -79,7 +79,12 @@ export default function CommunityPage({ match }: { match: any }) {
     }
   }, [community, window.location.search]);
 
-  if (error) return <ErrorPage />;
+  if (community && community.code === 403)
+    return (
+      <Flex w="100%" h="100vh" alignItems="center" justifyContent="center">
+        <Text fontSize={32} fontWeight="bold" fontFamily="mono">{community.message}</Text>
+      </Flex>
+    );
   if (isLoading) return <Loading />;
   if (privacy === "private" && !joined)
     return (

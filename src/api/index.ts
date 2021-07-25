@@ -75,7 +75,7 @@ export function getPosts() {
 
 export function getPostsByCommunity(communityUsername: string) {
   const { data, error } = useSWR(
-    `${apiUrl}/posts/community/${communityUsername}`
+    `${apiUrl}/posts/community/${communityUsername}`, fetcher
   );
 
   return {
@@ -543,7 +543,7 @@ export const createCommunity = async (data: {
  */
 
 export const getCommunities = () => {
-  const { data, error } = useSWR(`${apiUrl}/community`);
+  const { data, error } = useSWR(`${apiUrl}/community`, fetcher);
 
   return {
     communities: data,
@@ -712,7 +712,7 @@ export const getTrendingCommunities = ({
   category?: string;
 }) => {
   const { data, error } = useSWR(
-    `${apiUrl}/community/trending/${category ? category : ""}?limit=${limit}`
+    `${apiUrl}/community/trending/${category ? category : ""}?limit=${limit}`, fetcher
   );
 
   return {

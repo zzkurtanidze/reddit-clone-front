@@ -221,9 +221,15 @@ export default function BannedUsers({
                     my={3}
                   >
                     <UserTeaser user={banned.user} />
-                    <Text>
-                      {daysleft(new Date(banned.until * 1000))} Days left
-                    </Text>
+                      {banned.until ? (
+                        <Text>
+                          {daysleft(new Date(banned.until * 1000))} Days left
+                        </Text>
+                      ) : (
+                        <Text>
+                        Permanent
+                        </Text> 
+                      )}
                     <Flex gridGap={5} alignItems="center">
                       <SecondaryButton
                         label="Remove ban"
@@ -231,7 +237,7 @@ export default function BannedUsers({
                           const response = await removeBan({ username:  banned.user.username }, community._id)
                           if(response.status === 200) {
                             toast({ 
-                              title: "User unbanned succesfully",
+                              title: `u/${banned.user.username} unbanned succesfully`,
                               status: "info",
                               isClosable: true,
                             })
